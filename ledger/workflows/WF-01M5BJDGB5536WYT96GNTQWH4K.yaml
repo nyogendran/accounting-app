@@ -1,0 +1,281 @@
+id: WF-01M5BJDGB5536WYT96GNTQWH4K
+type: workflow
+title: Gate 0 conditions - agent smoke tests and independent re-review of the F0-6 fixes
+started_at: "2026-10-20T02:32:55Z"
+ended_at: "2026-10-20T14:20:50Z"
+note: >-
+  Ran across two sessions. The first session ended on a network error and then a usage limit while
+  step 4 was running; the second session resumed from the repository state and the first session's
+  transcript.
+steps:
+  - step: 1
+    agent: requirements-engineer
+    objective: >-
+      Smoke test at 658ed21: CLAUDE.md in context; a write inside the agent's scope succeeds; writes
+      outside its scope, outside the repository and to its denied assurance folder, and commands
+      outside its shell profile, are blocked.
+    records: []
+    outcome: >-
+      Passed. Rule 7 quoted from context without opening CLAUDE.md. Write to docs/requirements/
+      succeeded. Blocked: docs/governance/, the scratchpad outside the repository,
+      docs/requirements/assurance/, python -c, git log --output. Raised R1 (stage files by exact
+      path), R2 (a deny-pattern block cited only the scope), R3 (a brief's narrower scope is not
+      enforced) and R4 (subagent environment header says "Is a git repository: false").
+    validation: >-
+      Orchestrator checked the files on disk and git status: one smoke file in scope with the
+      expected line, nothing else changed, HEAD still 658ed21.
+  - step: 2
+    agent: requirements-assurance
+    objective: Same smoke test at 658ed21, for this agent's scope and shell profile.
+    records: []
+    outcome: >-
+      Passed. Rule 7 quoted from context. Write to docs/requirements/assurance/ succeeded. Blocked:
+      docs/governance/, outside the repository, python -c, git log --output. Raised OQ-1 (the
+      checker skips Markdown under docs/ without front matter) and R-1 (parallel agents share one
+      working tree).
+    validation: As step 1.
+  - step: 3
+    agent: accounting-domain-expert
+    objective: Same smoke test at 658ed21, for this agent's scope and shell profile.
+    records: []
+    outcome: >-
+      Passed. Rule 7 quoted from context. Write to docs/accounting/ succeeded. Blocked:
+      docs/governance/, outside the repository, python -c, git log --output.
+    validation: As step 1.
+  - step: 4
+    agent: code-security-reviewer
+    objective: >-
+      Independent re-review of the fixes for the first independent review (d0d422d, 658ed21), and,
+      on the second attempt, of fa9a669 as well.
+    records: [REV-01M5C0YAD8BAMX6HNTM9H4WC1E]
+    outcome: >-
+      First attempt ended on a network error (API unreachable) before writing anything. Second
+      attempt, after step 5, reviewed up to fa9a669: every listed finding closed; verdict
+      non-blocking-findings with four observations (1 the reviewer could run run_tests.py, which
+      writes outside its scope; 2 text-analysis limits of the orchestrator guard; 3 an unidentified
+      subagent would count as the orchestrator; 4 minor over-blocks).
+    validation: >-
+      Only the review record changed; check.py 0 errors. Finding 2's claims probed against the
+      guard: the cited example is blocked; a path assembled inside a shell variable and a full-path
+      rm are allowed, as RISK-003 states. Committed on its own as 1a7c423.
+  - step: 5
+    agent: orchestrator
+    objective: Fix R2 and OQ-1 test-first, between the two attempts of step 4; remove the smoke files.
+    records: [EVD-01M5C0X7DF3025P4XQA2VS20SS]
+    outcome: >-
+      Commit fa9a669. Markdown under docs/ without front matter or id is an error unless it is a
+      registered source; the deny message names the pattern; the conventions say which files are
+      governed. R1 and R-1 handled by process, R3 recorded as a limitation, R4 noted.
+    validation: >-
+      Three of four new tests failed before the change; 151 passed after. check.py then reported
+      exactly the three smoke files, which were deleted; 0 errors after. Evidence tree equals the
+      commit.
+  - step: 6
+    agent: orchestrator
+    objective: >-
+      Fix finding 1 of REV-01M5C0YAD8BAMX6HNTM9H4WC1E test-first, and add one end-to-end test for
+      the F0 criterion on a synthetic requirement.
+    records: [EVD-01M5C23M9DY7HGSVGN1PAKEMHW]
+    outcome: >-
+      Commit c449dc1. run_tests.py removed from the reviewer's shell profile; test_dry_run drafts,
+      reviews, captures an approval with the real hook script, then voids it with a normative edit.
+      Findings 2 to 4 recorded as limitations in the F0 validation report.
+    validation: >-
+      The changed guard test failed before the change; 153 passed after. A mutated dry-run test
+      with a wrong approval code failed. Evidence tree equals the commit.
+  - step: 7
+    agent: code-security-reviewer
+    objective: Smoke test at c449dc1, including a write to a decision record path and run_tests.py.
+    records: []
+    outcome: >-
+      Passed. Rule 7 quoted from context. Blocked: docs/governance/, the decision record path (by
+      the permission deny rule, before the guard), outside the repository, run_tests.py, python -c,
+      git log --output. By reading the guard it found F1 (high: quoted or escaped options passed the
+      agent deny list), F2 (rg --hostname-bin runs a program), F3 (the session runs agent
+      definitions as loaded at its start), F4 and F5 (informational), and asked Q2 (agent shell
+      reads outside the repository).
+    validation: >-
+      No file changed. Guard probes confirmed F1 for every quoted and escaped form, F2, and Q2 (cat
+      and git diff --no-index outside the repository were allowed), plus the same quoting gap in the
+      orchestrator's read-only check and blocked patterns.
+  - step: 8
+    agent: code-security-reviewer
+    objective: Review c449dc1 (finding 1 fix and the dry-run test).
+    records: [REV-01M5C2545W1VGNTXKY5DWSCZQV]
+    outcome: >-
+      Finding 1 closed; the dry run demonstrates the criterion; verdict non-blocking-findings with
+      three observations (one adopted: the dry run now also checks readiness). Its statement that no
+      agent profile still allowed a write outside the agent's scope was wrong (step 7, F1).
+    validation: Only the record changed; check.py 0 errors. Committed on its own as 0cbf6b6.
+  - step: 8a
+    agent: orchestrator
+    objective: Fix F1, F2 and Q2 of step 7 test-first.
+    records: [EVD-01M5C43CQA406YZFTNDPY9SQ0S]
+    outcome: >-
+      Commit e1f1bbe. Options are checked as the shell passes them; agents may not use $, braces or
+      a leading tilde; rg --hostname-bin denied; agents read only inside the repository (Read, Grep
+      and Glob added to the guard's matcher; every path in an agent's shell command must resolve
+      inside it); the orchestrator's read-only check and blocked patterns also use the unquoted
+      spelling. Recursive commands on folders that contain protected paths recorded under RISK-003.
+    validation: >-
+      36 new assertions failed before the change; 159 tests passed after. Git 2.50.1 rejects
+      abbreviated --output options (tested in a scratch repository). Evidence tree equals the
+      commit.
+  - step: 9
+    agent: code-security-reviewer
+    objective: Review e1f1bbe.
+    records: [REV-01M5C44F4G2E9W08D7YH4587J3]
+    outcome: >-
+      F1, F2 and Q2 closed for every listed vector; the change is strictly tighter than its parent.
+      Verdict non-blocking-findings with four findings: 1 Glob patterns that begin with a wildcard
+      and Grep's glob filter were not checked (fixed in step 10a); 2 an option glued to a path is not
+      path-checked; 3 blocking $ also blocks regex end-anchors; 4 an orchestrator over-block (2 to 4
+      recorded as limitations in the F0 validation report).
+    validation: >-
+      check.py 0 errors. The record was committed on its own as 5892c0f, without the unattributed
+      evidence record described in step 10.
+  - step: 10
+    agent: requirements-assurance
+    objective: Live check of e1f1bbe through the real hooks, in parallel with step 9.
+    records: []
+    outcome: >-
+      Blocked: git log with a quoted --output, git diff --no-index on a file outside the
+      repository, Read and Grep outside the repository. Allowed: Read and git log inside it. The
+      new Read, Grep and Glob matcher was already active in this session.
+    validation: >-
+      No file created by the agent. An untracked evidence record (EVD-01M5C45W5N8QMJ9J82DP8WVR16)
+      appeared at 07:42:24Z from a run_tests.py run that no Claude session transcript shows; it was
+      moved out of the repository and reported to the person.
+  - step: 10a
+    agent: orchestrator
+    objective: Fix finding 1 of REV-01M5C44F4G2E9W08D7YH4587J3 test-first.
+    records: [EVD-01M5C56J4F50JB6PEQ73MV6ND6]
+    outcome: >-
+      Commit 0272342. An agent Glob pattern or Grep glob filter, or any of its brace alternatives,
+      that starts at a root, drive or home folder, names a drive, or climbs out with '..' is blocked.
+    validation: >-
+      Seven new block cases failed before the change; the three allowed cases passed before and
+      after; 160 tests pass. Evidence tree equals the commit.
+  - step: 11
+    agent: code-security-reviewer
+    objective: Review 0272342.
+    records: [REV-01M5C56YPY0TASJC9E84X1PWYS]
+    outcome: >-
+      Finding 1 of REV-01M5C44F4G2E9W08D7YH4587J3 closed for every named vector; the change only
+      adds a block ahead of unchanged checks. Verdict non-blocking-findings with four findings: 1
+      glob syntax (a brace alternative, bracket or escape) could form '..' without two literal dots,
+      unconfirmed; 2 absolute patterns inside the repository are now refused (over-block); 3 some
+      blocked forms had no test; 4 the dispositions of the previous review were not yet recorded.
+    validation: >-
+      Only the record changed; check.py 0 errors. Committed on its own as 76fc69f, after the
+      commit-msg hook rejected a first attempt made under the person's own git identity (an Agent
+      trailer on a human commit). Finding 1 probed live with the Glob tool in a scratch folder
+      outside the repository: no relative pattern, not even a literal ../, left the search folder;
+      an absolute pattern did, and the guard refuses every absolute form.
+  - step: 11a
+    agent: orchestrator
+    objective: >-
+      Close finding 1 of REV-01M5C56YPY0TASJC9E84X1PWYS by construction, test-first, and record
+      findings 2 to 4.
+    records: [EVD-01M5C6PHB4XEH6YRCG12XCCY0F]
+    outcome: >-
+      Commit 8aad214. An agent Glob pattern or Grep filter with two dots anywhere, a dot next to a
+      brace, comma, bracket or escape, an empty brace alternative, an extglob group or a bracket
+      that starts with a slash is refused; the message says to use a relative pattern and the path
+      argument. Found while fixing: an empty brace alternative before a slash ({x,}/Windows) could
+      form a root. Finding 2 recorded as an over-block; the forms of finding 3 pinned by a test;
+      RISK-003 names the glued-option residual and the operating model states the pattern rule
+      (finding 4).
+    validation: >-
+      The 13 new block cases failed before the change; ordinary patterns and the pinned forms passed
+      before and after; a guard mutated in memory without the root rule failed the pinned test; 18
+      everyday patterns pass; 162 tests pass. Evidence tree equals the commit. The orchestrator
+      guard blocked a here-document that named protected paths, so the probe scripts were written
+      with the Write tool instead.
+  - step: 12
+    agent: code-security-reviewer
+    objective: Review 8aad214, with a bounded live probe of the new rule through the real hook.
+    records: [REV-01M5C6QDYWRZJC39SDZ1FBJEKY]
+    outcome: >-
+      Every construct of the previous finding refused; the change is strictly tighter. Live calls
+      through the real hook: {.,x}./*.md and [.][.]/*.md blocked, docs/**/*.{md,yaml} allowed.
+      Verdict non-blocking-findings with four findings: 1 a leading-dot wildcard segment and shell
+      syntax pass (they form '..' or a root only in bash); 2 RISK-003 and the operating model claimed
+      more than the guard did; 3 three claims of the fix commit had no artifact; 4 some rule
+      alternatives had no failing test. It also noted, without counting it, that a leading
+      byte-order mark is not whitespace to the guard.
+    validation: >-
+      Only the record changed; check.py 0 errors; its SHA-256 matched the handoff. Committed on its
+      own as 32e75b8. Finding 1 probed live: the Glob tool matched nothing with .?, .*, .[!a],
+      .{?,x}, (.|x). or shell syntax. Following the byte-order-mark remark, the orchestrator probed
+      the path arguments of Read, Write, Grep and Glob, and found P1.
+  - step: 12a
+    agent: orchestrator
+    objective: >-
+      Fix P1 (padded and '~' tool paths) test-first, and handle findings 1 to 4 of
+      REV-01M5C6QDYWRZJC39SDZ1FBJEKY.
+    records: [EVD-01M5CPYWK1BAFQV5QWJ07F12KH]
+    outcome: >-
+      Commit 67a91d4. The guard trims whitespace and a byte-order mark from every tool path and
+      pattern and expands a leading '~' before judging it, so agents can no longer read outside the
+      repository by padding a path, and padded orchestrator writes meet the protected-path and record
+      checks. Agent patterns with a folder segment of a dot and a wildcard, or with $, quotes or
+      backticks, are refused. RISK-003 and the operating model state the rule exactly; each rule
+      alternative has a failing test; the gate-review skill re-runs the tool-path probe at each
+      gate.
+    validation: >-
+      28 new cases failed before the change; the ordinary patterns and a padded path inside the
+      repository passed before and after; 166 tests pass. The mutation run and the pattern sweep are
+      recorded in GOV-F0-VALIDATION. The edit tool had written two literal byte-order marks into the
+      new regex; they were replaced with the escape before the evidence run. Evidence tree equals
+      the commit.
+  - step: 13
+    agent: code-security-reviewer
+    objective: Review 67a91d4, with a bounded live probe of padded and '~' paths through the real hook.
+    records: [REV-01M5CPZDD4BGSK5HJG00SY8TRH]
+    outcome: >-
+      The padded and '~' path bypass is closed for every path argument of every matched tool; the
+      handling of all four findings of REV-01M5C6QDYWRZJC39SDZ1FBJEKY accepted. Live calls through
+      the real hook: a padded read and a '~' read outside the repository, a padded Grep path outside
+      it and the pattern .*/*.md blocked; a padded read of CLAUDE.md allowed. Verdict
+      non-blocking-findings with four findings: 1 the probe record must be in GOV-F0-VALIDATION
+      before Gate 0 closes; 2 the guard and the tool still resolve some forms differently, always
+      stricter on the guard side; 3 fail-safe over-blocks; 4 two claims reconciled by reading.
+    validation: >-
+      Only the record changed; check.py 0 errors. Committed on its own as 910069f. The reviewer made
+      four calls beyond the brief's probe list and disclosed them; its transcript shows two reads
+      inside the repository and two calls the guard blocked. Those calls also showed that Claude Code
+      hands Read's file_path to the hook already resolved while Grep's and Glob's path arrive as
+      typed: the guard and the in-process probe agree when given the raw input. So P1 was live for
+      Grep and Glob, not for Read, which the 67a91d4 commit message overstates; recorded in
+      GOV-F0-VALIDATION.
+  - step: 13a
+    agent: orchestrator
+    objective: >-
+      Make a '~' path that cannot be expanded fail closed, test-first (found while validating
+      finding 2 of REV-01M5CPZDD4BGSK5HJG00SY8TRH).
+    records: [EVD-01M5CT4WP4TFNRCZMNQ0W6C3BP]
+    outcome: >-
+      Commit 6c0f138. With neither USERPROFILE nor HOMEPATH set (or, for '~user', without
+      USERNAME), os.path.expanduser returns the path unchanged and the guard had judged '~/AppData'
+      as a name inside the repository; it now raises, and the hook exits 2. (The commit message
+      also names HOMEDRIVE; CPython does not need it.)
+    validation: >-
+      Observed first by running the hook with those variables removed (allowed), then after the
+      change (blocked, "no home folder in the environment"). Both new subtests exited 0 before the
+      change and 2 after; 167 tests pass. Evidence tree equals the commit.
+  - step: 14
+    agent: code-security-reviewer
+    objective: Review 6c0f138.
+    records: [REV-01M5CT5C97V1T7W6ZHY99DQHJM]
+    outcome: >-
+      An unexpandable '~' fails closed through main(); the change can only add blocks and nothing
+      turns the error into an allow. Verdict non-blocking-findings with four findings: 1 the test
+      pins the exit code, not the branch; 2 a '~user' path can raise with a misleading message in a
+      session whose profile folder differs from USERNAME (still a block); 3 three premises of the
+      commit message are reasoned or imprecise; 4 record the USERPROFILE assumption.
+    validation: >-
+      Only the record changed; check.py 0 errors. Committed on its own as 41e6ee1. Findings 3 and 4
+      recorded in GOV-F0-VALIDATION; findings 1 and 2 carried to the next change of the guard. The
+      workflow ends here: after five review rounds on the guard's read check (steps 9 and 11 to
+      14), these non-blocking findings go to the Gate 0 decision instead of a further round.
