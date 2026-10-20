@@ -2,7 +2,7 @@
 id: DEC-0006
 type: decision
 title: Build a thin trace index now; re-evaluate requirements-as-code tools at L5
-status: Proposed
+status: Approved
 version: 1
 owner: orchestrator
 tier: 3

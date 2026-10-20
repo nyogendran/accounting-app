@@ -2,7 +2,7 @@
 id: DEC-0002
 type: decision
 title: Ten agents; product review through decision briefs
-status: Proposed
+status: Approved
 version: 1
 owner: orchestrator
 tier: 3

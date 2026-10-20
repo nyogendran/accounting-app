@@ -2,7 +2,7 @@
 id: DEC-0001
 type: decision
 title: Adopt the governed engineering framework and build F0
-status: Proposed
+status: Approved
 version: 1
 owner: orchestrator
 tier: 3

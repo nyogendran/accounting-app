@@ -2,7 +2,7 @@
 id: DEC-0003
 type: decision
 title: Stage 0 approvals by hook capture
-status: Proposed
+status: Approved
 version: 1
 owner: orchestrator
 tier: 3

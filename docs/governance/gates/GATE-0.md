@@ -2,7 +2,7 @@
 id: GATE-0
 type: gate
 title: Gate 0 - framework baseline (F0)
-status: Proposed
+status: Approved
 version: 1
 owner: orchestrator
 tier: 3

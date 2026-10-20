@@ -2,7 +2,7 @@
 id: DEC-0005
 type: decision
 title: Carry-over items from the bootstrap plan
-status: Proposed
+status: Approved
 version: 1
 owner: orchestrator
 tier: 3
