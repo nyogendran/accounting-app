@@ -17,7 +17,7 @@ Blocks, for the orchestrator:
     merging pull requests.
 
 Tool paths are judged as Claude Code resolves them: trimmed of whitespace and a byte-order mark,
-with a leading '~' expanded.
+with a leading '~' expanded. A '~' that cannot be expanded fails closed.
 
 This is a guardrail against mistakes and casual misuse, not a security boundary: a program run
 under the same OS account can still write anywhere (RISK-003). Exit code 2 blocks the tool call
@@ -236,7 +236,11 @@ def _working_directories(statements: list, cwd: Path) -> list:
 def _tool_path(text) -> str:
     """A tool's path argument as Claude Code resolves it: trimmed, with a leading '~' expanded."""
     text = PADDING.sub("", str(text))
-    return os.path.expanduser(text) if text.startswith("~") else text
+    if text.startswith("~"):
+        text = os.path.expanduser(text)
+        if text.startswith("~"):  # no home folder in the environment: fail closed
+            raise ValueError(f"cannot expand {text}: no home folder in the environment")
+    return text
 
 
 def _decide_write(path_text, root: Path, agent, scopes) -> Decision:

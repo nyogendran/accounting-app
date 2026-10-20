@@ -571,8 +571,10 @@ class GuardTests(unittest.TestCase):
 
     # Process behaviour
 
-    def run_hook(self, stdin_text):
+    def run_hook(self, stdin_text, drop=()):
         env = dict(os.environ, CLAUDE_PROJECT_DIR=str(self.repo.root))
+        for key in drop:
+            env.pop(key, None)
         return subprocess.run(
             [sys.executable, str(GUARD_PATH)],
             input=stdin_text,
@@ -603,6 +605,23 @@ class GuardTests(unittest.TestCase):
 
     def test_malformed_input_fails_closed(self):
         self.assertEqual(self.run_hook("this is not json").returncode, 2)
+
+    def test_home_path_that_cannot_be_expanded_fails_closed(self):
+        # Without a home folder in the environment '~' cannot be expanded, and the guard must not read
+        # '~/...' as a name inside the repository (WF-01M5BJDGB5536WYT96GNTQWH4K step 13a).
+        for path, drop in (
+            ("~/AppData", ("USERPROFILE", "HOMEDRIVE", "HOMEPATH", "HOME")),
+            ("~x/AppData", ("USERNAME",)),
+        ):
+            payload = {
+                "hook_event_name": "PreToolUse",
+                "tool_name": "Grep",
+                "tool_input": {"pattern": "x", "path": path},
+                "cwd": str(self.repo.root),
+                "agent_type": "requirements-engineer",
+            }
+            with self.subTest(path=path, drop=drop):
+                self.assertEqual(self.run_hook(json.dumps(payload), drop=drop).returncode, 2)
 
 
 if __name__ == "__main__":
