@@ -1,0 +1,68 @@
+{
+  "_comment": "Write scopes and shell profiles per actor. Read by .claude/hooks/guard.py and by tools/governance/check.py (commit-msg). Changing this file is a framework change (authority matrix).",
+  "protected": [
+    "requirement-doc/**",
+    "docs/sources/SRC-*/**",
+    "docs/architecture/01-strategic-architecture-discovery.md",
+    "ledger/approval-decisions/**"
+  ],
+  "append_only": [
+    "ledger/**"
+  ],
+  "orchestrator": {
+    "write": ["**"],
+    "shell": "orchestrator"
+  },
+  "agents": {
+    "requirements-engineer": {
+      "write": ["docs/requirements/**", "docs/changes/**"],
+      "deny": ["docs/requirements/assurance/**"],
+      "shell": "governance-readonly"
+    },
+    "requirements-assurance": {
+      "write": ["docs/requirements/assurance/**", "ledger/reviews/**"],
+      "shell": "governance-readonly"
+    },
+    "accounting-domain-expert": {
+      "write": ["docs/accounting/**", "ledger/reviews/**"],
+      "shell": "governance-readonly"
+    },
+    "code-security-reviewer": {
+      "write": ["ledger/reviews/**"],
+      "shell": "review-readonly"
+    }
+  },
+  "unknown_agent": {
+    "write": [],
+    "shell": "governance-readonly"
+  },
+  "shell_profiles": {
+    "governance-readonly": {
+      "allow": [
+        "^cd( .*)?$",
+        "^python3? tools/governance/(check|trace)\\.py( .*)?$",
+        "^git (status|log|show|diff|ls-files|rev-parse|blame)( .*)?$"
+      ]
+    },
+    "review-readonly": {
+      "allow": [
+        "^cd( .*)?$",
+        "^python3? tools/governance/(check|trace|run_tests)\\.py( .*)?$",
+        "^python3? -m unittest( .*)?$",
+        "^git (status|log|show|diff|ls-files|rev-parse|blame)( .*)?$",
+        "^(rg|grep|ls|cat|head|tail|wc|find|sha256sum)( .*)?$"
+      ]
+    },
+    "orchestrator": {
+      "deny": [
+        "(^|\\s)git\\s+push(\\s|$)",
+        "(^|\\s)--force(\\s|$|-)",
+        "(^|\\s)git\\s+reset\\s+--hard",
+        "(^|\\s)rm\\s+-[a-z]*r[a-z]*f",
+        "(^|\\s)rm\\s+-[a-z]*f[a-z]*r",
+        "(^|\\s)gh\\s+pr\\s+(review|merge)",
+        "Remove-Item\\b.*-Recurse"
+      ]
+    }
+  }
+}
