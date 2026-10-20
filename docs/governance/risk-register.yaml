@@ -1,0 +1,106 @@
+# Framework risks. Product risks are added from L1 onwards.
+# Each risk: id, title, cause, effect, likelihood and impact (low | medium | high), owner,
+# mitigation, status (open | accepted | closed), and links.
+version: 1
+risks:
+  - id: RISK-001
+    title: Process overhead outweighs its value
+    cause: Many records, reviews and approvals per change
+    effect: Slow delivery; people bypass the process
+    likelihood: medium
+    impact: high
+    owner: governance-owner
+    mitigation: Risk tiers; detail written just in time; overhead budget reported per increment; pruning in L7
+    status: open
+  - id: RISK-002
+    title: Agent output outpaces human review
+    cause: Agents produce text faster than people can read it
+    effect: Rubber-stamp approvals
+    likelihood: high
+    impact: high
+    owner: governance-owner
+    mitigation: Small batches; one-page decision briefs; people approve decisions, not every line
+    status: open
+  - id: RISK-003
+    title: Agent and person share one OS account until the git host exists
+    cause: Stage 0 runs on a single workstation
+    effect: An agent could forge a decision record or bypass a scope through the shell
+    likelihood: low
+    impact: high
+    owner: governance-owner
+    mitigation: Capture hook writes decisions; guard blocks writes to decision records; pre-commit and commit-msg checks; E1-op never counts for Tier 1; re-confirmation at Stage 1
+    status: open
+  - id: RISK-004
+    title: Prior AI analyses treated as fact
+    cause: SRC-002 and SRC-003 are model output written before governance existed
+    effect: Unverified claims enter requirements
+    likelihood: medium
+    impact: high
+    owner: governance-owner
+    mitigation: Registered as unapproved sources; re-verified by Requirements Assurance in L2
+    status: open
+  - id: RISK-005
+    title: Errors in the text extraction of SRC-001
+    cause: Tables and diagrams extract imperfectly
+    effect: Wrong clause text quoted in requirements
+    likelihood: medium
+    impact: medium
+    owner: governance-owner
+    mitigation: The PDF stays authoritative; quotes carry page numbers; the clause index is verified in L1
+    status: open
+  - id: RISK-006
+    title: A hook silently stops running
+    cause: Missing Python, a Claude Code change, or an older CLI
+    effect: Controls stop without anyone noticing
+    likelihood: low
+    impact: high
+    owner: governance-owner
+    mitigation: Guard set to block on failure (Claude Code 2.1.295 or later); hook tests; pre-commit checks repeat the key rules
+    status: open
+  - id: RISK-007
+    title: No qualified accountant named
+    cause: Decision G2 pending
+    effect: Accounting policies cannot be approved; Tier-1 work cannot start
+    likelihood: medium
+    impact: high
+    owner: governance-owner
+    mitigation: Policies stay Proposed; shown as a blocker in project state and at Gate A
+    status: open
+  - id: RISK-008
+    title: Confidential specification content leaves the organisation
+    cause: Decision G5 deferred
+    effect: Client material in third-party services
+    likelihood: low
+    impact: high
+    owner: governance-owner
+    mitigation: No chat integration or embedding provider before G5 is decided; web research roles limited to the accounting expert and, later, the architect
+    status: open
+  - id: RISK-009
+    title: Auto memory loads unreviewed notes into sessions
+    cause: Claude Code auto memory stays enabled (DEC-0005)
+    effect: An unreviewed note could steer a session
+    likelihood: low
+    impact: medium
+    owner: governance-owner
+    mitigation: Memory notes are never evidence or decisions; CLAUDE.md says repository artifacts win
+    status: accepted
+    links:
+      decided_by: [DEC-0005]
+  - id: RISK-010
+    title: Custom governance tooling becomes a maintenance burden
+    cause: check, trace and approvals are built in-house
+    effect: Tooling defects or drift
+    likelihood: medium
+    impact: medium
+    owner: governance-owner
+    mitigation: Timeboxed evaluation of existing tools before building trace; tests for every rule; independent review of tool code
+    status: open
+  - id: RISK-011
+    title: Claude Code behaviour changes between versions
+    cause: Frequent releases; the VS Code extension and terminal CLI update separately
+    effect: Hooks or permissions behave differently than tested
+    likelihood: medium
+    impact: medium
+    owner: governance-owner
+    mitigation: Minimum version 2.1.295 documented; hook tests re-run after upgrades
+    status: open

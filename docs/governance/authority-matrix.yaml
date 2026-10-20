@@ -1,0 +1,75 @@
+# Authority matrix (SRC-005, section A8). Who decides what.
+# Names are pending decision G2 unless filled in. Until G2 is decided, only the governance owner
+# role can approve, and only framework (Gate 0) and Tier-2/3 governance items.
+# Changing this file needs the governance owner's captured approval; once two people are named,
+# it needs two approvers.
+version: 1
+
+roles:
+  governance-owner:
+    person: "Repository owner (name to be confirmed under G2)"
+    delegate: null
+  product-owner:
+    person: null
+    delegate: null
+  qualified-accountant:
+    person: null
+    delegate: null
+  tax-specialist:
+    person: null
+    delegate: null
+  tech-lead:
+    person: null
+    delegate: null
+  security-owner:
+    person: null
+    delegate: null
+  release-authority:
+    person: null
+    delegate: null
+
+decisions:
+  - decision: Requirement scope and priority; acceptance of business outcomes
+    role: product-owner
+    escalates_to: "Specification approver (SRC-001 section 3: Managing Director)"
+    must_not_be: [author-of-change]
+  - decision: Accounting policy, normative accounting knowledge, accounting-risk acceptance
+    role: qualified-accountant
+    escalates_to: "Finance Manager, with Internal Audit informed"
+    must_not_be: [product-owner-for-tier-1]
+  - decision: Tax and statutory rules per jurisdiction
+    role: tax-specialist
+    escalates_to: qualified-accountant
+    must_not_be: []
+  - decision: Architecture and technology stack
+    role: tech-lead
+    escalates_to: "product-owner, where cost or scope is affected"
+    must_not_be: []
+  - decision: Security exceptions
+    role: security-owner
+    escalates_to: "Managing Director"
+    must_not_be: [author-of-change]
+  - decision: Internal release (Gate D)
+    role: release-authority
+    escalates_to: "product-owner and tech-lead jointly"
+    must_not_be: [author-of-tier-1-changes-in-release]
+  - decision: Customer module acceptance (SRC-001 section 2.16.4)
+    role: "Customer signatories (SRC-001 section 3: Finance Manager, Internal Audit, Managing Director)"
+    escalates_to: contract
+    must_not_be: [delivery-team-member]
+  - decision: Correction of a tenant's posted data
+    role: "Tenant's authorised finance approver; plus qualified-accountant for closed periods or filed returns"
+    escalates_to: "Tenant management"
+    must_not_be: [person-who-caused-the-error]
+  - decision: Changes to this framework (agents, hooks, tools, conventions, record formats)
+    role: governance-owner
+    escalates_to: null
+    must_not_be: [proposing-agent]
+
+stage0:
+  # Operator-attested approvals (E1-op) never count for Tier 1 (DEC-0003).
+  allowed_tiers: [2, 3]
+
+small_team_fallback: >-
+  If one person holds several roles, record it here. Tier-1 policy approvals and Tier-1 releases
+  still need a second named person, external if necessary.
