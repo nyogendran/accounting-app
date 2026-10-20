@@ -46,6 +46,11 @@ UNQUOTE = re.compile(r"[\"'`\\]")
 # A glob pattern, or one of its brace alternatives, that starts at a root, drive or home folder,
 # names a drive anywhere, or climbs out with '..'. Applied with backslashes turned into slashes.
 GLOB_ESCAPE = re.compile(r"(?:^|[{,])\s*(?:[/~]|[A-Za-z]:)|:|(?:^|[/{,])\.\.(?:$|[/},])")
+# Glob syntax from which a matcher could build '..' or a root that the text does not show: two dots
+# anywhere; a dot after a brace, comma, bracket or escape, or before a closing brace, comma or
+# bracket; an empty brace alternative; an extglob group; a bracket that starts with a slash.
+# Applied to the pattern as written. '*.{md,yaml}', '{a,b}.md' and '*.[ch]' still pass.
+GLOB_SYNTAX_ESCAPE = re.compile(r"\.\.|[{,\[\\]\.|\.[},\]]|\{,|,,|,\}|[@+*?!]\(|\[[\\/]")
 
 # Agents: shell features none of their commands needs. `$` covers substitution, variables and
 # ANSI-C quoting; braces and a leading tilde are expansions too.
@@ -247,8 +252,12 @@ def _decide_read(tool: str, tool_input: dict, root: Path, agent: str) -> Decisio
     if tool == "Grep" and tool_input.get("glob"):
         patterns.append(str(tool_input["glob"]))
     for pattern in patterns:
-        if GLOB_ESCAPE.search(pattern.replace("\\", "/")):
-            return block(f"agent '{agent}' may read only inside the repository; pattern {pattern} leaves it")
+        if GLOB_ESCAPE.search(pattern.replace("\\", "/")) or GLOB_SYNTAX_ESCAPE.search(pattern):
+            return block(
+                f"agent '{agent}' may read only inside the repository; pattern {pattern} names a root, "
+                "drive or home folder, has '..', or uses glob syntax that could form one of them. "
+                "Use a relative pattern and the path argument"
+            )
     candidates = [str(tool_input[key]) for key in ("file_path", "path") if tool_input.get(key)]
     if tool == "Glob":
         literal = re.split(r"[*?\[{]", str(tool_input.get("pattern") or ""), maxsplit=1)[0]

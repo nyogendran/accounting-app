@@ -35,7 +35,9 @@ Scopes are enforced by `.claude/hooks/guard.py` using `.claude/hooks/agent-scope
 commit time by the commit-msg check. Agents read and write only inside the repository and cannot
 change directory. Their shell commands may name only paths inside the repository and may not use
 command substitution, variables, brace or tilde expansion, background jobs, here-documents or
-redirection; options that write files or run programs are blocked however they are quoted.
+redirection; options that write files or run programs are blocked however they are quoted. Glob
+patterns and Grep's `glob` filter must be relative, without `..`, and without glob syntax next to a
+dot that could form `..` or a root; to search a folder, pass it as the `path` argument.
 Built-in agents (Explore, Plan, general-purpose) may be used for read-only research inside the
 repository; the guard blocks them from writing anywhere. The guard is a guardrail against mistakes and casual
 misuse, not a security boundary: agents and people share one OS account until the git host exists

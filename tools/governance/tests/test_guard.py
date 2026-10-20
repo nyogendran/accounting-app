@@ -297,6 +297,51 @@ class GuardTests(unittest.TestCase):
             with self.subTest(tool=tool, tool_input=tool_input):
                 self.assertTrue(self.decide(tool, tool_input, agent="requirements-engineer").allowed)
 
+    def test_agent_glob_syntax_that_could_form_an_escape_is_blocked(self):
+        # REV-01M5C56YPY0TASJC9E84X1PWYS, finding 1: a brace, bracket, escape or extglob can form '..'
+        # or a root without the pattern's text showing one.
+        for tool, tool_input in (
+            ("Glob", {"pattern": "[.][.]/*.txt"}),
+            ("Glob", {"pattern": ".[.]/*.txt"}),
+            ("Glob", {"pattern": "{.,x}./*.txt"}),
+            ("Glob", {"pattern": ".{.,x}/*.txt"}),
+            ("Glob", {"pattern": "{x,.}./*.txt"}),
+            ("Glob", {"pattern": ".\\./*.txt"}),
+            ("Glob", {"pattern": "+(.)/*.txt"}),
+            ("Glob", {"pattern": "{,}/Windows/*"}),
+            ("Glob", {"pattern": "{x,}/Windows/*"}),
+            ("Glob", {"pattern": "{{,},x}/Windows/*"}),
+            ("Glob", {"pattern": "[/]Windows/*"}),
+            ("Grep", {"pattern": "x", "glob": "{.,x}./**"}),
+            ("Grep", {"pattern": "x", "glob": "[.][.]/**"}),
+        ):
+            with self.subTest(tool=tool, tool_input=tool_input):
+                self.assertFalse(self.decide(tool, tool_input, agent="requirements-engineer").allowed)
+        for tool, tool_input in (
+            ("Glob", {"pattern": "{README,CHANGELOG}.md"}),
+            ("Glob", {"pattern": "**/*.[ch]"}),
+            ("Glob", {"pattern": "ledger/reviews/REV-*[0-9A-Z].md"}),
+            ("Glob", {"pattern": ".claude/**/*.md"}),
+            ("Grep", {"pattern": "x", "glob": "*.{md,yaml}"}),
+        ):
+            with self.subTest(tool=tool, tool_input=tool_input):
+                self.assertTrue(self.decide(tool, tool_input, agent="requirements-engineer").allowed)
+
+    def test_agent_glob_root_drive_and_network_forms_blocked(self):
+        # REV-01M5C56YPY0TASJC9E84X1PWYS, findings 2 and 3: forms already blocked, pinned. An absolute
+        # pattern is blocked even inside the repository; agents use a relative pattern and the path.
+        for pattern in (
+            "\\\\server\\share\\**",
+            "\\Windows\\**",
+            "c:x*",
+            "{ /x,docs}/**",
+            f"{self.repo.root.as_posix()}/docs/**/*.md",
+        ):
+            with self.subTest(pattern=pattern):
+                self.assertFalse(self.decide("Glob", {"pattern": pattern}, agent="requirements-engineer").allowed)
+        inside_climb = {"pattern": "../CLAUDE.md", "path": str(self.repo.path("docs"))}
+        self.assertFalse(self.decide("Glob", inside_climb, agent="requirements-engineer").allowed)
+
     def test_orchestrator_quoted_options_next_to_protected_paths_blocked(self):
         for command in (
             'find docs/sources/SRC-001-spec-v1 "-delete"',
