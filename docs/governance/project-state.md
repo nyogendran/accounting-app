@@ -22,19 +22,22 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   - SRC-001 is accepted as the requirements baseline, confirmed by Shifan Cader.
   - The chart of accounts is maintained by Finance in the system (SRC-001 2.2.1).
   - The requirements agent proposes the release phasing.
+- **Discovery questions:** Q-001 to Q-006 record the answers so far, what stays open, and the role
+  that confirms each.
 - **Open decisions:**
-  - G2, people: named by the governance owner and still to be recorded in the authority matrix
-    and approved. Yogendran: governance owner, tech lead, security owner, release authority.
-    Shifan Cader (CFO): product owner, escalation point, tax. Rifaz Hajirin: qualified accountant.
+  - G2, people: DEC-0007, requested as AREQ-01M5D0SDNEWZ67Y9E82KC2T3KD. Yogendran: governance owner,
+    tech lead, security owner, release authority. Shifan Cader (CFO): product owner, escalation
+    point, tax. Rifaz Hajirin: qualified accountant.
   - G3, platforms: GitHub, with work items in GitHub Projects; a private repository exists. Setting
     up F2 needs the repository URL, the plan and an instruction to push. Chat is not chosen.
   - G5, data boundary: deferred (DEC-0004).
 - **Blockers:** none for L1. Annexure B: monthly volumes and invoice formats are requested from
   Finance; the current chart of accounts is needed only if data is migrated.
+- **In progress:** WF-01M5D0SE8MMS39CTPTXH8ME1HT, L1 discovery. Step 1: the requirements agent
+  builds the clause index of SRC-001 and the bracketed-value workbook.
 - **Next:**
-  1. Record G2 in the authority matrix (approval request).
-  2. Record the discovery input.
-  3. Requirements agent: clause index of SRC-001, the bracketed-value workbook and a proposed
-     release phasing.
+  1. Once DEC-0007 is approved, update the authority matrix.
+  2. Independent review of the clause index and workbook (requirements-assurance).
+  3. Business objectives, actors, glossary and a proposed release phasing.
   4. F1, knowledge base.
   5. F2, once the GitHub details arrive.

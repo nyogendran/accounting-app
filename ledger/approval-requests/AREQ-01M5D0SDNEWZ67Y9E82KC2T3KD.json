@@ -1,0 +1,20 @@
+{
+  "id": "AREQ-01M5D0SDNEWZ67Y9E82KC2T3KD",
+  "type": "approval-request",
+  "created_at": "2026-10-20T16:02:25.070161Z",
+  "created_by": "orchestrator",
+  "required_role": "governance-owner",
+  "tier": 3,
+  "subjects": [
+    {
+      "id": "DEC-0007",
+      "version": 1,
+      "hash": "sha256:80cbee64e0d8b7f3babd2c0b06d68a020bb51b14ac37afe238ed2c5b9247a856"
+    }
+  ],
+  "combined": "sha256:ccca0e4ff5c31a41c621166141cb257b0196a18779efbef744c5cdc19181971e",
+  "phrase_code": "ccca0e4ff5c3",
+  "provenance_commit": "a6a3bb1f63a40d28d323d1e4f320844ae93448f7",
+  "brief": null,
+  "note": "G2: named people for the authority matrix"
+}
