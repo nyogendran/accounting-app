@@ -1,0 +1,135 @@
+Independent Architecture Review and Adversarial Design Challenge
+
+Act as an independent architecture review board comprising a Chief Enterprise Architect, accounting systems specialist, distributed systems engineer, AI safety architect, cybersecurity specialist, SRE lead, and critical engineering executive.
+
+Your responsibility is not to defend the architecture produced in the previous stages. Your responsibility is to determine whether it is correct, feasible, secure, cost-effective, and worth building.
+
+Inputs
+
+Use:
+
+The original requirements document.
+The strategic analysis from Prompt 1.
+The detailed architecture from Prompt 2.
+Any additional constraints, operational assumptions, or stakeholder decisions.
+
+Independently verify the architecture against the original requirements. Do not treat previous model conclusions as facts.
+
+Review 1: Accounting correctness
+
+Challenge the accounting kernel and posting workflows.
+
+Test scenarios involving:
+
+Duplicate requests and retries.
+Concurrent postings.
+Unbalanced journals.
+Invalid currencies and rounding differences.
+Closed periods and backdated transactions.
+Reversals and corrections.
+Partial failures across services.
+Out-of-order events.
+Rebuilt or stale financial projections.
+Disagreement between subledgers and the general ledger.
+
+Determine whether every scenario preserves the required financial invariants and produces an auditable outcome.
+
+Review 2: Dynamic accounting components
+
+Challenge the assumption that administrators can safely create accounting capabilities through AI agents.
+
+Investigate:
+
+Invalid or ambiguous accounting policies.
+Hallucinated rules and incorrect debit-credit mappings.
+Components that violate existing invariants.
+Incompatible component versions.
+Malicious or compromised component definitions.
+Unsafe generated code.
+Unauthorised policy changes.
+Failed deployments and incomplete rollbacks.
+Historical transactions evaluated under different rule versions.
+Hidden dependencies and unintended cross-domain effects.
+
+Determine which risks can be eliminated technically, which can only be reduced, and which require explicit human approval.
+
+Review 3: Architecture complexity
+
+Challenge every major architectural pattern.
+
+For each use of CQRS, event sourcing, microservices, streaming, ML, agent orchestration, workflow engines, data lakes, and abstraction layers, ask:
+
+What concrete requirement justifies it?
+Could a simpler design meet the requirement?
+What new failure modes does it introduce?
+What operational skills and costs does it require?
+What measurable benefit will establish that the added complexity is worthwhile?
+
+Identify premature abstractions and architectural decisions that should be deferred.
+
+Review 4: AI and ML viability
+
+Evaluate whether each proposed AI or ML feature is supported by sufficient data and demonstrable business value.
+
+Challenge model reliability, confidence calibration, drift, false positives, explainability, tenant isolation, privacy, evaluation quality, and human-review workload.
+
+Identify where deterministic rules or conventional statistics are preferable.
+
+Do not accept claims of intelligent automation without measurable evaluation criteria.
+
+Review 5: Security and operational resilience
+
+Perform a threat-oriented review of tenant isolation, access control, privileged operations, AI tool permissions, prompt injection, generated code, audit logs, secrets, data exposure, backup recovery, and disaster scenarios.
+
+Identify single points of failure, weak trust boundaries, operational bottlenecks, and risks created by asynchronous processing.
+
+Review 6: Performance, scale, and cost
+
+Identify the workload assumptions required to validate the design.
+
+Evaluate transaction volume, concurrent posting, report latency, period-end spikes, analytical workload isolation, event backlog recovery, model-inference costs, and storage growth.
+
+Do not invent throughput numbers. Specify realistic load-test hypotheses and the measurements needed to accept or reject them.
+
+Review 7: Competitive differentiation
+
+Determine which proposed capabilities provide genuine product differentiation rather than conventional accounting functionality or fashionable architecture.
+
+Separate:
+
+Essential capabilities.
+Market parity.
+Meaningful improvements.
+Potentially defensible differentiators.
+Speculative research.
+
+Recommend which innovations to retain, defer, simplify, or abandon.
+
+Required Deliverables
+
+Produce:
+
+An executive verdict: ready to proceed, proceed with conditions, or redesign before proceeding.
+A requirement-by-requirement architecture compliance assessment.
+A severity-ranked risk register with evidence, consequences, and mitigations.
+An accounting invariant and failure-scenario test matrix.
+A security and AI-governance threat assessment.
+A challenge to every major architectural decision.
+A complexity-versus-value assessment.
+A prioritised list of design corrections.
+A revised architecture where substantive changes are required.
+A set of proof-of-concept experiments and measurable acceptance criteria.
+A list of decisions that must be resolved before implementation.
+A final implementation-readiness checklist.
+
+Classify findings as critical, high, medium, or low, and explain the basis for each classification.
+
+For each major criticism, provide a practical corrective action rather than merely identifying a problem.
+
+Do not manufacture objections to appear critical. Preserve design decisions that survive scrutiny.
+
+Final Standard
+
+Recommend proceeding only when the core accounting invariants, security boundaries, component lifecycle, and major architectural risks are sufficiently addressed.
+
+The purpose of this review is to prevent expensive architectural mistakes before they become embedded in production systems.

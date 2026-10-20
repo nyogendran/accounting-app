@@ -1,0 +1,93 @@
+# Registered sources. Every listed file is immutable: tools/governance/check.py verifies each SHA-256.
+# A registered source is an input. Registration says nothing about whether its content is approved;
+# the "authority" field says how it may be used.
+version: 1
+sources:
+  - id: SRC-001
+    title: TIQACC Cloud Accounting and Financial Management System, Requirement Specification V1
+    kind: buyer-specification
+    authority: >-
+      Authoritative input, not an approved baseline. The section 3 sign-off (Finance Manager,
+      Internal Audit, Managing Director) is unsigned; Annexures A and B are absent; about 180
+      bracketed values are unconfirmed.
+    registered: 2026-10-20
+    files:
+      - path: requirement-doc/TIQACC-Cloud-Accounting-Requirement - V1.pdf
+        sha256: b278e934845616191c9db03ad24956c19ab9f5af1df9ad3a63bd7a10f505d3ed
+    derived:
+      - path: docs/sources/SRC-001-spec-v1/extracted/spec-v1.txt
+        sha256: 31b2220f2f31096213522f135b82681467d7a9ff629f9f426faf8ac748ff134a
+        produced_by: tools/sources/extract_pdf.py with pdfplumber 0.11.10
+        note: Text for search. Deterministic across two runs on 2026-10-20. The PDF is authoritative.
+
+  - id: SRC-002
+    title: Strategic architecture discovery and requirements analysis (stage 1 of 2)
+    kind: ai-generated-analysis
+    authority: >-
+      Hypotheses, not facts. Generated before governance existed; nothing in it is approved. Its
+      findings are re-verified by Requirements Assurance in L2.
+    registered: 2026-10-20
+    provenance: AI-generated on 2026-10-19 from the prompt in SRC-004 (master-prompt.txt).
+    files:
+      - path: docs/architecture/01-strategic-architecture-discovery.md
+        sha256: 056d86414f5829f62a7dde8ee87911621bf19048c40130d2007b1b27d4dce297
+
+  - id: SRC-003
+    title: TIQACC technical strategy, requirement analysis and kickoff
+    kind: ai-generated-analysis
+    authority: >-
+      Hypotheses, not facts. Its statement that the intended use (internal platform and commercial
+      SaaS) was confirmed by the requirements owner is unverified until recorded as a decision.
+    registered: 2026-10-20
+    provenance: Copied byte-exact from c:\yogi\tiqacc-documents\analysis on 2026-10-20 (DEC-0005).
+    files:
+      - path: docs/sources/SRC-003-kickoff-analysis/TIQACC-Technical-Strategy-and-Kickoff.md
+        sha256: 0fea1f62b425b5c1f57cce6d7d1a0f41866f31306e4101c25dae8ed6c9d1395e
+
+  - id: SRC-004
+    title: Prompt history used to direct AI work on TIQACC
+    kind: prompt-history
+    authority: Record of instructions given to AI sessions; not requirements.
+    registered: 2026-10-20
+    provenance: Copied byte-exact from c:\yogi\tiqacc-documents\prompts on 2026-10-20 (DEC-0005).
+    files:
+      - path: docs/sources/SRC-004-prompt-history/agentic-development-lifecycle.txt
+        sha256: 9d6d5a464834b817577bebef14ca9816ced3b4f14dc0dfba5ff1ef6e5c87e212
+      - path: docs/sources/SRC-004-prompt-history/architecture-challenge-prompt.txt
+        sha256: 64f4fe08caa7f16bf93d5a7e8ffd0d3681d6b214a69cd55d44be7b5a90bc604c
+      - path: docs/sources/SRC-004-prompt-history/complete-prompt.txt.txt
+        sha256: d77326b4fca1ead81a47dd9c93dc3e67381a62f18031b4f010195699117f5836
+      - path: docs/sources/SRC-004-prompt-history/detailed-architecture-and-engineering-blueprint-prompt.txt
+        sha256: d504890db43a39f3dcc45b51a660fea632ef5a0133263a7ab80d10e11430757e
+      - path: docs/sources/SRC-004-prompt-history/master-prompt.txt
+        sha256: 0580044c93bef7135631925bb29f801245cad857a0c542c4df3971b9aaf412c6
+
+  - id: SRC-005
+    title: Architecture and operating-model review of the engineering framework
+    kind: framework-design
+    authority: >-
+      The framework design adopted by DEC-0001 (decided in session on 2026-10-20; confirmed by a
+      captured decision at Gate 0). Snapshot of the Claude doc at revision 75.
+    registered: 2026-10-20
+    provenance: Exported as Markdown from https://claude.ai/code/artifact/1db4eb0e-a52f-4492-92b6-de943e5a2289 on 2026-10-20; diagrams saved as renders of their latest versions.
+    files:
+      - path: docs/sources/SRC-005-framework-review/framework-review-2026-10-20.md
+        sha256: 3962f7f9d4b5f2f456dd6fc29b667e792ca3968f017715fdc204579b3198f8ce
+      - path: docs/sources/SRC-005-framework-review/diagrams/b-target-architecture.png
+        sha256: 70d957d17e0b10555dd3fb5cdded60413273de0ae209cb8a0a62edce7216f355
+      - path: docs/sources/SRC-005-framework-review/diagrams/d-trace-chain.png
+        sha256: 7c873c8b2ecda84cbd14e0d716bb4a87f1a8578fda664b1bde9f668908e64b75
+      - path: docs/sources/SRC-005-framework-review/diagrams/e-approval-flow.png
+        sha256: bcaa53ab3e2e73aaecb06c18058fad77ff4aced7894c4e0dc29f6c3d60ecb708
+      - path: docs/sources/SRC-005-framework-review/diagrams/f-roadmap.png
+        sha256: cec732ba3617353c18256a1801129fff0731e482a768db2617b69218eeeb50e9
+
+  - id: SRC-006
+    title: Bootstrap plan for the engineering framework
+    kind: framework-design
+    authority: Proposed on 2026-10-19; superseded where SRC-005 differs.
+    registered: 2026-10-20
+    provenance: Transcribed from the orchestrator's message in the Claude Code session of 2026-10-19.
+    files:
+      - path: docs/sources/SRC-006-bootstrap-plan/bootstrap-plan-2026-10-19.md
+        sha256: 7ca9d06648c3c38f9cd73ffc981fb80a22fbfc2485ddfe969ac339cdfca4347c

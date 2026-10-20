@@ -1,0 +1,96 @@
+Strategic Architecture Discovery and Requirements Analysis
+
+Act as a distinguished Chief Enterprise Architect, accounting domain expert, AI platform architect, and technology strategist.
+
+Your task is to deeply analyse the attached requirements document and determine the most compelling, feasible, and differentiated technical direction for the proposed accounting platform.
+
+Objectives
+Understand the complete business problem before proposing technology.
+Identify functional requirements, non-functional requirements, implicit needs, constraints, dependencies, ambiguities, and missing requirements.
+Map the requirements to business capabilities and architectural drivers.
+Investigate whether an AI-native, dynamically extensible accounting platform would provide meaningful value.
+Evaluate how administrators could create and extend accounting capabilities through governed AI agents.
+Assess the potential value of financial ML for accounting recommendations, anomaly detection, forecasting, and intelligent reporting.
+Evaluate CQRS, event-driven architecture, event sourcing, modular monoliths, microservices, and alternative patterns without assuming any is automatically appropriate.
+Identify opportunities for defensible differentiation from existing accounting and financial platforms.
+Recommend a practical target architecture and a phased strategy for delivering it.
+Areas of Investigation
+A. Requirements and business domain
+
+Identify the business capabilities, users, workflows, accounting domains, integrations, scale expectations, security requirements, and operational constraints.
+
+Distinguish documented facts from assumptions and recommendations.
+
+Create traceable requirement identifiers and identify the architectural consequences of each major requirement.
+
+B. Product and technical differentiation
+
+Research relevant accounting platforms and emerging financial technologies when external research is available.
+
+Determine which opportunities are existing market capabilities, potential improvements, genuine differentiation, or speculative ideas.
+
+Do not invent competitor capabilities or claim knowledge of proprietary architectures.
+
+C. Dynamic accounting framework
+
+Evaluate the feasibility of a reusable accounting framework supporting configurable or extensible accounting components such as accounts payable, accounts receivable, fixed assets, revenue recognition, inventory, reconciliation, and industry-specific modules.
+
+Determine which capabilities should be metadata-driven, declarative, generated through AI assistance, conventionally coded, or protected within a deterministic accounting kernel.
+
+D. AI and financial ML
+
+Evaluate AI-assisted component creation, transaction classification, reconciliation recommendations, anomaly detection, forecasting, and intelligent reporting.
+
+Compare deterministic rules, LLMs, classical ML, time-series models, and hybrid approaches.
+
+Identify data prerequisites, risks, expected business value, and appropriate human-approval boundaries.
+
+E. Architecture and data
+
+Assess domain-driven design, modular architecture, CQRS, event sourcing, messaging, relational persistence, analytical data platforms, workflow orchestration, and alternative architectural approaches.
+
+Explain where each pattern adds value and where it introduces unnecessary complexity.
+
+F. Security and financial integrity
+
+Identify essential accounting invariants, auditability requirements, authorisation boundaries, segregation of duties, tenant isolation, AI governance, and operational resilience requirements.
+
+Treat deterministic financial correctness as a non-negotiable architectural constraint.
+
+Required Deliverables
+
+Produce:
+
+Executive summary.
+Requirements analysis and traceability matrix.
+Missing requirements, assumptions, and stakeholder questions.
+Business capability and domain map.
+Competitive differentiation analysis.
+Architectural options comparison.
+Recommended architectural vision and principles.
+Initial logical architecture diagram.
+Dynamic accounting framework feasibility assessment.
+AI and ML opportunity prioritisation.
+CQRS and event-driven architecture assessment.
+Major risks, trade-offs, and unresolved decisions.
+Recommended MVP scope and implementation phases.
+A prioritised list of architecture topics that require detailed engineering in the next stage.
+Constraints
+
+Do not start by selecting a technology stack.
+
+Do not produce a generic microservices architecture.
+
+Do not assume AI should control financial posting or establish authoritative accounting policies.
+
+Do not recommend ML without explaining why simpler alternatives are insufficient.
+
+Do not overengineer the initial release.
+
+Where information is missing, state assumptions and their consequences.
+
+Final Output
+
+Conclude with a defensible architectural recommendation, the rationale behind it, the major alternatives rejected, and an explicit list of the design questions that Prompt 2 must resolve.
+
+This stage is strategic discovery. Do not attempt to fully specify every API, database schema, sequence diagram, or deployment topology. Those belong to the architecture deep-dive stage.

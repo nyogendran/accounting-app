@@ -1,0 +1,683 @@
+Master Prompt for Fabel 5.1 — Next-Generation AI-Native Accounting Platform Architecture
+1. Your Role and Mission
+
+Act as a world-class multidisciplinary architecture and engineering team consisting of:
+
+A Chief Enterprise Architect specialising in next-generation financial platforms.
+A Principal Software Architect with deep expertise in distributed systems, domain-driven design, event-driven architecture, CQRS, and high-scale enterprise platforms.
+A Chartered Accountant / Financial Systems Domain Architect with expertise in general ledger, double-entry bookkeeping, subledgers, financial reporting, accounting controls, reconciliation, and financial close processes.
+An AI Systems Architect specialising in agentic AI, LLM orchestration, tool-calling agents, multi-agent systems, and AI-assisted software generation.
+A Machine Learning Architect specialising in financial forecasting, anomaly detection, transaction classification, accounting intelligence, and predictive analytics.
+A Data Architect specialising in event sourcing, analytical data platforms, streaming, data governance, and financial data lineage.
+A Principal Security Architect specialising in financial-grade security, segregation of duties, authorisation, auditability, compliance, and operational resilience.
+A critical technology strategist who challenges conventional architecture decisions and identifies opportunities for genuine differentiation.
+
+Your mission is to deeply analyse the requirements document I provide and design an elegant, next-generation, AI-native accounting platform that is technically credible, financially sound, secure, extensible, scalable, and capable of outperforming existing accounting solutions in meaningful ways.
+
+Do not merely recommend popular technologies or assemble a collection of fashionable architectural patterns.
+
+Think from first principles. Identify the fundamental accounting, business, data, architectural, and operational problems that the platform must solve. Then derive the architecture from those problems.
+
+The final outcome must be a practical architectural blueprint that can guide product strategy, technical design, implementation planning, and engineering execution.
+
+2. Primary Input: Requirements Document
+
+I will provide a requirements document describing the intended application, business objectives, functional capabilities, constraints, and potentially existing technical decisions.
+
+Treat this document as the primary source of truth.
+
+Before proposing a solution:
+
+Read and analyse the entire document, including implicit requirements, dependencies, constraints, and edge cases.
+Extract the business capabilities, functional requirements, non-functional requirements, user roles, workflows, integration requirements, and expected outcomes.
+Identify ambiguities, contradictions, missing requirements, assumptions, and architectural risks.
+Distinguish explicit requirements from your own recommendations.
+Identify which requirements have the greatest influence on architecture and long-term product differentiation.
+Map requirements to business capabilities, domain boundaries, components, data entities, events, and architectural decisions.
+Identify requirements that should be validated with stakeholders before they become irreversible design decisions.
+
+Do not immediately jump into a proposed architecture.
+
+First establish a clear understanding of the problem, the intended users, the financial domain, and the business outcomes.
+
+If critical information is missing, document the assumptions and explain how different answers would change the design. Ask clarifying questions only when the answers materially affect the architecture. Otherwise, proceed with clearly labelled assumptions.
+
+3. Architectural Vision
+
+Explore the feasibility of building an AI-native accounting platform around the following potential vision:
+
+An extensible accounting foundation where authorised administrators can define, configure, extend, test, and deploy accounting capabilities through governed AI agents, while a deterministic financial core guarantees accounting correctness, traceability, and control.
+
+Treat this as a hypothesis to evaluate, not a predetermined solution.
+
+Determine whether this approach is viable, which parts can be safely automated, which parts require explicit human approval, and which parts must remain deterministic.
+
+Investigate whether the platform should be built as:
+
+A modular accounting platform with configurable domain capabilities.
+An AI-assisted accounting application.
+An accounting platform with an extensible accounting rules and component framework.
+A domain-specific platform that generates accounting configurations, workflows, and reporting models from business intent.
+A composable financial platform where accounting, reconciliation, reporting, forecasting, and compliance capabilities can be independently extended.
+A more innovative architectural model that you identify through your analysis.
+
+Recommend the strongest approach and explain why it is superior to the alternatives for these requirements.
+
+4. Research and Competitive Differentiation
+
+Where internet research is available, examine relevant existing accounting and financial platforms, extensible enterprise systems, AI-native applications, and financial data platforms.
+
+Consider relevant examples such as SAP S/4HANA, Oracle Fusion Cloud Financials, Microsoft Dynamics 365 Finance, NetSuite, modern cloud accounting platforms, and emerging AI-native financial applications.
+
+Evaluate their publicly documented capabilities, extension mechanisms, automation approaches, reporting capabilities, and architectural patterns where reliable information is available.
+
+Do not speculate about proprietary internal architectures or present unverified claims as facts.
+
+Identify:
+
+What existing solutions already do well.
+Where configuration and extension mechanisms create friction.
+Which accounting and financial workflows remain unnecessarily manual.
+Where AI can produce meaningful improvements.
+Which proposed capabilities would merely be feature parity.
+Which capabilities could create a defensible technical or product advantage.
+Which innovations are practical now versus speculative or premature.
+
+Produce a differentiation matrix that compares the proposed platform against relevant alternatives using documented capabilities, clearly labelled unknowns, and reasoned assessments.
+
+The objective is not to make the architecture more complicated. It is to make the product meaningfully better.
+
+5. Critical Investigation A: A Dynamic Accounting Framework
+
+Investigate whether we can design a reusable accounting framework that allows authorised application administrators to create and extend accounting capabilities dynamically, potentially using AI agents.
+
+This is one of the most important areas of the analysis.
+
+5.1 Define the accounting foundation
+
+Determine the minimum foundational primitives required to support reliable accounting, including:
+
+Chart of accounts and account hierarchies.
+Double-entry journal entries and journal lines.
+Debits, credits, balancing, and posting rules.
+Legal entities, business units, accounting books, and fiscal periods.
+Currencies, exchange rates, and foreign currency revaluation.
+Accounting dimensions and financial classifications.
+Accounting policies and configurable posting rules.
+Subledgers and their relationship with the general ledger.
+Journal lifecycle, approval, posting, reversal, and correction.
+Period closing, adjustments, accruals, and reconciliations.
+Audit trails, source-document references, and accounting provenance.
+Effective-dated configuration and accounting policy versioning.
+Idempotency, concurrency control, and financial consistency.
+
+Determine which primitives must be universal and which should be configurable, extensible, or domain-specific.
+
+5.2 Design the dynamic accounting component model
+
+Explore a formal component model that could support reusable accounting capabilities such as:
+
+Accounts payable and accounts receivable.
+Revenue recognition.
+Expense management.
+Fixed assets and depreciation.
+Inventory accounting.
+Payroll accounting.
+Bank reconciliation.
+Intercompany accounting.
+Tax accounting.
+Accruals and prepayments.
+Project accounting.
+Industry-specific accounting extensions.
+
+For each component, determine the appropriate representation of:
+
+Business intent and domain boundaries.
+Input schemas and output contracts.
+Accounting rules and posting templates.
+Validation and invariant rules.
+Lifecycle states and transitions.
+Events and integration contracts.
+Permissions and segregation-of-duties requirements.
+Reporting dimensions and analytical metadata.
+Versioning, dependencies, migration, and compatibility.
+Testing, simulation, deployment, rollback, and auditability.
+
+Assess whether components should be implemented as metadata-driven modules, declarative accounting definitions, domain-specific languages, versioned rule packages, conventional code modules, or a hybrid approach.
+
+Do not assume that every accounting component should be generated dynamically at runtime.
+
+Recommend which elements should be configurable at runtime, which should be compiled or validated before deployment, and which should remain fixed within a trusted accounting kernel.
+
+5.3 AI-assisted component creation
+
+Design an AI-assisted authoring workflow where an administrator might request:
+
+"Create a fixed-asset accounting component supporting straight-line and declining-balance depreciation, multiple asset classes, configurable useful lives, monthly depreciation posting, disposal accounting, and period-end reporting."
+
+Explain how the system would transform that request into a reliable, deployable capability.
+
+Consider a workflow involving:
+
+Natural-language requirement capture.
+Structured requirement and accounting-policy extraction.
+Clarification of missing business rules.
+Generation of a typed accounting-component specification.
+Mapping to approved accounting primitives and extension points.
+Generation of declarative rules, schemas, workflows, and reporting definitions.
+Static validation and accounting-invariant checks.
+Test generation, including boundary and negative cases.
+Historical transaction replay and deterministic simulation.
+Comparison against expected accounting outcomes.
+Security, permission, and segregation-of-duties validation.
+Human review and approval where required.
+Versioned deployment into a controlled execution environment.
+Monitoring, audit logging, rollback, and subsequent improvement.
+
+Recommend an architecture for AI orchestration, agent responsibilities, tool permissions, state management, context retrieval, validation, and approval workflows.
+
+Assess whether a single agent, multiple specialised agents, or a workflow-driven agent architecture is appropriate.
+
+Explain how to prevent hallucinated accounting rules, unsafe code execution, unauthorised changes, inconsistent financial postings, and silent changes to previously approved accounting behaviour.
+
+Mandatory design principle: AI may propose, generate, explain, test, and optimise accounting capabilities. The trusted accounting execution engine must enforce validated accounting rules and financial invariants independently of the AI model.
+
+6. Critical Investigation B: Financial Machine Learning and Accounting Intelligence
+
+Determine whether specialised financial ML models provide genuine architectural or business value.
+
+Do not recommend training proprietary models simply because the platform is finance-oriented or AI-native.
+
+Evaluate each use case against the value of deterministic rules, conventional statistical methods, general-purpose LLMs, pretrained models, and specialised ML models.
+
+Investigate at least the following opportunities:
+
+Accounting intelligence
+Transaction classification and account-code suggestions.
+Journal-entry recommendations.
+Automatic mapping of business transactions to accounting policies.
+Suggested accounting-component definitions based on business requirements.
+Detection of unusual or potentially incorrect postings.
+Duplicate transaction and duplicate payment detection.
+Reconciliation matching and exception classification.
+Accrual and prepayment suggestions.
+Revenue and expense classification.
+Tax-code and financial-dimension recommendations, subject to jurisdiction-specific validation.
+Financial forecasting and analytics
+Cash-flow forecasting.
+Revenue and expense forecasting.
+Working-capital predictions.
+Accounts receivable collection-risk prediction.
+Accounts payable payment forecasting.
+Budget-versus-actual analysis.
+Financial anomaly detection.
+Scenario modelling and sensitivity analysis.
+Early warning signals for liquidity or operational risk.
+Intelligent variance explanations and management reporting.
+Models that help create accounting capabilities
+
+Investigate whether ML can infer candidate accounting mappings, recurring transaction patterns, required financial dimensions, likely validation rules, or suggested accounting-component templates from historical data and approved configurations.
+
+Explain why this should generate recommendations and candidate specifications rather than automatically establish authoritative accounting policy.
+
+Model architecture and governance
+
+For each promising use case, describe:
+
+Business value and target users.
+Required data and data quality.
+Model type and suitable alternatives.
+Training versus pretrained or externally hosted models.
+Inference location and latency requirements.
+Explainability and confidence estimation.
+Human-review thresholds and escalation paths.
+False-positive and false-negative risks.
+Evaluation metrics and baseline comparisons.
+Model drift and monitoring.
+Data leakage, privacy, and tenant isolation.
+Auditability and reproducibility.
+Whether the model is necessary for the initial release.
+
+Create a prioritised ML opportunity matrix using business impact, implementation complexity, data readiness, risk, and expected return.
+
+Recommend which capabilities should use deterministic rules, classical ML, time-series models, LLMs, or combinations of these approaches.
+
+7. Critical Investigation C: CQRS, Event Sourcing, and Data Architecture
+
+Evaluate CQRS and event sourcing rigorously rather than treating them as default architectural choices.
+
+Determine where each pattern provides material value and where it introduces unnecessary complexity.
+
+Analyse the following possibilities:
+
+Conventional transactional persistence for core accounting records.
+CQRS for read-heavy financial queries and specialised projections.
+Event-driven integration between accounting domains.
+Event sourcing for selected domains or lifecycle histories.
+Immutable journal records and append-only financial audit histories.
+Transactional outbox and reliable event publication.
+Materialised views for trial balances, account balances, and financial reports.
+Reconciliation between source transactions, subledgers, and the general ledger.
+Analytical data stores for historical reporting and ML.
+Change data capture, streaming, and incremental analytical processing.
+Multi-tenant isolation and legal-entity boundaries.
+Cross-service transaction consistency and distributed failure handling.
+
+Explicitly distinguish event sourcing from maintaining an immutable accounting ledger. Explain why they are not interchangeable.
+
+Address the following accounting-specific challenges:
+
+How to prevent unbalanced or duplicate journal postings.
+How to preserve atomicity for financial transactions.
+How to handle retries and idempotency.
+How to deal with out-of-order or delayed events.
+How to correct errors without silently rewriting accounting history.
+How to manage eventual consistency in financial reports.
+How to handle period locks, backdated transactions, and adjustments.
+How to reconcile projections against authoritative financial records.
+How to handle concurrent postings and period-end workloads.
+How to recover from failures without losing financial events.
+
+Compare at least three architecture options:
+
+A modular monolith with a relational transactional database.
+A modular monolith or small set of services with selective CQRS and asynchronous events.
+A more distributed event-driven architecture with independently deployed accounting domains.
+
+You may recommend another option if the requirements justify it.
+
+For each option, explain the trade-offs in correctness, operational complexity, performance, development speed, scalability, observability, and long-term evolution.
+
+Recommend the simplest architecture that satisfies the requirements without compromising financial integrity.
+
+8. Architecture Beyond the Initial Suggestions
+
+Do not limit your analysis to the preceding ideas.
+
+Identify other technologies, patterns, and design principles that could materially improve the solution.
+
+Evaluate where relevant:
+
+Domain-driven design and bounded contexts.
+Modular architecture and explicit domain contracts.
+Declarative accounting policies and rule engines.
+Workflow and durable orchestration engines.
+A typed accounting-component definition language or domain-specific language.
+Metadata-driven extensibility.
+Schema evolution and compatibility management.
+API-first and event-contract-first design.
+Policy-as-code and fine-grained authorisation.
+Zero-trust security and separation of duties.
+Temporal data and effective-dated business rules.
+Financial data lineage and provenance.
+Explainable AI and human-in-the-loop operations.
+Knowledge graphs or semantic financial models.
+A governed financial metrics and semantic layer.
+Lakehouse or warehouse architectures for analytical workloads.
+Real-time streaming analytics where justified.
+Digital-twin or simulation approaches for financial scenario testing.
+Formal methods, property-based testing, and invariant-driven verification.
+Plugin or extension architectures with sandboxing.
+Multi-tenant SaaS architecture and enterprise deployment options.
+Open standards and interoperability with external financial systems.
+Disaster recovery, operational resilience, and regulatory evidence.
+
+For every proposed pattern, explain the problem it solves, its concrete benefits, its costs, and whether it belongs in the initial architecture or a later evolution.
+
+Do not include technologies simply to make the architecture look sophisticated.
+
+9. Define the Accounting Trust Boundary
+
+Design a clear separation between probabilistic intelligence and deterministic financial execution.
+
+Identify the trusted accounting core and define its mandatory invariants.
+
+At a minimum, examine:
+
+Every posted journal entry balances within its applicable accounting-book and currency rules.
+Posted records cannot be silently altered or deleted.
+Corrections are represented through controlled reversal, adjustment, or other approved accounting procedures.
+Posting is idempotent and protected against duplicate execution.
+Accounting policies and component versions used for a transaction are traceable.
+Authorisation and segregation-of-duties rules are enforced server-side.
+Period locks and effective-date rules are enforced consistently.
+Every posting has traceable source references and an auditable decision history.
+Financial reports can be reconciled to authoritative accounting records.
+AI-generated recommendations cannot bypass posting controls.
+
+Explain how these invariants are enforced technically, tested continuously, monitored in production, and preserved during system evolution.
+
+Identify which invariants depend on accounting-policy choices or jurisdictional requirements rather than universal technical assumptions.
+
+10. Target Architecture and Component Responsibilities
+
+Produce a coherent target architecture with clearly defined responsibilities and interfaces.
+
+Evaluate and, where appropriate, include the following layers:
+
+User experience and administrative workbench.
+API gateway, identity, authentication, and authorisation.
+Accounting domain services and bounded contexts.
+Trusted accounting kernel and posting engine.
+Dynamic accounting-component framework.
+Accounting policy and rule execution layer.
+Workflow and approval orchestration.
+AI agent orchestration and model gateway.
+ML inference and model lifecycle services.
+Operational transaction storage.
+Event publication and asynchronous integration.
+Query services, CQRS projections, and reporting APIs.
+Financial analytics, semantic metrics, and data platform.
+Integration adapters for banks, ERP systems, payment providers, and external applications.
+Security, audit, observability, governance, and operational controls.
+
+You may consolidate or restructure these layers if a different decomposition is more appropriate.
+
+For each component, specify:
+
+Primary responsibility.
+Owned data and state.
+Interfaces and contracts.
+Synchronous and asynchronous interactions.
+Security boundaries.
+Failure modes and recovery mechanisms.
+Scaling strategy.
+Dependencies.
+Initial implementation priority.
+
+Clearly distinguish logical components from independently deployable services. Do not assume every box requires a separate microservice.
+
+11. Technology Selection and Engineering Standards
+
+Recommend a practical technology stack only after deriving the architecture.
+
+Compare viable alternatives for:
+
+Backend language and application framework.
+Transactional database.
+Messaging and event streaming.
+Workflow orchestration.
+AI agent orchestration and model access.
+ML training and inference.
+Analytical database or lakehouse.
+Search and retrieval infrastructure.
+Identity, authorisation, and secrets management.
+Observability and distributed tracing.
+Deployment platform and infrastructure automation.
+
+Use the requirements document, team capability, operational constraints, security needs, expected scale, and ecosystem maturity to guide decisions.
+
+Provide a recommended default stack and explain why it is preferable to credible alternatives.
+
+Identify where technology choice can remain open behind stable interfaces.
+
+Do not select infrastructure, databases, brokers, or orchestration platforms without explaining why their capabilities are needed.
+
+Where the requirements do not provide enough information to make a final selection, identify the decision criteria and the evidence required to decide.
+
+12. Data Model and Financial Semantics
+
+Design an initial conceptual data model for the core accounting platform.
+
+Identify key entities, relationships, ownership boundaries, and important constraints.
+
+Include, where appropriate:
+
+Tenant, legal entity, and accounting book.
+Account and chart-of-accounts version.
+Accounting period and fiscal calendar.
+Business transaction and source-document reference.
+Journal entry and journal line.
+Currency and exchange-rate reference.
+Accounting dimensions.
+Posting rule and accounting-policy version.
+Accounting-component definition and deployed version.
+Workflow, approval, and authorisation records.
+Audit event and decision provenance.
+Outbox event and integration delivery status.
+Reporting projection and reconciliation status.
+ML prediction and human-review outcome.
+
+Explain the relationships between source transactions, subledgers, general-ledger postings, immutable financial history, and analytical projections.
+
+Address precision, rounding, currency handling, effective dating, historical reproducibility, schema evolution, data retention, and privacy.
+
+Provide example schemas or pseudocode for the most important entities where it helps clarify the design.
+
+13. Security, Governance, and Compliance
+
+Treat financial security and governance as core architectural requirements.
+
+Analyse:
+
+Tenant and legal-entity isolation.
+Role-based and attribute-based access control.
+Segregation of duties.
+Maker-checker approval workflows.
+Privileged administrative actions.
+AI agent identities and delegated permissions.
+Tool-level authorisation and execution policies.
+Protection against prompt injection and untrusted document instructions.
+Sandboxing and restrictions on generated code.
+Encryption and key management.
+Sensitive-data minimisation and model-provider boundaries.
+Audit-log integrity and retention.
+Financial data residency and jurisdiction-specific requirements.
+Model governance, explainability, and change control.
+Backup, disaster recovery, and operational resilience.
+
+Define which controls must be enforced by architecture and code, which require operational processes, and which depend on the applicable regulatory environment.
+
+Do not claim regulatory compliance without knowing the applicable jurisdictions and obligations.
+
+14. Implementation Roadmap
+
+Design a realistic phased roadmap that balances innovation, accounting correctness, product value, and engineering risk.
+
+Phase 0: Discovery and architecture validation
+Requirements clarification and domain discovery.
+Accounting-policy and jurisdictional assumptions.
+Architecture decision records.
+Proofs of concept for the highest-risk design decisions.
+Security and threat modelling.
+Performance and data-volume assumptions.
+Phase 1: Trusted accounting foundation
+Core accounting model.
+Double-entry posting engine.
+Chart of accounts and accounting periods.
+Journal lifecycle and controls.
+Transactional persistence and auditability.
+Reconciliation and foundational reporting.
+Phase 2: Extensible accounting framework
+Declarative accounting-component specifications.
+Versioned rules and validation.
+Component lifecycle and deployment controls.
+Administrative configuration experience.
+Automated test and simulation framework.
+Phase 3: AI-assisted accounting component creation
+Requirement-to-specification generation.
+Agent-assisted rule and workflow authoring.
+Accounting validation and test generation.
+Human approval and controlled deployment.
+Audit trails and rollback.
+Phase 4: Financial intelligence
+Transaction classification and reconciliation suggestions.
+Anomaly detection.
+Financial forecasting and variance explanations.
+Governed analytical models.
+Model evaluation and monitoring.
+Phase 5: Scale and platform expansion
+Additional accounting domains.
+Advanced CQRS projections where justified.
+Integration ecosystem and extension marketplace.
+Multi-region resilience or deployment options if required.
+Advanced analytics and industry-specific capabilities.
+
+Reorganise these phases if the requirements suggest a better sequence.
+
+For every phase, specify deliverables, dependencies, acceptance criteria, risks, and exit conditions.
+
+Identify what should be deliberately excluded from the MVP and what architectural foundations must be established early to avoid expensive future migrations.
+
+15. Required Deliverables
+
+Structure your final response in the following order.
+
+Deliverable 1: Executive architectural assessment
+
+Summarise the requirements, the central architectural opportunity, the most important constraints, and your recommended direction.
+
+State the three to five most consequential decisions and why they matter.
+
+Deliverable 2: Requirements intelligence report
+
+Provide a traceable breakdown of:
+
+Explicit functional requirements.
+Non-functional requirements.
+Implicit requirements.
+Missing requirements and assumptions.
+Architectural drivers.
+Risks and dependencies.
+
+Reference requirement IDs or document sections where possible. If the document lacks IDs, create stable identifiers.
+
+Deliverable 3: Recommended architectural vision
+
+Describe the target platform, its architectural principles, its differentiating capabilities, and its major boundaries.
+
+Explain how the architecture directly supports the documented requirements.
+
+Deliverable 4: Architecture option analysis
+
+Compare at least three viable architecture alternatives.
+
+Include a decision matrix, trade-offs, major risks, and the reasons for selecting the preferred option.
+
+Deliverable 5: Dynamic accounting framework design
+
+Explain the accounting kernel, component model, declarative definitions, rule engine, component lifecycle, versioning, simulation, deployment, and governance.
+
+Show how administrators can safely create new accounting capabilities with AI assistance.
+
+Deliverable 6: AI and ML strategy
+
+Define the agent architecture, model selection strategy, ML use cases, data requirements, validation mechanisms, governance, and recommended adoption sequence.
+
+Distinguish production-ready opportunities from speculative research.
+
+Deliverable 7: CQRS, eventing, and data strategy
+
+Specify where CQRS, event sourcing, messaging, projections, transactional outbox, and analytical storage are appropriate.
+
+Describe consistency guarantees and reconciliation mechanisms.
+
+Deliverable 8: Logical architecture diagram
+
+Create a clear architecture diagram using Mermaid or another readable text-based notation.
+
+Show the main components, trusted accounting boundary, data stores, event flows, AI services, reporting paths, and external integrations.
+
+Include a short explanation of each major interaction.
+
+Deliverable 9: Key workflows and sequence diagrams
+
+Provide sequence diagrams for at least:
+
+Posting a financial transaction.
+Creating and deploying an accounting component using AI.
+Processing a transaction with AI-assisted account classification.
+Generating a financial report from authoritative accounting data.
+Handling a failed posting, duplicate request, or reconciliation discrepancy.
+
+Use diagrams to clarify responsibilities and failure handling rather than merely illustrate the happy path.
+
+Deliverable 10: Conceptual data model and API contracts
+
+Provide a domain model, critical entities, representative schemas, key APIs, and event contracts.
+
+Explain the ownership and consistency requirements of each.
+
+Deliverable 11: Technology stack and rationale
+
+Present the recommended stack, viable alternatives, trade-offs, and any decisions that should remain open.
+
+Deliverable 12: Security, reliability, and operational model
+
+Define the critical controls, failure-handling strategy, observability, recovery, and operational responsibilities.
+
+Deliverable 13: Implementation roadmap
+
+Present phases, dependencies, deliverables, acceptance criteria, risks, and MVP boundaries.
+
+Deliverable 14: Differentiation and innovation backlog
+
+Rank proposed innovations by expected business value, technical feasibility, defensibility, cost, and implementation risk.
+
+Identify which ideas can produce near-term advantages and which should remain research initiatives.
+
+Deliverable 15: Architecture decision records
+
+Create concise architecture decision records for the most consequential decisions.
+
+For each decision, include context, alternatives, selected approach, rationale, consequences, and conditions that would trigger reconsideration.
+
+Deliverable 16: Critical review and challenge
+
+Act as an independent architecture review board.
+
+Identify the weaknesses in your own proposed design, including:
+
+Unnecessary complexity.
+Premature abstraction.
+Overuse of microservices or asynchronous processing.
+Unsafe assumptions about AI-generated accounting logic.
+Weaknesses in data quality or model availability.
+Operational and compliance risks.
+Expensive or difficult migration paths.
+Features that sound innovative but provide little measurable value.
+
+Revise the recommendation where necessary.
+
+Finish with a prioritised list of the ten most important decisions and actions required to start the project.
+
+16. Analytical Standards and Quality Bar
+
+Follow these rules throughout the analysis:
+
+Be critical, evidence-driven, and explicit about uncertainty.
+Do not assume my suggested technologies or patterns are correct.
+Separate documented facts, architectural recommendations, assumptions, and hypotheses.
+Explain the reasoning behind consequential design decisions.
+Use concrete examples from realistic accounting workflows.
+Make accounting correctness, auditability, security, and data integrity non-negotiable.
+Avoid unnecessary microservices, excessive abstraction, and speculative AI features.
+Do not confuse immutable accounting records with event sourcing.
+Do not confuse AI-generated recommendations with authoritative accounting policy.
+Do not allow probabilistic AI outputs to bypass deterministic financial controls.
+Ensure every major component has a clear responsibility and contract.
+Address failure paths, recovery, testing, migration, and operational ownership.
+Use measurable acceptance criteria wherever possible.
+Cite reliable, current sources for external technical or competitive claims when research is available.
+Distinguish what can be implemented immediately from what requires additional research or evidence.
+Do not invent requirements, regulatory obligations, benchmark results, or competitor capabilities.
+Prefer the simplest architecture that preserves correctness and enables future evolution.
+Make recommendations specific enough for engineers to turn into implementation tasks.
+17. Final Objective
+
+I do not want a generic accounting application architecture, a standard microservices blueprint, or an AI chatbot placed on top of an existing financial system.
+
+I want a technically differentiated platform where:
+
+The accounting foundation is deterministic, trustworthy, auditable, and financially correct.
+Accounting capabilities can be extended through governed, versioned, testable component definitions.
+AI agents reduce the effort required to design, configure, test, and maintain those capabilities.
+Financial ML is introduced only where it provides measurable value beyond deterministic rules and conventional methods.
+Financial analytics are built on governed, reconcilable data rather than opaque AI-generated numbers.
+Architectural patterns such as CQRS and event-driven processing are applied selectively and deliberately.
+New accounting domains can be added without destabilising the trusted financial core.
+Security, explainability, change control, and operational resilience are integral to the design.
+
+The architecture must be innovative without being reckless, elegant without being simplistic, and ambitious without becoming impossible to deliver.
+
+Begin by analysing the complete requirements document. Do not start by selecting a technology stack. Derive the architecture from the requirements, evaluate alternatives, challenge the initial hypotheses, and produce a defensible, implementation-ready recommendation.

@@ -1,0 +1,145 @@
+Detailed Architecture and Engineering Blueprint
+
+Act as the Principal Software Architect responsible for turning the approved architectural vision into an implementable enterprise accounting platform.
+
+Inputs
+
+Use:
+
+The original requirements document.
+The complete output of Prompt 1.
+Any stakeholder clarifications and constraints supplied subsequently.
+
+Treat the requirements as the source of truth. Reassess strategic recommendations where technical evidence shows that they are infeasible or unnecessarily complex.
+
+Objective
+
+Produce a detailed target architecture with explicit components, responsibilities, data ownership, contracts, consistency guarantees, security boundaries, failure handling, and implementation decisions.
+
+Workstream 1: Accounting kernel
+
+Design the trusted accounting core, including:
+
+Double-entry journal posting.
+Journal lifecycle, balancing, precision, rounding, and currency handling.
+Chart of accounts, legal entities, books, and fiscal periods.
+Accounting dimensions and effective-dated policies.
+Idempotency, concurrency control, and transactional integrity.
+Period locks, reversals, corrections, and audit history.
+Source transaction and subledger traceability.
+Reconciliation and financial-report integrity.
+
+Specify invariants and explain how they are enforced by the database, application services, authorisation controls, and automated tests.
+
+Workstream 2: Dynamic accounting-component framework
+
+Design the component metamodel and lifecycle.
+
+Define:
+
+Component manifests and typed specifications.
+Inputs, outputs, schemas, and contracts.
+Accounting rules, validation rules, and workflows.
+Dependencies and compatibility constraints.
+Configuration and policy versioning.
+Effective dates and controlled activation.
+Simulation, historical replay, and regression testing.
+Approval, deployment, rollback, and auditability.
+
+Compare declarative definitions, domain-specific languages, metadata-driven configuration, generated code, and conventional modules.
+
+Specify what can change dynamically and what must remain inside the trusted accounting kernel.
+
+Workstream 3: AI agent architecture
+
+Design the complete workflow from an administrator's natural-language request to a validated accounting component.
+
+Include requirement extraction, ambiguity resolution, specification generation, rule generation, test generation, simulation, approval, deployment, and monitoring.
+
+Specify agent responsibilities, orchestration, tool permissions, model access, context management, structured outputs, retries, failure handling, and human intervention.
+
+Prevent prompt injection, unauthorised actions, arbitrary code execution, and unvalidated accounting logic.
+
+AI-generated components must not become authoritative merely because an LLM generated them.
+
+Workstream 4: CQRS, events, and persistence
+
+Make explicit decisions about:
+
+Transactional persistence.
+Command and query boundaries.
+Journal and audit history.
+Event publication and delivery guarantees.
+Transactional outbox and idempotent consumers.
+Materialised read models and financial projections.
+Analytical data storage.
+Event sourcing, where justified.
+Projection rebuilds and reconciliation.
+Backdated transactions, late events, and correction workflows.
+
+For each choice, state the problem solved, the alternatives, the trade-offs, and the conditions under which the decision should change.
+
+Workstream 5: Financial ML and reporting
+
+Design the data and model architecture for the use cases prioritised in Prompt 1.
+
+For each use case, define data prerequisites, model approach, training and inference strategy, evaluation metrics, confidence handling, human-review thresholds, monitoring, drift detection, and governance.
+
+Separate authoritative financial figures from forecasts, estimates, recommendations, and generated explanations.
+
+Design a governed financial semantic layer so that analytical reports use consistent metric definitions and reconcile to authoritative accounting data.
+
+Workstream 6: Detailed logical architecture
+
+Specify the components, responsibilities, interfaces, and deployment boundaries.
+
+Include API contracts, event schemas, conceptual data models, versioning strategies, and dependency relationships.
+
+Produce Mermaid diagrams for:
+
+The overall architecture.
+Financial transaction posting.
+AI-assisted component creation and deployment.
+AI-assisted transaction classification.
+Financial reporting and projection updates.
+Failure recovery and reconciliation.
+
+For each important workflow, cover the happy path, validation failures, retries, duplicates, timeouts, partial failures, and recovery.
+
+Workstream 7: Technology selection
+
+Recommend a technology stack based on actual requirements and the architecture.
+
+Compare alternatives for the application runtime, transactional database, messaging, workflow orchestration, AI orchestration, ML infrastructure, analytical storage, security, observability, and deployment.
+
+Explain why each selected technology is appropriate. Keep implementation choices open where requirements or evidence are insufficient.
+
+Workstream 8: Security and operations
+
+Specify tenant isolation, authorisation, segregation of duties, secrets management, audit protection, data privacy, AI tool controls, observability, backups, disaster recovery, deployment safety, and incident response.
+
+Identify critical failure modes and their mitigations.
+
+Required Deliverables
+
+Produce:
+
+Detailed component architecture and responsibilities.
+Accounting kernel specification and invariants.
+Accounting-component metamodel and lifecycle.
+AI agent orchestration and governance design.
+CQRS, persistence, and event-processing decisions.
+Financial ML and analytical data architecture.
+Conceptual entity model and representative schemas.
+API and event contracts.
+Architecture and sequence diagrams.
+Failure-mode and recovery analysis.
+Recommended technology stack.
+Testing, security, and operational strategy.
+Implementation work breakdown with dependencies and acceptance criteria.
+Architecture decision records.
+A list of unresolved design decisions and required proof-of-concept experiments.
+
+Make the output sufficiently detailed for a senior engineering team to estimate, challenge, and begin implementing the design.
+
+Avoid restating the entire strategic analysis from Prompt 1. Focus on resolving technical design questions, making explicit decisions, and demonstrating how the architecture works.
