@@ -32,10 +32,12 @@ start other agents; escalation always goes back through the orchestrator.
 | `ux-designer`, `quality-engineer`, `implementation-engineer`, `devops-release` | Gate B | Defined with the stack ADR | Defined with the stack ADR |
 
 Scopes are enforced by `.claude/hooks/guard.py` using `.claude/hooks/agent-scopes.json`, and again at
-commit time by the commit-msg check. Agents cannot write outside the repository or change directory,
-and their shell commands may not use command substitution, background jobs, here-documents or
-redirection. Built-in agents (Explore, Plan, general-purpose) may be used for read-only research;
-the guard blocks them from writing anywhere. The guard is a guardrail against mistakes and casual
+commit time by the commit-msg check. Agents read and write only inside the repository and cannot
+change directory. Their shell commands may name only paths inside the repository and may not use
+command substitution, variables, brace or tilde expansion, background jobs, here-documents or
+redirection; options that write files or run programs are blocked however they are quoted.
+Built-in agents (Explore, Plan, general-purpose) may be used for read-only research inside the
+repository; the guard blocks them from writing anywhere. The guard is a guardrail against mistakes and casual
 misuse, not a security boundary: agents and people share one OS account until the git host exists
 (RISK-003).
 

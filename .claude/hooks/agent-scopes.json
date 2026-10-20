@@ -43,6 +43,7 @@
     "\\s--ext-diff(\\s|$)",
     "\\s--textconv(\\s|$)",
     "\\s--pre(=|\\s|$)",
+    "\\s--hostname-bin(=|\\s|$)",
     "\\s-(exec|execdir|ok|okdir|delete|fprint0?|fprintf|fls)(\\s|$)"
   ],
   "shell_profiles": {

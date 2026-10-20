@@ -6,8 +6,10 @@ Blocks, for every actor:
   - rewriting an existing record under ledger/.
 Blocks, for agents (agent_type in the hook input; a subagent without one counts as unknown):
   - file writes outside the agent's scope, including anywhere outside the repository;
-  - shell commands outside the agent's shell profile, and any command substitution, background
-    job, here-document or redirection.
+  - reads (Read, Grep, Glob) outside the repository;
+  - shell commands outside the agent's shell profile; any command substitution, variable, brace or
+    tilde expansion, background job, here-document or redirection; options that write files or run
+    programs, however they are quoted or escaped; and any path outside the repository.
 Blocks, for the orchestrator:
   - shell commands that touch a protected path with anything but a known read-only command. Paths
     are resolved, so relative, disguised and 8.3 short spellings count;
@@ -35,12 +37,16 @@ from tools.governance import common  # noqa: E402
 
 WRITE_TOOLS = {"Write", "Edit", "MultiEdit", "NotebookEdit"}
 SHELL_TOOLS = {"Bash", "PowerShell"}
+READ_TOOLS = {"Read", "Grep", "Glob"}
 
 BENIGN_REDIRECTS = re.compile(r"\d?>&\d|\d?>\s*/dev/null|\d?>\s*\$null|\d?>\s*nul\b", re.IGNORECASE)
 NETWORK_PATH = re.compile(r"^//(?![?.]/[a-zA-Z]:)")
+# The shell removes quotes and escapes before a program sees its arguments.
+UNQUOTE = re.compile(r"[\"'`\\]")
 
-# Agents: shell features none of their commands needs.
-AGENT_FORBIDDEN = re.compile(r"`|\$\(|\$\{|<\(|>\(|@\(|<<|(?<![&>])&(?![&>])")
+# Agents: shell features none of their commands needs. `$` covers substitution, variables and
+# ANSI-C quoting; braces and a leading tilde are expansions too.
+AGENT_FORBIDDEN = re.compile(r"`|\$|[{}]|(?:^|[\s=:])~|<\(|>\(|@\(|<<|(?<![&>])&(?![&>])")
 AGENT_SPLIT = re.compile(r"\s*(?:&&|\|\||;|\||\r?\n)\s*")
 
 # Orchestrator: statements, pipeline elements, and the commands allowed next to a protected path.
@@ -66,7 +72,7 @@ FILTERS = re.compile(
     r"|Format-List|fl|Out-String|ConvertFrom-Json|ConvertTo-Json)(?:\s|$)",
     re.IGNORECASE,
 )
-EXPANSIONS = re.compile(r"`|\$\(|<\(|>\(|@\(|\{")
+EXPANSIONS = re.compile(r"`|\$|<\(|>\(|@\(|\{")
 REDIRECT_TARGET = re.compile(r"[\d*]?>>?\s*([^\s;|&<>]+)")
 CHANGE_DIRECTORY = re.compile(r"^(?:cd|chdir|pushd|Set-Location|sl|Push-Location)\s+(\S+)", re.IGNORECASE)
 GIT_DIRECTORY = re.compile(r"(?:^|\s)git\s+(?:\S+\s+)*?-C\s+(\S+)")
@@ -156,6 +162,31 @@ def _references_protected(text: str, root: Path, directories: list, protected) -
     )
 
 
+def _outside_repository(text: str, root: Path):
+    """The first word of a command that names a path outside the repository, or None."""
+    for raw in TOKEN_SPLIT.split(text):
+        token = QUOTES.sub("", raw)
+        if token.startswith("-"):
+            if ":" not in token:
+                continue
+            token = token.split(":", 1)[1]
+        if not token:
+            continue
+        if token.startswith("//"):
+            return token
+        try:
+            if common.repo_relative(token, root) is None:
+                return token
+        except (OSError, ValueError):
+            return token
+    return None
+
+
+def _read_only(element: str) -> bool:
+    """A known read-only command, both as written and as the shell passes it (quotes removed)."""
+    return bool(READ_ONLY.match(element.replace("\\", "/")) and READ_ONLY.match(UNQUOTE.sub("", element)))
+
+
 def _working_directories(statements: list, cwd: Path) -> list:
     """The session's directory plus every directory the command may switch to (cd, git -C)."""
     directories = [cwd]
@@ -207,31 +238,56 @@ def _decide_write(path_text, root: Path, agent, scopes) -> Decision:
     return allow()
 
 
-def _agent_shell(command: str, agent: str, scopes) -> Decision:
+def _decide_read(tool: str, tool_input: dict, root: Path, agent: str) -> Decision:
+    """Agents read only inside the repository."""
+    candidates = [str(tool_input[key]) for key in ("file_path", "path") if tool_input.get(key)]
+    if tool == "Glob":
+        literal = re.split(r"[*?\[{]", str(tool_input.get("pattern") or ""), maxsplit=1)[0]
+        if literal:
+            base = tool_input.get("path")
+            candidates.append(literal if base is None or os.path.isabs(literal) else os.path.join(str(base), literal))
+    for candidate in candidates:
+        if NETWORK_PATH.match(candidate.replace("\\", "/")):
+            return block(f"agent '{agent}' may not read network paths ({candidate})")
+        try:
+            rel = common.repo_relative(candidate, root)
+        except (OSError, ValueError) as error:
+            return block(f"cannot resolve {candidate}: {error}")
+        if rel is None:
+            return block(f"agent '{agent}' may read only inside the repository, not {candidate}")
+    return allow()
+
+
+def _agent_shell(command: str, agent: str, root: Path, scopes) -> Decision:
     config = (scopes.get("agents") or {}).get(agent) or scopes.get("unknown_agent") or {}
     profile = (scopes.get("shell_profiles") or {}).get(config.get("shell", ""), {})
     text = BENIGN_REDIRECTS.sub(" ", command.replace("\\", "/"))
     if AGENT_FORBIDDEN.search(text):
         return block(
-            f"agent '{agent}' may not use command substitution, braced variables, background jobs "
-            "or here-documents"
+            f"agent '{agent}' may not use command substitution, variables, brace or tilde expansion, "
+            "background jobs or here-documents"
         )
     if ">" in text:
         return block(f"agent '{agent}' may not redirect output to files")
+    bare = UNQUOTE.sub("", BENIGN_REDIRECTS.sub(" ", command))
     for pattern in scopes.get("agent_shell_deny") or []:
-        if re.search(pattern, text):
+        if re.search(pattern, text) or re.search(pattern, bare):
             return block(f"agent '{agent}' may not use an option that writes files or runs programs ({pattern})")
     allowed = [re.compile(pattern) for pattern in profile.get("allow", [])]
     for part in AGENT_SPLIT.split(text.strip()):
         if part and not any(pattern.search(part) for pattern in allowed):
             return block(f"agent '{agent}' may not run '{part}' (shell profile '{config.get('shell')}')")
+    outside = _outside_repository(text, root)
+    if outside:
+        return block(f"agent '{agent}' may name only paths inside the repository, not {outside}")
     return allow()
 
 
 def _orchestrator_shell(command: str, root: Path, cwd: Path, scopes) -> Decision:
     text = BENIGN_REDIRECTS.sub(" ", command)
+    spellings = (text.replace("\\", "/"), UNQUOTE.sub("", text))
     for pattern in ((scopes.get("shell_profiles") or {}).get("orchestrator") or {}).get("deny", []):
-        if re.search(pattern, text.replace("\\", "/"), re.IGNORECASE):
+        if any(re.search(pattern, spelling, re.IGNORECASE) for spelling in spellings):
             return block(f"command matches a blocked pattern ({pattern}); a person must do this")
     protected = scopes.get("protected") or []
     statements = [statement for statement in STATEMENT_SPLIT.split(text) if statement and statement.strip()]
@@ -242,18 +298,19 @@ def _orchestrator_shell(command: str, root: Path, cwd: Path, scopes) -> Decision
         if not any(touching):
             continue
         for element, touches in zip(elements, touching):
-            plain = element.replace("\\", "/")
             if EXPANSIONS.search(element):
-                return block(f"'{element}' runs a sub-command or script block next to a protected path")
+                return block(
+                    f"'{element}' uses a substitution, variable or script block next to a protected path"
+                )
             if touches:
-                if not READ_ONLY.match(plain):
+                if not _read_only(element):
                     return block(
                         f"'{element}' touches a protected path, which only read-only commands may do; "
                         "see CLAUDE.md rules 6 and 7"
                     )
                 if any(_references_protected(t, root, directories, protected) for t in REDIRECT_TARGET.findall(element)):
                     return block(f"'{element}' redirects output into a protected path")
-            elif not (READ_ONLY.match(plain) or FILTERS.match(plain)):
+            elif not (_read_only(element) or FILTERS.match(element.replace("\\", "/"))):
                 return block(f"'{element}' receives output naming a protected path; only read-only commands and filters may")
     return allow()
 
@@ -270,10 +327,12 @@ def decide(payload: dict, root: Path) -> Decision:
     if tool in WRITE_TOOLS:
         path_text = tool_input.get("file_path") or tool_input.get("notebook_path") or tool_input.get("path")
         return _decide_write(path_text, root, agent, scopes)
+    if tool in READ_TOOLS:
+        return _decide_read(tool, tool_input, root, agent) if agent else allow()
     if tool in SHELL_TOOLS:
         command = str(tool_input.get("command") or "")
         if agent:
-            return _agent_shell(command, agent, scopes)
+            return _agent_shell(command, agent, root, scopes)
         return _orchestrator_shell(command, root, Path(payload.get("cwd") or root), scopes)
     return allow()
 

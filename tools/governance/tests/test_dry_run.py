@@ -30,6 +30,10 @@ class SyntheticRequirementDryRun(unittest.TestCase):
     def errors(self):
         return [f.message for f in check.run_checks(self.repo.root) if f.level == "error"]
 
+    def readiness(self):
+        result = trace.readiness(common.load_index(self.repo.root), "REQ-GL-001")
+        return result.ready, {condition.name: condition.ok for condition in result.conditions}
+
     def review(self, reviewer, digest):
         ulid = common.new_ulid()
         self.repo.write_artifact(
@@ -69,12 +73,16 @@ class SyntheticRequirementDryRun(unittest.TestCase):
         drafted = self.explain()
         self.assertEqual(drafted["approval"].state, "none")
         self.assertEqual(drafted["derived"]["Specified"], "no")
+        self.assertFalse(self.readiness()[1]["mandatory reviews at current hash"])
 
         # Two independent reviews, bound to the current normative hash.
         for reviewer in trace.MANDATORY_REVIEWERS["requirement"]:
             self.review(reviewer, drafted["hash"])
         self.assertEqual(len(self.explain()["reviews"]), 2)
         self.assertTrue(all(review["at_current_hash"] for review in self.explain()["reviews"]))
+        ready, conditions = self.readiness()
+        self.assertTrue(conditions["mandatory reviews at current hash"])
+        self.assertFalse(ready)  # not yet approved
 
         # The person's exact phrase, captured by the real hook script.
         request = approvals.create_request(self.repo.root, ["REQ-GL-001"], role="product-owner")
@@ -85,6 +93,7 @@ class SyntheticRequirementDryRun(unittest.TestCase):
         approved = self.explain()
         self.assertEqual(approved["approval"].state, "valid")
         self.assertEqual(approved["derived"]["Specified"], "yes")
+        self.assertTrue(self.readiness()[0])
 
         # Only now may the status say Approved.
         self.repo.write_artifact(REQUIREMENT, requirement(status="Approved"))
@@ -99,6 +108,10 @@ class SyntheticRequirementDryRun(unittest.TestCase):
         self.assertEqual(edited["approval"].state, "void")
         self.assertEqual(edited["derived"]["Specified"], "no")
         self.assertFalse(any(review["at_current_hash"] for review in edited["reviews"]))
+        ready, conditions = self.readiness()
+        self.assertFalse(ready)
+        self.assertFalse(conditions["approved at current hash"])
+        self.assertFalse(conditions["mandatory reviews at current hash"])
         self.assertTrue(any("approval state is 'void'" in message for message in self.errors()))
 
 

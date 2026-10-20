@@ -210,6 +210,86 @@ class GuardTests(unittest.TestCase):
             with self.subTest(command=command):
                 self.assertFalse(self.shell(command, agent="code-security-reviewer").allowed)
 
+    # Findings of the code-security-reviewer smoke test (WF-01M5BJDGB5536WYT96GNTQWH4K step 7)
+
+    def test_quoted_or_escaped_options_blocked_for_agents(self):
+        for agent in ("requirements-engineer", "code-security-reviewer"):
+            for command in (
+                'git log -1 "--output=x"',
+                "git log -1 '--output=x'",
+                "git log -1 --outpu\\t=x",
+                "git log -1 $'--output=x'",
+                'git log -1 --out"put"=x',
+                "git log -1 --out''put=x",
+                "git log -1 {--output=x,}",
+            ):
+                with self.subTest(agent=agent, command=command):
+                    self.assertFalse(self.shell(command, agent=agent).allowed)
+        for command in ('find . "-delete"', 'find . "-exec" echo x', 'rg "--pre=cat" x'):
+            with self.subTest(command=command):
+                self.assertFalse(self.shell(command, agent="code-security-reviewer").allowed)
+
+    def test_options_that_run_programs_blocked_for_agents(self):
+        for command in ("rg --hostname-bin=python x", "rg --hostname-bin python x"):
+            with self.subTest(command=command):
+                self.assertFalse(self.shell(command, agent="code-security-reviewer").allowed)
+
+    def test_agent_shell_paths_must_be_inside_repository(self):
+        outside = Path(tempfile.gettempdir()) / "tiqacc-outside.txt"
+        for command in (
+            f"cat {outside.as_posix()}",
+            "cat ~/notes.txt",
+            "cat ../notes.txt",
+            "head docs/../../notes.txt",
+            f"git diff --no-index {outside.as_posix()} CLAUDE.md",
+            "ls //server/share",
+        ):
+            with self.subTest(command=command):
+                self.assertFalse(self.shell(command, agent="code-security-reviewer").allowed)
+        for command in (
+            "git log 8e6a69a..fa9a669 -- docs",
+            "git show HEAD~1:CLAUDE.md",
+            "rg -n \"^def \" tools",
+            "cat docs/governance/x.md",
+        ):
+            with self.subTest(command=command):
+                self.assertTrue(self.shell(command, agent="code-security-reviewer").allowed)
+
+    def test_agents_read_only_inside_repository(self):
+        outside = str(Path(tempfile.gettempdir()) / "tiqacc-outside.txt")
+        inside = str(self.repo.path("docs/governance/x.md"))
+        for tool, tool_input in (
+            ("Read", {"file_path": outside}),
+            ("Grep", {"pattern": "secret", "path": tempfile.gettempdir()}),
+            ("Glob", {"pattern": "**/*", "path": tempfile.gettempdir()}),
+            ("Glob", {"pattern": "../**/*.txt"}),
+            ("Read", {"file_path": "\\\\server\\share\\x.txt"}),
+        ):
+            with self.subTest(tool=tool, tool_input=tool_input):
+                self.assertFalse(self.decide(tool, tool_input, agent="requirements-engineer").allowed)
+        for tool, tool_input in (
+            ("Read", {"file_path": inside}),
+            ("Grep", {"pattern": "secret"}),
+            ("Glob", {"pattern": "docs/**/*.md"}),
+        ):
+            with self.subTest(tool=tool, tool_input=tool_input):
+                self.assertTrue(self.decide(tool, tool_input, agent="requirements-engineer").allowed)
+        self.assertTrue(self.decide("Read", {"file_path": outside}).allowed)
+
+    def test_orchestrator_quoted_options_next_to_protected_paths_blocked(self):
+        for command in (
+            'find docs/sources/SRC-001-spec-v1 "-delete"',
+            "find docs/sources/SRC-001-spec-v1 $'-delete'",
+            'git log -1 "--output=ledger/approval-decisions/APR-X.json"',
+        ):
+            with self.subTest(command=command):
+                self.assertFalse(self.shell(command).allowed)
+
+    def test_orchestrator_quoted_push_blocked(self):
+        for command in ('git "push"', "git 'push' origin main", 'git p"ush"'):
+            with self.subTest(command=command):
+                self.assertFalse(self.shell(command).allowed)
+
     def test_extended_length_path_is_recognised(self):
         path = "\\\\?\\" + str(self.repo.path("ledger/approval-decisions/APR-X.json")).replace("/", "\\")
         self.assertFalse(self.decide("Write", {"file_path": path}).allowed)
