@@ -38,7 +38,10 @@ ULIDs use Crockford base32 (`0-9`, `A-Z` without `I`, `L`, `O`, `U`) and sort by
 
 ## Front matter
 
-Every governed Markdown artifact starts with YAML front matter.
+Every Markdown file under `docs/` is a governed artifact and starts with YAML front matter that has
+an `id`. The only exceptions are files listed in the source register and the templates in
+`docs/governance/templates/`; the checker rejects any other Markdown file under `docs/` without
+front matter or without an `id`.
 
 | Field | Required | Meaning |
 | --- | --- | --- |

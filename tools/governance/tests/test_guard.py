@@ -99,6 +99,10 @@ class GuardTests(unittest.TestCase):
             self.write("docs/requirements/assurance/R.md", agent="requirements-engineer").allowed
         )
 
+    def test_denied_subpath_message_names_the_deny_pattern(self):
+        decision = self.write("docs/requirements/assurance/R.md", agent="requirements-engineer")
+        self.assertIn("docs/requirements/assurance/**", decision.reason)
+
     def test_unknown_agent_cannot_write_in_repository(self):
         self.assertFalse(self.write("docs/notes.md", agent="general-purpose").allowed)
 

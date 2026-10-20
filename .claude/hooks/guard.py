@@ -199,9 +199,11 @@ def _decide_write(path_text, root: Path, agent, scopes) -> Decision:
         return block(f"{rel} is an existing record; records are never edited, so create a new record instead")
     if agent:
         config = (scopes.get("agents") or {}).get(agent) or scopes.get("unknown_agent") or {"write": []}
-        inside = common.glob_match(rel, config.get("write")) and not common.glob_match(rel, config.get("deny"))
-        if not inside:
+        if not common.glob_match(rel, config.get("write")):
             return block(f"agent '{agent}' may not write {rel}; its scope is {config.get('write') or 'nothing'}")
+        denied = [pattern for pattern in config.get("deny") or [] if common.glob_match(rel, [pattern])]
+        if denied:
+            return block(f"agent '{agent}' may not write {rel}; its scope excludes {denied}")
     return allow()
 
 

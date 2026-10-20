@@ -1,0 +1,18 @@
+{
+  "id": "EVD-01M5C0X7DF3025P4XQA2VS20SS",
+  "type": "evidence",
+  "kind": "test-run",
+  "level": "E3",
+  "producer": "tools/governance/run_tests.py",
+  "command": "python -m unittest discover -s tools/governance/tests -t .",
+  "exit_code": 0,
+  "result": "pass",
+  "tests_run": 151,
+  "failures": null,
+  "head": "658ed2127e21cbb9a91a38c57b4ac806933252ba",
+  "tree": "b09e065c6d1d503773f2d3b8cd3a193c3d410cac",
+  "clean": false,
+  "python": "3.14.6",
+  "output_sha256": "ea08cbce8d517e6da3188047f7b0ef2cb839cfd3eb4e350136fa349f54c9c0bf",
+  "recorded_at": "2026-10-20T06:45:15.311260Z"
+}

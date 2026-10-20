@@ -91,6 +91,30 @@ class ArtifactRuleTests(CheckTestCase):
         self.repo.write_text("docs/governance/templates/requirement.md", "---\nid: REQ-AREA-000\n---\n")
         self.assertEqual(self.errors(), [])
 
+    def test_markdown_without_front_matter_is_an_error(self):
+        self.repo.write_text("docs/requirements/notes.md", "smoke test\n")
+        self.assertErrorMentions("front matter")
+
+    def test_front_matter_without_id_is_an_error(self):
+        self.repo.write_text("docs/accounting/notes.md", "---\ntitle: Notes\n---\n\nText.\n")
+        self.assertErrorMentions("'id'")
+
+    def test_registered_source_without_front_matter_passes(self):
+        text = "# An earlier analysis\n"
+        self.repo.write_text("docs/architecture/analysis.md", text)
+        self.repo.write_yaml(
+            "docs/sources/source-register.yaml",
+            {"version": 1, "sources": [{
+                "id": "SRC-002",
+                "title": "Analysis",
+                "files": [{
+                    "path": "docs/architecture/analysis.md",
+                    "sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+                }],
+            }]},
+        )
+        self.assertEqual(self.errors(), [])
+
 
 class RecordRuleTests(CheckTestCase):
     def test_decision_record_without_attestation(self):

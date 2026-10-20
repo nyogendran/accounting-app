@@ -441,6 +441,12 @@ def load_index(root: Path) -> Index:
         except Exception as error:  # reported by check
             index.problems.append((register_path, f"cannot parse source register: {error}"))
 
+    registered = {
+        str(entry.get("path"))
+        for source in index.sources.values()
+        for entry in list(source.get("files") or []) + list(source.get("derived") or [])
+        if isinstance(entry, dict)
+    }
     for path in artifact_paths(root):
         try:
             meta, body = load_artifact(path)
@@ -448,6 +454,12 @@ def load_index(root: Path) -> Index:
             index.problems.append((path, f"cannot parse front matter: {error}"))
             continue
         if meta is None or "id" not in meta:
+            # Markdown under docs/ is governed; only registered sources may lack front matter.
+            if relative(root, path) not in registered:
+                missing = "no front matter" if meta is None else "front matter has no 'id'"
+                index.problems.append(
+                    (path, f"{missing}: every Markdown file under docs/ is a governed artifact (GOV-CONVENTIONS)")
+                )
             continue
         identifier = str(meta["id"])
         register(identifier, relative(root, path))
