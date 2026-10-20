@@ -1,0 +1,20 @@
+# Text files are stored with LF line endings.
+* text=auto eol=lf
+
+# Binary formats.
+*.pdf  binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.docx binary
+*.xlsx binary
+
+# Registered sources are stored byte-exact so their SHA-256 fingerprints never change.
+requirement-doc/** -text
+docs/sources/SRC-*/** -text
+docs/architecture/01-strategic-architecture-discovery.md -text
+
+# Windows scripts keep CRLF.
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+*.bat text eol=crlf

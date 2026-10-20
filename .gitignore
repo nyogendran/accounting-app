@@ -1,0 +1,16 @@
+# Claude Code: personal and machine-local files
+.claude/settings.local.json
+.claude/state/
+.claude/agent-memory-local/
+CLAUDE.local.md
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# Operating system
+.DS_Store
+Thumbs.db
+desktop.ini
