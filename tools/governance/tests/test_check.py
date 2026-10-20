@@ -296,6 +296,47 @@ class ReviewFindingTests(CheckTestCase):
         self.assertErrorMentions("tier")
 
 
+class ReviewAndWorkflowRecordTests(CheckTestCase):
+    def setUp(self):
+        super().setUp()
+        self.repo.git_init()
+        self.repo.write_text("README.md", "x\n")
+        self.repo.git("add", "-A")
+        self.repo.git("commit", "-q", "-m", "base")
+        self.head = self.repo.git("rev-parse", "HEAD").stdout.strip()
+
+    def review(self, subjects):
+        ulid = common.new_ulid()
+        meta = {
+            "id": f"REV-{ulid}",
+            "type": "review",
+            "reviewer": "code-security-reviewer",
+            "level": "E4",
+            "subjects": subjects,
+            "verdict": "pass",
+            "findings": [],
+            "created_at": common.utc_now(),
+        }
+        self.repo.write_artifact(f"ledger/reviews/REV-{ulid}.md", meta)
+
+    def test_review_of_a_commit_is_valid(self):
+        self.review([{"commit": self.head}])
+        self.assertEqual(self.errors(), [])
+
+    def test_review_of_an_unknown_commit_is_an_error(self):
+        self.review([{"commit": "0" * 40}])
+        self.assertErrorMentions("full commit hash in this repository")
+
+    def test_review_commit_must_be_a_full_hash(self):
+        self.review([{"commit": self.head[:7]}])
+        self.assertErrorMentions("full commit hash in this repository")
+
+    def test_workflow_record_needs_title_and_steps(self):
+        ulid = common.new_ulid()
+        self.repo.write_yaml(f"ledger/workflows/WF-{ulid}.yaml", {"id": f"WF-{ulid}", "type": "workflow"})
+        self.assertErrorMentions("steps")
+
+
 class PreCommitAdditionTests(CheckTestCase):
     def setUp(self):
         super().setUp()

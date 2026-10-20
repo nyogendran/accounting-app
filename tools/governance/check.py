@@ -210,12 +210,17 @@ def check_records(index: common.Index, out: Collector) -> None:
             if data.get("verdict") not in REVIEW_VERDICTS:
                 out.error(path, f"verdict must be one of {', '.join(REVIEW_VERDICTS)}")
             for subject in data.get("subjects") or []:
-                if not isinstance(subject, dict) or subject.get("id") not in index.artifacts or not subject.get("hash"):
-                    out.error(path, f"review subject {subject} must name an existing artifact and the hash reviewed")
+                if isinstance(subject, dict) and "commit" in subject:
+                    if not _commit_exists(index.root, str(subject["commit"])):
+                        out.error(path, f"review subject {subject['commit']} is not a full commit hash in this repository")
+                elif not isinstance(subject, dict) or subject.get("id") not in index.artifacts or not subject.get("hash"):
+                    out.error(path, f"review subject {subject} must name an existing artifact with the hash reviewed, or a commit")
         elif kind == "EVD":
             _require(out, path, data, ("kind", "level", "recorded_at"))
             if data.get("level") not in ("E2", "E3"):
                 out.error(path, "evidence level must be E2 or E3")
+        elif kind == "WF":
+            _require(out, path, data, ("type", "title", "steps"))
 
 
 def check_capture_log(index: common.Index, out: Collector) -> None:
@@ -336,6 +341,13 @@ def _git(root: Path, *args) -> str:
     if result.returncode != 0:
         raise RuntimeError(result.stderr.strip() or f"git {' '.join(args)} failed")
     return result.stdout
+
+
+def _commit_exists(root: Path, sha: str) -> bool:
+    if not re.fullmatch(r"[0-9a-f]{40}", sha):
+        return False
+    result = subprocess.run(["git", "cat-file", "-e", f"{sha}^{{commit}}"], cwd=root, capture_output=True)
+    return result.returncode == 0
 
 
 def _in_head(root: Path, path: str) -> bool:

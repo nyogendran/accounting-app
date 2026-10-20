@@ -137,8 +137,16 @@ earlier one; both stay on file.
 ### Review (REV)
 
 Markdown with front matter: `id`, `type: review`, `reviewer`, `level` (`E4` for agents, `E1` for
-people), `subjects` (IDs with the hash reviewed), `verdict` (`pass`, `non-blocking-findings`,
-`blocking-findings`), `findings` (each with `severity`, `text` and `citation`), `created_at`.
+people), `subjects` (each an artifact ID with the hash reviewed, or `commit: <full hash>` for code),
+`verdict` (`pass`, `non-blocking-findings`, `blocking-findings`), `findings` (each with `severity`,
+`text` and `citation`), `created_at`.
+
+### Workflow (WF)
+
+YAML, written once when the workflow ends, because records are never rewritten: `id`,
+`type: workflow`, `title`, `started_at`, `ended_at`, and `steps`, each with `step`, `agent`,
+`objective`, `records` (IDs created), `outcome` and `validation` (what the orchestrator checked). A
+follow-up workflow is a new record that names the earlier one in `follows`.
 
 ## Citations
 

@@ -6,6 +6,7 @@ level: E4
 subjects:
   - id: <ID>
     hash: sha256:<hash reviewed>
+  # For code, name the commit instead: - commit: <full 40-character hash>
 verdict: pass
 findings:
   - severity: non-blocking

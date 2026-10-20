@@ -8,8 +8,9 @@ argument-hint: <agent> <objective>
 
 1. **Pick one agent and one scope.** Check the agent's write scope in
    `.claude/hooks/agent-scopes.json`. Never give two agents overlapping scopes at the same time.
-2. **Open or update the workflow record** in `ledger/workflows/WF-<ulid>.yaml` with the step you are
-   delegating.
+2. **Plan the workflow step.** The workflow record `ledger/workflows/WF-<ulid>.yaml` is written once,
+   when the workflow ends (records are never rewritten; format in `docs/governance/conventions.md`).
+   Generate its ID now so the briefs can cite it.
 3. **Generate record IDs** the agent must create (reviews, issues):
    `python -c "from tools.governance import common; print('REV-' + common.new_ulid())"`.
 4. **Write the brief** from `docs/governance/templates/task-brief.md`: objective, inputs (IDs and
