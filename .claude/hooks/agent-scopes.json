@@ -54,7 +54,7 @@
     },
     "review-readonly": {
       "allow": [
-        "^python3? tools/governance/(check|trace|run_tests)\\.py( .*)?$",
+        "^python3? tools/governance/(check|trace)\\.py( .*)?$",
         "^python3? -m unittest (discover -s tools/governance/tests -t \\.|tools\\.governance\\.tests(\\.\\w+)*)( -[vqf]| -k \\S+)*$",
         "^git (status|log|show|diff|ls-files|rev-parse|blame)( .*)?$",
         "^(rg|grep|ls|cat|head|tail|wc|find|sha256sum)( .*)?$"

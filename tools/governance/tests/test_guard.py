@@ -286,10 +286,15 @@ class GuardTests(unittest.TestCase):
         for command in (
             "python -m unittest discover -s tools/governance/tests -t .",
             "python -m unittest tools.governance.tests.test_guard -v",
-            "python tools/governance/run_tests.py",
         ):
             with self.subTest(command=command):
                 self.assertTrue(self.shell(command, agent="code-security-reviewer").allowed)
+
+    def test_agents_may_not_run_the_evidence_wrapper(self):
+        # run_tests.py writes an evidence record under ledger/evidence/, outside every agent's scope.
+        for agent in ("code-security-reviewer", "requirements-assurance"):
+            with self.subTest(agent=agent):
+                self.assertFalse(self.shell("python tools/governance/run_tests.py", agent=agent).allowed)
 
     def test_orchestrator_relative_and_disguised_protected_paths_blocked(self):
         for command in (
