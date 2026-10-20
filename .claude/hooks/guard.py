@@ -43,6 +43,9 @@ BENIGN_REDIRECTS = re.compile(r"\d?>&\d|\d?>\s*/dev/null|\d?>\s*\$null|\d?>\s*nu
 NETWORK_PATH = re.compile(r"^//(?![?.]/[a-zA-Z]:)")
 # The shell removes quotes and escapes before a program sees its arguments.
 UNQUOTE = re.compile(r"[\"'`\\]")
+# A glob pattern, or one of its brace alternatives, that starts at a root, drive or home folder,
+# names a drive anywhere, or climbs out with '..'. Applied with backslashes turned into slashes.
+GLOB_ESCAPE = re.compile(r"(?:^|[{,])\s*(?:[/~]|[A-Za-z]:)|:|(?:^|[/{,])\.\.(?:$|[/},])")
 
 # Agents: shell features none of their commands needs. `$` covers substitution, variables and
 # ANSI-C quoting; braces and a leading tilde are expansions too.
@@ -240,6 +243,12 @@ def _decide_write(path_text, root: Path, agent, scopes) -> Decision:
 
 def _decide_read(tool: str, tool_input: dict, root: Path, agent: str) -> Decision:
     """Agents read only inside the repository."""
+    patterns = [str(tool_input.get("pattern") or "")] if tool == "Glob" else []
+    if tool == "Grep" and tool_input.get("glob"):
+        patterns.append(str(tool_input["glob"]))
+    for pattern in patterns:
+        if GLOB_ESCAPE.search(pattern.replace("\\", "/")):
+            return block(f"agent '{agent}' may read only inside the repository; pattern {pattern} leaves it")
     candidates = [str(tool_input[key]) for key in ("file_path", "path") if tool_input.get(key)]
     if tool == "Glob":
         literal = re.split(r"[*?\[{]", str(tool_input.get("pattern") or ""), maxsplit=1)[0]

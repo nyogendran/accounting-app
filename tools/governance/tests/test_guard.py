@@ -276,6 +276,27 @@ class GuardTests(unittest.TestCase):
                 self.assertTrue(self.decide(tool, tool_input, agent="requirements-engineer").allowed)
         self.assertTrue(self.decide("Read", {"file_path": outside}).allowed)
 
+    def test_agent_glob_patterns_and_grep_filters_stay_inside_repository(self):
+        # REV-01M5C44F4G2E9W08D7YH4587J3, finding 1: patterns that start with a wildcard were not checked.
+        for tool, tool_input in (
+            ("Glob", {"pattern": "**/../../*.txt"}),
+            ("Glob", {"pattern": "*/../../x"}),
+            ("Glob", {"pattern": "{/c/Users,docs}/**"}),
+            ("Glob", {"pattern": "~/**"}),
+            ("Glob", {"pattern": "**\\..\\..\\x"}),
+            ("Grep", {"pattern": "x", "glob": "../../**"}),
+            ("Grep", {"pattern": "x", "glob": "{C:/x,*.md}"}),
+        ):
+            with self.subTest(tool=tool, tool_input=tool_input):
+                self.assertFalse(self.decide(tool, tool_input, agent="requirements-engineer").allowed)
+        for tool, tool_input in (
+            ("Glob", {"pattern": "**/*.{md,yaml}"}),
+            ("Glob", {"pattern": "docs/{requirements,accounting}/**/*.md"}),
+            ("Grep", {"pattern": "x", "glob": "*.md"}),
+        ):
+            with self.subTest(tool=tool, tool_input=tool_input):
+                self.assertTrue(self.decide(tool, tool_input, agent="requirements-engineer").allowed)
+
     def test_orchestrator_quoted_options_next_to_protected_paths_blocked(self):
         for command in (
             'find docs/sources/SRC-001-spec-v1 "-delete"',
