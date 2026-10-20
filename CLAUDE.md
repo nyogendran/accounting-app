@@ -68,7 +68,8 @@ readiness, Gate D, L7 improvement. Gates, risk tiers, evidence levels and the st
 
 IDs, front matter, normative fields, records, citations and commit trailers are defined in
 `docs/governance/conventions.md`. Agent work is committed under the agent identity with an
-`Agent: <name>` trailer; one commit per authoring agent.
+`Agent: <name>` trailer; one commit per authoring agent. Pass commit messages with
+`git commit -F <file>`: the guard reads inline message lines as commands.
 
 ## Memory
 

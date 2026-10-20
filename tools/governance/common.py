@@ -49,8 +49,8 @@ NORMATIVE_TYPES = (
     "gate",
 )
 
-# Types that must declare a risk tier.
-TIERED_TYPES = ("requirement", "story", "policy", "rule", "invariant", "scenario")
+# Types that must declare a risk tier. Approval treats a missing tier as Tier 1.
+TIERED_TYPES = NORMATIVE_TYPES
 
 LINK_TYPES = (
     "derives_from",
@@ -157,21 +157,39 @@ def relative(root: Path, path: Path) -> str:
         return path.as_posix()
 
 
-def repo_relative(path_text: str, root: Path) -> str | None:
-    """Turn a tool's file path (Windows, POSIX or Git Bash style) into a repository-relative path.
+def canonical_path(path_text: str, base: Path) -> str:
+    """Absolute real path in POSIX form, with '..', symlinks, junctions and 8.3 short names resolved.
 
-    Returns None for paths outside the repository.
+    Accepts Windows, POSIX, Git Bash (/c/...) and extended-length (\\\\?\\C:\\...) forms; relative paths
+    are taken from `base`. Network (UNC) paths are returned unresolved, to avoid network lookups.
     """
     import posixpath
 
     text = str(path_text).replace("\\", "/")
-    git_bash = re.match(r"^/([a-zA-Z])/(.*)$", text)
-    if git_bash:
-        text = f"{git_bash.group(1)}:/{git_bash.group(2)}"
-    root_text = Path(root).resolve().as_posix()
-    if not re.match(r"^[a-zA-Z]:/", text) and not text.startswith("/"):
-        text = f"{root_text}/{text}"
-    text = posixpath.normpath(text)
+    device = re.match(r"^//[?.]/(.*)$", text)
+    if device:
+        text = device.group(1)
+        if text[:4].upper() == "UNC/":
+            text = "//" + text[4:]
+    if os.name == "nt":
+        git_bash = re.match(r"^/([a-zA-Z])(/.*)?$", text)
+        if git_bash:
+            text = f"{git_bash.group(1)}:{git_bash.group(2) or '/'}"
+    if text.startswith("//"):
+        return posixpath.normpath(text)
+    if not os.path.isabs(text):
+        text = os.path.join(str(base), text)
+    return Path(os.path.realpath(text)).as_posix()
+
+
+def repo_relative(path_text: str, root: Path, base: Path | None = None) -> str | None:
+    """Turn a file path into a repository-relative path, or None if it is outside the repository.
+
+    Relative paths are taken from `base` (default: the root). Alternative spellings of the same file
+    (8.3 short names, extended-length prefixes, '..', junctions) give the same result.
+    """
+    root_text = canonical_path(str(root), Path(str(root))).rstrip("/")
+    text = canonical_path(path_text, Path(base) if base is not None else Path(root_text))
     if text.lower() == root_text.lower():
         return ""
     if text.lower().startswith(root_text.lower() + "/"):

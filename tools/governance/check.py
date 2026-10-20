@@ -9,11 +9,15 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
 import re
 import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
+
+import yaml
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
@@ -21,6 +25,9 @@ if __package__ in (None, ""):
 from tools.governance import approvals, common  # noqa: E402
 
 AGENT_EMAIL_DOMAIN = "@agents.tiqacc.invalid"
+DECISION_FOLDER = "ledger/approval-decisions/"
+LOCAL_STATE_FOLDER = ".claude/state/"
+SOURCE_REGISTER = "docs/sources/source-register.yaml"
 
 # Documented subagent and skill frontmatter keys (code.claude.com/docs, sub-agents and skills pages).
 ALLOWED_AGENT_KEYS = {
@@ -190,9 +197,10 @@ def check_records(index: common.Index, out: Collector) -> None:
                 attestation = data.get("attestation") or {}
                 if attestation.get("hook") != "capture-approval" or not attestation.get("prompt_sha256"):
                     out.error(path, "missing hook attestation: Stage 0 decisions are written only by the capture hook")
+                if data.get("level") != "E1-op":
+                    out.error(path, "Stage 0 decisions are operator-attested (level E1-op), never E1")
             elif data.get("channel") == "git-host":
-                if not data.get("source_event"):
-                    out.error(path, "git-host decisions need the source event ID")
+                out.error(path, "git-host decisions are not accepted until Stage 1 is set up (DEC-0003)")
             else:
                 out.error(path, f"unknown channel '{data.get('channel')}'")
         elif kind == "REV":
@@ -211,21 +219,27 @@ def check_records(index: common.Index, out: Collector) -> None:
 
 
 def check_capture_log(index: common.Index, out: Collector) -> None:
-    log = index.root / ".claude/state/capture-log.jsonl"
+    """Stage 0 decisions must match what the capture hook logged on this machine.
+
+    A committed decision missing from the log is expected on other clones (warning). An uncommitted
+    one missing from the log, or any decision that differs from its logged hash, was not written by
+    the hook as it stands (error).
+    """
     stage0 = [r for r in index.records.values() if r.kind == "APR" and r.data.get("channel") == "stage0-session"]
     if not stage0:
         return
-    logged = set()
-    if log.is_file():
-        import json
-
-        for line in log.read_text(encoding="utf-8").splitlines():
-            try:
-                logged.add(json.loads(line).get("id"))
-            except ValueError:
-                continue
+    log = _capture_log(index.root)
     for record in stage0:
-        if record.id not in logged:
+        hashes = log.get(record.id)
+        if hashes and common.sha256_file(record.path) in hashes:
+            continue
+        if hashes or not _in_head(index.root, common.relative(index.root, record.path)):
+            out.error(
+                record.path,
+                "not recorded by the capture hook on this machine (missing from the capture log, or changed "
+                "after capture); Stage 0 decisions come only from the capture hook",
+            )
+        else:
             out.warning(record.path, "not in this machine's capture log (expected on other clones)")
 
 
@@ -330,8 +344,6 @@ def _in_head(root: Path, path: str) -> bool:
 
 
 def _capture_log(root: Path) -> dict:
-    import json
-
     entries: dict = {}
     log = root / ".claude/state/capture-log.jsonl"
     if log.is_file():
@@ -344,12 +356,31 @@ def _capture_log(root: Path) -> dict:
     return entries
 
 
+def _staged_blob(root: Path, path: str) -> bytes:
+    return subprocess.run(["git", "show", f":{path}"], cwd=root, capture_output=True).stdout
+
+
+def _staged_register(root: Path) -> dict:
+    """Path -> SHA-256 for every file listed in the staged source register."""
+    try:
+        data = yaml.safe_load(_staged_blob(root, SOURCE_REGISTER).decode("utf-8")) or {}
+    except (ValueError, yaml.YAMLError):
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    registered = {}
+    for source in data.get("sources") or []:
+        if not isinstance(source, dict):
+            continue
+        for entry in list(source.get("files") or []) + list(source.get("derived") or []):
+            if isinstance(entry, dict) and entry.get("path"):
+                registered[str(entry["path"])] = entry.get("sha256")
+    return registered
+
+
 def _check_new_decision(root: Path, path: str, log: dict, out: Collector) -> None:
     """A staged new Stage 0 decision must match what the capture hook logged on this machine."""
-    import hashlib
-    import json
-
-    blob = subprocess.run(["git", "show", f":{path}"], cwd=root, capture_output=True).stdout
+    blob = _staged_blob(root, path)
     try:
         data = json.loads(blob.decode("utf-8"))
     except ValueError:
@@ -365,6 +396,25 @@ def _check_new_decision(root: Path, path: str, log: dict, out: Collector) -> Non
         )
 
 
+def _check_new_protected(root: Path, path: str, log: dict, registered: dict, out: Collector) -> None:
+    """A file added under a protected path is a captured decision or a newly registered source."""
+    if path.startswith(DECISION_FOLDER):
+        if path.endswith(".json"):
+            _check_new_decision(root, path, log, out)
+        else:
+            out.error(path, "decision records are JSON files written by the capture hook")
+        return
+    if path.startswith(LOCAL_STATE_FOLDER):
+        out.error(path, "local capture state is protected and is never committed")
+        return
+    if registered.get(path) != hashlib.sha256(_staged_blob(root, path)).hexdigest():
+        out.error(
+            path,
+            f"a new file under a protected path must be registered with its SHA-256 in {SOURCE_REGISTER} "
+            "in the same commit",
+        )
+
+
 def check_staged(root: Path, out: Collector) -> None:
     scopes = common.load_scopes(root)
     try:
@@ -373,19 +423,22 @@ def check_staged(root: Path, out: Collector) -> None:
         out.error("git", f"cannot read staged changes: {error}")
         return
     log = _capture_log(root)
+    registered = None
     for line in lines:
         parts = line.split("\t")
         if len(parts) < 2:
             continue
         code, path = parts[0][0], parts[1]
-        if code == "A" and path.startswith("ledger/approval-decisions/") and path.endswith(".json"):
-            _check_new_decision(root, path, log, out)
-            continue
-        if code not in ("M", "D", "T"):
+        protected = common.glob_match(path, scopes.get("protected"))
+        if code == "A":
+            if protected:
+                if registered is None:
+                    registered = _staged_register(root)
+                _check_new_protected(root, path, log, registered, out)
             continue
         if common.glob_match(path, scopes.get("append_only")) and _in_head(root, path):
             out.error(path, "this is a committed record; records are never edited after commit")
-        if common.glob_match(path, scopes.get("protected")):
+        if protected:
             out.error(path, "this path is protected (registered source or decision record) and cannot be changed")
 
 

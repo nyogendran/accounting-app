@@ -27,13 +27,17 @@ start other agents; escalation always goes back through the orchestrator.
 | `requirements-engineer` (Requirements Steward) | F0 | `docs/requirements/` (not `assurance/`), `docs/changes/` | `trace`, `check`, read-only git |
 | `requirements-assurance` | F0 | `docs/requirements/assurance/`, `ledger/reviews/` | `trace`, `check`, read-only git |
 | `accounting-domain-expert` | F0 | `docs/accounting/`, `ledger/reviews/` | `trace`, `check`, read-only git |
-| `code-security-reviewer` | F0 | `ledger/reviews/` | Read-only commands and test runs |
+| `code-security-reviewer` | F0 | `ledger/reviews/` | Read-only commands and the repository's own test suite |
 | `solution-architect`, `technical-designer` | Gate A | `docs/architecture/` (not SRC-002), `docs/design/` | `trace`, `check`, read-only git |
 | `ux-designer`, `quality-engineer`, `implementation-engineer`, `devops-release` | Gate B | Defined with the stack ADR | Defined with the stack ADR |
 
 Scopes are enforced by `.claude/hooks/guard.py` using `.claude/hooks/agent-scopes.json`, and again at
-commit time by the commit-msg check. Built-in agents (Explore, Plan, general-purpose) may be used for
-read-only research; the guard blocks them from writing governed paths.
+commit time by the commit-msg check. Agents cannot write outside the repository or change directory,
+and their shell commands may not use command substitution, background jobs, here-documents or
+redirection. Built-in agents (Explore, Plan, general-purpose) may be used for read-only research;
+the guard blocks them from writing anywhere. The guard is a guardrail against mistakes and casual
+misuse, not a security boundary: agents and people share one OS account until the git host exists
+(RISK-003).
 
 **People** decide, as listed in `docs/governance/authority-matrix.yaml`.
 

@@ -15,6 +15,7 @@ class TempRepo:
     def __init__(self):
         self.root = Path(tempfile.mkdtemp(prefix="tiqacc-test-"))
         self.write_text("CLAUDE.md", "# test repository\n")
+        self.write_text(".gitignore", ".claude/state/\n")
         for folder in (
             "docs/governance/decisions",
             "docs/requirements",

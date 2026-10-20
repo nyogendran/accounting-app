@@ -48,7 +48,7 @@ Every governed Markdown artifact starts with YAML front matter.
 | `status` | Yes | `Draft`, `In review`, `Proposed`, `Approved`, `Rejected`, `Deferred`, `Superseded` |
 | `version` | Yes | Integer, raised on every normative change |
 | `owner` | Yes | Agent name, `orchestrator`, or a role in the authority matrix |
-| `tier` | For requirements, stories, accounting knowledge | `1`, `2` or `3` |
+| `tier` | For every type that has a `normative` block | `1`, `2` or `3`; approval treats a missing tier as Tier 1 |
 | `normative` | For requirement, story, policy, rule, invariant, scenario, decision, adr, gate once Proposed | Mapping of the content that carries meaning: statement, acceptance criteria, rules, expected results, decision, conditions |
 | `links` | No | Mapping of link type to a list of IDs (see below) |
 | `effective_from`, `effective_to` | For policies, rules, requirements where time matters | `YYYY-MM-DD` |
@@ -79,10 +79,14 @@ An approval binds to the artifact's normative hash, so editorial edits never voi
 Records under `ledger/` are created once and never edited after commit; a correction is a new record
 that references the old one. The checker rejects changes to committed records.
 
+A new file under a protected source path (`requirement-doc/`, `docs/sources/SRC-*/`) is committed
+only together with its entry, with path and SHA-256, in `docs/sources/source-register.yaml`. Local
+capture state (`.claude/state/`) is never committed.
+
 | Record | File | Written by |
 | --- | --- | --- |
 | Approval request | `ledger/approval-requests/AREQ-<ulid>.json` | `approvals.py request` (orchestrator) |
-| Approval decision | `ledger/approval-decisions/APR-<ulid>.json` | Only the capture hook (Stage 0) or the git-host mirror (Stage 1) |
+| Approval decision | `ledger/approval-decisions/APR-<ulid>.json` | Only the capture hook (Stage 0) or the git-host mirror (Stage 1; refused until Stage 1 exists) |
 | Review | `ledger/reviews/REV-<ulid>.md` | The reviewing agent or person |
 | Evidence | `ledger/evidence/EVD-<ulid>.json` | `run_tests.py` (E3) or CI (E2) |
 | Workflow | `ledger/workflows/WF-<ulid>.yaml` | Orchestrator |
@@ -110,6 +114,10 @@ that references the old one. The checker rejects changes to committed records.
  "attestation": {"hook": "capture-approval", "session_id": "…", "prompt_sha256": "…"},
  "recorded_at": "<UTC ISO-8601>", "comment": "<verbatim text after the phrase, if any>"}
 ```
+
+The evidence level comes from the channel, not from the record: a `stage0-session` decision is
+always E1-op. Before it is committed, a Stage 0 decision must match the capture hook's local log
+(`.claude/state/capture-log.jsonl`) byte for byte.
 
 ### Stage 0 approval phrase
 
@@ -153,3 +161,5 @@ A citation for a factual claim carries the quoted words. Line numbers appear onl
 - The commit-msg check rejects an agent commit whose changed paths fall outside the write scopes of
   the agents it names (`.claude/hooks/agent-scopes.json`).
 - Commits are local. Nothing is pushed without a person's explicit instruction.
+- Pass commit messages with `git commit -F <file>`. The guard reads every line of an inline message
+  as a command, so a message that names a protected path or a blocked command is refused.

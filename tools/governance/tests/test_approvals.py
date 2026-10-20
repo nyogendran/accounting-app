@@ -146,6 +146,73 @@ class CaptureTests(unittest.TestCase):
         self.repo.write_artifact("docs/governance/decisions/DEC-0002.md", decision("DEC-0002"))
         self.assertEqual(self.state("DEC-0002"), "none")
 
+    def test_tierless_artifact_is_treated_as_tier1(self):
+        meta = decision("DEC-0003")
+        del meta["tier"]
+        self.repo.write_artifact("docs/governance/decisions/DEC-0003.md", meta)
+        request = approvals.create_request(self.repo.root, ["DEC-0003"], role="governance-owner")
+        approvals.capture(self.repo.root, approvals.phrase_for(request), "session-1", IDENTITY)
+        self.assertEqual(self.state("DEC-0003"), "insufficient-level")
+
+    def test_multi_subject_request_tracks_each_subject(self):
+        self.repo.write_artifact("docs/governance/decisions/DEC-0002.md", decision("DEC-0002"))
+        request = approvals.create_request(
+            self.repo.root, ["DEC-0001", "DEC-0002"], role="governance-owner"
+        )
+        approvals.capture(self.repo.root, approvals.phrase_for(request), "session-1", IDENTITY)
+        self.assertEqual(self.state("DEC-0001"), "valid")
+        self.assertEqual(self.state("DEC-0002"), "valid")
+        self.repo.write_artifact("docs/governance/decisions/DEC-0001.md", decision(text="Changed."))
+        self.assertEqual(self.state("DEC-0001"), "void")
+        self.assertEqual(self.state("DEC-0002"), "valid")
+
+    def test_multi_subject_request_is_stale_if_any_subject_changed(self):
+        self.repo.write_artifact("docs/governance/decisions/DEC-0002.md", decision("DEC-0002"))
+        request = approvals.create_request(
+            self.repo.root, ["DEC-0001", "DEC-0002"], role="governance-owner"
+        )
+        self.repo.write_artifact("docs/governance/decisions/DEC-0002.md", decision("DEC-0002", text="Changed."))
+        result = approvals.capture(self.repo.root, approvals.phrase_for(request), "session-1", IDENTITY)
+        self.assertTrue(result.record["stale"])
+        self.assertNotEqual(self.state("DEC-0001"), "valid")
+
+    def _forge(self, request, channel, level):
+        ulid = common.new_ulid()
+        common.write_json(
+            self.repo.path(f"ledger/approval-decisions/APR-{ulid}.json"),
+            {
+                "id": f"APR-{ulid}",
+                "type": "approval-decision",
+                "request": request["id"],
+                "decision": "approve",
+                "subjects": request["subjects"],
+                "combined": request["combined"],
+                "stale": False,
+                "by": {"role": request["required_role"], "identity": "someone"},
+                "channel": channel,
+                "level": level,
+                "source_event": "event-1",
+                "recorded_at": common.utc_now(),
+            },
+        )
+
+    def test_git_host_decisions_are_not_counted_before_stage1(self):
+        self.repo.write_artifact("docs/requirements/REQ-GL-001.md", requirement(tier=1))
+        request = approvals.create_request(self.repo.root, ["REQ-GL-001"], role="product-owner")
+        self._forge(request, "git-host", "E1")
+        self.assertEqual(self.state("REQ-GL-001"), "pending")
+
+    def test_stage0_decision_claiming_e1_is_treated_as_e1_op(self):
+        self.repo.write_artifact("docs/requirements/REQ-GL-001.md", requirement(tier=1))
+        request = approvals.create_request(self.repo.root, ["REQ-GL-001"], role="product-owner")
+        self._forge(request, "stage0-session", "E1")
+        self.assertEqual(self.state("REQ-GL-001"), "insufficient-level")
+
+    def test_request_tier_cannot_be_less_strict_than_its_subjects(self):
+        self.repo.write_artifact("docs/requirements/REQ-GL-001.md", requirement(tier=1))
+        with self.assertRaises(ValueError):
+            approvals.create_request(self.repo.root, ["REQ-GL-001"], role="product-owner", tier=3)
+
     def test_tier1_needs_more_than_operator_attestation(self):
         self.repo.write_artifact("docs/requirements/REQ-GL-001.md", requirement(tier=1))
         request = approvals.create_request(self.repo.root, ["REQ-GL-001"], role="product-owner")

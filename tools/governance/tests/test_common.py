@@ -70,6 +70,36 @@ class FrontMatterTests(unittest.TestCase):
         self.assertIn("Title", body)
 
 
+class RepoRelativeTests(unittest.TestCase):
+    def setUp(self):
+        import tempfile
+        from pathlib import Path
+
+        self.root = Path(tempfile.mkdtemp(prefix="tiqacc-rel-")).resolve()
+        (self.root / "ledger/approval-decisions").mkdir(parents=True)
+
+    def tearDown(self):
+        import shutil
+
+        shutil.rmtree(self.root, ignore_errors=True)
+
+    def test_plain_and_backslash_paths(self):
+        windows = str(self.root / "ledger/approval-decisions/A.json").replace("/", "\\")
+        self.assertEqual(common.repo_relative(windows, self.root), "ledger/approval-decisions/A.json")
+
+    def test_relative_and_dot_dot_paths(self):
+        self.assertEqual(common.repo_relative("docs/../ledger/x.json", self.root), "ledger/x.json")
+
+    def test_extended_length_prefix(self):
+        text = "\\\\?\\" + str(self.root / "ledger/x.json").replace("/", "\\")
+        self.assertEqual(common.repo_relative(text, self.root), "ledger/x.json")
+
+    def test_outside_path(self):
+        import tempfile
+
+        self.assertIsNone(common.repo_relative(tempfile.gettempdir() + "/elsewhere.txt", self.root))
+
+
 class UlidTests(unittest.TestCase):
     def test_format(self):
         self.assertRegex(common.new_ulid(), r"^[0-9A-HJKMNP-TV-Z]{26}$")

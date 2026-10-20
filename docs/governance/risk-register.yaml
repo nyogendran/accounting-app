@@ -23,12 +23,21 @@ risks:
     status: open
   - id: RISK-003
     title: Agent and person share one OS account until the git host exists
-    cause: Stage 0 runs on a single workstation
-    effect: An agent could forge a decision record or bypass a scope through the shell
+    cause: Stage 0 runs on a single workstation, so any program run there can write any file the person can
+    effect: >-
+      The orchestrator, or code it runs, could forge a decision record and its capture-log entry or
+      bypass a scope, for example with a script whose contents the guard never sees
     likelihood: low
     impact: high
     owner: governance-owner
-    mitigation: Capture hook writes decisions; guard blocks writes to decision records; pre-commit and commit-msg checks; E1-op never counts for Tier 1; re-confirmation at Stage 1
+    mitigation: >-
+      Capture hook writes decisions. The guard blocks agent writes outside their scopes and outside the
+      repository, agent shell commands outside their profiles, and orchestrator shell commands that
+      touch protected paths with anything but read-only commands. Pre-commit and commit-msg checks,
+      including the capture-log match for new decisions; the checker flags uncommitted decisions the
+      hook did not write. E1-op never counts for Tier 1, and every Stage 0 approval is re-confirmed at
+      Stage 1. Residual: the guard is a guardrail against mistakes and casual misuse, not a security
+      boundary (F0 independent review, finding 9).
     status: open
   - id: RISK-004
     title: Prior AI analyses treated as fact

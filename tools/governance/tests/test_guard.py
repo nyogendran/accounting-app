@@ -12,6 +12,17 @@ from tools.governance.tests.helpers import REPO_ROOT, TempRepo
 GUARD_PATH = REPO_ROOT / ".claude/hooks/guard.py"
 
 
+def short_path(path):
+    """Windows 8.3 short form of an existing path, or None where unavailable."""
+    if os.name != "nt":
+        return None
+    import ctypes
+
+    buffer = ctypes.create_unicode_buffer(32768)
+    length = ctypes.windll.kernel32.GetShortPathNameW(str(path), buffer, 32768)
+    return buffer.value if length else None
+
+
 def load_guard():
     spec = importlib.util.spec_from_file_location("tiqacc_guard", GUARD_PATH)
     module = importlib.util.module_from_spec(spec)
@@ -94,11 +105,24 @@ class GuardTests(unittest.TestCase):
     def test_orchestrator_may_write_governance(self):
         self.assertTrue(self.write("docs/governance/project-state.md", tool="Edit").allowed)
 
-    def test_paths_outside_repository_not_governed(self):
+    def test_orchestrator_may_write_outside_repository(self):
         outside = Path(tempfile.gettempdir()) / "tiqacc-outside.txt"
-        self.assertTrue(
-            self.decide("Write", {"file_path": str(outside)}, agent="general-purpose").allowed
-        )
+        self.assertTrue(self.decide("Write", {"file_path": str(outside)}).allowed)
+
+    def test_agents_cannot_write_outside_repository(self):
+        outside = Path(tempfile.gettempdir()) / "tiqacc-outside.txt"
+        for agent in ("general-purpose", "requirements-engineer"):
+            with self.subTest(agent=agent):
+                self.assertFalse(self.decide("Write", {"file_path": str(outside)}, agent=agent).allowed)
+
+    def test_network_paths_blocked(self):
+        for path in ("\\\\localhost\\c$\\x.txt", "\\\\?\\UNC\\server\\share\\x.txt"):
+            with self.subTest(path=path):
+                self.assertFalse(self.decide("Write", {"file_path": path}).allowed)
+
+    def test_git_internals_are_protected(self):
+        self.assertFalse(self.write(".git/hooks/pre-commit").allowed)
+        self.assertFalse(self.write(".git/config", tool="Edit").allowed)
 
     def test_notebook_path_is_checked(self):
         decision = self.decide(
@@ -162,6 +186,158 @@ class GuardTests(unittest.TestCase):
         ):
             with self.subTest(command=command):
                 self.assertTrue(self.shell(command).allowed)
+
+    # Findings of the independent review (F0-6)
+
+    def test_command_substitution_blocked_for_agents(self):
+        for command in (
+            "git show $(python bad.py)",
+            "git diff `rm notes.md`",
+            "git log ${HOME}",
+            "git status & python bad.py",
+            "python tools/governance/check.py & del notes.md",
+            "git show @(Remove-Item x)",
+        ):
+            with self.subTest(command=command):
+                self.assertFalse(self.shell(command, agent="requirements-assurance").allowed)
+
+    def test_git_output_options_blocked_for_agents(self):
+        for command in ("git log --output=docs/x.md", "git diff --output docs/x.md", "git diff --ext-diff"):
+            with self.subTest(command=command):
+                self.assertFalse(self.shell(command, agent="code-security-reviewer").allowed)
+
+    def test_extended_length_path_is_recognised(self):
+        path = "\\\\?\\" + str(self.repo.path("ledger/approval-decisions/APR-X.json")).replace("/", "\\")
+        self.assertFalse(self.decide("Write", {"file_path": path}).allowed)
+
+    def test_short_name_path_is_recognised(self):
+        long_dir = self.repo.path("ledger/approval-decisions")
+        short_dir = short_path(long_dir)
+        if not short_dir or Path(short_dir).name.lower() == long_dir.name.lower():
+            self.skipTest("8.3 short names are not available on this volume")
+        self.assertFalse(self.decide("Write", {"file_path": short_dir + "\\APR-X.json"}).allowed)
+        relative_short = "ledger/" + Path(short_dir).name
+        self.assertFalse(self.shell(f"cp x.json {relative_short}/APR-X.json").allowed)
+
+    def test_orchestrator_interpreter_writes_to_protected_paths_blocked(self):
+        for command, tool in (
+            ("py -c \"open('ledger/approval-decisions/APR-X.json','w')\"", "Bash"),
+            ("python forge.py ledger/approval-decisions/APR-X.json", "Bash"),
+            ("node -e \"require('fs').writeFileSync('requirement-doc/x','y')\"", "Bash"),
+            ("[IO.File]::WriteAllText('.claude/state/capture-log.jsonl','x')", "PowerShell"),
+            ("install -m 644 x requirement-doc/x.pdf", "Bash"),
+        ):
+            with self.subTest(command=command):
+                self.assertFalse(self.shell(command, tool=tool).allowed)
+
+    def test_orchestrator_reads_of_protected_paths_allowed(self):
+        for command in (
+            "ls ledger/approval-decisions",
+            "cat requirement-doc/notes.txt",
+            "git log --oneline -- requirement-doc",
+            "sha256sum docs/sources/SRC-001-spec-v1/extracted/spec-v1.txt",
+            "python tools/governance/approvals.py status DEC-0001",
+        ):
+            with self.subTest(command=command):
+                self.assertTrue(self.shell(command).allowed)
+
+    def test_orchestrator_recursive_delete_variants_blocked(self):
+        for command, tool in (
+            ("rm -r docs", "Bash"),
+            ("rm -R docs", "Bash"),
+            ("rm --recursive docs", "Bash"),
+            ("Remove-Item docs -Recurse", "PowerShell"),
+            ("ri docs -Recurse", "PowerShell"),
+            ("rd docs -Recurse -Force", "PowerShell"),
+            ("del docs -Recurse", "PowerShell"),
+        ):
+            with self.subTest(command=command):
+                self.assertFalse(self.shell(command, tool=tool).allowed)
+
+    def test_orchestrator_push_and_approval_variants_blocked(self):
+        for command in (
+            "git -C . push origin master",
+            "git -c user.name=\"A B\" push",
+            "bash -c \"git push\"",
+            "git push",
+            "gh api repos/o/r/pulls/1/reviews -f event=APPROVE",
+            "gh api -X PUT repos/o/r/pulls/1/merge",
+        ):
+            with self.subTest(command=command):
+                self.assertFalse(self.shell(command).allowed)
+
+    def test_agents_cannot_change_directory_or_run_code_of_their_choice(self):
+        for command in (
+            "cd C:/Users",
+            "python -m unittest discover -s ledger/reviews -p *.py",
+            "python -m unittest discover -s C:/Temp",
+            "find . -name x -exec rm {} +",
+            "find . -delete",
+            "rg --pre cat pattern",
+        ):
+            with self.subTest(command=command):
+                self.assertFalse(self.shell(command, agent="code-security-reviewer").allowed)
+
+    def test_reviewer_may_run_the_repository_tests(self):
+        for command in (
+            "python -m unittest discover -s tools/governance/tests -t .",
+            "python -m unittest tools.governance.tests.test_guard -v",
+            "python tools/governance/run_tests.py",
+        ):
+            with self.subTest(command=command):
+                self.assertTrue(self.shell(command, agent="code-security-reviewer").allowed)
+
+    def test_orchestrator_relative_and_disguised_protected_paths_blocked(self):
+        for command in (
+            "cd ledger && echo x > approval-decisions/APR-X.json",
+            "cp x.json ledger/./approval-decisions/APR-X.json",
+            "cp x.json ledger./approval-decisions/APR-X.json",
+            "cp x.json 'ledger/'approval-decisions/APR-X.json",
+            "cp x.json ledger/approval-decisions",
+            "cp x.json ledger/approval-*/",
+            "ls requirement-doc | xargs rm",
+            "cat requirement-doc/a.txt $(cp b requirement-doc/a.txt)",
+            "cat requirement-doc/a.txt > requirement-doc/b.txt",
+            "cd requirement-doc",
+        ):
+            with self.subTest(command=command):
+                self.assertFalse(self.shell(command).allowed)
+
+    def test_orchestrator_git_flow_and_reads_allowed(self):
+        for command in (
+            "git add ledger/approval-decisions/APR-X.json",
+            "git commit -m \"Record the Gate 0 decision in ledger/approval-decisions\"",
+            "git diff HEAD~1 -- requirement-doc",
+            "cat requirement-doc/a.txt > notes.txt",
+            "ls requirement-doc | sort",
+            "python -m unittest discover -s tools/governance/tests -t .",
+            "echo done > notes.txt",
+            "git -c user.name=\"TIQACC Orchestrator (Claude)\" -c user.email=\"orchestrator@agents.tiqacc.invalid\" "
+            "commit -q -F C:/Users/x/scratchpad/commit-message.txt",
+            "python tools/governance/approvals.py request --subject GATE-0 --subject DEC-0001 --role governance-owner",
+        ):
+            with self.subTest(command=command):
+                self.assertTrue(self.shell(command).allowed)
+
+    def test_orchestrator_cannot_bypass_git_hooks(self):
+        for command in (
+            "git commit --no-verify -m x",
+            "git commit -n -m x",
+            "git config core.hooksPath /dev/null",
+            "git -c core.hooksPath=x commit -m y",
+        ):
+            with self.subTest(command=command):
+                self.assertFalse(self.shell(command).allowed)
+
+    def test_subagent_without_agent_type_is_restricted(self):
+        payload = {
+            "hook_event_name": "PreToolUse",
+            "tool_name": "Write",
+            "tool_input": {"file_path": str(self.repo.path("docs/notes.md"))},
+            "cwd": str(self.repo.root),
+            "agent_id": "agent-123",
+        }
+        self.assertFalse(self.guard.decide(payload, self.repo.root).allowed)
 
     # Process behaviour
 

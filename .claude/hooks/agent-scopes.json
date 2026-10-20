@@ -1,11 +1,12 @@
 {
-  "_comment": "Write scopes and shell profiles per actor. Read by .claude/hooks/guard.py and by tools/governance/check.py (commit-msg). Changing this file is a framework change (authority matrix).",
+  "_comment": "Write scopes and shell profiles per actor. Read by .claude/hooks/guard.py and by tools/governance/check.py (pre-commit and commit-msg). Changing this file is a framework change (authority matrix).",
   "protected": [
     "requirement-doc/**",
     "docs/sources/SRC-*/**",
     "docs/architecture/01-strategic-architecture-discovery.md",
     "ledger/approval-decisions/**",
-    ".claude/state/**"
+    ".claude/state/**",
+    ".git/**"
   ],
   "append_only": [
     "ledger/**"
@@ -37,32 +38,41 @@
     "write": [],
     "shell": "governance-readonly"
   },
+  "agent_shell_deny": [
+    "\\s--output(=|\\s|$)",
+    "\\s--ext-diff(\\s|$)",
+    "\\s--textconv(\\s|$)",
+    "\\s--pre(=|\\s|$)",
+    "\\s-(exec|execdir|ok|okdir|delete|fprint0?|fprintf|fls)(\\s|$)"
+  ],
   "shell_profiles": {
     "governance-readonly": {
       "allow": [
-        "^cd( .*)?$",
         "^python3? tools/governance/(check|trace)\\.py( .*)?$",
         "^git (status|log|show|diff|ls-files|rev-parse|blame)( .*)?$"
       ]
     },
     "review-readonly": {
       "allow": [
-        "^cd( .*)?$",
         "^python3? tools/governance/(check|trace|run_tests)\\.py( .*)?$",
-        "^python3? -m unittest( .*)?$",
+        "^python3? -m unittest (discover -s tools/governance/tests -t \\.|tools\\.governance\\.tests(\\.\\w+)*)( -[vqf]| -k \\S+)*$",
         "^git (status|log|show|diff|ls-files|rev-parse|blame)( .*)?$",
         "^(rg|grep|ls|cat|head|tail|wc|find|sha256sum)( .*)?$"
       ]
     },
     "orchestrator": {
       "deny": [
-        "(^|\\s)git\\s+push(\\s|$)",
-        "(^|\\s)--force(\\s|$|-)",
-        "(^|\\s)git\\s+reset\\s+--hard",
-        "(^|\\s)rm\\s+-[a-z]*r[a-z]*f",
-        "(^|\\s)rm\\s+-[a-z]*f[a-z]*r",
-        "(^|\\s)gh\\s+pr\\s+(review|merge)",
-        "Remove-Item\\b.*-Recurse"
+        "(^|[\\s;&|(\"'])git(\\s+(-[Cc]\\s+(\"[^\"]*\"|'[^']*'|[^\\s\"'])+|--[\\w-]+(=\\S+)?|-[pP]))*\\s+push(\\s|$|\"|')",
+        "(^|[\\s\"'])--force(\\s|$|-|=|\"|')",
+        "(^|[\\s\"'])--no-verify(\\s|$|=|\"|')",
+        "core\\.hookspath",
+        "(^|[\\s;&|(\"'])git(\\s+(-[Cc]\\s+(\"[^\"]*\"|'[^']*'|[^\\s\"'])+|--[\\w-]+(=\\S+)?|-[pP]))*\\s+commit\\s(.*\\s)?-[a-zA-Z]*n(\\s|$)",
+        "(^|[\\s;&|(\"'])git(\\s+(-[Cc]\\s+(\"[^\"]*\"|'[^']*'|[^\\s\"'])+|--[\\w-]+(=\\S+)?|-[pP]))*\\s+reset\\s(.*\\s)?--hard",
+        "(^|[\\s;&|(\"'])git(\\s+(-[Cc]\\s+(\"[^\"]*\"|'[^']*'|[^\\s\"'])+|--[\\w-]+(=\\S+)?|-[pP]))*\\s+clean\\s(.*\\s)?-[a-zA-Z]*f",
+        "(^|[\\s;&|(])rm\\s([^|;&\\n]*\\s)?-(?!-)[a-zA-Z]*[rR]",
+        "(^|[\\s;&|(])(rm|rmdir|rd|ri|del|erase|Remove-Item)\\b[^|;\\n]*\\s(--recursive|-r(e(c[a-z]*)?)?\\b|/s\\b)",
+        "(^|[\\s;&|(])gh\\s+pr\\s+(review|merge)",
+        "(^|[\\s;&|(])gh\\s+api\\b.*(/reviews|/merge|mergePullRequest|addPullRequestReview|submitPullRequestReview)"
       ]
     }
   }

@@ -38,9 +38,12 @@ hooks (`.githooks/`). From L5 you also review application code against approved 
 
 ## Write scope
 
-New review records in `ledger/reviews/` only. A hook blocks everything else. Your shell allows
-read-only commands, `git` read-only subcommands, and test runs (`python tools/governance/run_tests.py`,
-`python -m unittest ...`).
+New review records in `ledger/reviews/` only. A hook blocks everything else, including writes
+outside the repository. Your shell allows read-only commands (`rg`, `grep`, `ls`, `cat`, `head`,
+`tail`, `wc`, `find`, `sha256sum`), `git` read-only subcommands, and the repository's own tests
+(`python tools/governance/run_tests.py`, `python -m unittest discover -s tools/governance/tests -t .`,
+or `python -m unittest tools.governance.tests.<module>`). Run commands from the repository root:
+`cd`, command substitution, background jobs, here-documents and redirection are blocked.
 
 ## Output
 

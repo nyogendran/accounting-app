@@ -40,6 +40,15 @@ STATE_FOR_DECISION = {
     "defer": "deferred",
     "escalate": "escalated",
 }
+# Decision channels that count, with the evidence level each one gives. The level comes from the
+# channel, never from the record. Stage 1 adds "git-host": "E1" once the git host exists (DEC-0003).
+ACCEPTED_CHANNELS = {"stage0-session": "E1-op"}
+
+
+def effective_tier(meta: dict) -> int:
+    """The artifact's risk tier; a missing or invalid tier counts as Tier 1, the strictest."""
+    tier = meta.get("tier")
+    return tier if tier in (1, 2, 3) else 1
 
 
 @dataclass
@@ -99,6 +108,8 @@ def _head_commit(root: Path) -> str | None:
 def create_request(root, subject_ids, role, tier=None, note="", brief=None, created_by="orchestrator"):
     root = Path(root)
     index = common.load_index(root)
+    if not subject_ids:
+        raise ValueError("an approval request needs at least one subject")
     subjects = []
     tiers = []
     for identifier in subject_ids:
@@ -112,8 +123,11 @@ def create_request(root, subject_ids, role, tier=None, note="", brief=None, crea
                 "hash": common.normative_hash(artifact.meta),
             }
         )
-        if artifact.meta.get("tier") in (1, 2, 3):
-            tiers.append(artifact.meta["tier"])
+        tiers.append(effective_tier(artifact.meta))
+    if tier is not None and (tier not in (1, 2, 3) or tier > min(tiers)):
+        raise ValueError(
+            f"request tier {tier} is invalid or less strict than its subjects (strictest: Tier {min(tiers)})"
+        )
     combined = combined_hash(subjects)
     request = {
         "id": f"AREQ-{common.new_ulid()}",
@@ -121,7 +135,7 @@ def create_request(root, subject_ids, role, tier=None, note="", brief=None, crea
         "created_at": common.utc_now(),
         "created_by": created_by,
         "required_role": role,
-        "tier": tier if tier is not None else (min(tiers) if tiers else None),
+        "tier": tier if tier is not None else min(tiers),
         "subjects": subjects,
         "combined": combined,
         "phrase_code": combined[7:19],
@@ -199,7 +213,7 @@ def approval_state(root_or_index, artifact_id: str) -> ApprovalState:
     if artifact is None:
         return ApprovalState("unknown", detail=f"{artifact_id} not found")
     current = common.normative_hash(artifact.meta)
-    tier = artifact.meta.get("tier")
+    tier = effective_tier(artifact.meta)
     allowed_tiers = (common.load_authority(index.root).get("stage0") or {}).get("allowed_tiers", [2, 3])
 
     requests = {
@@ -215,7 +229,11 @@ def approval_state(root_or_index, artifact_id: str) -> ApprovalState:
         if any(s.get("id") == artifact_id and s.get("hash") == current for s in request.get("subjects", []))
     }
     decisions = sorted(
-        (record.data for record in index.records.values() if record.kind == "APR"),
+        (
+            record.data
+            for record in index.records.values()
+            if record.kind == "APR" and record.data.get("channel") in ACCEPTED_CHANNELS
+        ),
         key=lambda data: (data.get("recorded_at", ""), data.get("id", "")),
     )
 
@@ -228,12 +246,16 @@ def approval_state(root_or_index, artifact_id: str) -> ApprovalState:
         effective = sorted(latest_by_approver.values(), key=lambda d: (d.get("recorded_at", ""), d.get("id", "")))
         approvals_now = [d for d in effective if d.get("decision") == "approve"]
         if approvals_now:
-            best = approvals_now[-1]
-            if best.get("level") == "E1-op" and tier is not None and tier not in allowed_tiers:
+            full = [d for d in approvals_now if ACCEPTED_CHANNELS[d["channel"]] == "E1"]
+            best = (full or approvals_now)[-1]
+            request_tier = (requests.get(best.get("request")) or {}).get("tier")
+            required = min(tier, request_tier) if request_tier in (1, 2, 3) else tier
+            if ACCEPTED_CHANNELS[best["channel"]] == "E1-op" and required not in allowed_tiers:
+                unset = "" if artifact.meta.get("tier") in (1, 2, 3) else " (no tier is set, so Tier 1 applies)"
                 return ApprovalState(
                     "insufficient-level",
                     best["id"],
-                    f"Tier {tier} needs an E1 approval; Stage 0 (E1-op) covers tiers {allowed_tiers}.",
+                    f"Tier {required}{unset} needs an E1 approval; Stage 0 (E1-op) covers tiers {allowed_tiers}.",
                 )
             return ApprovalState("valid", best["id"])
         last = effective[-1]
@@ -278,7 +300,11 @@ def main(argv=None) -> int:
         if args.role not in roles:
             print(f"Unknown role {args.role}; roles: {', '.join(roles)}", file=sys.stderr)
             return 1
-        request = create_request(root, args.subject, args.role, args.tier, args.note, args.brief)
+        try:
+            request = create_request(root, args.subject, args.role, args.tier, args.note, args.brief)
+        except ValueError as error:
+            print(f"Request not created: {error}", file=sys.stderr)
+            return 1
         print(f"Approval request {request['id']} for {', '.join(args.subject)} (role {args.role}).")
         print("To decide, type exactly one of these as the whole prompt:")
         for verb in ("APPROVE", "REQUEST-CHANGES", "REJECT"):

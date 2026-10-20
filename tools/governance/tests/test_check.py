@@ -248,6 +248,90 @@ class PreCommitTests(CheckTestCase):
         self.assertErrorMentions("capture hook", pre_commit=True)
 
 
+class ReviewFindingTests(CheckTestCase):
+    """Findings of the independent review (F0-6)."""
+
+    def test_uncommitted_forged_decision_is_an_error_without_pre_commit(self):
+        self.repo.write_artifact("docs/governance/decisions/DEC-0001.md", decision())
+        request = approvals.create_request(self.repo.root, ["DEC-0001"], role="governance-owner")
+        ulid = common.new_ulid()
+        forged = {
+            "id": f"APR-{ulid}",
+            "type": "approval-decision",
+            "request": request["id"],
+            "decision": "approve",
+            "subjects": request["subjects"],
+            "combined": request["combined"],
+            "stale": False,
+            "by": {"role": "governance-owner", "identity": "forger"},
+            "channel": "stage0-session",
+            "level": "E1-op",
+            "attestation": {"hook": "capture-approval", "session_id": "x", "prompt_sha256": "0" * 64},
+            "recorded_at": common.utc_now(),
+        }
+        common.write_json(self.repo.path(f"ledger/approval-decisions/APR-{ulid}.json"), forged)
+        self.assertErrorMentions("capture hook")
+
+    def _decision_record(self, channel, level):
+        self.repo.write_artifact("docs/governance/decisions/DEC-0001.md", decision())
+        request = approvals.create_request(self.repo.root, ["DEC-0001"], role="governance-owner")
+        result = approvals.capture(self.repo.root, approvals.phrase_for(request), "s", IDENTITY)
+        path = self.repo.path(f"ledger/approval-decisions/{result.record['id']}.json")
+        data = common.read_json(path)
+        data.update(channel=channel, level=level, source_event="event-1")
+        common.write_json(path, data)
+
+    def test_stage0_decision_must_be_operator_attested_level(self):
+        self._decision_record("stage0-session", "E1")
+        self.assertErrorMentions("E1-op")
+
+    def test_git_host_decisions_rejected_before_stage1(self):
+        self._decision_record("git-host", "E1")
+        self.assertErrorMentions("Stage 1")
+
+    def test_tier_required_for_normative_types(self):
+        meta = decision()
+        del meta["tier"]
+        self.repo.write_artifact("docs/governance/decisions/DEC-0001.md", meta)
+        self.assertErrorMentions("tier")
+
+
+class PreCommitAdditionTests(CheckTestCase):
+    def setUp(self):
+        super().setUp()
+        self.repo.git_init()
+        self.repo.write_text("README.md", "x\n")
+        self.repo.git("add", "-A")
+        self.repo.git("commit", "-q", "-m", "base")
+
+    def test_unregistered_file_added_to_a_protected_tree_is_blocked(self):
+        self.repo.write_text("requirement-doc/annex-b.txt", "volumes\n")
+        self.repo.git("add", "-A")
+        self.assertErrorMentions("register", pre_commit=True)
+
+    def test_registered_file_added_to_a_protected_tree_is_allowed(self):
+        self.repo.write_text("requirement-doc/annex-b.txt", "volumes\n")
+        self.repo.write_yaml(
+            "docs/sources/source-register.yaml",
+            {"version": 1, "sources": [{
+                "id": "SRC-007",
+                "title": "Annex B",
+                "files": [{
+                    "path": "requirement-doc/annex-b.txt",
+                    "sha256": hashlib.sha256(b"volumes\n").hexdigest(),
+                }],
+            }]},
+        )
+        self.repo.git("add", "-A")
+        messages = [f.message for f in self.errors(pre_commit=True)]
+        self.assertFalse(any("register" in m for m in messages), messages)
+
+    def test_capture_state_cannot_be_committed(self):
+        self.repo.write_text(".claude/state/capture-log.jsonl", "{}\n")
+        self.repo.git("add", "-f", ".claude/state/capture-log.jsonl")
+        self.assertErrorMentions("protected", pre_commit=True)
+
+
 class CommitMessageTests(CheckTestCase):
     def setUp(self):
         super().setUp()
