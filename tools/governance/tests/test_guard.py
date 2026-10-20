@@ -63,6 +63,10 @@ class GuardTests(unittest.TestCase):
             self.write("ledger/approval-decisions/APR-X.json", agent="requirements-assurance").allowed
         )
 
+    def test_capture_log_is_protected(self):
+        self.assertFalse(self.write(".claude/state/capture-log.jsonl").allowed)
+        self.assertFalse(self.shell("echo {} >> .claude/state/capture-log.jsonl").allowed)
+
     def test_existing_record_cannot_be_rewritten(self):
         self.repo.write_text("ledger/reviews/REV-A.md", "x\n")
         self.assertFalse(self.write("ledger/reviews/REV-A.md").allowed)

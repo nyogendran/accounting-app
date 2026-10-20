@@ -1,0 +1,4 @@
+#!/bin/sh
+# TIQACC governance: reject edits to committed records and protected sources, reject Stage 0
+# decisions not written by the capture hook, then run every governance check.
+exec python tools/governance/check.py --pre-commit --quiet

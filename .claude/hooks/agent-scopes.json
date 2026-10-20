@@ -4,7 +4,8 @@
     "requirement-doc/**",
     "docs/sources/SRC-*/**",
     "docs/architecture/01-strategic-architecture-discovery.md",
-    "ledger/approval-decisions/**"
+    "ledger/approval-decisions/**",
+    ".claude/state/**"
   ],
   "append_only": [
     "ledger/**"

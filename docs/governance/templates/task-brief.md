@@ -5,6 +5,7 @@
 - **Objective:** <one sentence: what done looks like>
 - **Inputs:** <IDs and paths, with versions or commit>
 - **Write scope:** <paths this agent may change for this task>
+- **Record IDs:** <IDs the orchestrator generated for records the agent must create, e.g. REV-<ulid>>
 - **Exclusions:** <what not to touch or decide>
 - **Acceptance criteria:**
   1. <testable criterion>

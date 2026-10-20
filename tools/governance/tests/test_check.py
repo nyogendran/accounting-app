@@ -216,6 +216,37 @@ class PreCommitTests(CheckTestCase):
         self.repo.git("add", "-A")
         self.assertErrorMentions("protected", pre_commit=True)
 
+    def _decision_setup(self):
+        self.repo.write_artifact("docs/governance/decisions/DEC-0001.md", decision())
+        request = approvals.create_request(self.repo.root, ["DEC-0001"], role="governance-owner")
+        return request
+
+    def test_captured_decision_can_be_committed(self):
+        request = self._decision_setup()
+        approvals.capture(self.repo.root, approvals.phrase_for(request), "s", IDENTITY)
+        self.repo.git("add", "-A")
+        messages = [f.message for f in self.errors(pre_commit=True)]
+        self.assertFalse(any("capture hook" in m for m in messages), messages)
+
+    def test_decision_not_in_capture_log_is_blocked(self):
+        request = self._decision_setup()
+        result = approvals.capture(
+            self.repo.root, approvals.phrase_for(request), "s", IDENTITY, log=False
+        )
+        self.assertEqual(result.status, "recorded")
+        self.repo.git("add", "-A")
+        self.assertErrorMentions("capture hook", pre_commit=True)
+
+    def test_decision_altered_after_capture_is_blocked(self):
+        request = self._decision_setup()
+        result = approvals.capture(self.repo.root, approvals.phrase_for(request), "s", IDENTITY)
+        path = self.repo.path(f"ledger/approval-decisions/{result.record['id']}.json")
+        data = common.read_json(path)
+        data["comment"] = "edited afterwards"
+        common.write_json(path, data)
+        self.repo.git("add", "-A")
+        self.assertErrorMentions("capture hook", pre_commit=True)
+
 
 class CommitMessageTests(CheckTestCase):
     def setUp(self):

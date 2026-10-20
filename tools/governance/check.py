@@ -329,6 +329,42 @@ def _in_head(root: Path, path: str) -> bool:
     return result.returncode == 0
 
 
+def _capture_log(root: Path) -> dict:
+    import json
+
+    entries: dict = {}
+    log = root / ".claude/state/capture-log.jsonl"
+    if log.is_file():
+        for line in log.read_text(encoding="utf-8").splitlines():
+            try:
+                entry = json.loads(line)
+            except ValueError:
+                continue
+            entries.setdefault(entry.get("id"), set()).add(entry.get("sha256"))
+    return entries
+
+
+def _check_new_decision(root: Path, path: str, log: dict, out: Collector) -> None:
+    """A staged new Stage 0 decision must match what the capture hook logged on this machine."""
+    import hashlib
+    import json
+
+    blob = subprocess.run(["git", "show", f":{path}"], cwd=root, capture_output=True).stdout
+    try:
+        data = json.loads(blob.decode("utf-8"))
+    except ValueError:
+        out.error(path, "decision record is not valid JSON")
+        return
+    if data.get("channel") != "stage0-session":
+        return
+    if hashlib.sha256(blob).hexdigest() not in log.get(Path(path).stem, set()):
+        out.error(
+            path,
+            "this decision was not written by the capture hook on this machine, or was altered after "
+            "capture; Stage 0 decisions come only from the capture hook",
+        )
+
+
 def check_staged(root: Path, out: Collector) -> None:
     scopes = common.load_scopes(root)
     try:
@@ -336,11 +372,15 @@ def check_staged(root: Path, out: Collector) -> None:
     except RuntimeError as error:
         out.error("git", f"cannot read staged changes: {error}")
         return
+    log = _capture_log(root)
     for line in lines:
         parts = line.split("\t")
         if len(parts) < 2:
             continue
         code, path = parts[0][0], parts[1]
+        if code == "A" and path.startswith("ledger/approval-decisions/") and path.endswith(".json"):
+            _check_new_decision(root, path, log, out)
+            continue
         if code not in ("M", "D", "T"):
             continue
         if common.glob_match(path, scopes.get("append_only")) and _in_head(root, path):
