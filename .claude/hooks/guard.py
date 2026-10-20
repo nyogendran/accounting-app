@@ -16,6 +16,9 @@ Blocks, for the orchestrator:
   - pushing, force operations, hard resets, recursive deletes, skipping git hooks, and approving or
     merging pull requests.
 
+Tool paths are judged as Claude Code resolves them: trimmed of whitespace and a byte-order mark,
+with a leading '~' expanded.
+
 This is a guardrail against mistakes and casual misuse, not a security boundary: a program run
 under the same OS account can still write anywhere (RISK-003). Exit code 2 blocks the tool call
 and shows the reason to Claude. Any internal error also exits 2 (fail closed). Scopes live in
@@ -46,11 +49,22 @@ UNQUOTE = re.compile(r"[\"'`\\]")
 # A glob pattern, or one of its brace alternatives, that starts at a root, drive or home folder,
 # names a drive anywhere, or climbs out with '..'. Applied with backslashes turned into slashes.
 GLOB_ESCAPE = re.compile(r"(?:^|[{,])\s*(?:[/~]|[A-Za-z]:)|:|(?:^|[/{,])\.\.(?:$|[/},])")
-# Glob syntax from which a matcher could build '..' or a root that the text does not show: two dots
-# anywhere; a dot after a brace, comma, bracket or escape, or before a closing brace, comma or
-# bracket; an empty brace alternative; an extglob group; a bracket that starts with a slash.
-# Applied to the pattern as written. '*.{md,yaml}', '{a,b}.md' and '*.[ch]' still pass.
-GLOB_SYNTAX_ESCAPE = re.compile(r"\.\.|[{,\[\\]\.|\.[},\]]|\{,|,,|,\}|[@+*?!]\(|\[[\\/]")
+# Syntax from which a matcher or a shell could build '..', a root or a home folder that the text does
+# not show. Applied to the pattern as written. '*.{md,yaml}', '{a,b}.md', '*.[ch]' and '**/.*' pass.
+GLOB_SYNTAX_PARTS = (
+    r"\.\.",  # two dots anywhere
+    r"[{,\[\\]\.",  # a dot after a brace, comma, bracket or escape
+    r"\.[},\]]",  # a dot before a closing brace, comma or bracket
+    r"\{,|,,|,\}",  # an empty brace alternative
+    r"[@+*?!]\(",  # an extglob group
+    r"\[[\\/]",  # a bracket that starts with a slash
+    r"(?:^|[/\\{,])\.[?*\[{@+!(][^/\\]*[/\\]",  # a folder segment of a dot and a wildcard
+    r"[$'\"`]",  # shell variables, quotes and command substitution
+)
+GLOB_SYNTAX_ESCAPE = re.compile("|".join(GLOB_SYNTAX_PARTS))
+# Claude Code trims whitespace and a byte-order mark from a tool's path and expands a leading '~'
+# (observed in 2.1.301 for Read, Write, Grep and Glob), so the guard judges the path the tool uses.
+PADDING = re.compile(r"^[\s\ufeff]+|[\s\ufeff]+$")
 
 # Agents: shell features none of their commands needs. `$` covers substitution, variables and
 # ANSI-C quoting; braces and a leading tilde are expansions too.
@@ -219,7 +233,14 @@ def _working_directories(statements: list, cwd: Path) -> list:
 # --------------------------------------------------------------------------- decisions
 
 
+def _tool_path(text) -> str:
+    """A tool's path argument as Claude Code resolves it: trimmed, with a leading '~' expanded."""
+    text = PADDING.sub("", str(text))
+    return os.path.expanduser(text) if text.startswith("~") else text
+
+
 def _decide_write(path_text, root: Path, agent, scopes) -> Decision:
+    path_text = _tool_path(path_text) if path_text else path_text
     if not path_text:
         return block("file write without a path")
     if NETWORK_PATH.match(str(path_text).replace("\\", "/")):
@@ -248,9 +269,9 @@ def _decide_write(path_text, root: Path, agent, scopes) -> Decision:
 
 def _decide_read(tool: str, tool_input: dict, root: Path, agent: str) -> Decision:
     """Agents read only inside the repository."""
-    patterns = [str(tool_input.get("pattern") or "")] if tool == "Glob" else []
+    patterns = [PADDING.sub("", str(tool_input.get("pattern") or ""))] if tool == "Glob" else []
     if tool == "Grep" and tool_input.get("glob"):
-        patterns.append(str(tool_input["glob"]))
+        patterns.append(PADDING.sub("", str(tool_input["glob"])))
     for pattern in patterns:
         if GLOB_ESCAPE.search(pattern.replace("\\", "/")) or GLOB_SYNTAX_ESCAPE.search(pattern):
             return block(
@@ -258,12 +279,12 @@ def _decide_read(tool: str, tool_input: dict, root: Path, agent: str) -> Decisio
                 "drive or home folder, has '..', or uses glob syntax that could form one of them. "
                 "Use a relative pattern and the path argument"
             )
-    candidates = [str(tool_input[key]) for key in ("file_path", "path") if tool_input.get(key)]
+    candidates = [_tool_path(tool_input[key]) for key in ("file_path", "path") if tool_input.get(key)]
     if tool == "Glob":
-        literal = re.split(r"[*?\[{]", str(tool_input.get("pattern") or ""), maxsplit=1)[0]
+        literal = re.split(r"[*?\[{]", patterns[0], maxsplit=1)[0]
         if literal:
-            base = tool_input.get("path")
-            candidates.append(literal if base is None or os.path.isabs(literal) else os.path.join(str(base), literal))
+            base = _tool_path(tool_input["path"]) if tool_input.get("path") else None
+            candidates.append(literal if base is None or os.path.isabs(literal) else os.path.join(base, literal))
     for candidate in candidates:
         if NETWORK_PATH.match(candidate.replace("\\", "/")):
             return block(f"agent '{agent}' may not read network paths ({candidate})")

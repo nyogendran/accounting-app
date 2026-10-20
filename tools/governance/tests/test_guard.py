@@ -342,6 +342,81 @@ class GuardTests(unittest.TestCase):
         inside_climb = {"pattern": "../CLAUDE.md", "path": str(self.repo.path("docs"))}
         self.assertFalse(self.decide("Glob", inside_climb, agent="requirements-engineer").allowed)
 
+    def test_agent_glob_leading_dot_wildcards_and_shell_syntax_blocked(self):
+        # REV-01M5C6QDYWRZJC39SDZ1FBJEKY, finding 1: a folder segment that starts with a dot and a
+        # wildcard can match '..' in some matchers, and shell syntax can name a root or home folder.
+        for pattern in (
+            ".?/*.md",
+            ".*/*.md",
+            ".[!a]/*.md",
+            ".[x.y]/*.md",
+            ".{?,x}/*.md",
+            "**/.*/x.md",
+            "$HOME/**",
+            "${HOME}/**",
+            "''/Windows/*",
+            "'.''.'/*.md",
+            "$'\\x2e\\x2e'/*.md",
+            "`pwd`/**",
+        ):
+            with self.subTest(pattern=pattern):
+                self.assertFalse(self.decide("Glob", {"pattern": pattern}, agent="requirements-engineer").allowed)
+        for pattern in ("**/.*", "**/.git*", "**/.*.md", "docs/**/.gitkeep"):
+            with self.subTest(pattern=pattern):
+                self.assertTrue(self.decide("Glob", {"pattern": pattern}, agent="requirements-engineer").allowed)
+
+    def test_agent_glob_rule_alternatives_each_pinned(self):
+        # REV-01M5C6QDYWRZJC39SDZ1FBJEKY, finding 4: each input is refused by one alternative only.
+        # The delimited '..' of GLOB_ESCAPE is a subset of "two dots anywhere" and cannot be pinned alone.
+        for pattern in (
+            "{x,,y}/Windows/*",
+            "[\\]Windows/*",
+            "*..*/x",
+            "[x.]/*.md",
+            "{,x}/Windows/*",
+            "@(.)/x",
+            "*(x)/y",
+            "?(x)/y",
+            "!(x)/y",
+            "*/C:/Windows/*",
+        ):
+            with self.subTest(pattern=pattern):
+                self.assertFalse(self.decide("Glob", {"pattern": pattern}, agent="requirements-engineer").allowed)
+
+    # Claude Code trims whitespace and a byte-order mark from tool paths and expands a leading '~'
+    # (observed in 2.1.301 for Read, Write, Grep and Glob; WF-01M5BJDGB5536WYT96GNTQWH4K step 12a).
+
+    def test_agent_padded_or_home_paths_are_judged_as_the_tool_resolves_them(self):
+        outside = str(Path(tempfile.gettempdir()) / "tiqacc-outside.txt")
+        for tool, tool_input in (
+            ("Read", {"file_path": " " + outside}),
+            ("Read", {"file_path": "\ufeff" + outside}),
+            ("Read", {"file_path": "\t" + outside}),
+            ("Read", {"file_path": "~/tiqacc-outside.txt"}),
+            ("Read", {"file_path": "~\\tiqacc-outside.txt"}),
+            ("Grep", {"pattern": "x", "path": " " + tempfile.gettempdir()}),
+            ("Grep", {"pattern": "x", "path": "~"}),
+            ("Glob", {"pattern": "*.txt", "path": " " + tempfile.gettempdir()}),
+            ("Glob", {"pattern": "*.txt", "path": "~/"}),
+            ("Glob", {"pattern": "\ufeff/Windows/*"}),
+        ):
+            with self.subTest(tool=tool, tool_input=tool_input):
+                self.assertFalse(self.decide(tool, tool_input, agent="requirements-engineer").allowed)
+        padded_inside = " " + str(self.repo.path("docs/governance/x.md"))
+        self.assertTrue(self.decide("Read", {"file_path": padded_inside}, agent="requirements-engineer").allowed)
+
+    def test_padded_paths_to_protected_files_and_records_blocked(self):
+        self.repo.write_text("ledger/reviews/REV-A.md", "x\n")
+        for relative, tool in (
+            ("requirement-doc/spec.pdf", "Write"),
+            ("ledger/approval-decisions/APR-X.json", "Write"),
+            ("ledger/reviews/REV-A.md", "Edit"),
+        ):
+            path = str(self.repo.path(relative))
+            for padded in (" " + path, "\ufeff" + path, path + " "):
+                with self.subTest(tool=tool, path=padded):
+                    self.assertFalse(self.decide(tool, {"file_path": padded}).allowed)
+
     def test_orchestrator_quoted_options_next_to_protected_paths_blocked(self):
         for command in (
             'find docs/sources/SRC-001-spec-v1 "-delete"',

@@ -36,8 +36,11 @@ commit time by the commit-msg check. Agents read and write only inside the repos
 change directory. Their shell commands may name only paths inside the repository and may not use
 command substitution, variables, brace or tilde expansion, background jobs, here-documents or
 redirection; options that write files or run programs are blocked however they are quoted. Glob
-patterns and Grep's `glob` filter must be relative, without `..`, and without glob syntax next to a
-dot that could form `..` or a root; to search a folder, pass it as the `path` argument.
+patterns and Grep's `glob` filter must be relative and must not contain `..`, `$`, quotes or
+backticks. The guard also refuses constructs that could form `..` or a root, such as `{.,x}.`,
+`[.][.]`, `{x,}/` or a folder segment like `.*/`; to search a folder, pass it as the `path` argument.
+Tool paths are judged as Claude Code resolves them: trimmed, with a leading `~` meaning the home
+folder.
 Built-in agents (Explore, Plan, general-purpose) may be used for read-only research inside the
 repository; the guard blocks them from writing anywhere. The guard is a guardrail against mistakes and casual
 misuse, not a security boundary: agents and people share one OS account until the git host exists

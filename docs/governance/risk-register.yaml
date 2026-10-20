@@ -33,17 +33,24 @@ risks:
     impact: high
     owner: governance-owner
     mitigation: >-
-      Capture hook writes decisions. The guard blocks agent reads and writes outside the repository
-      (a Glob pattern or Grep filter that is absolute, contains '..', or uses glob syntax that could
-      form either is refused), agent writes outside their scopes, agent shell commands outside their
-      profiles (options are checked with quotes and escapes removed), and orchestrator shell commands
-      that touch protected paths with anything but read-only commands. Pre-commit and commit-msg
-      checks, including the capture-log match for new decisions; the checker flags uncommitted
-      decisions the hook did not write. E1-op never counts for Tier 1, and every Stage 0 approval is
-      re-confirmed at Stage 1. Residual: the guard analyses command text and tool inputs, so it is a
-      guardrail against mistakes and casual misuse, not a security boundary (F0 independent review,
-      finding 9; REV-01M5C0YAD8BAMX6HNTM9H4WC1E, findings 2 and 3). It does not path-check an option
-      glued to its value, such as -f<path> (REV-01M5C44F4G2E9W08D7YH4587J3, finding 2).
+      Capture hook writes decisions. The guard blocks agent reads and writes outside the repository,
+      agent writes outside their scopes, agent shell commands outside their profiles (options are
+      checked with quotes and escapes removed), and orchestrator shell commands that touch protected
+      paths with anything but read-only commands. It judges a tool path as Claude Code resolves it,
+      trimmed of whitespace and a byte-order mark and with a leading '~' expanded. It refuses an agent
+      Glob pattern or Grep filter that is absolute, contains '..', '$', quotes or backticks, or has a
+      construct that could form '..' or a root: a dot after an opening brace, comma, bracket or
+      backslash or before a closing brace, comma or bracket; an empty brace alternative; an extglob
+      group; a bracket that starts with a slash; or a folder segment of a dot and a wildcard.
+      Pre-commit and commit-msg checks, including the capture-log match for new decisions; the
+      checker flags uncommitted decisions the hook did not write. E1-op never counts for Tier 1, and
+      every Stage 0 approval is re-confirmed at Stage 1. Residual: the guard analyses command text
+      and tool inputs, so it is a guardrail against mistakes and casual misuse, not a security
+      boundary (F0 independent review, finding 9; REV-01M5C0YAD8BAMX6HNTM9H4WC1E, findings 2 and 3).
+      Its tool-path handling follows the behaviour observed in Claude Code 2.1.301, which a later
+      version could change, so the tool-path probe in GOV-F0-VALIDATION is re-run at each gate. It
+      does not path-check an option glued to its value, such as -f<path>
+      (REV-01M5C44F4G2E9W08D7YH4587J3, finding 2).
     status: open
   - id: RISK-004
     title: Prior AI analyses treated as fact

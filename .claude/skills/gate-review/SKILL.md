@@ -12,6 +12,9 @@ argument-hint: <gate> <scope>
    - `python tools/governance/check.py` (no errors allowed);
    - `python tools/governance/run_tests.py` when tools or code changed;
    - `python tools/governance/trace.py coverage`, and `readiness` for each in-scope story at Gate C;
+   - the tool-path probe in GOV-F0-VALIDATION, re-run with the current Claude Code version and
+     recorded with it: the guard judges tool paths the way that version was observed to resolve them
+     (RISK-003);
    - the review records, decision records and commits the gate depends on.
 3. **Write the gate record** `docs/governance/gates/GATE-<x>[-<scope>].md` from
    `docs/governance/templates/gate.md`: scope, each criterion with its evidence (IDs, commits,
