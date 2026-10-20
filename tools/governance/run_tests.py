@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -28,10 +29,20 @@ def git(root: Path, *args, env=None) -> str:
 
 
 def working_tree_hash(root: Path) -> str:
-    """Tree hash of the working tree, computed in a temporary index so the real index is untouched."""
+    """Tree hash of the working tree, computed in a temporary index so the real index is untouched.
+
+    The temporary index starts as a copy of the real index, so staged file modes (such as an
+    executable bit set with `git update-index --chmod=+x` on Windows) match what will be committed.
+    """
+    index_path = Path(git(root, "rev-parse", "--git-path", "index"))
+    real_index = index_path if index_path.is_absolute() else root / index_path
     with tempfile.TemporaryDirectory() as folder:
-        env = dict(os.environ, GIT_INDEX_FILE=str(Path(folder) / "index"))
-        git(root, "read-tree", "HEAD", env=env)
+        temp_index = Path(folder) / "index"
+        env = dict(os.environ, GIT_INDEX_FILE=str(temp_index))
+        if real_index.is_file():
+            shutil.copyfile(real_index, temp_index)
+        else:
+            git(root, "read-tree", "HEAD", env=env)
         git(root, "add", "-A", env=env)
         return git(root, "write-tree", env=env)
 
