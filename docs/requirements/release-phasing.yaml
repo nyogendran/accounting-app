@@ -1,9 +1,9 @@
-version: 2
+version: 3
 status: Proposed
 proposed_by: requirements-engineer
 decided_by_role: product-owner
-workflow: WF-01M5D0SE8MMS39CTPTXH8ME1HT step 6 (revises step 4, commit f3b3b4c)
-revised_after_review: REV-01M5EP1W4DYPM707EB79AYEYV1
+workflow: WF-01M5D0SE8MMS39CTPTXH8ME1HT step 8 (revises step 6, commit f6bab34; step 6 revised step 4, commit f3b3b4c)
+revised_after_review: [REV-01M5EP1W4DYPM707EB79AYEYV1, REV-01M5EQY9R7BC1SY2XDY6S9YA52]
 answers_question: Q-002
 source: SRC-001
 clause_index: docs/requirements/clause-index.yaml (version 2, commit ebb3073)
@@ -20,8 +20,8 @@ how_to_read_options: >-
   from version 1; that is a convention of presentation, not a recommendation. The variants block
   lists every sub-section whose mark changes under option B and under option C, so that each option
   is one complete, coherent proposal. The effect of each option on release 1 and on the
-  control-account rule (S1-2.2.1-c06, S1-2.2.1-c21, S1-2.2.2-c12, S1-2.2.2-c16) is under
-  decisions_needed, D-INT-1.
+  control-account rule (S1-2.2.1-c06, S1-2.2.1-c21, S1-2.2.2-c12, S1-2.2.2-c16, S1-2.2.2-c18) is
+  under decisions_needed, D-INT-1.
 
 legend:
   release-1: In the first release, for Tiqri's internal finance team (Q-001) in Sri Lanka (Q-003).
@@ -238,7 +238,7 @@ subsections:
       the baseline for holding financial data in a cloud service (BO-08). The identity provider,
       encryption standard and hosting locations are security-owner decisions for the build, not for
       this phasing. How tenants are separated is a further open item (OI-TENANT in
-      docs/requirements/actors.yaml).
+      docs/requirements/actors.yaml; question record Q-031).
     blocking_questions: [Q-023, Q-028]
   - section: "2.1.4"
     heading: Audit log
@@ -332,13 +332,22 @@ subsections:
           release-1 clauses on which rule module-dependent-clauses relies: "an entity configured for
           services alone completes quotation to receipt with no inventory screen, report or posting
           anywhere in the flow" and "a user licensed for some modules cannot reach the others through
-          any screen, report, search or API call" (S1-2.1.7-c07, c09). The other parts test standalone
-          deployment, later activation of inventory, two entities with different module sets, and
-          industry templates, which are in releases 3 and 5.
+          any screen, report, search or API call" (S1-2.1.7-c07, c09). A third part, "activating a
+          second module later leaves the first unchanged and requires no migration" (SRC-001 p.17),
+          follows the standalone-module test in the clause but is exercised in release 2 under
+          options A and C, when payroll or fixed assets are activated for an entity already running
+          release 1 (none under option B, where both are in release 1). The release-2 loading task
+          stands against "requires no migration" (releases, loading_task; risk R-06). The other parts
+          test standalone deployment, later activation of inventory, two entities with different
+          module sets, and industry templates, which are in releases 3 and 5.
         recommendation: >-
-          Partial acceptance: run the two parts quoted above at release-1 acceptance, and the clause
-          in full in release 5. The product owner decides whether partial acceptance of one clause
-          is allowed under the acceptance protocol (S1-2.16.4-c01).
+          Partial acceptance: run the two parts quoted first at release-1 acceptance; run the part
+          "activating a second module later leaves the first unchanged and requires no migration" at
+          release-2 acceptance when payroll or fixed assets are activated (options A and C), once the
+          product owner, with the qualified accountant, has settled how it stands with the release-2
+          loading task (R-06); and run the clause in full in release 5. The product owner decides
+          whether partial acceptance of one clause is allowed under the acceptance protocol
+          (S1-2.16.4-c01).
       - mark: needs-decision
         owner: product-owner
         clauses: [S1-2.1.7-c83]
@@ -670,8 +679,14 @@ subsections:
       (SRC-001 p.49, S1-2.5.2-c07) arises whether payroll is active or not, and posts "Cr Employee
       payable" (p.55, S1-2.5.13-c13). It needs an employee record, which is why part of the employee
       master (2.10.1) is proposed for release 1. Until payroll is delivered a claim is settled by
-      payment. SRC-001's employee master has no field for the employee's manager; who approves a
-      claim is an open item (D-2.10.1).
+      payment. The field table of the employee master (S1-2.10.1, p.91) has no manager field, but
+      SRC-001 puts the reporting line in the employee master: "A manager sees only their own
+      reporting line, and the hierarchy is maintained in the employee master rather than assumed
+      from the department" (SRC-001 p.96, S1-2.10.11-c08). That clause is in 2.10.11, release 2, and
+      is not in the release-1 part of 2.10.1. SRC-001's route for an employee to raise a claim is
+      self-service, "Claim and reimbursement submission with attachment" (p.96, S1-2.10.11-c04),
+      also release 2. Whether the reporting line is held in release 1, and how a claim is raised
+      in release 1, are part of decision D-2.10.1.
   - section: "2.5.3"
     heading: Supplier invoice capture by email
     mark: later
@@ -1114,13 +1129,24 @@ subsections:
           (c26) are in release 1.
       - mark: later
         release: 5
-        clauses: [S1-2.9.1-c01, S1-2.9.1-c04, S1-2.9.1-c05, S1-2.9.1-c06, S1-2.9.1-c07, S1-2.9.1-c08, S1-2.9.1-c09, S1-2.9.1-c11, S1-2.9.1-c12, S1-2.9.1-c15, S1-2.9.1-c16, S1-2.9.1-c17, S1-2.9.1-c18, S1-2.9.1-c19, S1-2.9.1-c21, S1-2.9.1-c22, S1-2.9.1-c23]
+        clauses: [S1-2.9.1-c01, S1-2.9.1-c04, S1-2.9.1-c05, S1-2.9.1-c06, S1-2.9.1-c07, S1-2.9.1-c09, S1-2.9.1-c11, S1-2.9.1-c12, S1-2.9.1-c15, S1-2.9.1-c16, S1-2.9.1-c17, S1-2.9.1-c18, S1-2.9.1-c19, S1-2.9.1-c21, S1-2.9.1-c22, S1-2.9.1-c23]
         reason: >-
           Stocked item types and stock attributes serve inventory, which "is activated only for
           entities whose business profile in 2.1.7 is inventory-based or mixed" (S1-2.9-c01);
-          assumption A-01. The fixed asset item (c08) and project-specific item (c09) types are
-          proposed with inventory; the product owner may bring c08 forward with the fixed asset
-          core.
+          assumption A-01. The project-specific item type (c09) is proposed with inventory.
+      - mark: later
+        release: 2
+        clauses: [S1-2.9.1-c08]
+        reason: >-
+          "Fixed asset item | Capitalised on receipt and passed to the asset register under 2.8.2,
+          never to cost of sales" (SRC-001 p.84, S1-2.9.1-c08) is the item-master side of the row
+          "Purchase order and goods receipt | Receipt of an asset item creates the asset record at
+          receipt, per 2.9.1" (SRC-001 p.76, S1-2.8.2-c02). The two refer to each other, so c08 is
+          placed with 2.8.2 in every option: release 2 under option A, release 1 under options B and
+          C (see variants). Capital-item orders are release 1 ("Any value, capital items ...
+          Requisition and purchase order", SRC-001 p.51, S1-2.5.5-c04); under option A how a capital
+          item received in release 1 reaches the ledger is within decision D-INT-1 (fixed asset
+          events, S1-2.8.13-c01 to c12).
   - {section: "2.9.2", heading: Warehouse structure, mark: later, release: 5, reason: "Inventory; see 2.9.1 (S1-2.9-c01)."}
   - {section: "2.9.3", heading: Stock transactions, mark: later, release: 5, reason: "Inventory; see 2.9.1 (S1-2.9-c01)."}
   - {section: "2.9.4", heading: "Batch, lot, serial and expiry", mark: later, release: 5, reason: "Inventory; see 2.9.1 (S1-2.9-c01)."}
@@ -1149,8 +1175,14 @@ subsections:
           dimensions (c07), and bank details for settlement "by payment" (c09), whose change "requires
           maker–checker" (SRC-001 p.91). It is the same record payroll uses later, since "On
           activation, a module reads the master data ... already present rather than requiring its
-          own copy" (p.17, S1-2.1.7-c80). Alternative for the product owner: defer expense claims
-          with the rest of 2.10.1 (decision D-2.10.1).
+          own copy" (p.17, S1-2.1.7-c80). SRC-001 marks the fields deferred to release 2 as
+          mandatory ("Yes": S1-2.10.1-c03 to c06, c08, c10, c11, p.91). This split proposes that
+          their mandatory validation applies from the activation of payroll for the entity, so that
+          a release-1 record holding only c01, c02, c07 and c09 is valid; on activation the existing
+          records are completed, which is part of the release-2 loading task (releases,
+          loading_task). The release-1 part holds no reporting line (S1-2.10.11-c08) and no
+          self-service route (S1-2.10.11-c04); see 2.5.2. Alternative for the product owner: defer
+          expense claims with the rest of 2.10.1. All of this is decision D-2.10.1.
       - mark: later
         release: 2
         clauses: [S1-2.10.1-c03, S1-2.10.1-c04, S1-2.10.1-c05, S1-2.10.1-c06, S1-2.10.1-c08, S1-2.10.1-c10, S1-2.10.1-c11, S1-2.10.1-c12, S1-2.10.1-c13]
@@ -1308,7 +1340,7 @@ subsections:
       "Entity is a mandatory attribute of every transaction" (S1-2.14.2-c14), as 2.2.3 requires
       (S1-2.2.3-c01), and a user sees only assigned entities (S1-2.14.2-c15); this is a data-model
       dependency for every module. How an entity relates to a TIQACC tenant is not settled by SRC-001
-      or by Q-001; it is open item OI-TENANT (docs/requirements/actors.yaml).
+      or by Q-001; it is open item OI-TENANT (docs/requirements/actors.yaml) and question record Q-031.
   - {section: "2.14.3", heading: Group chart of accounts and mapping, mark: later, release: 3, reason: "Group accounting; see 2.14.1 (S1-2.1.7-c45). With one entity the group chart is the entity chart (S1-2.2.1-c01)."}
   - {section: "2.14.4", heading: Intercompany transactions, mark: later, release: 3, reason: "Group accounting; see 2.14.1 (S1-2.1.7-c45)."}
   - {section: "2.14.5", heading: Intercompany reconciliation, mark: later, release: 3, reason: "Group accounting; see 2.14.1 (S1-2.1.7-c45)."}
@@ -1469,8 +1501,22 @@ decisions_needed:
       - >-
         "Control account flag Yes Once set, cannot be changed while the account carries a balance"
         (p.24, S1-2.2.2-c12); "Class, group and control-account status cannot be changed once
-        transactions exist" (pp.24-25, S1-2.2.2-c16). Leaving these accounts unflagged in release 1
-        cannot be corrected quietly later.
+        transactions exist" (p.24, S1-2.2.2-c16). Leaving these accounts unflagged in release 1
+        cannot be corrected quietly later: by c16 an account that has had transactions can never be
+        flagged, even at a nil balance, which c12 alone would allow.
+    on_moving_balances_later:
+      - >-
+        "A misclassified account is corrected by opening the correct account and reclassifying the
+        balance by journal, with the working attached" (SRC-001 p.24, S1-2.2.2-c16).
+      - >-
+        "A controlled reclassification tool can move history from one account to another, restricted
+        to [role], requiring approval, posting a visible journal rather than rewriting history, and
+        recorded in the audit log" (SRC-001 p.25, S1-2.2.2-c18).
+      - >-
+        "Posting is blocked to: ... control accounts by manual journal" (SRC-001 p.24,
+        S1-2.2.1-c21). SRC-001 does not say whether the journal of c16, or the journal the c18 tool
+        posts, is a "manual journal" under c21 when the correct account is a control account. Both
+        readings are set out under option A; this file chooses neither.
     for_interim_journals:
       - >-
         "adjustments can also be made by manual journal posting where required, under approval and
@@ -1493,26 +1539,42 @@ decisions_needed:
           until release 2. The marks under subsections are the marks under this option.
         effect_on_release_1: >-
           The smallest release 1: 89 sub-sections release-1 by top-level mark, plus the release-1 parts
-          of 20 splits. Payroll and the fixed asset core are in release 2.
+          of 18 of the 20 splits (2.8.16 and 2.15.11 have no release-1 part). Payroll and the fixed
+          asset core are in release 2.
         effect_on_control_account_rule: >-
           Option A cannot be applied without one of two consequences, and the qualified accountant
           says which: (i) relax the release-1 block of S1-2.2.1-c06 and c21 for the payroll, fixed
           asset and income tax accounts until release 2, which changes a release-1 requirement of
-          SRC-001 and so needs a change request ("Any change to a clause in Section 2 after
-          signature is handled as a documented change request", S1-3-c01, p.121); or (ii) post to
-          interim accounts that are not flagged as control accounts. Under (ii) the flag cannot be set
-          later while they carry a balance (S1-2.2.2-c12, c16), so at release 2 new control accounts
-          are opened and the balances moved into them. SRC-001 prescribes "reclassifying the balance
-          by journal, with the working attached" (S1-2.2.2-c16), but a journal into the new control
-          accounts is itself blocked (S1-2.2.1-c21), so the balances must arrive through the
-          sub-ledger, for example by the release-2 loading task, by a method the qualified
-          accountant sets. Under (i) and (ii) alike, the sub-ledger agreements for these accounts
-          (S1-2.12.1-c05, c06) do not run in release 1.
+          SRC-001 and so needs a change request. SRC-001's own rule applies "after signature" ("Any
+          change to a clause in Section 2 after signature is handled as a documented change
+          request", S1-3-c01, p.121), and SRC-001 is unsigned until Q-004 is decided, so the change
+          is also made under the framework's change control (SRC-005, A3; change requests under
+          C4). Or (ii) post to interim accounts that are not flagged as control accounts. Under (ii)
+          the interim accounts can never be flagged later, because "control-account status cannot
+          be changed once transactions exist" (S1-2.2.2-c16, p.24), so at release 2 new control
+          accounts are opened and the balances moved into them. How they move depends on a tension
+          inside SRC-001, and the qualified accountant chooses between two readings (see
+          on_moving_balances_later). Reading R1: the block on "control accounts by manual journal"
+          (S1-2.2.1-c21, p.24) governs, so neither the reclassification journal of S1-2.2.2-c16 nor
+          a journal posted by the tool of S1-2.2.2-c18 may post to the new control accounts, and the
+          balances must arrive through the sub-ledger, for example by the release-2 loading task.
+          Reading R2: S1-2.2.2-c16 is the specific rule for correcting a misclassified account
+          ("opening the correct account and reclassifying the balance by journal", p.24), and the
+          controlled reclassification tool posts "a visible journal", under approval and in the
+          audit log (S1-2.2.2-c18, p.25), which may not be a "manual journal" under c21; the
+          balances then move by one approved reclassification. Under R1, A(ii) needs a sub-ledger
+          load at release 2; under R2 it closes with an approved reclassification. Under (i) and
+          (ii) alike, the sub-ledger agreements for these accounts (S1-2.12.1-c05, c06) do not run
+          in release 1.
         other_effects: >-
           S1-2-c02, S1-0-c10 and S1-2.8-c01 are not met for payroll and fixed assets until release 2.
           BO-01's second indicator stays unmet for payslips and depreciation runs until release 2
           (see R-01).
-        depends_on: [qualified-accountant choice of (i) or (ii), tax-specialist confirmation of the interim for payroll returns]
+        depends_on:
+          - qualified-accountant choice of (i) or (ii)
+          - under (ii), qualified-accountant choice of reading R1 or R2 of S1-2.2.1-c21 against S1-2.2.2-c16 and c18
+          - under (i), a change request, since SRC-001 is unsigned (Q-004; S1-3-c01)
+          - tax-specialist confirmation of the interim for payroll returns
       - option: B
         name: Payroll and fixed assets in release 1
         description: >-
@@ -1547,7 +1609,15 @@ decisions_needed:
           interface; SRC-001 says a received transaction "updates the relevant module as though it had
           been entered in it ... and raises its ledger entries through the posting rules in 2.6.10"
           (p.11, S1-2.1.6-c15). Whether such postings count as sub-ledger postings under S1-2.2.1-c06
-          while the payroll module is not active is for the qualified accountant.
+          while the payroll module is not active is for the qualified accountant. Two further effects
+          follow. (a) The payroll row of the sub-ledger agreement, "Net pay, withholding tax and fund
+          contribution payables | Payroll run totals not yet remitted" (p.101, S1-2.12.1-c06), has no
+          payroll run totals in TIQACC to agree to in release 1, because no payroll run is made in
+          TIQACC until release 2. (b) The entries the interface raises are configured on the interface
+          ("field mapping, value translation, posting rules, schedule and error handling are all set up
+          without development", p.11, S1-2.1.6-c16). Whether the payroll entry table of 2.10.10
+          (S1-2.10.10-c01 to c08) governs those interface posting rules before 2.10.10 is delivered is
+          an open point for the qualified accountant; SRC-001 does not say.
         other_effects: >-
           The payroll returns are prepared in the external payroll system and their schedules
           uploaded (S1-2.7.7-c20) until release 2. At release 2 the employee master with year-to-date
@@ -1556,6 +1626,8 @@ decisions_needed:
           - Q-022 read as (A) or (C), since "A third-party payroll product synchronising by file transfer is not acceptable" (S1-2.10-c01)
           - a payroll system in use today, which is not recorded (Q-006)
           - qualified-accountant confirmation on interface postings to payroll control accounts
+          - qualified-accountant view on how the payroll control accounts are agreed in release 1 without payroll run totals (S1-2.12.1-c06)
+          - qualified-accountant view on whether S1-2.10.10-c01 to c08 govern the interface posting rules (S1-2.1.6-c16) before 2.10.10 is delivered
           - tax-specialist confirmation of payroll returns prepared outside the system for the interim
     assurance_view: >-
       REV-01M5EP1W4DYPM707EB79AYEYV1 (E4, advisory) recommends considering option C. Recorded here as
@@ -1565,15 +1637,29 @@ decisions_needed:
     question: >-
       Is a minimal employee record (S1-2.10.1-c01, c02, c07, c09) in release 1 so that expense claims
       (S1-2.5.2-c07) can be raised and settled by payment, or are expense claims deferred with the
-      rest of 2.10.1, and if so how are employee expenses handled meanwhile? Who approves an expense
-      claim, given that SRC-001 says "approved by the manager" (p.49) but the employee master holds no
-      manager field (S1-2.10.1, p.91)?
+      rest of 2.10.1, and if so how are employee expenses handled meanwhile? If the minimal record is
+      in release 1: (a) SRC-001 says a claim is "approved by the manager" (p.49, S1-2.5.2-c07) and
+      holds the reporting line in the employee master ("the hierarchy is maintained in the employee
+      master rather than assumed from the department", p.96, S1-2.10.11-c08), although the field
+      table (p.91) has no manager field; is that reporting line held in the release-1 record, so
+      that the approver of a claim comes from it? (b) SRC-001's employee route for raising a claim is
+      self-service (S1-2.10.11-c04, p.96), proposed for release 2; is a claim raised in release 1 by
+      the employee as a named user ("Named-user licensing", S1-2.1.3-c05, p.10), or keyed by Finance
+      on the employee's behalf? The choice affects licensing and segregation of duties ("a user
+      cannot approve a document they raised", S1-2.1.2-c16, p.9). (c) Is it accepted that the
+      deferred mandatory fields (S1-2.10.1-c03 to c06, c08, c10, c11) are validated only from
+      payroll activation, as the 2.10.1 split proposes?
   - id: D-2.1.5-c17
     owner: product-owner
     question: How is the two-year-old-invoice search test (S1-2.1.5-c17) run at release-1 acceptance if no history is migrated? (Q-006)
   - id: D-2.1.7-c84
     owner: product-owner
-    question: May the module-activation acceptance test S1-2.1.7-c84 be accepted in part in release 1 and in full in release 5?
+    question: >-
+      May the module-activation acceptance test S1-2.1.7-c84 be accepted in part in release 1, in
+      part in release 2, and in full in release 5? Its part "activating a second module later leaves
+      the first unchanged and requires no migration" (SRC-001 p.17) is exercised when payroll or
+      fixed assets are activated in release 2 (options A and C of D-INT-1), and the release-2 loading
+      task (R-06) stands against "requires no migration": how is that part met or accepted?
   - id: D-2.3.3
     owner: product-owner
     question: Which billing types (milestone, progress, subscription, project) does the first customer use? (S1-2.3.3-c05 to c08)
@@ -1620,8 +1706,9 @@ open_items_without_question_record:
     owner, 20 for the tax specialist). This proposal assumes the bank statement feed and the tax
     e-filing portal.
   - >-
-    The tenant boundary: how a TIQACC tenant relates to SRC-001's entity and group. Product owner,
-    with the tech lead and the security owner. Recorded as OI-TENANT in docs/requirements/actors.yaml.
+    Resolved since version 2: the tenant boundary (how a TIQACC tenant relates to SRC-001's entity
+    and group; product owner, with the tech lead and the security owner) now has a question record,
+    Q-031 (version 1). It remains open item OI-TENANT in docs/requirements/actors.yaml.
   - >-
     Resolved since version 1: the expected credit loss policy now has a question record, Q-030.
 
@@ -1630,9 +1717,11 @@ risks:
     risk: >-
       Any interim route for payroll, fixed asset and income tax postings (D-INT-1, option A) meets the
       release-1 control-account block (S1-2.2.1-c06, c21) and the rule that a control flag cannot
-      change while the account carries a balance (S1-2.2.2-c12, c16): either a release-1 control is
+      change once transactions exist (S1-2.2.2-c16; see also c12): either a release-1 control is
       relaxed, or interim non-control accounts are used and their balances moved into new control
-      accounts at release 2 through the sub-ledger. Separately, BO-01's second indicator
+      accounts at release 2, through the sub-ledger or by an approved reclassification, depending on
+      how the qualified accountant reads S1-2.2.1-c21 against S1-2.2.2-c16 and c18 (D-INT-1,
+      option A). Separately, BO-01's second indicator
       (S1-2.2.4-c32) names "a payslip, a depreciation run and a stock issue": under option A the
       payslip and depreciation parts are unmet until release 2, and the stock-issue part is unmet
       until inventory in release 5, and can never be met by a service-only entity that does not
@@ -1651,7 +1740,7 @@ risks:
       all [No.] entities", S1-2.2.1-c18).
   - id: R-04
     risk: >-
-      Many release 1 clauses carry bracketed values (workbook v2) and depend on open questions; the
+      Many release 1 clauses carry bracketed values (workbook v3) and depend on open questions; the
       release 1 build cannot be specified in full until the tax specialist confirms the Sri Lanka tax
       content (Q-003, Q-021) and the qualified accountant decides Q-007 to Q-014.
   - id: R-05
@@ -1660,15 +1749,19 @@ risks:
       shares "One platform · one data set · one chart of accounts · one audit trail" (SRC-001 p.13,
       S1-2.1.7-c02) and consolidates (S1-2.14-c01), so mapping one legal entity to one tenant would
       split a group across tenants. Q-001 says TIQACC is multi-tenant but maps nothing to a tenant.
-      Until the product owner, tech lead and security owner settle it (OI-TENANT), the release-1 data
+      Until the product owner, tech lead and security owner settle it (OI-TENANT, question record
+      Q-031), the release-1 data
       model and the isolation controls of 2.1.3 and 2.14.2 cannot be specified in full.
   - id: R-06
     risk: >-
       An entity that runs on release 1 and then activates payroll or fixed assets needs their opening
       data loaded (S1-2.16.2-c01), against the promise that a further module is activated "without
-      data migration" (S1-2.1.7-c08). The size of this load depends on D-INT-1 (none for an entity
-      that starts on option B; fixed assets none and payroll from the external system under C;
-      both under A). See releases, loading_task.
+      data migration" (S1-2.1.7-c08) and against the acceptance part "activating a second module
+      later leaves the first unchanged and requires no migration" (S1-2.1.7-c84, p.17; decision
+      D-2.1.7-c84). The size of this load depends on D-INT-1 (none for an entity that starts on
+      option B; fixed assets none and payroll from the external system under C; both under A, and
+      under A(ii) reading R1 also the interim payroll and fixed asset balances). It also completes
+      the employee fields deferred from release 1 (2.10.1, D-2.10.1). See releases, loading_task.
 
 variants:
   basis: >-
@@ -1682,9 +1775,17 @@ variants:
       - {section: "2.7.5", clauses: [S1-2.7.5-c04, S1-2.7.5-c05]}
       - {section: "2.8.16", clauses: [S1-2.8.16-c01, S1-2.8.16-c02, S1-2.8.16-c03, S1-2.8.16-c04, S1-2.8.16-c05, S1-2.8.16-c06, S1-2.8.16-c07, S1-2.8.16-c08, S1-2.8.16-c11, S1-2.8.16-c12]}
       - {section: "2.10.1", clauses: [S1-2.10.1-c03, S1-2.10.1-c04, S1-2.10.1-c05, S1-2.10.1-c06, S1-2.10.1-c08, S1-2.10.1-c10, S1-2.10.1-c11, S1-2.10.1-c12, S1-2.10.1-c13]}
+      - {section: "2.9.1", from_release: 2, clauses: [S1-2.9.1-c08]}
     recommendations_that_change:
       - '2.8.8 and S1-2.8.16-c09: release 1 if the first entity has leases (D-2.8.8).'
       - '2.7.6 needs-decision part: release 1 becomes possible because the fixed asset register is in release 1 (S1-2.7.6-c02); still D-2.7.6.'
+      - >-
+        2.1.6, workbook value 19 ("[attendance device, where used]", S1-2.1.6-c17): the release-1
+        part of 2.1.6 leaves it out "because attendance belongs to payroll" (S1-2.10.4-c01), and
+        under option B payroll and attendance (2.10.4) are in release 1, so that reason no longer
+        holds. Whether an attendance device integration is live at go-live is then open for the
+        product owner under value 19; SRC-001 says "where used", and whether the first entity uses
+        one is not recorded. This file proposes neither.
     unchanged: The payroll assistant (2.10.13) stays in release 4; physical verification, capital budgeting, maintenance and multi-entity assets (2.8.9 to 2.8.12) keep their releases.
     release_2_then_holds: >-
       Supplier invoice capture (2.5.3, S1-2.11.2-c02, c04, S1-2.5.18-c04), the report builder and
@@ -1701,6 +1802,7 @@ variants:
     parts_to_release_1:
       - {section: "2.8.16", clauses: [S1-2.8.16-c01, S1-2.8.16-c02, S1-2.8.16-c03, S1-2.8.16-c04, S1-2.8.16-c05, S1-2.8.16-c06, S1-2.8.16-c07, S1-2.8.16-c08, S1-2.8.16-c11, S1-2.8.16-c12]}
       - {section: "2.1.6", from_release: 5, clauses: [S1-2.1.6-c09]}
+      - {section: "2.9.1", from_release: 2, clauses: [S1-2.9.1-c08]}
     reason_for_the_set: >-
       The review names the fixed asset core as 2.8.1 to 2.8.5 and 2.8.13. This variant adds 2.8.6 and
       2.8.7 because disposal, write-off, revaluation and impairment post to the same asset cost,
@@ -1709,6 +1811,7 @@ variants:
       2.8.6 still follow 2.14 by rule module-dependent-clauses. 2.8.14 and 2.8.15 are the reports
       and governance of the core. S1-2.1.6-c09 is the integration row that names "Payroll and
       workforce management" (p.11); its other systems are used only when their tenants need them.
+      S1-2.9.1-c08 (fixed asset item) moves with S1-2.8.2-c02, as under option B (see 2.9.1).
     recommendations_that_change:
       - '2.8.8 and S1-2.8.16-c09: release 1 if the first entity has leases (D-2.8.8).'
       - '2.7.6 needs-decision part: release 1 becomes possible because the fixed asset register is in release 1 (S1-2.7.6-c02); still D-2.7.6.'
@@ -1736,3 +1839,9 @@ counts:
     2.1.5 (release-1), 2.9.1 (later, release 5) and 2.10.1 (later, release 2) became splits. Within
     existing splits, clauses moved in 2.1.7 (c57 to release 1; c84 to needs-decision), 2.1.8 (c20,
     c22, c34, c42, c43 to release 1 as data-model constraints) and 2.5.18 (c01 to release 5).
+  changes_from_version_2: >-
+    No top-level mark changes, so the counts above and in variants are unchanged. Within the 2.9.1
+    split, S1-2.9.1-c08 moves from release 5 to release 2 under option A, and to release 1 under
+    options B and C, with S1-2.8.2-c02. Option A's effect on release 1 now counts the release-1 parts
+    of 18 splits, not 20. The S1-2.1.7-c84 recommendation adds a release-2 part. All other changes
+    are to reasons, decisions, risks and cross-references (REV-01M5EQY9R7BC1SY2XDY6S9YA52).

@@ -1,9 +1,9 @@
-version: 2
+version: 3
 status: Proposed
 proposed_by: requirements-engineer
 decided_by_role: product-owner
-workflow: WF-01M5D0SE8MMS39CTPTXH8ME1HT step 6 (revises step 4, commit f3b3b4c)
-revised_after_review: REV-01M5EP1W4DYPM707EB79AYEYV1
+workflow: WF-01M5D0SE8MMS39CTPTXH8ME1HT step 8 (links Q-031; step 6 revised step 4, commit f3b3b4c)
+revised_after_review: [REV-01M5EP1W4DYPM707EB79AYEYV1, REV-01M5EQY9R7BC1SY2XDY6S9YA52]
 source: SRC-001
 clause_index: docs/requirements/clause-index.yaml (version 2, commit ebb3073)
 method: >-
@@ -15,7 +15,7 @@ method: >-
   role); signatory (signs SRC-001 itself); external-party (a person or organisation outside the
   entity); external-system (a system TIQACC connects to). Two entries come from question records
   rather than SRC-001 and say so. Where SRC-001 leaves a role open as "[role]", that is not an actor
-  here: each one is a value in the bracketed-value workbook (bracketed-values.yaml v2), 53 in all,
+  here: each one is a value in the bracketed-value workbook (bracketed-values.yaml v3), 53 in all,
   for its owner to confirm. Nothing here assigns a permission or settles a segregation rule; those are
   requirements for later, under 2.1.2.
 notes:
@@ -43,8 +43,9 @@ open_items:
       one legal entity to one tenant would split a group across tenants. One reading the review
       offers is "a tenant holds one group of one or more legal entities"
       (REV-01M5EP1W4DYPM707EB79AYEYV1, finding 12); it is recorded here as a reading to decide, not
-      as an assumption. This is an architecture and security decision; the orchestrator may raise it
-      as a question record.
+      as an assumption. This is an architecture and security decision, raised as question record
+      Q-031 (version 1).
+    question_record: Q-031
     affects: ["2.1.1", "2.1.3", "2.14.2", BO-08, release-phasing.yaml risk R-05]
 actors:
   # ---------------------------------------------------------------- starting role set, 2.1.2
@@ -353,7 +354,7 @@ actors:
     source_note: >-
       From Q-001, not from SRC-001. SRC-001's "the entity" (S1-1-c01, p.6) is read as the
       organisation this team keeps the books of, for release 1; what tenant or tenants that
-      organisation occupies is open (OI-TENANT).
+      organisation occupies is open (OI-TENANT, Q-031).
     does: First customer; runs its books on TIQACC and accepts each module under 2.16.4 (Q-001).
   # ---------------------------------------------------------------- external systems
   - key: identity-provider

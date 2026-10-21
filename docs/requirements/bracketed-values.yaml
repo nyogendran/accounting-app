@@ -1,4 +1,4 @@
-version: 2
+version: 3
 source: SRC-001
 clause_index: docs/requirements/clause-index.yaml
 extraction: docs/sources/SRC-001-spec-v1/extracted/spec-v1.txt
@@ -25,7 +25,9 @@ method: >-
   32 to 37) to qualified-accountant, as in Q-005; control thresholds (values 31, 56, 159 and 162) to
   qualified-accountant, as accounting-risk acceptance in the authority matrix; service-level targets
   (values 16, 96, 153, 169 and 175 to 177) to product-owner, with the tech lead confirming feasibility
-  (Q-024). Where a value depends on a question record, needed_for names it. TIQACC is Tiqri's own
+  (Q-024). Version 3 changes only the needed_for text of value 4, which no longer says "per tenant"
+  and links Q-031 (REV-01M5EQY9R7BC1SY2XDY6S9YA52). Where a value depends on a question record,
+  needed_for names it. TIQACC is Tiqri's own
   multi-tenant product (Q-001), so many of these values may become tenant settings with a default;
   deciding that for each value is for its owner, not for this workbook.
 totals:
@@ -43,7 +45,7 @@ values:
   - {n: 1, clause: S1-1-c03, page: 6, line: 267, token: "[role]", context: "a role such as [role], a period", kind: role, spec_value: null, owner: product-owner, needed_for: "Nothing to confirm: an example inside the convention that explains brackets; listed so the count reconciles."}
   - {n: 2, clause: S1-1-c03, page: 6, line: 268, token: "[7]", context: "such as [7] years, a threshold", kind: duration, spec_value: "7", owner: product-owner, needed_for: "Nothing to confirm: an example inside the convention that explains brackets; listed so the count reconciles."}
   - {n: 3, clause: S1-1-c03, page: 6, line: 268, token: "[30]", context: "a threshold such as [30] days. Every bracket", kind: duration, spec_value: "30", owner: product-owner, needed_for: "Nothing to confirm: an example inside the convention that explains brackets; listed so the count reconciles."}
-  - {n: 4, clause: S1-1-c09, page: 6, line: 284, token: "[No.]", context: "Entities and sites [No.] legal entities", kind: count, spec_value: null, owner: product-owner, needed_for: "Number of legal entities in scope; sizes the group structure, consolidation and test data. For a multi-tenant product (Q-001) this is a sizing assumption per tenant."}
+  - {n: 4, clause: S1-1-c09, page: 6, line: 284, token: "[No.]", context: "Entities and sites [No.] legal entities", kind: count, spec_value: null, owner: product-owner, needed_for: "Number of legal entities in scope; sizes the group structure, consolidation and test data. For a multi-tenant product (Q-001) this is a sizing assumption for the organisation whose books are kept; how legal entities relate to tenants is open (Q-031)."}
   - {n: 5, clause: S1-1-c09, page: 6, line: 284, token: "[No.]", context: "[No.] branches or locations", kind: count, spec_value: null, owner: product-owner, needed_for: "Number of branches or locations in scope (location dimension, numbering series)."}
   - {n: 6, clause: S1-1-c09, page: 6, line: 284, token: "[No.]", context: "[No.] warehouses", kind: count, spec_value: null, owner: product-owner, needed_for: "Number of warehouses in scope (inventory module sizing)."}
   - {n: 7, clause: S1-1-c10, page: 6, line: 285, token: "[No.]", context: "Users [No.] named users", kind: count, spec_value: null, owner: product-owner, needed_for: "Number of named users in scope (licensing and sizing)."}
