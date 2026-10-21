@@ -33,11 +33,20 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   - G5, data boundary: deferred (DEC-0004).
 - **Blockers:** none for L1. Annexure B: monthly volumes and invoice formats are requested from
   Finance; the current chart of accounts is needed only if data is migrated.
-- **In progress:** WF-01M5D0SE8MMS39CTPTXH8ME1HT, L1 discovery. Step 1: the requirements agent
-  builds the clause index of SRC-001 and the bracketed-value workbook.
+- **In progress:** WF-01M5D0SE8MMS39CTPTXH8ME1HT, L1 discovery, steps 1 to 8 done.
+  - Built and reviewed: the clause index (2,444 clauses) and the bracketed-value workbook (178 values,
+    168 to confirm).
+  - Proposed, reviewed twice and revised: business objectives BO-01 to BO-08, actors, a glossary and the
+    release phasing (v3).
+  - Questions Q-001 to Q-031 are open for their owners.
+- **Waiting on people:**
+  - DEC-0007 approval. The approval hook did not fire in the resumed session; the phrase must be sent
+    from a new session.
+  - The product owner's decision on the release-1 scope. Q-029 decides it.
+  - Answers to Q-007 to Q-031 from the product owner, the qualified accountant and the tax specialist.
 - **Next:**
-  1. Once DEC-0007 is approved, update the authority matrix.
-  2. Independent review of the clause index and workbook (requirements-assurance).
-  3. Business objectives, actors, glossary and a proposed release phasing.
-  4. F1, knowledge base.
-  5. F2, once the GitHub details arrive.
+  1. A decision brief for the product owner on release-1 scope and Q-029.
+  2. Once DEC-0007 is approved, update the authority matrix.
+  3. F1, knowledge base.
+  4. F2, once the GitHub details arrive. Shifan's and Rifaz's approvals need F2 to carry their own
+     identity.
