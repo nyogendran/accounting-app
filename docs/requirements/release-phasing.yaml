@@ -1,8 +1,9 @@
-version: 1
+version: 2
 status: Proposed
 proposed_by: requirements-engineer
 decided_by_role: product-owner
-workflow: WF-01M5D0SE8MMS39CTPTXH8ME1HT step 4
+workflow: WF-01M5D0SE8MMS39CTPTXH8ME1HT step 6 (revises step 4, commit f3b3b4c)
+revised_after_review: REV-01M5EP1W4DYPM707EB79AYEYV1
 answers_question: Q-002
 source: SRC-001
 clause_index: docs/requirements/clause-index.yaml (version 2, commit ebb3073)
@@ -12,6 +13,15 @@ purpose: >-
   the order. It recommends; it decides nothing. Every reason cites clauses. Where an accounting, tax
   or scope fact needed for a mark is not settled by SRC-001 or a question record, the mark is
   needs-decision with the owner role.
+how_to_read_options: >-
+  The boundary between release 1 and release 2 depends on decision D-INT-1 (Q-029 v2), which has
+  three options, A, B and C, and this file chooses none of them. The marks under subsections are
+  written out in full once, as they stand under option A, only because A changes the fewest marks
+  from version 1; that is a convention of presentation, not a recommendation. The variants block
+  lists every sub-section whose mark changes under option B and under option C, so that each option
+  is one complete, coherent proposal. The effect of each option on release 1 and on the
+  control-account rule (S1-2.2.1-c06, S1-2.2.1-c21, S1-2.2.2-c12, S1-2.2.2-c16) is under
+  decisions_needed, D-INT-1.
 
 legend:
   release-1: In the first release, for Tiqri's internal finance team (Q-001) in Sri Lanka (Q-003).
@@ -46,6 +56,19 @@ rules:
     rule: >-
       The introductory clauses of each level-2 section follow the mark of that module's release-1
       sub-sections, or its later release if it has none; see section_intros.
+  - key: module-dependent-limits
+    rule: >-
+      Rule module-dependent-clauses covers postings that do not arise while the other module is off.
+      It does not cover a release-1 transaction that arises anyway and needs data or accounts that
+      belong to a later area (REV-01M5EP1W4DYPM707EB79AYEYV1, section 2). Such dependencies are
+      handled by splitting the later sub-section (2.9.1, 2.10.1) or by decision D-INT-1 (postings to
+      payroll, fixed asset and tax control accounts).
+  - key: design-constraints
+    rule: >-
+      A part marked release-1 with constraint data-model is delivered in release 1 as a property of the
+      data model and the storage, search and sort behaviour, so that a later release adds the
+      user-visible feature without rework or data migration (S1-2.1.7-c08, "without data migration").
+      Its acceptance in release 1 is limited to what release 1 data exercises.
 
 assumptions:
   - id: A-01
@@ -59,9 +82,12 @@ assumptions:
     statement: >-
       Release 1 users work in English, with Sri Lanka date, number and currency formats. SRC-001
       lists English among the minimum languages (S1-2.1.8-c52). Whether Sinhala or Tamil documents
-      are needed in release 1 is not recorded.
+      are needed in release 1 is not recorded. Sinhala and Tamil are not in SRC-001's minimum
+      language list (S1-2.1.8-c52 to c56, p.20), which adds languages "as configuration rather than
+      as a customisation" (S1-2.1.8-c51). Customer and supplier names may still be held in a
+      non-Latin script from release 1, which is why S1-2.1.8-c20 is a release-1 design constraint.
     owner: product-owner
-    if_wrong: The language clauses of 2.1.8 move into release 1.
+    if_wrong: The language clauses of 2.1.8 move into release 1, and the tech lead confirms that Sinhala and Tamil are supported under S1-2.1.8-c51.
   - id: A-03
     statement: >-
       Release 1 runs one Sri Lanka entity in production; the platform holds entity as a mandatory
@@ -81,14 +107,25 @@ releases:
   - release: 2
     name: Complete Sri Lanka books
     scope: >-
-      Payroll for Sri Lanka (2.10 except its assistant), fixed assets (core of 2.8), supplier invoice
-      capture by email and optical reading (2.5.3, part of 2.11.2), and the report builder (2.13.2,
-      2.13.4). Corporate income tax (2.7.6) is proposed here, subject to the tax specialist's
-      decision. This release removes the interim manual journals for payroll and depreciation.
+      Under option A of D-INT-1: payroll for Sri Lanka (2.10 except its assistant and the release-1
+      part of the employee master), fixed assets (core of 2.8), supplier invoice capture by email and
+      optical reading (2.5.3, part of 2.11.2), and the report builder (2.13.2, 2.13.4). Under option
+      B, payroll and the fixed asset core are in release 1 instead; under option C, the fixed asset
+      core is in release 1 and payroll stays here (see variants). Corporate income tax (2.7.6) is
+      proposed here, subject to the tax specialist's decision (D-2.7.6). Whatever option is chosen,
+      this release ends the interim route that D-INT-1 settles for the modules it delivers.
+    loading_task: >-
+      An entity that has run on release 1 and activates payroll or fixed assets in release 2 needs
+      their opening data loaded: the "fixed asset register with accumulated depreciation" and the
+      "employee master with year-to-date payroll figures" (SRC-001 p.120, S1-2.16.2-c01). SRC-001
+      promises that a further module is activated "without data migration" (S1-2.1.7-c08, p.13), so
+      this load is a conversion inside TIQACC from the interim records that D-INT-1 settles, or a load
+      from the external payroll system under option C. It is recorded here as a release-2 task
+      whatever Q-006 decides; its method is for the qualified accountant (see risk R-06).
     order_reason: >-
       SRC-001 says the system posts payroll and depreciation itself (S1-0-c10; S1-2.8.3-c01) and that
-      "No user journal is acceptable as a substitute" (SRC-001 p.8, S1-2-c02), so the interim journals
-      of release 1 should be as short-lived as possible.
+      "No user journal is acceptable as a substitute" (SRC-001 p.8, S1-2-c02), so whatever interim
+      route D-INT-1 allows should be as short-lived as possible.
   - release: 3
     name: Second country and group
     scope: >-
@@ -114,7 +151,8 @@ releases:
   - release: 5
     name: Other tenant profiles and breadth
     scope: >-
-      Inventory and manufacturing (2.9), asset maintenance (2.8.9), standalone module deployment and
+      Inventory and manufacturing (2.9, except the release-1 part of the item master 2.9.1), asset
+      maintenance (2.8.9), standalone module deployment and
       industry templates (part of 2.1.7), and integration with other external systems and master
       data synchronisation (part of 2.1.6).
     order_reason: >-
@@ -131,18 +169,24 @@ release_1_rationale: >-
   drill-down to evidence (BO-02). The general ledger is "Always active — the base of every
   deployment" (S1-2.1.7-c32). The posting rules engine is in release 1 because it "is the one the
   whole system posts through, not a bank-only facility" (SRC-001 p.58, S1-2.6-c01; S1-2.2.4-c15).
-  Platform services (roles, audit log, numbering, localisation, integration framework) are "part of
-  the platform, not of any one module" (S1-2.1.7-c25). Balance sheet reconciliation is in release 1
-  because a period "cannot be hard-closed until every in-scope reconciliation is approved"
-  (S1-2.12.3-c06). Receivables, invoicing and payables are in release 1 because a service entity's
-  chain "runs quotation, order, invoice, receipt" (S1-2.3.2-c08) and payables posts the supplier
-  side; tax is in release 1 because the Sri Lanka entity has filing obligations from its first
-  period, which the tax specialist confirms (Q-003, Q-021). Payroll and fixed assets are large
-  modules whose postings can reach the ledger meanwhile by approved journal with the working
-  attached (S1-2.11.5-c01); that interim arrangement conflicts with S1-2-c02 and is listed as decision
-  D-INT-1. SRC-001 already leaves "[Service management, native CRM, e-commerce storefront]" out of
-  phase 1 (SRC-001 p.6, S1-1-c12; bracketed, workbook), and they are not specified in section 2.
-  Each module is accepted separately (S1-2.16.4-c01), which allows this order.
+  Platform services (roles, audit log, numbering, localisation, integration framework) are in release
+  1 because every module uses them; SRC-001 describes them as "part of the platform, not of any one
+  module" (SRC-001 p.14, S1-2.1.7-c25). That clause is cited only for this description: its own
+  requirement concerns standalone module deployment and is marked for release 5. Balance sheet
+  reconciliation is in release 1 because a period "cannot be hard-closed until every in-scope
+  reconciliation is approved" (S1-2.12.3-c06). Receivables, invoicing and payables are in release 1
+  because a service entity's chain "runs quotation, order, invoice, receipt" (S1-2.3.2-c08) and
+  payables posts the supplier side; tax is in release 1 because the Sri Lanka entity has filing
+  obligations from its first period, which the tax specialist confirms (Q-003, Q-021). Whether
+  payroll and fixed assets are in release 1 is decision D-INT-1, which has no answer yet. SRC-001
+  gives postings of a module that is not yet delivered no route that is free of conflict: "No user
+  journal is acceptable as a substitute" (S1-2-c02), and control accounts for "Receivables,
+  payables, inventory, payroll, fixed asset, tax and bank ... accept sub-ledger postings only;
+  manual journals to them are blocked" (SRC-001 p.23, S1-2.2.1-c06), a release-1 clause. D-INT-1
+  sets out options A, B and C and their effects; the variants block gives the marks under each.
+  SRC-001 already leaves "[Service management, native CRM, e-commerce storefront]" out of phase 1
+  (SRC-001 p.6, S1-1-c12; bracketed, workbook), and they are not specified in section 2. Each module
+  is accepted separately (S1-2.16.4-c01), which allows this order.
 
 section_intros:
   - {section: "2", clauses: [S1-2-c01, S1-2-c02], mark: release-1, reason: "How to read section 2 and its entry tables; applies to every release."}
@@ -182,30 +226,50 @@ subsections:
     heading: User roles and segregation of duties
     mark: release-1
     reason: >-
-      Platform service every module needs (S1-2.1.7-c25); "a user cannot approve a document they
-      raised" (S1-2.1.2-c16) underpins every posting, and the small-team release (S1-2.1.2-c17) fits
-      the first customer's team.
+      Platform service every module needs (described as "part of the platform", S1-2.1.7-c25; see
+      release_1_rationale); "a user cannot approve a document they raised" (S1-2.1.2-c16) underpins
+      every posting, and the small-team release (S1-2.1.2-c17) fits the first customer's team.
     blocking_questions: [Q-009]
   - section: "2.1.3"
     heading: Security controls
     mark: release-1
     reason: >-
       Single sign-on with MFA, encryption, residency and leaver disabling (S1-2.1.3-c01 to c05) are
-      the baseline for holding a tenant's financial data. The identity provider, encryption standard
-      and hosting locations are security-owner decisions for the build, not for this phasing.
+      the baseline for holding financial data in a cloud service (BO-08). The identity provider,
+      encryption standard and hosting locations are security-owner decisions for the build, not for
+      this phasing. How tenants are separated is a further open item (OI-TENANT in
+      docs/requirements/actors.yaml).
     blocking_questions: [Q-023, Q-028]
   - section: "2.1.4"
     heading: Audit log
     mark: release-1
-    reason: Platform service (S1-2.1.7-c25); the uneditable log (S1-2.1.4-c01) is the basis of BO-02 and BO-03.
+    reason: Platform service (described as "part of the platform", S1-2.1.7-c25; see release_1_rationale); the uneditable log (S1-2.1.4-c01) is the basis of BO-02, BO-03 and BO-08.
     blocking_questions: [Q-020, Q-025]
   - section: "2.1.5"
     heading: Search and enquiry
-    mark: release-1
-    reason: >-
-      Finding any record from any detail on every screen (S1-2.1.5-c01) is daily value to the finance
-      team, and search must respect permissions from the start (S1-2.1.5-c13).
-    blocking_questions: [Q-024]
+    mark: split
+    parts:
+      - mark: release-1
+        clauses: [S1-2.1.5-c01, S1-2.1.5-c02, S1-2.1.5-c03, S1-2.1.5-c04, S1-2.1.5-c05, S1-2.1.5-c06, S1-2.1.5-c07, S1-2.1.5-c08, S1-2.1.5-c09, S1-2.1.5-c10, S1-2.1.5-c11, S1-2.1.5-c12, S1-2.1.5-c13, S1-2.1.5-c14, S1-2.1.5-c15, S1-2.1.5-c16]
+        reason: >-
+          Finding any record from any detail on every screen (S1-2.1.5-c01) is daily value to the
+          finance team, and search must respect permissions from the start (S1-2.1.5-c13). Search of
+          "the text inside the document, so an invoice can be found from a number printed on the
+          scan" (SRC-001 p.10, S1-2.1.5-c08) and "Full-text search across attachments"
+          (S1-2.11.4-c02) need text recognition on scanned images in release 1; see 2.11.2.
+      - mark: needs-decision
+        owner: product-owner
+        clauses: [S1-2.1.5-c17]
+        reason: >-
+          "Acceptance: a user finds a two-year-old supplier invoice from the invoice number printed on
+          the scan alone" (SRC-001 p.11, S1-2.1.5-c17). At release-1 acceptance the system holds a
+          two-year-old invoice only if history is migrated (Q-006, D-2.16.2); otherwise the test
+          cannot run as written at go-live.
+        recommendation: >-
+          Release 1 if D-2.16.2 migrates at least two years of history. Otherwise the product owner
+          decides, under the acceptance protocol (S1-2.16.4-c01), how this test is run for release-1
+          acceptance or when it is run later.
+    blocking_questions: [Q-006, Q-024]
   - section: "2.1.6"
     heading: External system integration and connectivity
     mark: split
@@ -213,11 +277,21 @@ subsections:
       - mark: release-1
         clauses: [S1-2.1.6-c01, S1-2.1.6-c02, S1-2.1.6-c04, S1-2.1.6-c06, S1-2.1.6-c08, S1-2.1.6-c11, S1-2.1.6-c12, S1-2.1.6-c14, S1-2.1.6-c15, S1-2.1.6-c16, S1-2.1.6-c17, S1-2.1.6-c27, S1-2.1.6-c28, S1-2.1.6-c29, S1-2.1.6-c30, S1-2.1.6-c31, S1-2.1.6-c32, S1-2.1.6-c33, S1-2.1.6-c34, S1-2.1.6-c35, S1-2.1.6-c36, S1-2.1.6-c37, S1-2.1.6-c38, S1-2.1.6-c39, S1-2.1.6-c40]
         reason: >-
-          The bank statement feed and the tax e-filing portal are named go-live integrations
-          (S1-2.1.6-c17); bulk journal upload and API journals use this framework (S1-2.2.4-c03); the
-          interface controls apply to every interface (S1-2.1.6-c27 to c35). Of the rows in c08, c11
-          and c12 only banking and the tax authority portals are needed in release 1; the other
-          systems in those rows follow in release 5.
+          S1-2.1.6-c17 lists four go-live integrations, all bracketed: "[bank statement feed], [POS or
+          e-commerce], [attendance device, where used], [tax authority e-filing portal where
+          applicable]" (SRC-001 p.11; workbook values 17 to 20, to be confirmed). This proposal
+          assumes the bank statement feed and the tax e-filing portal for release 1. It leaves out
+          POS or e-commerce, because the first entity is assumed service-based (A-01) and SRC-001's
+          bracketed out-of-scope list for phase 1 names an "e-commerce storefront" (S1-1-c12); and
+          the attendance device, because attendance belongs to payroll (S1-2.10.4-c01). The product
+          owner confirms values 17
+          to 19 and the tax specialist value 20. Bulk journal upload and API journals use this
+          framework (S1-2.2.4-c03); the interface controls apply to every interface (S1-2.1.6-c27 to
+          c35). c08 introduces the table of systems; of its rows in release 1, c11 and c12, only
+          banking and the tax authority portals are needed in release 1, and the other systems in
+          those rows follow in release 5. Under option C of D-INT-1 the row that names "Payroll and
+          workforce management" (S1-2.1.6-c09) also moves into release 1, because payroll results are
+          then fed through this interface (S1-2.1.6-c14); see variants.
       - mark: later
         release: 5
         clauses: [S1-2.1.6-c03, S1-2.1.6-c05, S1-2.1.6-c07, S1-2.1.6-c09, S1-2.1.6-c10, S1-2.1.6-c13, S1-2.1.6-c18, S1-2.1.6-c19, S1-2.1.6-c20, S1-2.1.6-c21, S1-2.1.6-c22, S1-2.1.6-c23, S1-2.1.6-c24, S1-2.1.6-c25, S1-2.1.6-c26, S1-2.1.6-c41]
@@ -233,21 +307,38 @@ subsections:
     mark: split
     parts:
       - mark: release-1
-        clauses: [S1-2.1.7-c01, S1-2.1.7-c02, S1-2.1.7-c03, S1-2.1.7-c04, S1-2.1.7-c05, S1-2.1.7-c06, S1-2.1.7-c07, S1-2.1.7-c08, S1-2.1.7-c09, S1-2.1.7-c10, S1-2.1.7-c11, S1-2.1.7-c31, S1-2.1.7-c32, S1-2.1.7-c33, S1-2.1.7-c34, S1-2.1.7-c35, S1-2.1.7-c36, S1-2.1.7-c37, S1-2.1.7-c38, S1-2.1.7-c39, S1-2.1.7-c40, S1-2.1.7-c41, S1-2.1.7-c42, S1-2.1.7-c43, S1-2.1.7-c44, S1-2.1.7-c45, S1-2.1.7-c46, S1-2.1.7-c47, S1-2.1.7-c48, S1-2.1.7-c49, S1-2.1.7-c50, S1-2.1.7-c51, S1-2.1.7-c52, S1-2.1.7-c53, S1-2.1.7-c54, S1-2.1.7-c59, S1-2.1.7-c60, S1-2.1.7-c61, S1-2.1.7-c62, S1-2.1.7-c63, S1-2.1.7-c64, S1-2.1.7-c65, S1-2.1.7-c66, S1-2.1.7-c67, S1-2.1.7-c68, S1-2.1.7-c69, S1-2.1.7-c70, S1-2.1.7-c71, S1-2.1.7-c72, S1-2.1.7-c73, S1-2.1.7-c74, S1-2.1.7-c75, S1-2.1.7-c76, S1-2.1.7-c77, S1-2.1.7-c78, S1-2.1.7-c79, S1-2.1.7-c80, S1-2.1.7-c81, S1-2.1.7-c82]
+        clauses: [S1-2.1.7-c01, S1-2.1.7-c02, S1-2.1.7-c03, S1-2.1.7-c04, S1-2.1.7-c05, S1-2.1.7-c06, S1-2.1.7-c07, S1-2.1.7-c08, S1-2.1.7-c09, S1-2.1.7-c10, S1-2.1.7-c11, S1-2.1.7-c31, S1-2.1.7-c32, S1-2.1.7-c33, S1-2.1.7-c34, S1-2.1.7-c35, S1-2.1.7-c36, S1-2.1.7-c37, S1-2.1.7-c38, S1-2.1.7-c39, S1-2.1.7-c40, S1-2.1.7-c41, S1-2.1.7-c42, S1-2.1.7-c43, S1-2.1.7-c44, S1-2.1.7-c45, S1-2.1.7-c46, S1-2.1.7-c47, S1-2.1.7-c48, S1-2.1.7-c49, S1-2.1.7-c50, S1-2.1.7-c51, S1-2.1.7-c52, S1-2.1.7-c53, S1-2.1.7-c54, S1-2.1.7-c57, S1-2.1.7-c59, S1-2.1.7-c60, S1-2.1.7-c61, S1-2.1.7-c62, S1-2.1.7-c63, S1-2.1.7-c64, S1-2.1.7-c65, S1-2.1.7-c66, S1-2.1.7-c67, S1-2.1.7-c68, S1-2.1.7-c69, S1-2.1.7-c70, S1-2.1.7-c71, S1-2.1.7-c72, S1-2.1.7-c73, S1-2.1.7-c74, S1-2.1.7-c75, S1-2.1.7-c76, S1-2.1.7-c77, S1-2.1.7-c78, S1-2.1.7-c79, S1-2.1.7-c80, S1-2.1.7-c81, S1-2.1.7-c82]
         reason: >-
           Per-entity activation is what lets modules arrive release by release without disruption
           (S1-2.1.7-c08, c79); the business profile decides which document stages and postings exist
           for a service entity (S1-2.1.7-c69 to c77), which receivables and payables depend on
           (S1-2.3.2-c08, S1-2.5.6-c01); configuration without development is BO-07 (S1-2.1.7-c53, c54).
+          "An entity's industry selection also proposes its likely tax obligations, as set out in
+          2.7.2" (SRC-001 p.16, S1-2.1.7-c57) is the same behaviour as S1-2.7.2-c02, which is in
+          release 1, so it is marked with it; the industry templates themselves (c55, c56, c58) stay
+          in release 5.
       - mark: later
         release: 5
-        clauses: [S1-2.1.7-c12, S1-2.1.7-c13, S1-2.1.7-c14, S1-2.1.7-c15, S1-2.1.7-c16, S1-2.1.7-c17, S1-2.1.7-c18, S1-2.1.7-c19, S1-2.1.7-c20, S1-2.1.7-c21, S1-2.1.7-c22, S1-2.1.7-c23, S1-2.1.7-c24, S1-2.1.7-c25, S1-2.1.7-c26, S1-2.1.7-c27, S1-2.1.7-c28, S1-2.1.7-c29, S1-2.1.7-c30, S1-2.1.7-c55, S1-2.1.7-c56, S1-2.1.7-c57, S1-2.1.7-c58, S1-2.1.7-c84]
+        clauses: [S1-2.1.7-c12, S1-2.1.7-c13, S1-2.1.7-c14, S1-2.1.7-c15, S1-2.1.7-c16, S1-2.1.7-c17, S1-2.1.7-c18, S1-2.1.7-c19, S1-2.1.7-c20, S1-2.1.7-c21, S1-2.1.7-c22, S1-2.1.7-c23, S1-2.1.7-c24, S1-2.1.7-c25, S1-2.1.7-c26, S1-2.1.7-c27, S1-2.1.7-c28, S1-2.1.7-c29, S1-2.1.7-c30, S1-2.1.7-c55, S1-2.1.7-c56, S1-2.1.7-c58]
         reason: >-
           Standalone module deployment (S1-2.1.7-c12 to c30) serves organisations that run the rest of
-          their finance elsewhere, and industry templates (c55 to c58) serve other sectors; the first
-          customer runs the integrated set (Q-001). The acceptance clause S1-2.1.7-c84 tests standalone
-          and multi-entity behaviour together, so it is run in full here; its service-only part could
-          be run at release 1 if the product owner wants an earlier partial acceptance.
+          their finance elsewhere, and industry templates (c55, c56, c58) serve other sectors; the
+          first customer runs the integrated set (Q-001).
+      - mark: needs-decision
+        owner: product-owner
+        clauses: [S1-2.1.7-c84]
+        reason: >-
+          The acceptance clause S1-2.1.7-c84 (SRC-001 p.17) joins several tests. Two of its parts test
+          release-1 clauses on which rule module-dependent-clauses relies: "an entity configured for
+          services alone completes quotation to receipt with no inventory screen, report or posting
+          anywhere in the flow" and "a user licensed for some modules cannot reach the others through
+          any screen, report, search or API call" (S1-2.1.7-c07, c09). The other parts test standalone
+          deployment, later activation of inventory, two entities with different module sets, and
+          industry templates, which are in releases 3 and 5.
+        recommendation: >-
+          Partial acceptance: run the two parts quoted above at release-1 acceptance, and the clause
+          in full in release 5. The product owner decides whether partial acceptance of one clause
+          is allowed under the acceptance protocol (S1-2.16.4-c01).
       - mark: needs-decision
         owner: product-owner
         clauses: [S1-2.1.7-c83]
@@ -265,13 +356,27 @@ subsections:
         reason: >-
           Sri Lanka date, number, currency and tax terminology formats are needed by the first entity
           (S1-2.1.8-c24 to c30); "Format is presentation only" (S1-2.1.8-c32). Assumption A-02.
+      - mark: release-1
+        constraint: data-model
+        clauses: [S1-2.1.8-c20, S1-2.1.8-c22, S1-2.1.8-c34, S1-2.1.8-c42, S1-2.1.8-c43]
+        reason: >-
+          These are properties of the data model, not language features (rule design-constraints).
+          "Scripts beyond the Latin alphabet are supported in full ... in entry, storage, search,
+          sorting, printing and export" (SRC-001 p.18, S1-2.1.8-c20): a Sri Lanka customer or supplier
+          name may be held in a non-Latin script from release 1 (A-02). "Terminology is held as data"
+          (S1-2.1.8-c22): the release-1 rows for tax and statutory terminology "in the words the local
+          framework uses" (S1-2.1.8-c27, c28) rely on it. "Master records carry one code and as many
+          descriptions as the group needs" (p.19, S1-2.1.8-c34); "A record is created once. Adding a
+          language adds a description to the existing record; it never creates a second record"
+          (S1-2.1.8-c42); and matching "on the code" (S1-2.1.8-c43). Building these later would change
+          every master record. Right-to-left layout (c21) stays in release 3.
       - mark: later
         release: 3
-        clauses: [S1-2.1.8-c01, S1-2.1.8-c02, S1-2.1.8-c03, S1-2.1.8-c04, S1-2.1.8-c05, S1-2.1.8-c06, S1-2.1.8-c07, S1-2.1.8-c08, S1-2.1.8-c09, S1-2.1.8-c10, S1-2.1.8-c11, S1-2.1.8-c12, S1-2.1.8-c13, S1-2.1.8-c14, S1-2.1.8-c15, S1-2.1.8-c16, S1-2.1.8-c17, S1-2.1.8-c18, S1-2.1.8-c19, S1-2.1.8-c20, S1-2.1.8-c21, S1-2.1.8-c22, S1-2.1.8-c23, S1-2.1.8-c34, S1-2.1.8-c35, S1-2.1.8-c36, S1-2.1.8-c37, S1-2.1.8-c38, S1-2.1.8-c39, S1-2.1.8-c40, S1-2.1.8-c41, S1-2.1.8-c42, S1-2.1.8-c43, S1-2.1.8-c44, S1-2.1.8-c45, S1-2.1.8-c46, S1-2.1.8-c47, S1-2.1.8-c48, S1-2.1.8-c49, S1-2.1.8-c50, S1-2.1.8-c51, S1-2.1.8-c52, S1-2.1.8-c53, S1-2.1.8-c54, S1-2.1.8-c55, S1-2.1.8-c56, S1-2.1.8-c57, S1-2.1.8-c58, S1-2.1.8-c59, S1-2.1.8-c60]
+        clauses: [S1-2.1.8-c01, S1-2.1.8-c02, S1-2.1.8-c03, S1-2.1.8-c04, S1-2.1.8-c05, S1-2.1.8-c06, S1-2.1.8-c07, S1-2.1.8-c08, S1-2.1.8-c09, S1-2.1.8-c10, S1-2.1.8-c11, S1-2.1.8-c12, S1-2.1.8-c13, S1-2.1.8-c14, S1-2.1.8-c15, S1-2.1.8-c16, S1-2.1.8-c17, S1-2.1.8-c18, S1-2.1.8-c19, S1-2.1.8-c21, S1-2.1.8-c23, S1-2.1.8-c35, S1-2.1.8-c36, S1-2.1.8-c37, S1-2.1.8-c38, S1-2.1.8-c39, S1-2.1.8-c40, S1-2.1.8-c41, S1-2.1.8-c44, S1-2.1.8-c45, S1-2.1.8-c46, S1-2.1.8-c47, S1-2.1.8-c48, S1-2.1.8-c49, S1-2.1.8-c50, S1-2.1.8-c51, S1-2.1.8-c52, S1-2.1.8-c53, S1-2.1.8-c54, S1-2.1.8-c55, S1-2.1.8-c56, S1-2.1.8-c57, S1-2.1.8-c58, S1-2.1.8-c59, S1-2.1.8-c60]
         reason: >-
           Several languages against one database (S1-2.1.8-c01) arrive with the second country; Norway
-          is named in Q-003 and Norwegian is in SRC-001's list (S1-2.1.8-c56). See risk R-02 on
-          building language support in later.
+          is named in Q-003 and Norwegian is in SRC-001's list (S1-2.1.8-c56). The data-model
+          constraints above make this a feature added on top; see risk R-02.
     blocking_questions: [Q-003]
   - section: "2.1.9"
     heading: Assistants and automated analysis
@@ -284,7 +389,8 @@ subsections:
     heading: Document numbering
     mark: release-1
     reason: >-
-      Platform service (S1-2.1.7-c25); the statutory invoice series depend on it (S1-2.4.1-c06), and
+      Platform service (described as "part of the platform", S1-2.1.7-c25; see release_1_rationale);
+      the statutory invoice series depend on it (S1-2.4.1-c06), and
       "No user types, chooses, edits or re-uses a number" (S1-2.1.10-c01).
     blocking_questions: [Q-015]
   - section: "2.1.11"
@@ -297,8 +403,11 @@ subsections:
     mark: release-1
     reason: >-
       The general ledger is "Always active" (S1-2.1.7-c32); Finance maintains the chart in the system
-      (S1-2.2.1-c01, Q-005), and statement mapping depends on the accounting framework (Q-003).
-    blocking_questions: [Q-003, Q-005, Q-014]
+      (S1-2.2.1-c01, Q-005), and statement mapping depends on the accounting framework (Q-003). Its
+      control-account block (S1-2.2.1-c06, c21) applies from release 1 and bounds decision D-INT-1:
+      which accounts are flagged as control accounts in release 1 cannot be changed later while they
+      carry a balance (S1-2.2.2-c12).
+    blocking_questions: [Q-003, Q-005, Q-014, Q-029]
   - section: "2.2.2"
     heading: GL code creation and maintenance
     mark: release-1
@@ -318,8 +427,9 @@ subsections:
     heading: Journals and approval
     mark: release-1
     reason: >-
-      "the manual journal is the only other way into the ledger" (S1-1-c16); also the interim route
-      for payroll and depreciation until release 2 (decision D-INT-1).
+      "the manual journal is the only other way into the ledger" (S1-1-c16). It is not a route into
+      control accounts: "Posting is blocked to: ... control accounts by manual journal"
+      (SRC-001 p.24, S1-2.2.1-c21). Whether any interim journal is allowed is decision D-INT-1.
   - section: "2.2.6"
     heading: Correcting an entry — before and after approval
     mark: release-1
@@ -452,8 +562,9 @@ subsections:
     mark: release-1
     reason: >-
       The expected credit loss is recalculated at each period end as a close task (S1-2.3.13-c08),
-      so it is part of the receivables close. The provision policy is for the qualified accountant
-      (no question record yet; see open items).
+      so it is part of the receivables close. SRC-001 says the matrix is "maintained by Finance"
+      (S1-2.3.10-c01); the measurement policy and loss rates are for the qualified accountant (Q-030).
+    blocking_questions: [Q-030]
   - section: "2.3.11"
     heading: Multi-currency receivables
     mark: release-1
@@ -554,7 +665,13 @@ subsections:
     mark: release-1
     reason: >-
       Supplier invoices keyed or imported with the original attached (S1-2.5.2-c10); the email and
-      optical routes named there follow 2.5.3 in release 2.
+      optical routes named there follow 2.5.3 in release 2. An "Expense claim Raised by an employee
+      with receipts attached, approved by the manager, settled through payroll or by payment"
+      (SRC-001 p.49, S1-2.5.2-c07) arises whether payroll is active or not, and posts "Cr Employee
+      payable" (p.55, S1-2.5.13-c13). It needs an employee record, which is why part of the employee
+      master (2.10.1) is proposed for release 1. Until payroll is delivered a claim is settled by
+      payment. SRC-001's employee master has no field for the employee's manager; who approves a
+      claim is an open item (D-2.10.1).
   - section: "2.5.3"
     heading: Supplier invoice capture by email
     mark: later
@@ -636,8 +753,16 @@ subsections:
     mark: split
     parts:
       - mark: release-1
-        clauses: [S1-2.5.18-c01, S1-2.5.18-c02, S1-2.5.18-c03, S1-2.5.18-c05, S1-2.5.18-c06, S1-2.5.18-c07, S1-2.5.18-c08, S1-2.5.18-c09, S1-2.5.18-c10, S1-2.5.18-c11]
+        clauses: [S1-2.5.18-c02, S1-2.5.18-c03, S1-2.5.18-c05, S1-2.5.18-c06, S1-2.5.18-c07, S1-2.5.18-c08, S1-2.5.18-c09, S1-2.5.18-c10, S1-2.5.18-c11]
         reason: Tests of release 1 payables behaviour.
+      - mark: later
+        release: 5
+        clauses: [S1-2.5.18-c01]
+        reason: >-
+          "An invoice for more than was received is blocked" (SRC-001 p.57, S1-2.5.18-c01) tests the
+          quantity check, which applies "only where a goods receipt exists" and is "Not applied where
+          the inventory module is not active" (p.52, S1-2.5.6-c07). For a service entity (A-01) it
+          is run with inventory.
       - mark: later
         release: 2
         clauses: [S1-2.5.18-c04]
@@ -659,8 +784,9 @@ subsections:
     heading: Bank connectivity and statement import
     mark: release-1
     reason: >-
-      The bank statement feed is a named go-live integration (S1-2.1.6-c17); every imported line
-      passes through the rules engine (S1-2.6.3-c13).
+      The bank statement feed is the first of S1-2.1.6-c17's bracketed go-live integrations
+      ("[bank statement feed]", workbook value 17, to be confirmed); every imported line passes
+      through the rules engine (S1-2.6.3-c13).
     blocking_questions: [Q-008]
   - section: "2.6.4"
     heading: Manual statement upload — Excel and PDF
@@ -780,7 +906,14 @@ subsections:
       - mark: later
         release: 2
         clauses: [S1-2.7.5-c04, S1-2.7.5-c05]
-        reason: Employment income tax and statutory fund returns are "Built from" payroll runs (S1-2.7.5-c04, c05), delivered in release 2.
+        reason: >-
+          Employment income tax and statutory fund returns are built from "Payroll runs for the
+          period" and "Employee and employer contributions computed in payroll" (SRC-001 p.71,
+          S1-2.7.5-c04, c05), delivered in release 2 under options A and C of D-INT-1 (release 1
+          under B). Until then the obligations still exist from the first period and are tracked on
+          the release-1 tax dashboard (2.7.7), with each schedule "uploaded where prepared outside"
+          the system (S1-2.7.7-c20); the tax specialist confirms that this interim is acceptable
+          (D-INT-1).
       - mark: needs-decision
         owner: tax-specialist
         clauses: [S1-2.7.5-c06]
@@ -803,16 +936,34 @@ subsections:
           Whether the corporate tax computation, capital allowances, losses, deferred tax and
           instalments (S1-2.7.6-c01 to c09) must be in the system for the first entity's first filing,
           or may be prepared outside it for that year, is a tax decision; the capital allowance
-          register "runs alongside the fixed asset register" (S1-2.7.6-c02), which is in release 2.
-        recommendation: Release 2 with fixed assets; instalments meanwhile by approved journal.
+          register "runs alongside the fixed asset register" (S1-2.7.6-c02), which is in release 2
+          under option A of D-INT-1 and in release 1 under B and C. Deferring these clauses leaves two
+          postings without a release-1 route: "Current tax charge for the period Dr Income tax expense
+          · Cr Income tax payable" (S1-2.7.6-c07) and "Instalment or payment on account Dr Income tax
+          payable · Cr Bank" (SRC-001 p.71, S1-2.7.6-c08). Income tax payable is a tax control
+          account (S1-2.2.1-c06; "A separate control account is held per tax and per entity",
+          S1-2.7.6-c15), so a manual journal to it is blocked (S1-2.2.1-c21). The release-1 row
+          "Remittance of any tax to the authority Dr the relevant tax payable account · Cr Bank"
+          (S1-2.7.6-c12) may already cover the payment of an instalment; whether it does is for the
+          tax specialist with the qualified accountant. The interim for these postings is part of
+          D-INT-1.
+        recommendation: >-
+          Release 2 with the fixed asset core under option A, or release 1 under options B and C if
+          the tax specialist requires the computation in the system for the first filing. The interim
+          route for the charge and instalments follows D-INT-1; no journal route is proposed here.
     blocking_questions: [Q-003, Q-021]
   - section: "2.7.7"
     heading: Tax compliance dashboard and calendar
     mark: release-1
     reason: >-
       Statutory need: "No obligation in any jurisdiction is tracked outside the system."
-      (S1-2.7.7-c01).
-    blocking_questions: [Q-021]
+      (S1-2.7.7-c01). Obligations whose return is not yet built in the system, such as employment
+      income tax, statutory fund contributions and corporate income tax instalments (SRC-001's
+      illustrative rows "EPF — employee and employer", "ETF", "Payroll income tax" and "Corporate
+      income tax — instalment", p.72), are still tracked here from release 1, with the schedule
+      "uploaded where prepared outside" the system (S1-2.7.7-c20). Which obligations apply to the
+      first entity is for the tax specialist (Q-003, Q-021).
+    blocking_questions: [Q-003, Q-021]
   - section: "2.7.8"
     heading: Tax reconciliation and audit
     mark: release-1
@@ -839,8 +990,11 @@ subsections:
     mark: later
     release: 2
     reason: >-
-      Depreciation "must be auto-calculated by the system" (S1-2.8.3-c01); until release 2 it is
-      posted by approved journal with the working attached (S1-2.11.5-c01), decision D-INT-1.
+      Marked as under option A of D-INT-1; release 1 under options B and C (see variants).
+      Depreciation "must be auto-calculated by the system, not by a spreadsheet" (S1-2.8.3-c01), and
+      fixed asset control accounts accept "sub-ledger postings only" (S1-2.2.1-c06). SRC-001 gives
+      depreciation no interim route; how depreciation, capital purchases (S1-2.8.13-c01) and other
+      asset events reach the ledger before this module exists is decision D-INT-1.
   - section: "2.8.2"
     heading: Acquisition and capitalisation
     mark: later
@@ -880,7 +1034,12 @@ subsections:
     reason: >-
       Whether the first entity holds leases that give rise to a right-of-use asset (S1-2.8.8-c01), and
       the accounting basis, is an accounting decision; SRC-001 does not name the framework (Q-003).
-    recommendation: Release 2 with the fixed asset core if the first entity has such leases; otherwise release 5.
+    recommendation: >-
+      If the first entity has such leases, the same release as the fixed asset core (release 2 under
+      option A of D-INT-1, release 1 under B and C); otherwise release 5. Under option A the
+      right-of-use asset, a fixed asset category (S1-2.8.1-c17), and the lease liability have the
+      same interim gap as other fixed asset postings (S1-2.8.13-c13 to c15); whether the lease
+      liability is a control account SRC-001 does not say, which is for the qualified accountant.
     blocking_questions: [Q-003]
   - section: "2.8.9"
     heading: Maintenance
@@ -939,13 +1098,29 @@ subsections:
   # ================================================================ 2.9 Inventory management
   - section: "2.9.1"
     heading: Item master
-    mark: later
-    release: 5
-    reason: >-
-      Inventory "is activated only for entities whose business profile in 2.1.7 is inventory-based or
-      mixed" (S1-2.9-c01); assumption A-01. Service items needed in release 1 are "held as non-stock
-      service items on the item master, for pricing and description only" (S1-2.1.7-c70), which the
-      tech lead may deliver without the inventory module.
+    mark: split
+    parts:
+      - mark: release-1
+        clauses: [S1-2.9.1-c02, S1-2.9.1-c03, S1-2.9.1-c10, S1-2.9.1-c13, S1-2.9.1-c14, S1-2.9.1-c20, S1-2.9.1-c24, S1-2.9.1-c25, S1-2.9.1-c26]
+        reason: >-
+          Release-1 invoicing needs part of the item master. The tax determination matrix (2.4.2,
+          release 1) works from the "Item tax class" (S1-2.4.2-c01, c04, pp.45-46), which is held on
+          the item: "Tax class Yes Standard, zero, exempt; drives 2.4" (SRC-001 p.84,
+          S1-2.9.1-c20). A service entity keeps its items "as non-stock service items on the item
+          master, for pricing and description only" (p.16, S1-2.1.7-c70), and a "Service item No
+          quantity; used on sales and purchase documents alike" (S1-2.9.1-c03). So the non-inventory
+          and service item types (c02, c03), code and description (c10), category (c13), base unit
+          (c14), tax class (c20), the group-wide master (c24), blocking (c25) and bulk maintenance
+          (c26) are in release 1.
+      - mark: later
+        release: 5
+        clauses: [S1-2.9.1-c01, S1-2.9.1-c04, S1-2.9.1-c05, S1-2.9.1-c06, S1-2.9.1-c07, S1-2.9.1-c08, S1-2.9.1-c09, S1-2.9.1-c11, S1-2.9.1-c12, S1-2.9.1-c15, S1-2.9.1-c16, S1-2.9.1-c17, S1-2.9.1-c18, S1-2.9.1-c19, S1-2.9.1-c21, S1-2.9.1-c22, S1-2.9.1-c23]
+        reason: >-
+          Stocked item types and stock attributes serve inventory, which "is activated only for
+          entities whose business profile in 2.1.7 is inventory-based or mixed" (S1-2.9-c01);
+          assumption A-01. The fixed asset item (c08) and project-specific item (c09) types are
+          proposed with inventory; the product owner may bring c08 forward with the fixed asset
+          core.
   - {section: "2.9.2", heading: Warehouse structure, mark: later, release: 5, reason: "Inventory; see 2.9.1 (S1-2.9-c01)."}
   - {section: "2.9.3", heading: Stock transactions, mark: later, release: 5, reason: "Inventory; see 2.9.1 (S1-2.9-c01)."}
   - {section: "2.9.4", heading: "Batch, lot, serial and expiry", mark: later, release: 5, reason: "Inventory; see 2.9.1 (S1-2.9-c01)."}
@@ -963,14 +1138,30 @@ subsections:
   # ================================================================ 2.10 Payroll and workforce
   - section: "2.10.1"
     heading: Employee master
-    mark: later
-    release: 2
-    reason: >-
-      Payroll is a large module whose Sri Lanka rule set is configuration (S1-2.10.2-c01) needing
-      statutory content from the tax specialist; until release 2, payroll cost reaches the ledger by
-      approved journal (decision D-INT-1), and SRC-001 rejects a third-party product "synchronising by
-      file transfer" (S1-2.10-c01; Q-022).
-    blocking_questions: [Q-022]
+    mark: split
+    parts:
+      - mark: release-1
+        clauses: [S1-2.10.1-c01, S1-2.10.1-c02, S1-2.10.1-c07, S1-2.10.1-c09]
+        reason: >-
+          Expense claims are release-1 payables documents raised "by an employee" (S1-2.5.2-c07) and
+          post "Cr Employee payable" (S1-2.5.13-c13), so release 1 needs a minimal employee record:
+          employee number (c01), entity (c02), department, cost centre and project for the expense
+          dimensions (c07), and bank details for settlement "by payment" (c09), whose change "requires
+          maker–checker" (SRC-001 p.91). It is the same record payroll uses later, since "On
+          activation, a module reads the master data ... already present rather than requiring its
+          own copy" (p.17, S1-2.1.7-c80). Alternative for the product owner: defer expense claims
+          with the rest of 2.10.1 (decision D-2.10.1).
+      - mark: later
+        release: 2
+        clauses: [S1-2.10.1-c03, S1-2.10.1-c04, S1-2.10.1-c05, S1-2.10.1-c06, S1-2.10.1-c08, S1-2.10.1-c10, S1-2.10.1-c11, S1-2.10.1-c12, S1-2.10.1-c13]
+        reason: >-
+          Marked as under option A of D-INT-1 (release 1 under option B; release 2 under C). The
+          remaining fields drive payroll: entitlement, pay structure, pay basis, tax residency,
+          statutory schemes and pro-rating (S1-2.10.1-c03 to c06, c08, c10, c11, c13). Payroll's Sri
+          Lanka rule set is configuration (S1-2.10.2-c01) needing statutory content from the tax
+          specialist. SRC-001 rejects a third-party product "synchronising by file transfer"
+          (S1-2.10-c01; Q-022), which bears on option C.
+    blocking_questions: [Q-022, Q-029]
   - {section: "2.10.2", heading: Statutory and tax configuration, mark: later, release: 2, reason: "Payroll; see 2.10.1. Statutory content per country is for the tax specialist (Q-003).", blocking_questions: [Q-003]}
   - {section: "2.10.3", heading: Labour law and employment rules, mark: later, release: 2, reason: "Payroll; see 2.10.1."}
   - {section: "2.10.4", heading: "Leave, attendance and time capture", mark: later, release: 2, reason: "Payroll; see 2.10.1. Attendance is activated per entity (S1-2.10.4-c01)."}
@@ -1000,7 +1191,12 @@ subsections:
       - mark: later
         release: 2
         clauses: [S1-2.11.2-c02, S1-2.11.2-c04]
-        reason: An email address per module and optical capture (S1-2.11.2-c02, c04) come with supplier invoice capture in 2.5.3.
+        reason: >-
+          An email address per module and optical capture that "pre-fills supplier, date, number,
+          value and tax for review" (SRC-001 p.99, S1-2.11.2-c02, c04) come with supplier invoice
+          capture in 2.5.3. The saving is smaller than it looks: release 1 already needs text
+          recognition on scanned attachments for search (S1-2.1.5-c08, S1-2.11.4-c02), so deferring
+          c04 defers only the field pre-fill and its review step.
       - mark: later
         release: 4
         clauses: [S1-2.11.2-c03]
@@ -1017,7 +1213,11 @@ subsections:
   - section: "2.11.5"
     heading: Working papers
     mark: release-1
-    reason: The calculation behind a posted figure is attached to its journal (S1-2.11.5-c01); also the evidence for interim journals (D-INT-1).
+    reason: >-
+      The calculation behind a posted figure is attached to the journal that posts it
+      (S1-2.11.5-c01). That clause names "depreciation" and "gratuity" among such calculations, which
+      supports option A of D-INT-1, but it does not lift the block on manual journals to control
+      accounts (S1-2.2.1-c21).
   - section: "2.11.6"
     heading: Audit access and pack
     mark: release-1
@@ -1064,7 +1264,8 @@ subsections:
     release: 2
     reason: >-
       High value to Finance (BO-05), but release 1 reporting is covered by the standard library and
-      Excel export of any listing (S1-2.1.6-c40).
+      Excel export of any listing (S1-2.1.6-c40). As a result BO-05's report-builder indicator
+      (S1-2.13.7-c01) cannot be met in release 1; the product owner may weigh this with D-2.15.8.
   - section: "2.13.3"
     heading: Report creation by written instruction
     mark: later
@@ -1106,7 +1307,8 @@ subsections:
     reason: >-
       "Entity is a mandatory attribute of every transaction" (S1-2.14.2-c14), as 2.2.3 requires
       (S1-2.2.3-c01), and a user sees only assigned entities (S1-2.14.2-c15); this is a data-model
-      dependency for every module and for multi-tenancy.
+      dependency for every module. How an entity relates to a TIQACC tenant is not settled by SRC-001
+      or by Q-001; it is open item OI-TENANT (docs/requirements/actors.yaml).
   - {section: "2.14.3", heading: Group chart of accounts and mapping, mark: later, release: 3, reason: "Group accounting; see 2.14.1 (S1-2.1.7-c45). With one entity the group chart is the entity chart (S1-2.2.1-c01)."}
   - {section: "2.14.4", heading: Intercompany transactions, mark: later, release: 3, reason: "Group accounting; see 2.14.1 (S1-2.1.7-c45)."}
   - {section: "2.14.5", heading: Intercompany reconciliation, mark: later, release: 3, reason: "Group accounting; see 2.14.1 (S1-2.1.7-c45)."}
@@ -1174,19 +1376,33 @@ subsections:
     mark: release-1
     reason: >-
       Response, availability, backup and recovery targets (S1-2.16.1-c01 to c04) apply from the first
-      day of production use; values are workbook entries.
+      day of production use; values are workbook entries. Serves BO-08.
     blocking_questions: [Q-005, Q-024]
   - section: "2.16.2"
     heading: Data migration
     mark: needs-decision
     owner: product-owner
+    with: qualified-accountant
     reason: >-
-      Whether any data is taken over from a current system is unknown (Q-006); if it is, migration
-      (S1-2.16.2-c01 to c04) is in release 1 for opening balances and open items.
+      Whether any data is taken over from a current system is unknown (Q-006). An entity that has
+      balances at go-live cannot open them by manual journal: opening receivables, payables, bank and
+      tax balances would be manual journals to control accounts, which are blocked
+      (S1-2.2.1-c06, c21); and receivables requires that "no balance in it exists without a document
+      behind it" (SRC-001 p.36, S1-2.3-c01). SRC-001's migration scope loads "chart of accounts,
+      opening trial balance, open receivables and payables by invoice" (p.120, S1-2.16.2-c01). The
+      same clause names the "fixed asset register with accumulated depreciation" and the "employee
+      master with year-to-date payroll figures", which are loaded when those modules are activated
+      (releases loading_task, risk R-06), and stock by item, which comes with inventory (release 5).
     recommendation: >-
-      Release 1 for opening balances and open receivables and payables if the first entity moves from
-      a system in use; otherwise opening balances by approved journal and this sub-section later.
-    blocking_questions: [Q-005, Q-006]
+      Release 1 for any entity with balances at go-live: the chart of accounts, the opening trial
+      balance and open receivables and payables by invoice (part of S1-2.16.2-c01), with
+      reconciliation and sign-off of each load, original numbers and a dry run (S1-2.16.2-c02 to
+      c04). Fixed asset and payroll data follow their modules; "[n] years of transaction history"
+      (S1-2.16.2-c01, workbook value 178) follows Q-006. The opening-balance method, including how
+      fixed asset and payroll balances open before their modules exist, is for the qualified
+      accountant and is linked to D-INT-1. An entity with no balances at go-live needs none of this
+      in release 1.
+    blocking_questions: [Q-005, Q-006, Q-029]
   - section: "2.16.3"
     heading: Documentation and handover
     mark: needs-decision
@@ -1207,16 +1423,157 @@ subsections:
 
 decisions_needed:
   - id: D-INT-1
+    question_record: Q-029 (version 2)
     owner: product-owner
-    with: qualified-accountant
+    with: [qualified-accountant, tax-specialist]
+    chosen: none
     question: >-
-      May the first customer post payroll and depreciation by approved manual journal, with the working
-      attached (S1-2.11.5-c01), between release 1 and release 2?
-    why: >-
-      SRC-001 says entry-table postings are "auto-posted by the system ... No user journal is
-      acceptable as a substitute" (SRC-001 p.8, S1-2-c02) and "Depreciation must be auto-calculated by
-      the system, not by a spreadsheet" (SRC-001 p.77, S1-2.8.3-c01). If the answer is no, payroll and
-      fixed assets move into release 1. Related: Q-022 (whether an external payroll may feed by file).
+      Until payroll and fixed assets are delivered, how do their postings, and the postings and
+      returns that depend on them, reach the ledger and the tax authority?
+    scope:
+      - >-
+        Payroll: "Salary and employer-contribution expense by department, net pay payable and
+        statutory payroll liabilities" (SRC-001 p.4, S1-0-c10); entries S1-2.10.10-c01 to c08.
+      - >-
+        Fixed asset events: acquisition from a supplier invoice, capitalisation, depreciation,
+        revaluation, impairment, disposal and write-off (S1-2.8.13-c01 to c12).
+      - Leases, if the first entity has them (D-2.8.8; S1-2.8.13-c13 to c15).
+      - >-
+        Employment income tax and statutory fund contribution returns, built from payroll
+        (S1-2.7.5-c04, c05). In release 1 they are still obligations on the tax dashboard
+        (S1-2.7.7-c01), with the schedule "uploaded where prepared outside" the system
+        (S1-2.7.7-c20). The tax specialist confirms this for the interim.
+      - >-
+        Corporate income tax charge and instalments (S1-2.7.6-c07, c08), which post to income tax
+        payable, a tax control account, if D-2.7.6 keeps 2.7.6 out of release 1. Whether the
+        release-1 remittance row S1-2.7.6-c12 covers the instalment payment is for the tax specialist
+        with the qualified accountant.
+      - >-
+        Opening fixed asset and payroll balances of an entity that has balances at go-live
+        (D-2.16.2).
+    against_interim_journals:
+      - '"No user journal is acceptable as a substitute" (SRC-001 p.8, S1-2-c02).'
+      - '"Payroll processing" is a row of "What the system posts, without a manual journal" (p.4, S1-0-c10).'
+      - >-
+        Depreciation is "posted by the system, and never maintained in a spreadsheet alongside it"
+        (p.75, S1-2.8-c01) and "must be auto-calculated by the system, not by a spreadsheet" (p.77,
+        S1-2.8.3-c01).
+      - >-
+        "Receivables, payables, inventory, payroll, fixed asset, tax and bank control accounts accept
+        sub-ledger postings only; manual journals to them are blocked" (p.23, S1-2.2.1-c06) and
+        "Posting is blocked to: ... control accounts by manual journal" (p.24, S1-2.2.1-c21). Both
+        are release-1 clauses. An interim payroll journal credits net pay, withholding and fund
+        payables, which 2.12.1 agrees to payroll as control accounts ("Net pay, withholding tax and
+        fund contribution payables", p.101, S1-2.12.1-c06). An interim depreciation journal credits
+        accumulated depreciation ("Fixed asset cost and accumulated depreciation", S1-2.12.1-c05).
+      - >-
+        "Control account flag Yes Once set, cannot be changed while the account carries a balance"
+        (p.24, S1-2.2.2-c12); "Class, group and control-account status cannot be changed once
+        transactions exist" (pp.24-25, S1-2.2.2-c16). Leaving these accounts unflagged in release 1
+        cannot be corrected quietly later.
+    for_interim_journals:
+      - >-
+        "adjustments can also be made by manual journal posting where required, under approval and
+        with the supporting working attached" (SRC-001 p.4, S1-0-c02).
+      - >-
+        "Any calculation behind a posted figure — accruals, provisions, allocations, depreciation,
+        expected credit loss, gratuity — is attached to the journal that posts it" (p.100,
+        S1-2.11.5-c01).
+    for_a_module_not_yet_active:
+      - >-
+        "A module switched off is absent ... and none of its postings arise" (SRC-001 p.13,
+        S1-2.1.7-c09), and "where it is not activated, the external system takes its place and feeds
+        TIQACC through this interface" (p.11, S1-2.1.6-c14). This supports option C for payroll,
+        subject to Q-022. SRC-001 gives depreciation no comparable route.
+    options:
+      - option: A
+        name: Interim manual journals; payroll and fixed assets in release 2
+        description: >-
+          The postings in scope reach the ledger by approved manual journal with the working attached
+          until release 2. The marks under subsections are the marks under this option.
+        effect_on_release_1: >-
+          The smallest release 1: 89 sub-sections release-1 by top-level mark, plus the release-1 parts
+          of 20 splits. Payroll and the fixed asset core are in release 2.
+        effect_on_control_account_rule: >-
+          Option A cannot be applied without one of two consequences, and the qualified accountant
+          says which: (i) relax the release-1 block of S1-2.2.1-c06 and c21 for the payroll, fixed
+          asset and income tax accounts until release 2, which changes a release-1 requirement of
+          SRC-001 and so needs a change request ("Any change to a clause in Section 2 after
+          signature is handled as a documented change request", S1-3-c01, p.121); or (ii) post to
+          interim accounts that are not flagged as control accounts. Under (ii) the flag cannot be set
+          later while they carry a balance (S1-2.2.2-c12, c16), so at release 2 new control accounts
+          are opened and the balances moved into them. SRC-001 prescribes "reclassifying the balance
+          by journal, with the working attached" (S1-2.2.2-c16), but a journal into the new control
+          accounts is itself blocked (S1-2.2.1-c21), so the balances must arrive through the
+          sub-ledger, for example by the release-2 loading task, by a method the qualified
+          accountant sets. Under (i) and (ii) alike, the sub-ledger agreements for these accounts
+          (S1-2.12.1-c05, c06) do not run in release 1.
+        other_effects: >-
+          S1-2-c02, S1-0-c10 and S1-2.8-c01 are not met for payroll and fixed assets until release 2.
+          BO-01's second indicator stays unmet for payslips and depreciation runs until release 2
+          (see R-01).
+        depends_on: [qualified-accountant choice of (i) or (ii), tax-specialist confirmation of the interim for payroll returns]
+      - option: B
+        name: Payroll and fixed assets in release 1
+        description: >-
+          The payroll module (2.10 except its assistant) and the fixed asset core move into release 1;
+          no interim route is needed for them.
+        effect_on_release_1: >-
+          23 more sub-sections move into release 1, with the release-2 parts of 2.7.5, 2.8.16 and
+          2.10.1 and the 2.8 and 2.10 introductions (variants.B). The assurance review estimates that
+          this roughly doubles release 1 (REV-01M5EP1W4DYPM707EB79AYEYV1, finding 3); this file
+          counts sub-sections and does not estimate effort. Release 1 then needs the Sri Lanka payroll
+          rule set, which is configuration with statutory content from the tax specialist
+          (S1-2.10.2-c01; Q-003).
+        effect_on_control_account_rule: >-
+          None. Every control account named in S1-2.2.1-c06 receives sub-ledger postings from release
+          1, except inventory, which is absent for a service entity (S1-2.1.7-c77, A-01).
+        other_effects: >-
+          The release-2 loading task is not needed for an entity that starts on option B. The
+          corporate income tax interim still follows D-2.7.6.
+        depends_on: [tax-specialist content for the Sri Lanka payroll rule set]
+      - option: C
+        name: Payroll by interface from the payroll system in use; fixed asset core in release 1
+        description: >-
+          Payroll results come from the payroll system the first entity uses today, through the
+          integration interface (S1-2.1.6-c14), until the payroll module is delivered in release 2.
+          The fixed asset core moves into release 1.
+        effect_on_release_1: >-
+          10 more sub-sections move into release 1, with the release-2 part of 2.8.16, the 2.8
+          introduction and the payroll row of the integration table (S1-2.1.6-c09) (variants.C). The
+          payroll module stays in release 2.
+        effect_on_control_account_rule: >-
+          None for fixed assets. For payroll, the control accounts receive postings from the
+          interface; SRC-001 says a received transaction "updates the relevant module as though it had
+          been entered in it ... and raises its ledger entries through the posting rules in 2.6.10"
+          (p.11, S1-2.1.6-c15). Whether such postings count as sub-ledger postings under S1-2.2.1-c06
+          while the payroll module is not active is for the qualified accountant.
+        other_effects: >-
+          The payroll returns are prepared in the external payroll system and their schedules
+          uploaded (S1-2.7.7-c20) until release 2. At release 2 the employee master with year-to-date
+          payroll figures is loaded from the external system (release-2 loading task).
+        depends_on:
+          - Q-022 read as (A) or (C), since "A third-party payroll product synchronising by file transfer is not acceptable" (S1-2.10-c01)
+          - a payroll system in use today, which is not recorded (Q-006)
+          - qualified-accountant confirmation on interface postings to payroll control accounts
+          - tax-specialist confirmation of payroll returns prepared outside the system for the interim
+    assurance_view: >-
+      REV-01M5EP1W4DYPM707EB79AYEYV1 (E4, advisory) recommends considering option C. Recorded here as
+      the reviewer's view; this file recommends no option.
+  - id: D-2.10.1
+    owner: product-owner
+    question: >-
+      Is a minimal employee record (S1-2.10.1-c01, c02, c07, c09) in release 1 so that expense claims
+      (S1-2.5.2-c07) can be raised and settled by payment, or are expense claims deferred with the
+      rest of 2.10.1, and if so how are employee expenses handled meanwhile? Who approves an expense
+      claim, given that SRC-001 says "approved by the manager" (p.49) but the employee master holds no
+      manager field (S1-2.10.1, p.91)?
+  - id: D-2.1.5-c17
+    owner: product-owner
+    question: How is the two-year-old-invoice search test (S1-2.1.5-c17) run at release-1 acceptance if no history is migrated? (Q-006)
+  - id: D-2.1.7-c84
+    owner: product-owner
+    question: May the module-activation acceptance test S1-2.1.7-c84 be accepted in part in release 1 and in full in release 5?
   - id: D-2.3.3
     owner: product-owner
     question: Which billing types (milestone, progress, subscription, project) does the first customer use? (S1-2.3.3-c05 to c08)
@@ -1225,16 +1582,27 @@ decisions_needed:
     question: Which revenue recognition bases do the first customer's contracts require? (S1-2.3.4-c04 to c06)
   - id: D-2.7.6
     owner: tax-specialist
-    question: Must corporate income tax be computed in the system for the first entity's first filing? (S1-2.7.5-c06, S1-2.7.6-c01 to c09)
+    with: qualified-accountant
+    question: >-
+      Must corporate income tax be computed in the system for the first entity's first filing?
+      (S1-2.7.5-c06, S1-2.7.6-c01 to c09). If not, the charge and instalments (S1-2.7.6-c07, c08)
+      fall under D-INT-1.
   - id: D-2.8.8
     owner: qualified-accountant
     question: Does the first entity have leases that give rise to right-of-use assets, and on what basis? (S1-2.8.8-c01)
   - id: D-2.15.8
     owner: product-owner
-    question: Is the governance panel in release 1? (S1-2.15.8-c01, S1-2.15.11-c03, c04)
+    question: >-
+      Is the governance panel in release 1? (S1-2.15.8-c01, S1-2.15.11-c03, c04). Under the current
+      marks BO-05's indicators S1-2.13.7-c01, S1-2.15.11-c01 and c08 cannot be met in release 1, and
+      S1-2.15.11-c03 can be met only if the panel is in release 1 (see BO-05 v2).
   - id: D-2.16.2
     owner: product-owner
-    question: Is data migrated, and if so what? (Q-006; S1-2.16.2-c01 to c04)
+    with: qualified-accountant
+    question: >-
+      Is data migrated, and if so what? (Q-006; S1-2.16.2-c01 to c04). Does the first entity have
+      balances at go-live, and by what method are they opened, given that manual journals to control
+      accounts are blocked (S1-2.2.1-c21)?
   - id: D-2.16.3
     owner: product-owner
     question: How do the documentation and handover deliverables apply to Tiqri's own product? (Q-023; S1-2.16.3-c01 to c04)
@@ -1244,26 +1612,37 @@ decisions_needed:
 
 open_items_without_question_record:
   - >-
-    Expected credit loss provision policy for receivables (S1-2.3.10-c01): the matrix and its loss
-    rates are for the qualified accountant; no question record exists. Proposed for a new Q record by
-    the orchestrator.
-  - >-
     Whether release 1 needs Sinhala or Tamil documents or screens (assumption A-02). Product owner.
   - >-
     Whether the first entity is service-based (assumption A-01). Product owner.
+  - >-
+    Which go-live integrations of S1-2.1.6-c17 apply (workbook values 17 to 19 for the product
+    owner, 20 for the tax specialist). This proposal assumes the bank statement feed and the tax
+    e-filing portal.
+  - >-
+    The tenant boundary: how a TIQACC tenant relates to SRC-001's entity and group. Product owner,
+    with the tech lead and the security owner. Recorded as OI-TENANT in docs/requirements/actors.yaml.
+  - >-
+    Resolved since version 1: the expected credit loss policy now has a question record, Q-030.
 
 risks:
   - id: R-01
     risk: >-
-      Interim manual journals for payroll and depreciation in release 1 conflict with S1-2-c02 and
-      S1-2.8.3-c01 (see D-INT-1); they also leave BO-01's second indicator (S1-2.2.4-c32) unmet until
-      release 2.
+      Any interim route for payroll, fixed asset and income tax postings (D-INT-1, option A) meets the
+      release-1 control-account block (S1-2.2.1-c06, c21) and the rule that a control flag cannot
+      change while the account carries a balance (S1-2.2.2-c12, c16): either a release-1 control is
+      relaxed, or interim non-control accounts are used and their balances moved into new control
+      accounts at release 2 through the sub-ledger. Separately, BO-01's second indicator
+      (S1-2.2.4-c32) names "a payslip, a depreciation run and a stock issue": under option A the
+      payslip and depreciation parts are unmet until release 2, and the stock-issue part is unmet
+      until inventory in release 5, and can never be met by a service-only entity that does not
+      activate inventory (S1-2.1.7-c77).
   - id: R-02
     risk: >-
-      Deferring multi-language (most of 2.1.8) to release 3 is safe only if the release 1 design holds
-      screen text and terminology as data from the start ("Terminology is held as data",
-      S1-2.1.8-c22). That is a tech-lead decision at architecture (L3); otherwise release 3 carries
-      rework.
+      Deferring multi-language (most of 2.1.8) to release 3 is safe only if the release 1 data model
+      holds terminology as data, non-Latin scripts and one code with many descriptions from the start
+      (S1-2.1.8-c20, c22, c34, c42, c43). This version marks those clauses release-1 design
+      constraints; the tech lead confirms the design at architecture (L3), with the product owner.
   - id: R-03
     risk: >-
       Deferring group accounting to release 3 is safe only if entity is a mandatory attribute from
@@ -1275,16 +1654,85 @@ risks:
       Many release 1 clauses carry bracketed values (workbook v2) and depend on open questions; the
       release 1 build cannot be specified in full until the tax specialist confirms the Sri Lanka tax
       content (Q-003, Q-021) and the qualified accountant decides Q-007 to Q-014.
+  - id: R-05
+    risk: >-
+      The tenant boundary is not settled. SRC-001 uses "entity" for each legal entity of a group that
+      shares "One platform · one data set · one chart of accounts · one audit trail" (SRC-001 p.13,
+      S1-2.1.7-c02) and consolidates (S1-2.14-c01), so mapping one legal entity to one tenant would
+      split a group across tenants. Q-001 says TIQACC is multi-tenant but maps nothing to a tenant.
+      Until the product owner, tech lead and security owner settle it (OI-TENANT), the release-1 data
+      model and the isolation controls of 2.1.3 and 2.14.2 cannot be specified in full.
+  - id: R-06
+    risk: >-
+      An entity that runs on release 1 and then activates payroll or fixed assets needs their opening
+      data loaded (S1-2.16.2-c01), against the promise that a further module is activated "without
+      data migration" (S1-2.1.7-c08). The size of this load depends on D-INT-1 (none for an entity
+      that starts on option B; fixed assets none and payroll from the external system under C;
+      both under A). See releases, loading_task.
+
+variants:
+  basis: >-
+    The marks under subsections are the marks under option A of D-INT-1. The lists below give every
+    change under option B and under option C. Nothing else changes. No option is recommended.
+  B:
+    name: Payroll and fixed assets in release 1
+    section_intros_to_release_1: ["2.8", "2.10"]
+    subsections_to_release_1: ["2.8.1", "2.8.2", "2.8.3", "2.8.4", "2.8.5", "2.8.6", "2.8.7", "2.8.13", "2.8.14", "2.8.15", "2.10.2", "2.10.3", "2.10.4", "2.10.5", "2.10.6", "2.10.7", "2.10.8", "2.10.9", "2.10.10", "2.10.11", "2.10.12", "2.10.14", "2.10.15"]
+    parts_to_release_1:
+      - {section: "2.7.5", clauses: [S1-2.7.5-c04, S1-2.7.5-c05]}
+      - {section: "2.8.16", clauses: [S1-2.8.16-c01, S1-2.8.16-c02, S1-2.8.16-c03, S1-2.8.16-c04, S1-2.8.16-c05, S1-2.8.16-c06, S1-2.8.16-c07, S1-2.8.16-c08, S1-2.8.16-c11, S1-2.8.16-c12]}
+      - {section: "2.10.1", clauses: [S1-2.10.1-c03, S1-2.10.1-c04, S1-2.10.1-c05, S1-2.10.1-c06, S1-2.10.1-c08, S1-2.10.1-c10, S1-2.10.1-c11, S1-2.10.1-c12, S1-2.10.1-c13]}
+    recommendations_that_change:
+      - '2.8.8 and S1-2.8.16-c09: release 1 if the first entity has leases (D-2.8.8).'
+      - '2.7.6 needs-decision part: release 1 becomes possible because the fixed asset register is in release 1 (S1-2.7.6-c02); still D-2.7.6.'
+    unchanged: The payroll assistant (2.10.13) stays in release 4; physical verification, capital budgeting, maintenance and multi-entity assets (2.8.9 to 2.8.12) keep their releases.
+    release_2_then_holds: >-
+      Supplier invoice capture (2.5.3, S1-2.11.2-c02, c04, S1-2.5.18-c04), the report builder and
+      self-service (2.13.2, 2.13.4, S1-2.13.7-c01, c04), and corporate income tax if D-2.7.6 places
+      it there.
+    counts:
+      by_top_level_mark: {release-1: 112, later: 51, needs-decision: 4, split: 20}
+      later_by_release: {"2": 3, "3": 13, "4": 20, "5": 15}
+      note: A split whose parts all move to release 1 (2.10.1) is still counted as split.
+  C:
+    name: Payroll by interface from the payroll system in use; fixed asset core in release 1
+    section_intros_to_release_1: ["2.8"]
+    subsections_to_release_1: ["2.8.1", "2.8.2", "2.8.3", "2.8.4", "2.8.5", "2.8.6", "2.8.7", "2.8.13", "2.8.14", "2.8.15"]
+    parts_to_release_1:
+      - {section: "2.8.16", clauses: [S1-2.8.16-c01, S1-2.8.16-c02, S1-2.8.16-c03, S1-2.8.16-c04, S1-2.8.16-c05, S1-2.8.16-c06, S1-2.8.16-c07, S1-2.8.16-c08, S1-2.8.16-c11, S1-2.8.16-c12]}
+      - {section: "2.1.6", from_release: 5, clauses: [S1-2.1.6-c09]}
+    reason_for_the_set: >-
+      The review names the fixed asset core as 2.8.1 to 2.8.5 and 2.8.13. This variant adds 2.8.6 and
+      2.8.7 because disposal, write-off, revaluation and impairment post to the same asset cost,
+      accumulated depreciation and accumulated impairment accounts (S1-2.8.13-c07 to c12), which
+      would otherwise need the interim route that option C avoids; transfers to another entity in
+      2.8.6 still follow 2.14 by rule module-dependent-clauses. 2.8.14 and 2.8.15 are the reports
+      and governance of the core. S1-2.1.6-c09 is the integration row that names "Payroll and
+      workforce management" (p.11); its other systems are used only when their tenants need them.
+    recommendations_that_change:
+      - '2.8.8 and S1-2.8.16-c09: release 1 if the first entity has leases (D-2.8.8).'
+      - '2.7.6 needs-decision part: release 1 becomes possible because the fixed asset register is in release 1 (S1-2.7.6-c02); still D-2.7.6.'
+    unchanged: >-
+      Payroll (2.10, including the release-2 part of 2.10.1) and the payroll returns
+      (S1-2.7.5-c04, c05) stay in release 2.
+    counts:
+      by_top_level_mark: {release-1: 99, later: 64, needs-decision: 4, split: 20}
+      later_by_release: {"2": 16, "3": 13, "4": 20, "5": 15}
 
 counts:
+  basis: Marks under subsections, which are those of option A of D-INT-1; see variants for B and C.
   subsections_total: 187
   by_top_level_mark:
-    release-1: 90
-    later: 76
+    release-1: 89
+    later: 74
     needs-decision: 4
-    split: 17
+    split: 20
   later_by_release:
-    "2": 27
+    "2": 26
     "3": 13
     "4": 20
-    "5": 16
+    "5": 15
+  changes_from_version_1: >-
+    2.1.5 (release-1), 2.9.1 (later, release 5) and 2.10.1 (later, release 2) became splits. Within
+    existing splits, clauses moved in 2.1.7 (c57 to release 1; c84 to needs-decision), 2.1.8 (c20,
+    c22, c34, c42, c43 to release 1 as data-model constraints) and 2.5.18 (c01 to release 5).

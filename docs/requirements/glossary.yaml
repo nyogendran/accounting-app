@@ -1,8 +1,9 @@
-version: 1
+version: 2
 status: Proposed
 proposed_by: requirements-engineer
 decided_by_role: product-owner
-workflow: WF-01M5D0SE8MMS39CTPTXH8ME1HT step 4
+workflow: WF-01M5D0SE8MMS39CTPTXH8ME1HT step 6 (revises step 4, commit f3b3b4c)
+revised_after_review: REV-01M5EP1W4DYPM707EB79AYEYV1
 source: SRC-001
 clause_index: docs/requirements/clause-index.yaml (version 2, commit ebb3073)
 method: >-
@@ -111,7 +112,12 @@ terms:
       (S1-2.2.3-c01, p.25) and "Every transaction belongs to exactly one entity" (S1-2.14.2-c01, p.107).
     clause: S1-2.14.2-c01
     page: 107
-    note: In SRC-001's first person ("our chart of accounts", S1-2-c02) the entity is the author. Q-001 reads it as a tenant of TIQACC.
+    note: >-
+      In SRC-001's first person ("our chart of accounts", S1-2-c02) the entity is the author. SRC-001
+      also uses it for each legal entity of a group that shares "One platform · one data set · one
+      chart of accounts · one audit trail" (p.13, S1-2.1.7-c02). Q-001 says TIQACC is multi-tenant but
+      does not say what a tenant holds, so this glossary does not equate an entity with a tenant; see
+      open item OI-TENANT in docs/requirements/actors.yaml.
   - term: Group
     defined: false
     form: paraphrased
@@ -438,9 +444,13 @@ terms:
     clause: S1-2.2.7-c03
     page: 30
   - term: System-generated reversal
-    defined: true
-    form: quoted
-    definition: "Any journal can be marked to reverse itself."
+    defined: false
+    form: paraphrased
+    definition: >-
+      Used as the run-in heading for a journal marked to reverse itself, with the reversal posted by
+      the system on a date set on the journal (S1-2.2.7-c18, c19). The heading opens with "Any journal
+      can be marked to reverse itself.", which says what can be done, not what the term means; not
+      defined.
     clause: S1-2.2.7-c18
     page: 31
   - term: Open (period state)
@@ -724,12 +734,25 @@ terms:
       specialist.
     clause: S1-2.5.1-c10
     page: 49
-  - term: Retention
+  - term: Retention (amount withheld from a supplier payment)
     defined: true
     form: paraphrased
     definition: An amount withheld from a supplier payment, held as its own balance with its release date and reported by due date.
     clause: S1-2.5.8-c04
     page: 53
+    note: >-
+      SRC-001 uses the same word for keeping records; see "Retention (of records and documents)".
+  - term: Retention (of records and documents)
+    defined: false
+    form: paraphrased
+    definition: >-
+      Used for how long the audit log and attached documents are kept: the audit log is "retained for
+      [7] years" (S1-2.1.4-c08, p.10), and "The retention period is configurable per entity and per
+      document type" (S1-2.11.4-c05, p.100), where "[7] years is a placeholder to be confirmed, not a
+      fixed figure in the software". Not defined. Statutory periods per country are Q-020; the
+      default policy is Q-025.
+    clause: S1-2.11.4-c05
+    page: 100
   # ---------------------------------------------------------------- bank and cash
   - term: Transfer in transit
     defined: true

@@ -1,8 +1,9 @@
-version: 1
+version: 2
 status: Proposed
 proposed_by: requirements-engineer
 decided_by_role: product-owner
-workflow: WF-01M5D0SE8MMS39CTPTXH8ME1HT step 4
+workflow: WF-01M5D0SE8MMS39CTPTXH8ME1HT step 6 (revises step 4, commit f3b3b4c)
+revised_after_review: REV-01M5EP1W4DYPM707EB79AYEYV1
 source: SRC-001
 clause_index: docs/requirements/clause-index.yaml (version 2, commit ebb3073)
 method: >-
@@ -20,13 +21,31 @@ method: >-
 notes:
   - >-
     SRC-001 is written by the entity for its vendors (S1-0-c32, p.5). Q-001 records that TIQACC is
-    Tiqri's own multi-tenant product and that Tiqri's internal finance team is the first customer, so
-    "the entity" in SRC-001 is read as a tenant, and "the vendor" as Tiqri (Q-023 is open on the
-    clauses addressed to a vendor).
+    Tiqri's own multi-tenant SaaS product and that the organisation that wrote the specification is
+    its first customer. "The vendor" is read as Tiqri (Q-023 is open on the clauses addressed to a
+    vendor). Q-001 does not say what a tenant is, and this list does not equate SRC-001's "entity"
+    with a tenant: SRC-001 uses "entity" both for its author and for each legal entity of a group
+    that shares "One platform · one data set · one chart of accounts · one audit trail" (SRC-001
+    p.13, S1-2.1.7-c02). See open item OI-TENANT.
   - >-
     The starting roles are SRC-001's defaults, "expected to be renamed, split, merged or extended to
     match the company's structure" (S1-2.1.2-c18, p.9). They are listed so that requirements can name
     them; they are not a fixed role model.
+open_items:
+  - id: OI-TENANT
+    owner: product-owner
+    with: [tech-lead, security-owner]
+    item: >-
+      The tenant boundary: what one TIQACC tenant holds. SRC-001 does not use the word tenant except
+      to allow "multi-tenant or single-tenant" deployment (S1-2.1.1-c01, p.8). Its "entity" is each
+      legal entity of a group whose entities share one platform, one data set, one chart of accounts
+      and one audit trail (S1-2.1.7-c02, p.13) and are consolidated (S1-2.14-c01, p.106), so mapping
+      one legal entity to one tenant would split a group across tenants. One reading the review
+      offers is "a tenant holds one group of one or more legal entities"
+      (REV-01M5EP1W4DYPM707EB79AYEYV1, finding 12); it is recorded here as a reading to decide, not
+      as an assumption. This is an architecture and security decision; the orchestrator may raise it
+      as a question record.
+    affects: ["2.1.1", "2.1.3", "2.14.2", BO-08, release-phasing.yaml risk R-05]
 actors:
   # ---------------------------------------------------------------- starting role set, 2.1.2
   - key: preparer
@@ -262,7 +281,9 @@ actors:
     does: >-
       Prepare, review and approve the specification; "Any change to a clause in Section 2 after
       signature is handled as a documented change request" (p.121). Q-004 records that Tiqri treats
-      SRC-001 as the signed baseline, confirmed by Shifan Cader.
+      SRC-001 as the signed baseline, confirmed by Shifan Cader (open: to be recorded as a decision,
+      Q-004). Until that decision exists SRC-001 is unsigned, "an authoritative input, not an approved
+      baseline" (CLAUDE.md).
   # ---------------------------------------------------------------- external parties
   - key: customer
     name: Customer
@@ -326,12 +347,13 @@ actors:
       How each vendor-addressed clause is handled is open (Q-023).
     does: Builds, hosts and supports TIQACC for its tenants.
   - key: first-customer
-    name: Tiqri's internal finance team (first tenant)
+    name: Tiqri's internal finance team (first customer)
     kind: business-role
     clauses: [S1-1-c01]
     source_note: >-
-      From Q-001, not from SRC-001. SRC-001's "the entity" (S1-1-c01, p.6) is read as this team for
-      release 1.
+      From Q-001, not from SRC-001. SRC-001's "the entity" (S1-1-c01, p.6) is read as the
+      organisation this team keeps the books of, for release 1; what tenant or tenants that
+      organisation occupies is open (OI-TENANT).
     does: First customer; runs its books on TIQACC and accepts each module under 2.16.4 (Q-001).
   # ---------------------------------------------------------------- external systems
   - key: identity-provider
