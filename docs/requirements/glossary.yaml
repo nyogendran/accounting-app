@@ -1,0 +1,997 @@
+version: 1
+status: Proposed
+proposed_by: requirements-engineer
+decided_by_role: product-owner
+workflow: WF-01M5D0SE8MMS39CTPTXH8ME1HT step 4
+source: SRC-001
+clause_index: docs/requirements/clause-index.yaml (version 2, commit ebb3073)
+method: >-
+  Terms that SRC-001 defines, or uses in a specific sense, collected while reading the extraction from
+  start to end. Each term has its meaning in SRC-001's own words where possible (form: quoted, copied
+  from the extraction, with the page) or a close paraphrase of the clause cited (form: paraphrased).
+  defined is true where SRC-001 states what the term means, and false where SRC-001 uses the term
+  without defining it; for those, the entry says only how SRC-001 uses it and adds no definition of
+  its own, because an accounting, tax or legal definition is not for this glossary to supply. The PDF
+  is authoritative where the extraction differs. Accounting and tax terms in this list carry SRC-001's
+  meaning only; the knowledge base (F1) and the qualified accountant own normative accounting
+  definitions.
+terms:
+  # ---------------------------------------------------------------- reading the specification
+  - term: Clause
+    defined: true
+    form: quoted
+    definition: >-
+      "Every clause is a requirement — Written in the present tense ... and each one is to be
+      delivered. There are no suggestions or preferences in this document"
+    clause: S1-1-c02
+    page: 6
+  - term: Bracketed value (square brackets)
+    defined: true
+    form: quoted
+    definition: >-
+      "A value the entity confirms before this document is issued for build ... Every bracket is to be
+      replaced with the entity's own value; none is to be interpreted by the developer"
+    clause: S1-1-c03
+    page: 6
+    note: Each one is listed in docs/requirements/bracketed-values.yaml (v2).
+  - term: Entry table ("the entry the system auto-posts")
+    defined: true
+    form: quoted
+    definition: >-
+      "A table headed 'the entry the system auto-posts' states the posting the system raises without a
+      user keying a journal. Account names are indicative and map to the chart of accounts at
+      configuration"
+    clause: S1-1-c05
+    page: 6
+    note: The extraction prints the inner quotes as double quotes. S1-2-c02 adds "No user journal is acceptable as a substitute." (p.8)
+  - term: Cross-reference
+    defined: true
+    form: quoted
+    definition: >-
+      "A requirement is specified once and referenced elsewhere. A reference such as 2.6.10 points to
+      where that requirement is specified in full; it is not a second version of it"
+    clause: S1-1-c06
+    page: 6
+  - term: Acceptance tests
+    defined: true
+    form: quoted
+    definition: >-
+      "The tests at the end of each module are the basis on which that module is accepted, under the
+      protocol in 2.16.4"
+    clause: S1-1-c07
+    page: 6
+  - term: Module activation
+    defined: true
+    form: quoted
+    definition: >-
+      "Every module in this document is to be built. Which modules an entity activates is that entity's
+      decision, per 2.1.7 — not a decision about what is delivered"
+    clause: S1-1-c08
+    page: 6
+  - term: Annexure A
+    defined: true
+    form: quoted
+    definition: >-
+      "vendor response matrix. Every clause in Section 2 marked S standard, C configurable, X
+      customisation with cost and effort, or N not available."
+    clause: S1-3-c03
+    page: 121
+    note: Not in the repository. How it applies to Tiqri's own product is open (Q-001, Q-023).
+  - term: Annexure B
+    defined: true
+    form: quoted
+    definition: >-
+      "current chart of accounts, monthly transaction volumes by module, and our existing tax invoice
+      and non-tax invoice formats."
+    clause: S1-3-c04
+    page: 121
+    note: Requested from Finance (Q-005).
+  - term: Vendor
+    defined: false
+    form: paraphrased
+    definition: >-
+      Used for the supplier that answers the specification, builds and supports the system (for example
+      S1-0-c32, p.5). Not defined. Q-001 records that TIQACC is Tiqri's own product; how each
+      vendor-addressed clause is read is open (Q-023).
+    clause: S1-0-c32
+    page: 5
+  - term: Go-live
+    defined: false
+    form: paraphrased
+    definition: Used as the point from which the system is in live use (for example named integrations "required at go-live"); not defined.
+    clause: S1-2.1.6-c17
+    page: 11
+  # ---------------------------------------------------------------- platform and structure
+  - term: Entity
+    defined: false
+    form: paraphrased
+    definition: >-
+      Used for the company that owns the books, and for each legal entity of the group. Not defined as
+      such; SRC-001 says "Entity is not a dimension but a mandatory attribute of every transaction"
+      (S1-2.2.3-c01, p.25) and "Every transaction belongs to exactly one entity" (S1-2.14.2-c01, p.107).
+    clause: S1-2.14.2-c01
+    page: 107
+    note: In SRC-001's first person ("our chart of accounts", S1-2-c02) the entity is the author. Q-001 reads it as a tenant of TIQACC.
+  - term: Group
+    defined: false
+    form: paraphrased
+    definition: >-
+      Used for the holding company and its entities taken together: "[No.] legal entities under a
+      holding company ... the group is reported by consolidating them, not by keeping a separate set of
+      books" (S1-2.14-c01, p.106).
+    clause: S1-2.14-c01
+    page: 106
+  - term: Module
+    defined: false
+    form: paraphrased
+    definition: >-
+      A functional area of section 2 (general ledger, receivables, payables and so on), switched on per
+      entity; the catalogue in 2.1.7 lists them. "A module switched off is absent" (S1-2.1.7-c09, p.13).
+    clause: S1-2.1.7-c31
+    page: 14
+  - term: Business profile
+    defined: true
+    form: quoted
+    definition: >-
+      "Within the activated module set, each entity carries a business profile — inventory-based,
+      service-based or mixed — which determines whether individual document stages and their postings
+      arise."
+    clause: S1-2.1.7-c69
+    page: 16
+  - term: Standalone module deployment
+    defined: true
+    form: paraphrased
+    definition: >-
+      A module implemented and operated on its own, by an organisation that runs the rest of its
+      finance function elsewhere, holding its own master data, controls and approvals and producing its
+      own accounting output.
+    clause: S1-2.1.7-c12
+    page: 13
+  - term: Platform services
+    defined: true
+    form: paraphrased
+    definition: >-
+      Access and roles (2.1.2), audit log (2.1.4), document numbering (2.1.10), language and
+      localisation (2.1.8) and the integration framework (2.1.6): "part of the platform, not of any one
+      module, and are not separately licensed".
+    clause: S1-2.1.7-c25
+    page: 14
+  - term: Role
+    defined: true
+    form: quoted
+    definition: >-
+      "A role is a named set of granular permissions, each permission being a module, an object and an
+      action — view, create, amend, approve, post, cancel, export or administer."
+    clause: S1-2.1.2-c02
+    page: 8
+  - term: Effective permissions
+    defined: true
+    form: quoted
+    definition: >-
+      "the union of those roles, except that an explicit denial in any role overrides a grant in
+      another."
+    clause: S1-2.1.2-c07
+    page: 8
+  - term: Value band (value limit)
+    defined: true
+    form: quoted
+    definition: >-
+      "Value limits are part of the role — an approval permission carries the band it applies within,
+      as set out in 2.5.5."
+    clause: S1-2.1.2-c04
+    page: 8
+  - term: Delegation
+    defined: true
+    form: paraphrased
+    definition: >-
+      Acting for an absent user without sharing credentials: "The delegate acts under their own login,
+      and documents show that they acted as delegate and for whom."
+    clause: S1-2.1.2-c09
+    page: 8
+  - term: Segregation of duties matrix
+    defined: true
+    form: quoted
+    definition: >-
+      "the pairs or groups of permissions that must not be held by the same user. The matrix is the
+      entity's own, and is editable without vendor involvement."
+    clause: S1-2.1.2-c12
+    page: 9
+  - term: Documented exception (released separation)
+    defined: true
+    form: paraphrased
+    definition: >-
+      An accepted conflict in the segregation matrix, approved by [role], with an expiry date and a
+      recorded compensating control, and listed on a standing exceptions report.
+    clause: S1-2.1.2-c14
+    page: 9
+    note: S1-2.1.2-c17 extends it to releasing any separation other than the two the system enforces itself (S1-2.1.2-c16).
+  - term: Compensating control
+    defined: false
+    form: paraphrased
+    definition: Recorded with each documented exception as the control relied on instead; not defined further.
+    clause: S1-2.1.2-c14
+    page: 9
+  - term: Maker–checker
+    defined: false
+    form: paraphrased
+    definition: >-
+      Used throughout for one user creating and another approving; the clearest statement is
+      "Maker–checker: created by one user, approved by [role]" for GL accounts.
+    clause: S1-2.2.2-c04
+    page: 24
+  - term: Audit log
+    defined: true
+    form: quoted
+    definition: >-
+      "Every create, amend, delete, approve, reject, cancel, export and login event is written to a log
+      that no user or administrator can edit. It runs alongside, and does not replace, the change
+      history held on each transaction under 2.2.6."
+    clause: S1-2.1.4-c01
+    page: 10
+  - term: Assistant
+    defined: true
+    form: quoted
+    definition: >-
+      "a facility that examines the entity's own data and reports what it finds — exceptions, forecasts,
+      rankings, draft commentary."
+    clause: S1-2.1.9-c01
+    page: 20
+    note: '"It posts nothing, approves nothing, releases nothing" (S1-2.1.9-c02, p.20).'
+  - term: System of record
+    defined: true
+    form: paraphrased
+    definition: >-
+      The one system nominated per record type, or per field where they differ, that owns a master
+      record; the other system receives and does not overwrite what it does not own.
+    clause: S1-2.1.6-c22
+    page: 12
+  - term: Service account
+    defined: true
+    form: paraphrased
+    definition: >-
+      The named account an interface authenticates as, with its own permissions and expiring, rotating
+      keys or tokens, and rights "no broader than the interface needs".
+    clause: S1-2.1.6-c34
+    page: 12
+  # ---------------------------------------------------------------- numbering
+  - term: Statutory series
+    defined: true
+    form: quoted
+    definition: >-
+      "A series can be marked statutory. A statutory series is gapless by enforcement, not by
+      convention: the system does not permit a number to be consumed and discarded, and a document
+      issued against it cannot be deleted at any stage."
+    clause: S1-2.1.10-c28
+    page: 22
+  - term: Gap-detection report
+    defined: true
+    form: paraphrased
+    definition: >-
+      A report, run on demand and on a schedule across every series, listing any missing or
+      out-of-sequence number; for a statutory series it must return nil.
+    clause: S1-2.1.10-c29
+    page: 22
+  - term: Reset rule
+    defined: true
+    form: quoted
+    definition: "Never, annually at the financial year end, or at the start of each period — set per series"
+    clause: S1-2.1.10-c18
+    page: 21
+  # ---------------------------------------------------------------- general ledger
+  - term: Chart of accounts
+    defined: true
+    form: quoted
+    definition: >-
+      "the entity's own, maintained by Finance in the system, and mapped once to the statutory financial
+      statements so that reporting needs no manual regrouping."
+    clause: S1-2.2.1-c01
+    page: 23
+  - term: Account code
+    defined: true
+    form: paraphrased
+    definition: A fixed-length numeric code of [6] digits; no alphabetic or variable-length codes; dimensions are never encoded in it.
+    clause: S1-2.2.1-c02
+    page: 23
+  - term: Class (of account)
+    defined: true
+    form: quoted
+    definition: >-
+      The first digit of the account code: "1 assets, 2 liabilities, 3 equity, 4 income, 5 expense;
+      determines the natural balance and the statement the account appears in"
+    clause: S1-2.2.1-c03
+    page: 23
+  - term: Group and sub-group (account hierarchy)
+    defined: true
+    form: quoted
+    definition: "Every account sits in a group that rolls up for reporting; groups themselves never accept postings"
+    clause: S1-2.2.1-c04
+    page: 23
+  - term: Control account
+    defined: true
+    form: quoted
+    definition: >-
+      "Receivables, payables, inventory, payroll, fixed asset, tax and bank control accounts accept
+      sub-ledger postings only; manual journals to them are blocked"
+    clause: S1-2.2.1-c06
+    page: 23
+  - term: In-scope account (reconciliation requirement)
+    defined: true
+    form: paraphrased
+    definition: An account whose reconciliation flag puts it in the balance sheet reconciliation scope of 2.12, with a frequency.
+    clause: S1-2.2.1-c12
+    page: 23
+  - term: Dimension
+    defined: true
+    form: quoted
+    definition: >-
+      "Dimensions are carried at line level on every transaction in every module, independent of the
+      account code."
+    clause: S1-2.2.3-c01
+    page: 25
+    note: The listed dimensions are cost centre, profit centre, department, business unit, location, project and at least [4] custom dimensions (S1-2.2.3-c08).
+  - term: Sub-ledger
+    defined: false
+    form: paraphrased
+    definition: >-
+      Used for a module's own transaction records (customer, supplier, asset, stock, payroll) that post
+      to a control account; not defined. "Every sub-ledger transaction generates its ledger entries
+      automatically at the moment it is approved."
+    clause: S1-2.2.4-c14
+    page: 27
+  - term: Posting rule
+    defined: true
+    form: quoted
+    definition: >-
+      "which account each transaction type, item category, customer group, supplier group, tax code or
+      asset class posts to — are configurable by the entity, held as data, and maintained under
+      maker–checker."
+    clause: S1-2.2.4-c15
+    page: 27
+  - term: Posting rules engine
+    defined: true
+    form: quoted
+    definition: >-
+      "One engine generates the accounting entries for every module. It is configured by the entity,
+      held as data, and changed without a release."
+    clause: S1-2.6.10-c01
+    page: 63
+  - term: Manual journal
+    defined: true
+    form: quoted
+    definition: '"the manual journal is the only other way into the ledger"; free entry that "must balance by entity and by currency", approved by a second user, always.'
+    clause: S1-1-c16
+    page: 7
+    note: Journal behaviour from S1-2.2.5-c01 (p.28).
+  - term: Template (standard entry) journal
+    defined: true
+    form: quoted
+    definition: >-
+      "A saved layout of accounts and dimensions, with or without amounts, used to key a repeating entry
+      consistently"
+    clause: S1-2.2.5-c02
+    page: 28
+  - term: Recurring journal
+    defined: true
+    form: quoted
+    definition: "Template with a schedule and an end date; generates a draft each period"
+    clause: S1-2.2.5-c03
+    page: 28
+  - term: Reversing journal
+    defined: true
+    form: quoted
+    definition: "Auto-reverses on the first day of the next period, or on a stated date"
+    clause: S1-2.2.5-c04
+    page: 28
+  - term: Sub-ledger journal
+    defined: true
+    form: quoted
+    definition: >-
+      "Raised by the system from a source document"; its approval "sits on the source document"
+    clause: S1-2.2.5-c11
+    page: 28
+  - term: Approval (as the boundary of a record of account)
+    defined: true
+    form: quoted
+    definition: >-
+      "Approval is the point at which an entry becomes a record of account. Before it, the entry is
+      working material and can be changed. After it, the entry is fixed"
+    clause: S1-2.2.6-c01
+    page: 28
+  - term: Draft or pending entry
+    defined: true
+    form: paraphrased
+    definition: >-
+      An entry before approval: editable by its preparer, affecting no balance, ageing, stock valuation
+      or tax return, and appearing only on pending or exception listings.
+    clause: S1-2.2.6-c04
+    page: 29
+  - term: Correction entry
+    defined: true
+    form: quoted
+    definition: >-
+      "a new entry — a reversal, an adjustment journal, a credit note or a debit note as the case
+      requires — which references the original document number, carries its own reason, and is
+      approved by someone other than the person raising it."
+    clause: S1-2.2.6-c11
+    page: 29
+  - term: Prior-period item
+    defined: false
+    form: paraphrased
+    definition: Used for a correction of a closed period, posted as a dated adjustment journal in the current open period and reported as such; not defined further.
+    clause: S1-2.2.6-c16
+    page: 29
+  - term: Transaction history (change history)
+    defined: true
+    form: paraphrased
+    definition: >-
+      The history every entry carries, reachable in one click: edits before approval, submission and
+      approval, corrections after approval, and attachments with earlier versions.
+    clause: S1-2.2.6-c23
+    page: 29
+  - term: Schedule (prepayment, deferred income, accrual, allocation)
+    defined: true
+    form: paraphrased
+    definition: >-
+      A spread of an amount that belongs to more than one period, created once and posted by the
+      system; its type is "Prepayment, deferred income, accrual, or a straight allocation across
+      periods".
+    clause: S1-2.2.7-c03
+    page: 30
+  - term: System-generated reversal
+    defined: true
+    form: quoted
+    definition: "Any journal can be marked to reverse itself."
+    clause: S1-2.2.7-c18
+    page: 31
+  - term: Open (period state)
+    defined: true
+    form: quoted
+    definition: "All posting permitted within the module and entity"
+    clause: S1-2.2.8-c09
+    page: 32
+  - term: Soft closed (period state)
+    defined: true
+    form: paraphrased
+    definition: >-
+      Optional state: posting permitted with a warning and a mandatory reason, every instance reported;
+      an entity may switch it off.
+    clause: S1-2.2.8-c10
+    page: 32
+  - term: Hard closed (period state)
+    defined: true
+    form: quoted
+    definition: >-
+      "All posting blocked — from the screen, from an import, from the API and from every scheduled
+      job. Exceptional entries only through the override route below"
+    clause: S1-2.2.8-c11
+    page: 32
+  - term: Audit locked (period state)
+    defined: true
+    form: paraphrased
+    definition: >-
+      Permanent: no posting, no override and no reopening by any role, including the administrator;
+      applied once the audit of that year is finalised. Set by "[role], with approval".
+    clause: S1-2.2.8-c12
+    page: 32
+    note: >-
+      The extraction interleaves the Effect and Set by columns of this row, so it is paraphrased here
+      rather than quoted; check the PDF (p.32) before quoting it.
+  - term: Adjustment period
+    defined: true
+    form: quoted
+    definition: >-
+      "An additional period dated at the year end, outside the twelve, for closing and audit
+      adjustments so that December's operating figures stay distinguishable from year-end entries"
+    clause: S1-2.2.8-c04
+    page: 31
+  - term: Special audit adjustment period
+    defined: true
+    form: quoted
+    definition: >-
+      "A further period reserved for adjustments arising from the external audit, reportable separately
+      so that the pre-audit and post-audit positions can both be produced"
+    clause: S1-2.2.8-c05
+    page: 31
+  - term: Override route
+    defined: true
+    form: paraphrased
+    definition: >-
+      A separate permission, not granted by default, by which an authorised finance administrator posts
+      an exceptional journal into a hard-closed period, with a reason and an approval reference.
+    clause: S1-2.2.8-c30
+    page: 33
+    note: What it may be used for is open (Q-013).
+  # ---------------------------------------------------------------- currency
+  - term: Transaction currency
+    defined: true
+    form: quoted
+    definition: "The currency the document was raised in, retained as entered with its original amount"
+    clause: S1-2.2.9-c20
+    page: 35
+  - term: Functional currency
+    defined: true
+    form: quoted
+    definition: "The entity's own currency, converted at the rate in force on the document date"
+    clause: S1-2.2.9-c21
+    page: 35
+    note: '"Each entity nominates its functional currency, fixed once transactions exist" (S1-2.2.9-c03, p.34).'
+  - term: Reporting currency
+    defined: true
+    form: quoted
+    definition: "The group currency, where it differs, for consolidated reporting under 2.14.8"
+    clause: S1-2.2.9-c22
+    page: 35
+    note: Which currency is open (Q-003).
+  - term: Preferred rate source
+    defined: true
+    form: quoted
+    definition: >-
+      "The rate source the entity nominates and configures. It may be a published rate page or feed the
+      entity links to by address, an automated provider feed, or any other source the entity relies
+      on."
+    clause: S1-2.2.9-c10
+    page: 34
+  - term: Manual company rate
+    defined: true
+    form: quoted
+    definition: >-
+      "A rate entered and maintained by Finance. This is the normal case where the entity transacts at
+      a bank's negotiated or special rate, which no published feed carries."
+    clause: S1-2.2.9-c11
+    page: 34
+  - term: Rate types
+    defined: true
+    form: quoted
+    definition: "transaction rate, month-end closing rate, average rate for the period, historic rate and budget rate."
+    clause: S1-2.2.9-c15
+    page: 34
+  - term: Realised exchange difference
+    defined: true
+    form: paraphrased
+    definition: The gain or loss calculated at line level on settlement, allocation or part-settlement, and posted by the system.
+    clause: S1-2.2.9-c24
+    page: 35
+  - term: Unrealised exchange difference
+    defined: true
+    form: paraphrased
+    definition: >-
+      The gain or loss calculated on every foreign-currency monetary balance at period end, posted, and
+      reversed automatically in the following period.
+    clause: S1-2.2.9-c25
+    page: 35
+  - term: Monetary and non-monetary balances
+    defined: false
+    form: paraphrased
+    definition: >-
+      Not defined. SRC-001 gives non-monetary examples ("inventory, fixed assets, prepayments") held at
+      historic rate and excluded from revaluation, "with the distinction configured per account rather
+      than assumed".
+    clause: S1-2.2.9-c27
+    page: 35
+  # ---------------------------------------------------------------- receivables and invoicing
+  - term: Tax invoice
+    defined: true
+    form: paraphrased
+    definition: >-
+      The document for a "Taxable supply to any customer where the law requires a tax invoice", numbered
+      in its own series.
+    clause: S1-2.4.1-c01
+    page: 45
+  - term: Non-tax invoice
+    defined: true
+    form: quoted
+    definition: >-
+      Used for an "Exempt, zero-rated or out-of-scope supply, or where the buyer is not registered and a
+      tax invoice is not permitted"
+    clause: S1-2.4.1-c02
+    page: 45
+  - term: Credit note (tax and non-tax)
+    defined: true
+    form: quoted
+    definition: '"Reversal of a tax invoice" (tax credit note) and "Reversal of a non-tax invoice" (non-tax credit note), each in its own series.'
+    clause: S1-2.4.1-c03
+    page: 45
+    note: The non-tax credit note row is S1-2.4.1-c04. Whether a credit note may be standalone is open (Q-016).
+  - term: Debit note (sales)
+    defined: true
+    form: quoted
+    definition: "Additional charge against an issued invoice"
+    clause: S1-2.4.1-c05
+    page: 45
+    note: On the payables side a debit note is "Raised by the entity against the supplier" (2.5.2, p.49).
+  - term: Proforma invoice
+    defined: true
+    form: quoted
+    definition: >-
+      "No accounting entry and no number from the statutory series; converts to a tax invoice on
+      acceptance"
+    clause: S1-2.3.3-c03
+    page: 38
+  - term: Tax determination matrix
+    defined: true
+    form: paraphrased
+    definition: >-
+      The configurable rule by which the system determines the document type and tax treatment from
+      three attributes, item tax class, customer tax status and place of supply; "The user cannot
+      select the document type directly."
+    clause: S1-2.4.2-c01
+    page: 45
+  - term: Place of supply
+    defined: false
+    form: paraphrased
+    definition: One of the three attributes in the tax determination matrix (domestic, export, out of scope); not defined in SRC-001.
+    clause: S1-2.4.2-c01
+    page: 45
+  - term: Reverse charge
+    defined: false
+    form: paraphrased
+    definition: >-
+      Used for tax "applied where the jurisdiction requires it, posting both the output and the input
+      side"; not defined. Its application per country is for the tax specialist.
+    clause: S1-2.5.11-c03
+    page: 54
+  - term: Credit exposure
+    defined: true
+    form: quoted
+    definition: >-
+      "computed live as open invoices, plus undelivered orders, plus delivered but unbilled, less
+      unallocated receipts and credit notes"
+    clause: S1-2.3.5-c02
+    page: 39
+  - term: Credit hold
+    defined: true
+    form: paraphrased
+    definition: >-
+      A state the system places a customer in on breach of a credit rule where configured, preventing
+      further orders, deliveries or invoices as the entity determines; receipts and credit notes are
+      always permitted.
+    clause: S1-2.3.5-c12
+    page: 39
+  - term: Settlement status (invoice state)
+    defined: true
+    form: paraphrased
+    definition: >-
+      Exactly one of open, partly paid, fully paid, disputed, overdue or written off for a customer
+      invoice, derived by the system; "no user sets it directly".
+    clause: S1-2.3.7-c10
+    page: 40
+  - term: Ageing buckets
+    defined: true
+    form: quoted
+    definition: >-
+      "Default buckets: current, 1–30, 31–60, 61–90, 91–120, 121–180 and over 180 days. Buckets are
+      configurable, and more than one bucket set can be held"
+    clause: S1-2.3.8-c02
+    page: 41
+  - term: Promise to pay
+    defined: true
+    form: paraphrased
+    definition: A recorded date and amount that suppresses escalation until that date and raises an exception if broken.
+    clause: S1-2.3.9-c11
+    page: 41
+  - term: Expected credit loss (provision matrix)
+    defined: false
+    form: paraphrased
+    definition: >-
+      Computed "on a provision matrix maintained by Finance — loss rate by ageing band, customer group
+      or risk rating"; the measurement policy is not defined in SRC-001 and is for the qualified
+      accountant.
+    clause: S1-2.3.10-c01
+    page: 41
+  - term: Days sales outstanding (DSO)
+    defined: false
+    form: paraphrased
+    definition: Shown on the receivables dashboard with its trend; its calculation is not defined in SRC-001.
+    clause: S1-2.3.14-c01
+    page: 43
+  # ---------------------------------------------------------------- payables
+  - term: Two-way, three-way and four-way match
+    defined: true
+    form: paraphrased
+    definition: >-
+      Two-way: purchase order against supplier invoice. Three-way: purchase order, goods receipt note and
+      supplier invoice. Four-way: those three plus an inspection or quality approval.
+    clause: S1-2.5.6-c04
+    page: 52
+    note: Rows S1-2.5.6-c05 and c06. Three-way applies only where inventory is active and the purchase is of goods (2.5.6, 1).
+  - term: Service acceptance
+    defined: true
+    form: quoted
+    definition: "A confirmation that the service was delivered, recorded by the requisitioner"
+    clause: S1-2.1.7-c72
+    page: 16
+    note: Replaces the goods receipt note in a service-based entity (S1-2.5.4-c03, p.51).
+  - term: Goods received not invoiced
+    defined: true
+    form: quoted
+    definition: "a liability incurred but not yet documented"
+    clause: S1-2.5.10-c05
+    page: 54
+  - term: Payment run
+    defined: true
+    form: paraphrased
+    definition: >-
+      A scheduled (weekly, monthly or agreed cycle) or urgent selection of invoices for payment,
+      reviewed and approved before release, with release of the payment file a separate permission.
+    clause: S1-2.5.9-c02
+    page: 54
+  - term: Withholding tax
+    defined: false
+    form: paraphrased
+    definition: >-
+      Used for tax deducted at the point of payment per the supplier's "Withholding tax profile — Rate
+      and category per country"; not defined. Its rates and categories per country are for the tax
+      specialist.
+    clause: S1-2.5.1-c10
+    page: 49
+  - term: Retention
+    defined: true
+    form: paraphrased
+    definition: An amount withheld from a supplier payment, held as its own balance with its release date and reported by due date.
+    clause: S1-2.5.8-c04
+    page: 53
+  # ---------------------------------------------------------------- bank and cash
+  - term: Transfer in transit
+    defined: true
+    form: paraphrased
+    definition: >-
+      The account where the difference sits when the two legs of a transfer clear on different dates;
+      aged and must clear.
+    clause: S1-2.6.2-c08
+    page: 59
+  - term: System-coded
+    defined: true
+    form: paraphrased
+    definition: >-
+      The flag on a statement line auto-coded and auto-posted by a matching rule, so auto-posted entries
+      can be listed and reviewed separately.
+    clause: S1-2.6.3-c13
+    page: 60
+  - term: Coding rule
+    defined: true
+    form: paraphrased
+    definition: >-
+      A rule with conditions (narrative, counterparty, amount, direction, bank account) and actions
+      (account, dimensions, tax code, party, description, split) that codes bank lines.
+    clause: S1-2.6.5-c04
+    page: 61
+  - term: Float (petty cash)
+    defined: true
+    form: paraphrased
+    definition: An amount established per custodian and location, with its control account and approver, restored to that amount on replenishment.
+    clause: S1-2.6.1-c19
+    page: 59
+  - term: Unpresented item
+    defined: true
+    form: quoted
+    definition: "Ledger entry with no statement line, such as an uncleared cheque"
+    clause: S1-2.6.6-c04
+    page: 62
+  - term: Suspense
+    defined: true
+    form: quoted
+    definition: >-
+      "Suspense accounts are used only where a transaction must be recorded before it can be identified
+      — an unidentified bank receipt being the main case."
+    clause: S1-2.6.11-c08
+    page: 64
+    note: Whether suspense must be nil at hard close is open (Q-008).
+  - term: Exception queue
+    defined: true
+    form: paraphrased
+    definition: >-
+      The work list a transaction failing validation is routed to, "with the specific failure named, an
+      owner and an age — never rejected silently and never forced through".
+    clause: S1-2.6.11-c05
+    page: 64
+  # ---------------------------------------------------------------- tax
+  - term: Tax register
+    defined: true
+    form: quoted
+    definition: >-
+      "Each tax the group is subject to is set up once as a configurable record. No tax rule is
+      hard-coded in the software."
+    clause: S1-2.7.1-c01
+    page: 68
+  - term: Entity tax profile
+    defined: true
+    form: quoted
+    definition: >-
+      "which taxes apply, the registration number for each, the registration date, the filing
+      frequency, the currency of the return and the responsible officer."
+    clause: S1-2.7.2-c01
+    page: 69
+  - term: Turnover levy (SSCL)
+    defined: false
+    form: paraphrased
+    definition: >-
+      Used as a tax category, "a turnover levy such as SSCL", charged on liable turnover. SSCL is not
+      expanded or defined in SRC-001; its rules are for the tax specialist.
+    clause: S1-2.7.1-c02
+    page: 68
+  - term: EPF and ETF
+    defined: false
+    form: paraphrased
+    definition: >-
+      Appear only in the illustrative tax compliance dashboard as rows ("EPF — employee and employer",
+      "ETF"); not expanded or defined in SRC-001.
+    clause: S1-2.7.7-c02
+    page: 72
+  - term: Return workspace (obligation record)
+    defined: true
+    form: quoted
+    definition: "One return record per tax, per entity, per period, opened automatically when the period arrives"
+    clause: S1-2.7.4-c01
+    page: 70
+  - term: Tax treatment tag
+    defined: true
+    form: paraphrased
+    definition: A tag on each GL account, allowable, disallowable, capital or partly allowable, from which the corporate tax computation adjusts accounting profit.
+    clause: S1-2.7.6-c01
+    page: 71
+  - term: Capital allowance register
+    defined: true
+    form: paraphrased
+    definition: A register alongside the fixed asset register using the jurisdiction's tax rates and lives, independent of book depreciation.
+    clause: S1-2.7.6-c02
+    page: 71
+  # ---------------------------------------------------------------- fixed assets, inventory, payroll
+  - term: Depreciation book
+    defined: true
+    form: quoted
+    definition: "each book being a complete independent schedule on the same asset record."
+    clause: S1-2.8.4-c01
+    page: 78
+  - term: Category policy (asset category)
+    defined: true
+    form: paraphrased
+    definition: >-
+      The method, rate, residual value, accounts and dimensions held on an asset category, from which the
+      system derives the depreciation schedule once the user enters category, cost and date in use.
+    clause: S1-2.8.3-c01
+    page: 77
+  - term: Capital work in progress
+    defined: true
+    form: paraphrased
+    definition: Cost accumulated against a project or an asset under construction, reported as its own balance and not depreciated until commissioning.
+    clause: S1-2.8.2-c10
+    page: 77
+  - term: Right-of-use asset
+    defined: false
+    form: paraphrased
+    definition: >-
+      Used for an asset arising from a lease, "held in the same register and depreciated by the same
+      mechanism, with the liability maintained alongside"; the accounting basis is not defined in
+      SRC-001 and is for the qualified accountant.
+    clause: S1-2.8.8-c01
+    page: 80
+  - term: Cash-generating unit
+    defined: false
+    form: paraphrased
+    definition: Used as a level at which impairment is tested; not defined.
+    clause: S1-2.8.7-c03
+    page: 80
+  - term: Net realisable value
+    defined: false
+    form: paraphrased
+    definition: Used for the basis of an inventory write-down; not defined.
+    clause: S1-2.9.7-c10
+    page: 87
+  - term: Country rule set (payroll)
+    defined: true
+    form: quoted
+    definition: >-
+      "A country rule set is a body of configuration, not code. It is created, versioned and
+      effective-dated by the entity, and a country with no rule set simply cannot be run until one is
+      configured."
+    clause: S1-2.10.2-c01
+    page: 91
+  - term: Pay basis
+    defined: true
+    form: quoted
+    definition: >-
+      "Fixed salary, hourly, daily, shift-based or output-based; determines whether attendance is
+      required for this employee"
+    clause: S1-2.10.1-c06
+    page: 91
+  - term: Locked payroll run
+    defined: true
+    form: quoted
+    definition: >-
+      "On approval the run is locked: its payslips, calculations and the rule set version used are
+      fixed and reproduce exactly on demand."
+    clause: S1-2.10.8-c03
+    page: 95
+  # ---------------------------------------------------------------- close, reporting, group
+  - term: System-verified sub-ledger agreement
+    defined: true
+    form: quoted
+    definition: >-
+      "These agreements are auto-computed by the system continuously and must be nil. A difference is
+      an exception, reported the moment it arises."
+    clause: S1-2.12.1-c01
+    page: 101
+  - term: Report definition
+    defined: true
+    form: quoted
+    definition: "A report is saved as a definition, not as a copy of its output: it re-reads the ledger each time it runs."
+    clause: S1-2.13.2-c11
+    page: 104
+  - term: Report by written instruction
+    defined: true
+    form: quoted
+    definition: >-
+      "A user describes the report they want in ordinary language and the system builds it. This is a
+      faster route into the report builder, not a separate reporting engine."
+    clause: S1-2.13.3-c01
+    page: 104
+  - term: Drill-down
+    defined: true
+    form: paraphrased
+    definition: >-
+      Following a figure without leaving the report from the financial statement line to the general
+      ledger balance, the journal entry, the source transaction and the supporting document.
+    clause: S1-2.13.6-c01
+    page: 105
+  - term: Intercompany transaction
+    defined: true
+    form: paraphrased
+    definition: >-
+      A transaction between entities flagged as intercompany counterparties, identified by the system
+      from the counterparty on the document, with a matching entry auto-created in the counterparty
+      entity under a shared reference.
+    clause: S1-2.14.4-c02
+    page: 108
+  - term: Consolidation ledger
+    defined: true
+    form: quoted
+    definition: >-
+      "Eliminations post in a separate consolidation ledger. They never touch an entity's own books, and
+      an entity's statutory statements are unaffected by them."
+    clause: S1-2.14.6-c01
+    page: 110
+  - term: Topside adjustment
+    defined: true
+    form: quoted
+    definition: "A group-level entry that belongs to no entity's books, posted in the consolidation ledger alone"
+    clause: S1-2.14.7-c02
+    page: 110
+  - term: Non-controlling interest
+    defined: false
+    form: paraphrased
+    definition: >-
+      Used for the share of a subsidiary not held by the group, "calculated from the holding percentage
+      in force, presented within equity"; not defined further.
+    clause: S1-2.14.6-c12
+    page: 110
+  - term: Consolidation run states
+    defined: true
+    form: quoted
+    definition: "draft, run, reviewed, approved, locked"
+    clause: S1-2.14.9-c03
+    page: 111
+  - term: Governance panel
+    defined: true
+    form: paraphrased
+    definition: >-
+      The part of the CFO dashboard that shows changes to periods, dimensions, cost centres, the chart
+      of accounts, tax configuration, approval workflows and access; "the audit log of 2.1.4 read
+      through an executive lens" (S1-2.15.8-c30, p.117).
+    clause: S1-2.15.8-c01
+    page: 116
+  - term: EBITDA
+    defined: false
+    form: paraphrased
+    definition: >-
+      Not defined in SRC-001; the entity defines it: "EBITDA in particular is defined once, visibly, and
+      used consistently everywhere it appears."
+    clause: S1-2.15.2-c04
+    page: 115
+  - term: Financial statements (income statement, statement of financial position, statement of cash flows, statement of changes in equity)
+    defined: false
+    form: paraphrased
+    definition: >-
+      Named as outputs from the ledger; their content follows the accounting framework, which SRC-001
+      does not name (Q-003).
+    clause: S1-0-c03
+    page: 4

@@ -1,0 +1,381 @@
+version: 1
+status: Proposed
+proposed_by: requirements-engineer
+decided_by_role: product-owner
+workflow: WF-01M5D0SE8MMS39CTPTXH8ME1HT step 4
+source: SRC-001
+clause_index: docs/requirements/clause-index.yaml (version 2, commit ebb3073)
+method: >-
+  Every actor or business role that SRC-001 names was collected while reading the extraction from
+  start to end, and each is tied to the clauses that name it and say what it does. Quotes are copied
+  from the extraction; the PDF is authoritative where the two differ. kind is one of: starting-role
+  (a role in the starting role set of 2.1.2, which the entity's administrator renames, splits, merges
+  or extends, S1-2.1.2-c18); business-role (a person or function named in a process, not a starting
+  role); signatory (signs SRC-001 itself); external-party (a person or organisation outside the
+  entity); external-system (a system TIQACC connects to). Two entries come from question records
+  rather than SRC-001 and say so. Where SRC-001 leaves a role open as "[role]", that is not an actor
+  here: each one is a value in the bracketed-value workbook (bracketed-values.yaml v2), 53 in all,
+  for its owner to confirm. Nothing here assigns a permission or settles a segregation rule; those are
+  requirements for later, under 2.1.2.
+notes:
+  - >-
+    SRC-001 is written by the entity for its vendors (S1-0-c32, p.5). Q-001 records that TIQACC is
+    Tiqri's own multi-tenant product and that Tiqri's internal finance team is the first customer, so
+    "the entity" in SRC-001 is read as a tenant, and "the vendor" as Tiqri (Q-023 is open on the
+    clauses addressed to a vendor).
+  - >-
+    The starting roles are SRC-001's defaults, "expected to be renamed, split, merged or extended to
+    match the company's structure" (S1-2.1.2-c18, p.9). They are listed so that requirements can name
+    them; they are not a fixed role model.
+actors:
+  # ---------------------------------------------------------------- starting role set, 2.1.2
+  - key: preparer
+    name: Preparer
+    kind: starting-role
+    clauses: [S1-2.1.2-c19, S1-2.2.6-c04, S1-2.2.7-c21]
+    does: >-
+      "Create and amend documents, journals and master data within the modules assigned"; must not
+      "Approve anything, including their own work" (p.9). Edits a draft or pending entry freely before
+      approval (S1-2.2.6-c04, p.29) and may cancel a pending system-generated reversal with a reason
+      (S1-2.2.7-c21, p.31).
+  - key: data-entry-sales
+    name: Data entry — sales
+    kind: starting-role
+    clauses: [S1-2.1.2-c20]
+    does: >-
+      "Raise quotations, orders, delivery notes and invoices"; must not "Amend customer master,
+      allocate receipts, cancel invoices" (p.9).
+  - key: data-entry-purchases
+    name: Data entry — purchases
+    kind: starting-role
+    clauses: [S1-2.1.2-c21]
+    does: >-
+      "Raise requisitions, record goods receipts and supplier invoices"; must not "Approve purchase
+      orders, release payments, amend supplier bank details" (p.9).
+  - key: stores
+    name: Stores
+    kind: starting-role
+    clauses: [S1-2.1.2-c22]
+    does: >-
+      "Record receipts, issues, transfers and count entries"; must not "Authorise count adjustments,
+      amend item cost" (p.9). Applies only where inventory (2.9) is active.
+  - key: payroll-officer
+    name: Payroll officer
+    kind: starting-role
+    clauses: [S1-2.1.2-c23, S1-2.10.14-c04]
+    does: >-
+      "Maintain employee master, run payroll, produce payslips"; must not "Approve the payroll run,
+      release the bank file" (p.9).
+  - key: approver
+    name: Approver
+    kind: starting-role
+    clauses: [S1-2.1.2-c24, S1-2.1.2-c04, S1-2.2.6-c07, S1-2.2.6-c08]
+    does: >-
+      "Review and approve within an assigned value band, entity and department"; must not "Approve a
+      document they raised, or amend it after approval" (p.9). May amend a pending entry within a
+      configurable threshold instead of returning it (S1-2.2.6-c07, c08, p.29).
+  - key: finance-manager
+    name: Finance manager
+    kind: starting-role
+    clauses: [S1-2.1.2-c25, S1-2.2.5-c05, S1-2.2.5-c09, S1-2.2.8-c09, S1-2.5.5-c02, S1-2.5.5-c03, S1-2.5.5-c04]
+    does: >-
+      "Post journals, open and close periods, override credit blocks"; must not "Amend the audit log,
+      delete a posted transaction" (p.9). Approves adjustment and year-end closing journals (p.28), sets
+      period states (p.32), and is a step in the purchasing approval matrix (p.51).
+  - key: administrator
+    name: Administrator (the entity's administrator)
+    kind: starting-role
+    clauses: [S1-2.1.2-c26, S1-2.1.2-c01, S1-2.1.2-c12, S1-2.1.10-c32, S1-2.1.7-c68]
+    does: >-
+      "Configuration, user and role maintenance, period control and the segregation rules"; must not
+      "Amend or delete the audit log or transaction history, or approve a document they raised" (p.9).
+      Builds roles (S1-2.1.2-c01, p.8), maintains the segregation of duties matrix (S1-2.1.2-c12, p.9)
+      and alone may create, amend, reset or close a numbering series (S1-2.1.10-c32, p.22). SRC-001
+      also distinguishes a group-level administrator, who "sets which modules the group has licensed",
+      from "the entity administrator" who "activates from within that set" (S1-2.1.7-c68, p.16).
+  - key: auditor-role
+    name: Auditor (read-only role)
+    kind: starting-role
+    clauses: [S1-2.1.2-c27, S1-2.11.6-c01, S1-2.11.6-c03, S1-2.11.6-c04]
+    does: >-
+      "Read every module and export any report"; must not "Create, amend or approve anything" (p.9).
+      "A read-only auditor role with access to every module, every attachment and every audit log
+      entry" (S1-2.11.6-c01, p.100); selects samples and downloads evidence in bulk (S1-2.11.6-c03,
+      c04). Whether it sees individual pay is open (Q-026).
+  # ---------------------------------------------------------------- business roles in processes
+  - key: delegate
+    name: Delegate
+    kind: business-role
+    clauses: [S1-2.1.2-c09, S1-2.5.5-c05]
+    does: >-
+      Acts for an absent user "under their own login, and documents show that they acted as delegate
+      and for whom" (S1-2.1.2-c09, p.8); delegation is "dated and time-limited" (S1-2.5.5-c05, p.51).
+  - key: exception-approver
+    name: Approver of a segregation exception
+    kind: business-role
+    clauses: [S1-2.1.2-c14, S1-2.1.2-c17]
+    does: >-
+      Approves a documented exception to the segregation matrix, with an expiry date and a
+      compensating control (p.9). SRC-001 names this role as "[role]" (workbook).
+  - key: finance-team
+    name: Finance (the finance function)
+    kind: business-role
+    clauses: [S1-2.2.1-c01, S1-2.2.9-c11, S1-2.7.2-c02, S1-2.13-c01, S1-2.16.2-c02]
+    does: >-
+      Maintains the chart of accounts "in the system" (S1-2.2.1-c01, p.23; Q-005), enters the manual
+      company rate (S1-2.2.9-c11, p.34), confirms the proposed tax profile (S1-2.7.2-c02, p.69), builds
+      its own reports (S1-2.13-c01, p.102) and signs each migration load (S1-2.16.2-c02, p.120).
+  - key: finance-user
+    name: Finance user
+    kind: business-role
+    clauses: [S1-2.2.2-c02, S1-2.10.14-c01]
+    does: >-
+      Any finance user may request a new GL account (S1-2.2.2-c02, p.24). "General finance users see
+      the control totals and the departmental cost, never an individual salary" (S1-2.10.14-c01, p.98).
+  - key: authorised-finance-administrator
+    name: Authorised finance administrator
+    kind: business-role
+    clauses: [S1-2.2.8-c30]
+    does: >-
+      "may post an exceptional journal into a hard-closed period through an override route, which is a
+      separate permission from ordinary posting and is not granted by default" (p.33). What the route
+      may be used for is open (Q-013).
+  - key: management
+    name: Management
+    kind: business-role
+    clauses: [S1-2.2.8-c26, S1-2.1.10-c35, S1-2.15.8-c01]
+    does: >-
+      Approves reopening a closed period (S1-2.2.8-c26, p.33) and receives changes to numbering,
+      periods and other structures on the governance panel "without anyone being asked to report them"
+      (S1-2.1.10-c35, p.22; S1-2.15.8-c01, p.116).
+  - key: executive
+    name: CFO, chief executive, directors and country heads
+    kind: business-role
+    clauses: [S1-2.15-c01, S1-2.15.1-c03]
+    does: >-
+      Users of the CFO and executive dashboard: "one place to read performance, cash, exposure,
+      compliance and the changes made to the system's own financial structures" (S1-2.15-c01, p.114).
+  - key: department-head
+    name: Department head
+    kind: business-role
+    clauses: [S1-2.5.5-c01, S1-2.5.5-c02, S1-2.5.5-c03]
+    does: First approver of requisitions, purchase orders and payments in every value band (p.51).
+  - key: director
+    name: Director
+    kind: business-role
+    clauses: [S1-2.5.5-c03, S1-2.5.5-c04]
+    does: >-
+      Final approver above "[amount 2]" and, with the finance manager, of capital items "against an
+      approved budget line" (p.51). Written "[director]" in SRC-001 (workbook).
+  - key: budget-holder
+    name: Budget holder
+    kind: business-role
+    clauses: [S1-2.5.6-c18]
+    does: Approves retrospectively a supplier invoice received with no purchase order (p.53).
+  - key: buyer
+    name: Buyer
+    kind: business-role
+    clauses: [S1-2.5.6-c08, S1-2.5.6-c15]
+    does: Receives price-variance exceptions on orders they raised, before "[role]" (p.52).
+  - key: receiver
+    name: Receiver
+    kind: business-role
+    clauses: [S1-2.5.6-c14]
+    does: Receives quantity-variance exceptions and corrects the goods receipt (p.52).
+  - key: requisitioner
+    name: Requisitioner
+    kind: business-role
+    clauses: [S1-2.1.7-c72]
+    does: >-
+      Records the service acceptance that replaces a goods receipt in a service-based entity: "A
+      confirmation that the service was delivered, recorded by the requisitioner" (p.16).
+  - key: employee
+    name: Employee
+    kind: business-role
+    clauses: [S1-2.5.2-c07, S1-2.10.11-c01, S1-2.10.11-c03, S1-2.10.11-c04, S1-2.10.11-c05]
+    does: >-
+      Raises expense claims with receipts attached (S1-2.5.2-c07, p.49) and, through self-service, sees
+      payslips, applies for leave, submits claims and requests personal changes (p.96). Also a party
+      whose master record the system holds (2.10.1).
+  - key: line-manager
+    name: Manager (of employees)
+    kind: business-role
+    clauses: [S1-2.5.2-c07, S1-2.10.11-c02, S1-2.10.11-c03, S1-2.10.11-c04]
+    does: >-
+      Approves expense claims, leave, timesheets and overtime and reviews team cost "at the level their
+      role permits" (p.96).
+  - key: payroll-user
+    name: Named payroll users
+    kind: business-role
+    clauses: [S1-2.10.14-c01]
+    does: >-
+      "Payroll amounts are visible only to named payroll users and [role]." (p.98)
+  - key: custodian
+    name: Custodian (petty cash float or asset)
+    kind: business-role
+    clauses: [S1-2.6.1-c19, S1-2.8.1-c05]
+    does: >-
+      Holds a petty cash float per location (S1-2.6.1-c19, p.59) or is "The person responsible for" an
+      asset (S1-2.8.1-c05, p.75).
+  - key: authorised-signatory
+    name: Authorised signatory of a bank account
+    kind: business-role
+    clauses: [S1-2.6.1-c13]
+    does: >-
+      "Who may authorise, to what value, and in what combination, each effective-dated" (p.58).
+  - key: reconciliation-owner
+    name: Owner, preparer and reviewer of a balance sheet reconciliation
+    kind: business-role
+    clauses: [S1-2.12.3-c01, S1-2.12.2-c07, S1-2.6.6-c19, S1-2.2.2-c13]
+    does: >-
+      "Every balance sheet account is assigned an owner" (S1-2.12.3-c01, p.101). Preparer and reviewer
+      are "Different named users" unless the separation is released under 2.1.2 (S1-2.12.2-c07,
+      p.101). How review and approval relate is open (Q-009).
+  - key: tax-obligation-owner
+    name: Owner and reviewer of a tax obligation; responsible tax officer
+    kind: business-role
+    clauses: [S1-2.7.7-c12, S1-2.7.2-c01, S1-2.7.4-c06]
+    does: >-
+      "The named person responsible for that obligation, and the reviewer" (S1-2.7.7-c12, p.72). Each
+      entity's tax profile names "the responsible officer" (S1-2.7.2-c01, p.69). A return is "Prepared,
+      reviewed and approved by different named users" (S1-2.7.4-c06, p.70).
+  - key: collections-roles
+    name: Collector, account manager, collection and finance owners, sales representative
+    kind: business-role
+    clauses: [S1-2.3.9-c04, S1-2.3.9-c13, S1-2.3.5-c13, S1-2.3.8-c03]
+    does: >-
+      Receive collection escalations (S1-2.3.9-c04, p.41) and credit-hold notices (S1-2.3.5-c13, p.39);
+      collection performance is "measured per collector" (S1-2.3.9-c13, p.41); ageing is reportable by
+      "sales representative" (S1-2.3.8-c03, p.41).
+  - key: asset-and-stock-verifiers
+    name: Asset verifier, stock counter, valuer
+    kind: business-role
+    clauses: [S1-2.8.10-c01, S1-2.9.9-c06, S1-2.8.7-c01]
+    does: >-
+      Record physical verification of assets (p.81) and stock counts (p.88); the valuer is recorded with
+      a revaluation (p.80).
+  # ---------------------------------------------------------------- signatories of SRC-001
+  - key: src001-signatories
+    name: Finance Manager, Internal Audit, Managing Director (signatories of SRC-001)
+    kind: signatory
+    clauses: [S1-3-c01, S1-3-c02]
+    does: >-
+      Prepare, review and approve the specification; "Any change to a clause in Section 2 after
+      signature is handled as a documented change request" (p.121). Q-004 records that Tiqri treats
+      SRC-001 as the signed baseline, confirmed by Shifan Cader.
+  # ---------------------------------------------------------------- external parties
+  - key: customer
+    name: Customer
+    kind: external-party
+    clauses: [S1-2.3.1-c20, S1-2.3.3-c12, S1-2.1.8-c46]
+    does: >-
+      Receives quotations, invoices, statements and reminders, in its own currency and language; its
+      record "cannot be transacted on until it is authorised" by a second authoriser (S1-2.3.1-c20,
+      p.37).
+  - key: supplier
+    name: Supplier
+    kind: external-party
+    clauses: [S1-2.5.1-c18, S1-2.5.3-c01]
+    does: >-
+      Sends invoices, including by email to the entity's inbound address (S1-2.5.3-c01, p.50), and is
+      paid only once authorised (S1-2.5.1-c18, p.49).
+  - key: bank
+    name: Bank
+    kind: external-party
+    clauses: [S1-2.6.3-c03, S1-2.5.9-c06, S1-2.6.6-c14]
+    does: Supplies statements, receives payment files and may post lines in error that are tracked (p.60 to p.62).
+  - key: tax-authority
+    name: Tax authority of each jurisdiction
+    kind: external-party
+    clauses: [S1-2.7.4-c07, S1-2.1.6-c12, S1-2.1.8-c48]
+    does: >-
+      Receives returns, issues acknowledgements, assessments and queries; "Statutory and regulatory
+      output is produced in the language the receiving authority requires" (S1-2.1.8-c48, p.19).
+  - key: external-auditor
+    name: External auditor
+    kind: external-party
+    clauses: [S1-2.12.3-c07, S1-2.2.8-c05, S1-2.1.9-c06]
+    does: >-
+      Receives the reconciliation pack (S1-2.12.3-c07, p.101); audit adjustments sit in their own
+      period (S1-2.2.8-c05, p.31). Uses the auditor role inside the system (see auditor-role).
+  - key: board
+    name: Board and other external recipients of commentary
+    kind: external-party
+    clauses: [S1-2.1.9-c06]
+    does: >-
+      Draft commentary is reviewed and approved by "[role]" "before it is circulated, filed, or issued
+      to a board, an auditor or any other external party" (p.20).
+  - key: credit-insurer
+    name: Credit insurer
+    kind: external-party
+    clauses: [S1-2.3.5-c04]
+    does: >-
+      "insurer, cover limit, expiry" held per customer (p.39).
+  - key: payment-processor
+    name: Card and online payment processor
+    kind: external-party
+    clauses: [S1-2.3.6-c02]
+    does: Settles card and online receipts net of "the processor's charge" (p.40).
+  - key: tiqri-provider
+    name: Tiqri as SaaS provider ("the vendor" in SRC-001)
+    kind: external-party
+    clauses: [S1-0-c32, S1-3-c03]
+    source_note: >-
+      Not named in SRC-001. Q-001 records that TIQACC is Tiqri's own multi-tenant product; SRC-001's
+      "vendor" (for example "Every clause is answered in Annexure A", S1-0-c32, p.5) is read as Tiqri.
+      How each vendor-addressed clause is handled is open (Q-023).
+    does: Builds, hosts and supports TIQACC for its tenants.
+  - key: first-customer
+    name: Tiqri's internal finance team (first tenant)
+    kind: business-role
+    clauses: [S1-1-c01]
+    source_note: >-
+      From Q-001, not from SRC-001. SRC-001's "the entity" (S1-1-c01, p.6) is read as this team for
+      release 1.
+    does: First customer; runs its books on TIQACC and accepts each module under 2.16.4 (Q-001).
+  # ---------------------------------------------------------------- external systems
+  - key: identity-provider
+    name: Identity provider
+    kind: external-system
+    clauses: [S1-2.1.3-c01]
+    does: >-
+      "Single sign-on against [identity provider], with multi-factor authentication compulsory for any
+      access from outside the office network" (p.9). Which provider is a workbook value; the security
+      owner decides.
+  - key: bank-channels
+    name: Bank connectivity channels
+    kind: external-system
+    clauses: [S1-2.6.3-c03, S1-2.6.3-c04, S1-2.6.3-c05, S1-2.6.3-c06, S1-2.6.3-c07]
+    does: Open banking API, direct bank integration, host to host, secure file transfer and online banking download (p.60).
+  - key: tax-portal
+    name: Tax authority e-filing portal
+    kind: external-system
+    clauses: [S1-2.1.6-c12, S1-2.1.6-c17, S1-2.7.4-c07]
+    does: >-
+      Receives the electronic return "in the portal's format where one exists" (S1-2.7.4-c07, p.70);
+      which portals are needed at go-live is a workbook value (S1-2.1.6-c17).
+  - key: rate-source
+    name: Preferred exchange rate source
+    kind: external-system
+    clauses: [S1-2.2.9-c10]
+    does: >-
+      "The rate source the entity nominates and configures" (p.34); the manual company rate applies
+      when it is unavailable or stale.
+  - key: mail-service
+    name: Outbound and inbound mail service
+    kind: external-system
+    clauses: [S1-2.4.5-c01, S1-2.4.5-c10, S1-2.5.3-c01]
+    does: Sends invoices from the entity's address with delivery tracking (p.47) and receives supplier invoices (p.50).
+  - key: other-business-systems
+    name: Other business systems listed for integration
+    kind: external-system
+    clauses: [S1-2.1.6-c08, S1-2.1.6-c09, S1-2.1.6-c10, S1-2.1.6-c11, S1-2.1.6-c12, S1-2.1.6-c13, S1-2.1.6-c34]
+    does: >-
+      Procurement, inventory, payroll, sales and billing, CRM, fixed asset, banking and treasury,
+      project, manufacturing, e-commerce and point of sale, ERP, middleware and industry systems (p.11),
+      each connecting through "a named service account with its own permissions" (S1-2.1.6-c34, p.12).
+  - key: attendance-devices
+    name: Attendance and time systems
+    kind: external-system
+    clauses: [S1-2.10.4-c12]
+    does: Supply attendance to payroll where attendance is activated (p.93).
