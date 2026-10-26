@@ -104,5 +104,5 @@ doc = {
     "removed": removed,
     "new": new,
 }
-Path(sys.argv[1]).write_text(yaml.safe_dump(doc, sort_keys=False, allow_unicode=True, width=100), encoding="utf-8")
+Path(sys.argv[1]).write_text(yaml.safe_dump(doc, sort_keys=False, allow_unicode=True, width=100), encoding="utf-8", newline="\n")
 print(doc["counts"])
