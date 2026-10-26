@@ -1,7 +1,7 @@
 # Registered sources. Every listed file is immutable: tools/governance/check.py verifies each SHA-256.
 # A registered source is an input. Registration says nothing about whether its content is approved;
 # the "authority" field says how it may be used.
-version: 1
+version: 2
 sources:
   - id: SRC-001
     title: TIQACC Cloud Accounting and Financial Management System, Requirement Specification V1
@@ -91,3 +91,60 @@ sources:
     files:
       - path: docs/sources/SRC-006-bootstrap-plan/bootstrap-plan-2026-10-19.md
         sha256: 7ca9d06648c3c38f9cd73ffc981fb80a22fbfc2485ddfe969ac339cdfca4347c
+
+  - id: SRC-007
+    title: TIQACC Cloud Accounting and Financial Management System, Requirement Specification V2.2
+    kind: buyer-specification
+    authority: >-
+      Authoritative input. The governance owner named it the new requirements baseline in place of
+      SRC-001 on 2026-10-26; that is recorded as DEC-0008 for the product owner's approval, and until
+      DEC-0008 is approved SRC-007 is not an approved baseline. The section 3 sign-off is unsigned and
+      the document carries no version number of its own; "V2.2" is the version the governance owner
+      gave. Annexure A is absent; Annexure B is supplied as SRC-008.
+    registered: 2026-10-26
+    provenance: >-
+      Received from Finance on 2026-10-21 as "TIQACC-Cloud-Accounting-Requirement - Version 2 2
+      (1).pdf" and copied byte-exact to its registered path by the governance owner on 2026-10-26.
+    files:
+      - path: requirement-doc/TIQACC-Cloud-Accounting-Requirement - V2.2.pdf
+        sha256: e1b217852d1054590dac9e8dffad7af117ac921fcca5f22e8623308ad6c2dec0
+    derived:
+      - path: docs/sources/SRC-007-spec-v2.2/extracted/spec-v2.2.txt
+        sha256: 05a1b293b4bb25d6b97a9c24b7ad02e21ac3f118c344e543956d63e39513cf39
+        produced_by: tools/sources/extract_pdf.py with pdfplumber 0.11.10, Python 3.14.6
+        note: Text for search. Deterministic across two runs on 2026-10-26. The PDF is authoritative.
+
+  - id: SRC-008
+    title: Business information pack v1.1 - delivered chart of accounts, volumes and invoice templates
+    kind: business-information
+    authority: >-
+      Data supplied by the qualified accountant (Rifaz Hajirin, 21 October 2026) in answer to the
+      Annexure B request (Q-005), against specification version 1.1; the governance owner confirmed it
+      on 2026-10-26. It states that where it and the specification differ, the specification governs.
+      Its content is proposed data, not approved accounting policy: the chart of accounts, tax
+      treatments and statutory formats still need the approvals the authority matrix requires.
+    registered: 2026-10-26
+    provenance: >-
+      Received from Finance on 2026-10-21 as "TIQACC-developer-information-pack 1.xlsx" (a second
+      copy without the "Journal upload template" sheet was also received and discarded by the
+      governance owner) and "TIQACC-invoice-template-library 1.pdf"; copied byte-exact to their
+      registered paths by the governance owner on 2026-10-26. Bank statements and supplier invoices
+      received with them hold real data and are not registered.
+    files:
+      - path: docs/sources/SRC-008-business-information-pack/TIQACC-developer-information-pack.xlsx
+        sha256: be8e351c5ee70f098f547b529f61c472850ad83e7209348b93d1ba9f4e5feda7
+      - path: docs/sources/SRC-008-business-information-pack/TIQACC-invoice-template-library.pdf
+        sha256: dc44dd43632a34e20d5ed656ad22cbee5fdd8b41a131b97c556d978b54568524
+    derived:
+      - path: docs/sources/SRC-008-business-information-pack/extracted/developer-information-pack.txt
+        sha256: 345b54793d5300b1a3dc11bb2cecfd61088e0df5e60cbb7410498fd8fcacefae
+        produced_by: tools/sources/extract_xlsx.py at commit 41531d7, Python 3.14.6
+        note: >-
+          Text for search. Values as stored, without number formats (dates would show as serial
+          numbers); this workbook has no custom number formats, dates, hidden sheets or formulas
+          without a cached value. Deterministic across two runs on 2026-10-26. The workbook is
+          authoritative.
+      - path: docs/sources/SRC-008-business-information-pack/extracted/invoice-template-library.txt
+        sha256: 536688431d922e5db6d2a588689230b1742c51e52b9d898bd8e6f3597d5a6ca6
+        produced_by: tools/sources/extract_pdf.py with pdfplumber 0.11.10, Python 3.14.6
+        note: Text for search. Deterministic across two runs on 2026-10-26. The PDF is authoritative.

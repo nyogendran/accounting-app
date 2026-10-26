@@ -1,0 +1,728 @@
+SOURCE TIQACC-invoice-template-library.pdf
+SOURCE_SHA256 dc44dd43632a34e20d5ed656ad22cbee5fdd8b41a131b97c556d978b54568524
+EXTRACTOR pdfplumber 0.11.10
+PAGES 18
+
+===== PAGE 1 =====
+TIQACC · DELIVERED TEMPLATE LIBRARY
+Invoice and document
+templates
+The layouts the system is delivered with. Every entity may issue on the delivered template as it stands,
+brand it, amend it, or replace it with its own — and may keep as many saved templates as it needs, one
+per country, per entity, per document type or per customer.
+No template decides which taxes it shows. The taxes activated for the entity, the country and the supply
+decide, and the template renders whatever they produce — each tax on its own line, in the calculation,
+posted to its own account. The last page sets out those rules, which apply to every template here and to
+every template an entity builds.
+Each page below carries the layout, the fields that are mandatory on it, and the rules the build must
+enforce. Codes in the left column are the template identifiers to load.
+Code Template Applies to Basis
+SL-VAT-01 Tax invoice — statutory layout Sri Lanka, VAT registered Gazette 2481/22
+SL-VAT-02 Tax invoice — branded Sri Lanka, VAT registered Gazette 2481/22, cl. 6
+SL-VAT-03 Tax invoice — several taxes, foreign currency Any country, any tax set Specification 2.4.3
+SL-NTX-01 Invoice — no tax charged Sri Lanka, exempt or unregistered Specification 2.4.2
+SL-TCN-01 Tax credit note Sri Lanka VAT Act s.22
+SL-TDN-01 Tax debit note Sri Lanka VAT Act s.22
+INT-COM-01 Commercial invoice — export Cross-border supply, any country Trade practice
+EU-VAT-01 VAT invoice — EU and UK EU member states, United Kingdom Directive 2006/112 art. 226
+GCC-VAT-01 Tax invoice — bilingual UAE, Saudi Arabia, GCC GCC VAT Framework
+IN-GST-01 Tax invoice — GST India CGST Rules r.46
+US-ST-01 Invoice — sales and use tax United States State practice
+PRF-01 Pro forma invoice All countries Not a tax document
+RCT-01 Receipt All countries Specification 2.3.6
+DLV-01 Delivery note All countries Specification 2.9.6
+SOA-01 Statement of account All countries Specification 2.3.8
+IND-TAX Industry levies applied before the transaction tax All countries, by sector Specification 2.1.7, 2.4.3
+TAX-REF How taxes and currency present on any document All countries, all documents Specification 2.4.3
+Country templates are delivered for the jurisdictions above. Where an entity operates in a country not
+listed, it creates its template in the designer or uploads its own, and the mandatory-field rules for that
+country are configured alongside it.
+TIQACC · delivered invoice template library Page 1 of 18
+
+===== PAGE 2 =====
+SL-VAT-01
+Tax invoice — Sri Lanka, statutory layout
+Gazette Extraordinary No. 2481/22 of 27 March 2026, Annexure I · mandatory from 1 July 2026 · rescinds the format under Gazette 2463/05
+TAX INVOICE
+Date of Invoice: 07/15/2026 Tax Invoice No. : 26JUL_BR03_00412
+Supplier's TIN : 123456789 Purchaser's TIN : 987654321
+Supplier's Name : Sample Trading (Private) Limited Purchaser's Name : Specimen Holdings PLC
+Address : No. 42, Nawam Mawatha, Colombo 02, Sri Lanka Address : No. 7, Union Place, Colombo 02, Sri Lanka
+Telephone No.:* +94 11 234 5678 Telephone No.:* +94 11 876 5432
+Date of Supply : 07/12/2026 Place of Supply :* Colombo 02 — Head Office warehouse
+Additional Information if any:* Against purchase order PO-2026-0884 dated 06/28/2026
+Reference* Description of Goods or Services Quantity Unit Price Amount Excluding
+VAT (Rs.)
+INV-4417 Supply and installation of network switches 4 112,500.00 450,000.00
+INV-4418 Structured cabling — Cat 6A, per point 60 3,200.00 192,000.00
+SRV-2201 Annual maintenance — 12 months 1 180,000.00 180,000.00
+Net amount of supply 822,000.00
+Social Security Contribution Levy @ 2.5% on 822,000.00 20,550.00
+Total Value of Supply: 842,550.00
+VAT Amount (Total Value of Supply @ VAT Rate 18%) 151,659.00
+Total Amount/consideration including VAT: 994,209.00
+Total Amount in words:* Nine hundred ninety-four thousand two hundred nine rupees only
+Mode of Payment:* Bank Transfer
+PAYMENT BY BANK TRANSFER
+Bank Specimen Bank PLC — Colombo 02 branch Account name Sample Trading (Private) Limited
+Account number 001-2-345-6789 · SWIFT SPCBLKLX Payment reference Quote 26JUL_BR03_00412
+WHAT THE BUILD MUST ENFORCE ON THIS TEMPLATE
+Title printed exactly as TAX INVOICE, bold and boxed, in a conspicuous position, and the serial number as YYMMM_QQQQ_XXXXX — at most 40 characters, no
+spaces. Neither is configurable; the field map carries the full numbering rule.
+Supplier block top left, purchaser block top right. TIN is nine digits for both parties, validated on entry, and the invoice cannot be issued without both.
+Both dates print as MM/DD/YYYY — the order the gazette specifies, not the Sri Lankan convention, so it is fixed here and never taken from the locale. Amounts in
+LKR to two decimals, with the three prescribed rows in the gazette's order and wording.
+Any levy the entity's industry attracts prints above the value of supply, so that figure already includes it and the prescribed VAT row still reads as the gazette
+intends. Which levy, at what rate and on what base comes from the industry tax set on page IND-TAX, not the template.
+A tax invoice carries only supplies subject to VAT; a mixed order is split and SL-NTX-01 issued for the remainder (gazette cl. 4.2). Remittance details print in the
+footer under cl. 6.3, drawn from the entity bank account that matches the invoice currency.
+TIQACC · delivered invoice template library Page 2 of 18
+
+===== PAGE 3 =====
+SL-VAT-02
+Tax invoice — Sri Lanka, branded
+The same statutory content under the entity's own branding, exercising gazette clauses 6.1 to 6.4 — modifications, extra columns and rows, logo in
+header or footer
+Sample Trading (Private) Limited
+ENTITY LOGO
+No. 42, Nawam Mawatha, Colombo 02, Sri Lanka
+TIN 123456789 · Tel +94 11 234 5678
+accounts@sampletrading.lk
+TAX INVOICE
+Supplier's TIN : 123456789 Tax Invoice No. : 26JUL_BR03_00412
+Purchaser's TIN : 987654321 Date of Invoice : 07/15/2026
+Purchaser's Name : Specimen Holdings PLC Date of Supply : 07/12/2026
+Address : No. 7, Union Place, Colombo 02 Place of Supply :* Colombo 02
+Ref* Description of Goods or Services HS / SAC Qty Unit Price Discount Amount
+Excluding VAT
+(Rs.)
+INV-4417 Supply and installation of network switches 8517.62 4 120,000.00 30,000.00 450,000.00
+INV-4418 Structured cabling — Cat 6A, per point 8544.42 60 3,200.00 — 192,000.00
+SRV-2201 Annual maintenance — 12 months 998.71 1 180,000.00 — 180,000.00
+Net amount of supply 822,000.00
+Social Security Contribution Levy @ 2.5% on 822,000.00 20,550.00
+Total Value of Supply: 842,550.00
+VAT Amount (Total Value of Supply @ VAT Rate 18%) 151,659.00
+Total Amount/consideration including VAT: 994,209.00
+Additional Information:* Purchase order PO-2026-0884 Mode of Payment:* Bank Transfer
+Total Amount in words:* Nine hundred ninety-four thousand two Prepared by: A. Perera
+hundred nine rupees only
+PAYMENT BY BANK TRANSFER
+Bank Specimen Bank PLC — Colombo 02 branch Account name Sample Trading (Private) Limited
+Account number 001-2-345-6789 · SWIFT SPCBLKLX Payment reference Quote 26JUL_BR03_00412
+Terms 30 days from the date of invoice Due date 08/14/2026
+WHAT BRANDING MAY AND MAY NOT CHANGE
+May change: logo and trademark in header or footer, typeface, colour, block order, and added columns or rows such as HS code and discount — gazette cl. 6.2 and
+6.3.
+May not change: the title wording, the presence of either TIN, the serial number format, the date format, the three prescribed total rows and their order, or the
+exclusion of non-taxable lines.
+Industry levies are not a template change. Setting the entity's industry under 2.1.7 activates that industry's tax set, and every levy in it appears above the value of
+supply at its own rate and base. A levy that does not apply prints no line.
+The designer validates a branded template against the mandatory field set before it can be saved as active. A template failing validation saves as a draft and cannot
+be issued against.
+Where the Commissioner General amends the format, the delivered template is reissued as a new version and derived templates are flagged for re-validation;
+issued invoices keep the version they were produced under.
+TIQACC · delivered invoice template library Page 3 of 18
+
+===== PAGE 4 =====
+SL-VAT-03
+Tax invoice — several taxes and a foreign currency
+The same statutory template carrying every tax activated for the supply, each on its own line, and the exchange rate block where the invoice is not in the
+entity functional currency
+Sample Trading (Private) Limited
+ENTITY LOGO
+No. 42, Nawam Mawatha, Colombo 02 · TIN 123456789
+TAX INVOICE
+Tax Invoice No. : 26JUL_BR03_00418 Purchaser's TIN : 987654321
+Date of Invoice : 07/18/2026 Purchaser's Name : Specimen Holdings PLC
+Date of Supply : 07/16/2026 Address : No. 7, Union Place, Colombo 02
+Description of Goods or Services Qty Unit Price VAT Levy Amount Excl.
+(USD) Tax (USD)
+Supply and installation of network switches 4 1,500.00 18% 2.5% 6,000.00
+Structured cabling — Cat 6A, per point 60 42.00 18% 2.5% 2,520.00
+Annual maintenance — 12 months 1 2,400.00 18% — 2,400.00
+Total Value of Supply 10,920.00
+Turnover levy @ 2.5% on 8,520.00 213.00
+VAT @ 18% on 11,133.00 2,003.94
+Stamp duty — fixed 1.60
+Total Amount/consideration including taxes (USD) 13,138.54
+Invoice currency : USD Total in LKR : 3,973,751.42
+Exchange rate : 1 USD = 302.4500 LKR VAT in LKR : 606,091.65
+Rate source / date : Entity preferred source, 07/16/2026 Turnover levy in LKR : 64,421.85
+Memorandum — withholding at source. Where the customer is required to withhold, the rate, the amount and the net expected are printed
+beneath the total as a memorandum. The withholding is not a charge by the supplier and never forms part of the invoice total.
+PAYMENT BY BANK TRANSFER — ACCOUNT IN THE INVOICE CURRENCY
+Bank Specimen Bank PLC — Foreign Currency Unit Account name Sample Trading (Private) Limited
+USD account 002-9-887-1234 · SWIFT SPCBLKLX Payment reference Quote 26JUL_BR03_00418
+HOW TAXES AND CURRENCY BEHAVE ON ANY TEMPLATE
+Every tax type activated for the supply prints as its own line, in the configured order, with its own label, its own rate and its own base. Activating a tax adds the line
+and includes it in the calculation; no template is redesigned and no code is changed.
+Each tax states the base it was charged on, because the bases differ: a levy may be charged on the value of supply while VAT is charged on the value plus that levy.
+The order of application is configuration, not something a user applies by hand.
+A tax that does not apply to a line shows a dash and is excluded from its base, so one invoice may carry three taxes on one line and one on the next. A fixed-
+amount tax, such as a stamp duty, prints on the same footing as a percentage one.
+Where the invoice currency is not the entity functional currency, the rate, its source and its date print, together with the total and each tax amount in the
+functional currency, because tax is declared and paid in that currency. The block is suppressed when the two currencies match.
+Taxes withheld by the customer are a memorandum beneath the total, never a line in it, and the bank account printed is the one held in the invoice currency.
+Each tax line carries the account it posts to, so the printed line and the ledger entry come from one configuration, and the permitted tax set is configured per
+country.
+TIQACC · delivered invoice template library Page 4 of 18
+
+===== PAGE 5 =====
+SL-NTX-01
+Invoice — no tax charged
+For exempt, zero-rated or out-of-scope supplies, and for suppliers not registered for VAT · specification 2.4.2
+Sample Trading (Private) Limited
+ENTITY LOGO
+No. 42, Nawam Mawatha, Colombo 02, Sri Lanka
+Company No. PV 00123456 · Tel +94 11 234 5678
+INVOICE
+This is not a tax invoice. No VAT has been charged on this supply.
+Invoice No. : SI-2026-07-001188 Customer : Specimen Holdings PLC
+Date of Invoice : 15/07/2026 Address : No. 7, Union Place, Colombo 02
+Date of Supply : 12/07/2026 Customer Ref : PO-2026-0901
+Ref Description of Goods or Services Qty Unit Price Amount (Rs.)
+EXM-0104 Educational services — certificate programme 12 18,500.00 222,000.00
+EXM-0105 Course material — printed 12 2,400.00 28,800.00
+Total Amount Payable: 250,800.00
+Reason no tax is charged: Exempt supply under the First Schedule to the Value Added Tax Act, No. 14 of 2002. The reason is selected from
+the entity tax register and prints on the face of the document.
+Total in words: Two hundred fifty thousand eight hundred Mode of Payment: Cheque
+rupees only Prepared by: A. Perera
+Payment terms: 30 days
+PAYMENT BY BANK TRANSFER
+Bank Specimen Bank PLC — Colombo 02 branch Account name Sample Trading (Private) Limited
+Account number 001-2-345-6789 · SWIFT SPCBLKLX Payment reference Quote SI-2026-07-001188
+WHAT SEPARATES THIS FROM A TAX INVOICE
+The title is INVOICE, never TAX INVOICE, and the document carries an explicit statement that no VAT has been charged.
+It runs on its own number sequence, separate from the statutory tax invoice series, so the tax invoice series stays gapless and auditable on its own
+(specification 2.1.10).
+No VAT column, no VAT total row, and no VAT rate anywhere on the face of the document.
+The reason tax is not charged is mandatory and is selected from the entity tax register — exempt, zero-rated, outside scope, or supplier not registered —
+not typed free-hand.
+Where a single order mixes taxable and non-taxable lines, the system issues a tax invoice for the taxable lines and this document for the rest, cross-
+referencing each to the other.
+Dates print in the entity locale here, because no gazette fixes the format for a non-tax document.
+TIQACC · delivered invoice template library Page 5 of 18
+
+===== PAGE 6 =====
+SL-TCN-01
+Tax credit note — Sri Lanka
+Reduces the consideration and the tax on a tax invoice already issued · VAT Act s.22 · a non-tax credit note, carrying no tax line, is delivered alongside it for
+supplies that bore no tax
+Sample Trading (Private) Limited
+ENTITY LOGO
+No. 42, Nawam Mawatha, Colombo 02 · TIN 123456789
+TAX CREDIT NOTE
+Reduces the amount and the tax charged on the tax invoice referenced below.
+Note No. : TCN-2026-07-0033 Purchaser's TIN : 987654321
+Date : 25/07/2026 Purchaser's Name : Specimen Holdings PLC
+Against Tax Invoice No. : 26JUL_BR03_00412 Address : No. 7, Union Place, Colombo 02
+Ref Description Qty Unit Price Amount Excl. VAT
+(Rs.)
+INV-4418 Structured cabling — 10 points returned, not installed 10 3,200.00 32,000.00
+Total Value: 32,000.00
+Turnover levy @ 2.5% 800.00
+VAT @ 18% 5,904.00
+Total including taxes: 38,704.00
+Reason: Goods returned — specification mismatch, returned 22/07/2026 on GRN-0771
+REFUND BY BANK TRANSFER, WHERE THE BALANCE IS NOT SET OFF AGAINST OPEN INVOICES
+Bank Specimen Bank PLC — Colombo 02 branch Account name Sample Trading (Private) Limited
+Account number 001-2-345-6789 · SWIFT SPCBLKLX Payment reference Quote 26JUL_BR03_00412
+BUILD RULES
+Two variants of this document exist and the system chooses between them from the original: a tax note where the document being adjusted carried tax,
+and a non-tax note, carrying no tax line at all, where it did not. The same split applies in every country.
+Each variant draws on its own gapless sequence, so tax notes and non-tax notes are never numbered from the same series (specification 2.1.10).
+Every tax the original document charged is reversed or raised on its own line, at the rate and on the base that applied then — not at today's rate. Where
+the original carried three taxes, so does the note.
+A partial adjustment carries the taxes proportionately, each recalculated on its own base rather than apportioned from a single total.
+The tax credit note reverses every tax the original document charged, each on its own line, in the period the note is issued rather than the period of the
+original invoice.
+Carries the number and the date of the document it adjusts. It cannot be issued without a valid reference to an issued document.
+Where the original was in a foreign currency, the note is issued in that currency and the exchange rate block prints as it did on the original, so the tax
+reversed in the functional currency agrees with the tax originally charged.
+The reason is selected from a configurable list and is mandatory. Free text may be added but may not replace the coded reason.
+Where the adjustment exceeds a configurable threshold or the original invoice is in a closed period, approval is required before issue (specification 2.3.9).
+TIQACC · delivered invoice template library Page 6 of 18
+
+===== PAGE 7 =====
+SL-TDN-01
+Tax debit note — Sri Lanka
+Increases the consideration and the tax on a tax invoice already issued · VAT Act s.22 · a non-tax debit note, carrying no tax line, is delivered alongside it
+for supplies that bore no tax
+Sample Trading (Private) Limited
+ENTITY LOGO
+No. 42, Nawam Mawatha, Colombo 02 · TIN 123456789
+TAX DEBIT NOTE
+Increases the amount and the tax charged on the tax invoice referenced below.
+Note No. : TDN-2026-07-0017 Purchaser's TIN : 987654321
+Date : 25/07/2026 Purchaser's Name : Specimen Holdings PLC
+Against Tax Invoice No. : 26JUL_BR03_00412 Address : No. 7, Union Place, Colombo 02
+Ref Description Qty Unit Price Amount Excl. VAT
+(Rs.)
+SRV-2201 Additional site visits beyond contracted scope — 6 visits 6 14,000.00 84,000.00
+Total Value: 84,000.00
+Turnover levy @ 2.5% 2,100.00
+VAT @ 18% 15,498.00
+Total including taxes: 101,598.00
+Reason: Scope variation approved by the customer on 20/07/2026, variation order VO-114
+PAYMENT BY BANK TRANSFER
+Bank Specimen Bank PLC — Colombo 02 branch Account name Sample Trading (Private) Limited
+Account number 001-2-345-6789 · SWIFT SPCBLKLX Payment reference Quote 26JUL_BR03_00412
+BUILD RULES
+Two variants of this document exist and the system chooses between them from the original: a tax note where the document being adjusted carried tax,
+and a non-tax note, carrying no tax line at all, where it did not. The same split applies in every country.
+Each variant draws on its own gapless sequence, so tax notes and non-tax notes are never numbered from the same series (specification 2.1.10).
+Every tax the original document charged is reversed or raised on its own line, at the rate and on the base that applied then — not at today's rate. Where
+the original carried three taxes, so does the note.
+A partial adjustment carries the taxes proportionately, each recalculated on its own base rather than apportioned from a single total.
+The tax debit note raises every tax the original document charged, each on its own line, in the period the note is issued, and draws on its own sequence.
+Carries the number and the date of the document it adjusts. It cannot be issued without a valid reference to an issued document.
+Where the original was in a foreign currency, the note is issued in that currency and the exchange rate block prints as it did on the original, so the tax
+reversed in the functional currency agrees with the tax originally charged.
+The reason is selected from a configurable list and is mandatory. Free text may be added but may not replace the coded reason.
+Where the adjustment exceeds a configurable threshold or the original invoice is in a closed period, approval is required before issue (specification 2.3.9).
+TIQACC · delivered invoice template library Page 7 of 18
+
+===== PAGE 8 =====
+INT-COM-01
+Commercial invoice — export
+Cross-border supply of goods · the document customs, the carrier and the buyer's bank all work from, so its content is driven by trade practice rather than
+one tax authority
+Sample Trading (Private) Limited
+ENTITY LOGO
+No. 42, Nawam Mawatha, Colombo 02, Sri Lanka
+Exporter Reg. No. EX-00123 · TIN 123456789
+COMMERCIAL INVOICE
+Export of goods — zero-rated supply, no domestic tax charged
+Invoice No. : EXP-2026-0412 Consignee : Northgate Importers Ltd
+Invoice Date : 18/07/2026 Address : Unit 9, Dock Road, Felixstowe IP11 3TT, United
+Buyer Order No. : PO-GB-77120 Kingdom
+Letter of Credit : LC-884213 / Specimen Bank PLC VAT / EORI No. : GB123456789000
+Notify party : Same as consignee
+Incoterms 2020 : CIF Felixstowe Currency : USD
+Port of loading : Colombo, Sri Lanka Country of final destination : United Kingdom
+Port of discharge : Felixstowe, United Kingdom Mode of shipment : Sea — FCL
+Description of Goods HS Code Country Qty UoM Unit Price Amount (USD)
+of Origin (USD)
+Ceylon black tea, loose leaf, BOPF grade 0902.40 LK 4,800 KG 6.40 30,720.00
+Printed cartons for retail packing 4819.10 LK 9,600 PCS 0.38 3,648.00
+FOB Value: 34,368.00
+Freight: 2,150.00
+Insurance: 410.00
+Total CIF Value (USD): 36,928.00
+Gross weight 5,240 kg · Net weight 4,800 kg · 12 pallets · Marks and numbers STL/2026/0412-1 to 12
+SETTLEMENT — BANK TRANSFER OR DOCUMENTARY CREDIT
+Beneficiary Sample Trading (Private) Limited Beneficiary bank Specimen Bank PLC, Colombo 02, Sri Lanka
+USD account / IBAN 002-9-887-1234 · LK12 SPCB 0000 0029 8871 234 SWIFT / BIC SPCBLKLX
+Correspondent bank Specimen Bank NA, New York · SPNYUS33 Charges OUR — remitter bears all bank charges
+We certify that this invoice shows the actual price of the goods described, that
+Authorised signatory
+no other invoice has been issued, and that all particulars are true and correct.
+BUILD RULES
+Zero-rated, not exempt: the supply carries a tax code that preserves the supplier's input tax recovery, and the invoice shows no tax line.
+Issued in the transaction currency with the rate to the entity's functional currency recorded on the posting, not printed on the document (specification 2.2.9).
+HS code, country of origin, net and gross weight, package count and marks are mandatory for a goods export and are drawn from the item master, not typed.
+Incoterms, ports and the freight and insurance split drive the revenue cut-off and the landed cost treatment at the buyer end; they are stored fields, not free text
+in a footer.
+Proof of export must be attached to the invoice before the zero rating is accepted at period close (specification 2.7.4 and 2.11.3).
+The certification wording is configurable per entity and per destination country.
+TIQACC · delivered invoice template library Page 8 of 18
+
+===== PAGE 9 =====
+EU-VAT-01
+VAT invoice — European Union and United Kingdom
+Article 226 of Council Directive 2006/112/EC · the United Kingdom applies substantially the same content requirements
+Sample Europe B.V.
+ENTITY LOGO
+Keizersgracht 120, 1015 CV Amsterdam, Netherlands
+VAT No. NL861234567B01 · KvK 81234567
+VAT INVOICE
+Invoice No. : NL-2026-004417 Customer : Beispiel Technik GmbH
+Invoice date : 15 July 2026 Address : Hafenstraße 18, 20359 Hamburg, Germany
+Tax point / date of supply : 12 July 2026 Customer VAT No. : DE812345678
+Your reference : PO-DE-2026-5512
+Description of goods or services Qty Unit price Net (EUR) VAT VAT (EUR)
+(EUR) rate
+Software subscription — enterprise tier, 12 months 1 24,000.00 24,000.00 21% 5,040.00
+Implementation services 80 145.00 11,600.00 21% 2,436.00
+Printed training manuals 40 28.00 1,120.00 9% 100.80
+Net total at 21% 35,600.00 21% 7,476.00
+Net total at 9% 1,120.00 9% 100.80
+Total net 36,720.00
+Total VAT 7,576.80
+Total payable (EUR) 44,296.80
+Where the reverse charge applies, the VAT columns print as 0.00 and this line prints instead: “Reverse charge — VAT to be accounted for by the
+recipient under Article 196 of Council Directive 2006/112/EC.”
+Payment terms : 30 days net
+Due date : 14 August 2026
+PAYMENT BY BANK TRANSFER
+Account name Sample Europe B.V. Bank Specimen Bank N.V., Amsterdam
+IBAN NL91 ABNA 0417 1643 00 BIC / SWIFT ABNANL2A
+Payment reference Quote NL-2026-004417 SEPA mandate NL-DD-00412, collected 14 Aug 2026
+BUILD RULES
+Both VAT numbers are mandatory for a cross-border business supply, and the customer number is validated against VIES at the point of issue, with the validation
+response stored as evidence.
+A separate net and VAT subtotal is printed for each rate applied — article 226 requires the breakdown, not just a single VAT total.
+Sequential numbering that uniquely identifies the invoice is a directive requirement, so the series is gapless and a cancellation leaves a cancelled document, not a
+missing number. Where a SEPA mandate is held, the mandate reference and collection date print with the bank block.
+Reverse charge, margin scheme, intra-community supply and exemption each have prescribed wording. The wording is held per tax code per country and prints
+automatically; it is not typed by the user.
+Where the entity is registered in more than one member state, the VAT number and the bank account printed are those for the state of supply, not the entity
+default.
+Country variations — Italy's SdI, Poland's KSeF, France's e-invoicing mandate — are handled as e-invoicing transmissions against this same template, not as
+separate layouts.
+TIQACC · delivered invoice template library Page 9 of 18
+
+===== PAGE 10 =====
+GCC-VAT-01
+Tax invoice — Gulf Cooperation Council, bilingual
+GCC VAT Framework Agreement as enacted in the UAE and Saudi Arabia · Arabic is a content requirement in Saudi Arabia and the layout supports it
+throughout the Gulf
+Sample Gulf Trading LLC
+ENTITY LOGO
+م.م.ذ ةرﺎﺠﺘﻠﻟ ﺞﻴﻠﺨﻟا ﻞﺒﻣﺎﺳ ﺔﻛﺮﺷ
+Office 1204, Business Bay, Dubai, United Arab Emirates
+TRN 100123456700003
+ﺔﻴﺒﻳﺮﺿةرﻮﺗﺎﻓ
+TAX INVOICE ·
+Tax Invoice No. : AE-2026-07-00891 Recipient : Namuna General Trading LLC
+Date of issue : 15/07/2026 Address : Warehouse 14, Al Quoz, Dubai, UAE
+Date of supply : 12/07/2026 Recipient TRN : 100987654300003
+Description ﻒﺻﻮﻟا Qty Unit price Taxable VAT % VAT (AED) Total (AED)
+(AED) amount
+Supply of office furniture — workstations 24 1,850.00 44,400.00 5 2,220.00 46,620.00
+Delivery and installation 1 3,600.00 3,600.00 5 180.00 3,780.00
+Total taxable amount 48,000.00 5 2,400.00 50,400.00
+Total VAT in AED ﻢﻫرﺪﻟﺎﺑ ﺔﺒﻳﺮﻀﻟا ﻲﻟﺎﻤﺟإ 2,400.00
+Total amount payable ﻖﺤﺘﺴﻤﻟا ﻲﻟﺎﻤﺟﻹا ﻎﻠﺒﻤﻟا 50,400.00
+Amount in words: Fifty thousand four hundred UAE dirhams only.
+Where the supply is in a currency other than AED, the VAT amount is also shown in
+AED at the Central Bank rate on the date of supply, and that rate prints beneath the
+QR CODE
+total.
+PAYMENT BY BANK TRANSFER
+Account name Sample Gulf Trading LLC Bank Specimen Bank PJSC, Dubai
+IBAN AE07 0331 2345 6789 0123 456 SWIFT / BIC SPCBAEAD
+Payment reference Quote AE-2026-07-00891 Currency AED — account held in the invoice currency
+BUILD RULES
+Both tax registration numbers print, and the recipient TRN is mandatory where the recipient is registered. The layout carries Arabic alongside English
+throughout; in Saudi Arabia the Arabic is mandatory, so the language pair is a per-country setting, not a user preference.
+The VAT amount must be expressed in the local currency even where the supply is invoiced in another, converted at the central bank rate for the date of
+supply. That rate prints on the document and is stored with the transaction.
+Saudi Arabia requires a QR code carrying seller name, VAT number, timestamp, total and VAT amount, and requires clearance or reporting through ZATCA
+before or shortly after issue. The QR block is driven by the e-invoicing configuration for the country.
+Simplified tax invoices below the configured threshold use a shorter field set; the system selects between the full and simplified template on the invoice
+value and the recipient type.
+Rounding is applied per line or per invoice according to the country rule, and the rule is held in the tax configuration rather than in the template.
+TIQACC · delivered invoice template library Page 10 of 18
+
+===== PAGE 11 =====
+IN-GST-01
+Tax invoice — India, GST
+Rule 46 of the Central Goods and Services Tax Rules · with e-invoicing where the entity is above the notified turnover threshold
+Sample India Private Limited
+ENTITY LOGO
+Unit 402, Prestige Tech Park, Bengaluru 560103, Karnataka
+GSTIN 29AABCS1429B1ZQ · CIN U72200KA2019PTC123456
+TAX INVOICE
+Invoice No. : SIPL/2026-27/00417 Billed to : Udaharan Enterprises Private Limited
+Invoice date : 15/07/2026 Address : 14 MG Road, Bengaluru 560001, Karnataka
+Place of supply : Karnataka (29) GSTIN : 29AADCU7890F1Z5
+Reverse charge : No State / code : Karnataka / 29
+Description HSN / Qty Taxable CGST 9% SGST 9% Total (INR)
+SAC value
+Software development services 998314 1 1,200,000.00 108,000.00 108,000.00 1,416,000.00
+Annual support and maintenance 998313 1 300,000.00 27,000.00 27,000.00 354,000.00
+Total 1,500,000.00 135,000.00 135,000.00 1,770,000.00
+Where the place of supply is another state, CGST and SGST are replaced by a single IGST column at the combined rate. The system selects
+between them from the supplier state and the place of supply, never from a user choice.
+Amount in words: Seventeen lakh seventy thousand rupees only.
+Reverse charge applicable: No · IRN: 7a3f…e91c · Ack. No.: 112026007744213
+QR / IRN
+Authorised signatory
+PAYMENT BY BANK TRANSFER
+Account name Sample India Private Limited Bank / branch Specimen Bank Limited, MG Road, Bengaluru
+Account number 00112233445566 IFSC / SWIFT SPCB0001234 · SPCBINBB
+UPI sampleindia@specimenbank Payment reference Quote SIPL/2026-27/00417
+BUILD RULES
+The invoice number is unique for the financial year, at most 16 characters, and uses only letters, digits, hyphen and slash. The financial year runs April to
+March, so the series resets in April, not January.
+HSN or SAC is mandatory per line, at the digit length prescribed for the entity's turnover band.
+Place of supply with its state code drives the CGST/SGST against IGST decision. The system derives it from the supply rules; a user cannot override it on the
+invoice.
+Where e-invoicing applies, the invoice is registered with the Invoice Registration Portal before issue and the returned IRN, acknowledgement number and
+signed QR code print on the document. An invoice without a successful IRN cannot be delivered to the customer.
+Separate series are required for tax invoices, bills of supply, credit notes, debit notes and delivery challans; each is configured under 2.1.10.
+Bill-to and ship-to addresses are separate fields and both print where they differ.
+TIQACC · delivered invoice template library Page 11 of 18
+
+===== PAGE 12 =====
+US-ST-01
+Invoice — United States, sales and use tax
+There is no federal invoice format. Content follows state practice, and the tax stack is built per jurisdiction from the ship-to address
+Sample North America, Inc.
+ENTITY LOGO
+1180 Market Street, Suite 700, San Francisco, CA 94102
+Federal EIN 87-1234567 · CA Seller's Permit 123-456789
+INVOICE
+Invoice No. : US-2026-07-11840 Bill to : Example Industries LLC
+Invoice date : 07/15/2026 Ship to : 2200 Harrison St, San Francisco, CA 94110
+Terms : Net 30 — due 08/14/2026 Customer PO : PO-2026-7741
+Description Qty Unit price Taxable Amount (USD)
+Workstation hardware — model WS-400 12 1,450.00 Yes 17,400.00
+Extended warranty — 36 months 12 180.00 No 2,160.00
+Subtotal 19,560.00
+Taxable subtotal 17,400.00
+California state tax @ 6.000% 1,044.00
+San Francisco County tax @ 1.250% 217.50
+District tax @ 1.375% 239.25
+Total sales tax 1,500.75
+Total due (USD) 21,060.75
+Ship-to address determines the tax. Where the ship-to jurisdiction differs from bill-to, the rate stack is built from the ship-to address down
+to district level. Where a valid exemption certificate is on file, the tax lines print as 0.00 and the certificate number prints beneath them.
+REMIT TO — ACH, WIRE OR CHECK
+Account name Sample North America, Inc. Bank Specimen Bank N.A., San Francisco, CA
+Account number 000123456789 ABA / routing 121000358 — wire · 121000248 — ACH
+SWIFT (international) SPCBUS6S Payment reference Quote US-2026-07-11840
+BUILD RULES
+No VAT presentation. Tax is a stack of state, county, city and special district rates, each printed on its own line at the rate applied.
+Taxability is per line, not per invoice: the same order routinely carries taxable goods and non-taxable services, and the taxable subtotal is shown separately.
+The rate stack is determined by the ship-to address, and the address is validated to the level the jurisdiction requires before the invoice can be issued.
+Exemption and resale certificates are held against the customer with an expiry date. An expired certificate causes tax to be charged, and the system warns
+before the certificate lapses.
+Economic nexus by state governs whether tax is charged at all; the nexus setting is held per state per entity and drives the tax decision (specification 2.7.3).
+Numbering has no statutory format, so the entity sequence under 2.1.10 applies.
+TIQACC · delivered invoice template library Page 12 of 18
+
+===== PAGE 13 =====
+PRF-01
+Pro forma invoice
+Issued before supply so a customer can raise a purchase order, open a letter of credit or arrange payment · not a tax document in any jurisdiction
+Sample Trading (Private) Limited
+ENTITY LOGO
+No. 42, Nawam Mawatha, Colombo 02 · TIN 123456789
+PRO FORMA INVOICE
+THIS IS NOT A TAX INVOICE · NO VAT IS RECOVERABLE ON THIS DOCUMENT
+Pro forma No. : PF-2026-0291 Customer : Specimen Holdings PLC
+Date : 02/07/2026 Address : No. 7, Union Place, Colombo 02
+Valid until : 31/07/2026 Enquiry ref : RFQ-2026-118
+Description of goods or services Qty Unit price Amount excl. VAT
+(Rs.)
+Supply and installation of network switches 4 112,500.00 450,000.00
+Structured cabling — Cat 6A, per point 60 3,200.00 192,000.00
+Estimated value of supply 642,000.00
+Estimated VAT @ 18% 115,560.00
+Estimated total 757,560.00
+A tax invoice will be issued on supply. Amounts above are an estimate and are valid until the date shown. This document raises no entry in
+the ledger and consumes no number from the statutory tax invoice series.
+ADVANCE PAYMENT OR LETTER OF CREDIT — BANK DETAILS
+Bank Specimen Bank PLC — Colombo 02 branch Account name Sample Trading (Private) Limited
+Account number 001-2-345-6789 · SWIFT SPCBLKLX Payment reference Quote PF-2026-0291
+BUILD RULES
+Posts nothing. No receivable, no revenue, no tax. The document exists in the sales cycle only.
+Runs on its own sequence and never draws a number from the tax invoice series, in any country.
+The "not a tax invoice" statement is mandatory and cannot be removed in the designer.
+Carries a validity date, after which it cannot be converted without being re-priced.
+Converts to a tax invoice or a non-tax invoice on supply, carrying its lines forward and keeping the link in both directions for audit.
+Tax shown is explicitly an estimate, at the rate in force on the pro forma date; the rate applied on the eventual invoice is the rate at the date of supply.
+TIQACC · delivered invoice template library Page 13 of 18
+
+===== PAGE 14 =====
+RCT-01
+Receipt
+Issued on receipt of payment and showing what the payment settled · specification 2.3.6
+Sample Trading (Private) Limited
+ENTITY LOGO
+No. 42, Nawam Mawatha, Colombo 02 · TIN 123456789
+RECEIPT
+Receipt No. : RC-2026-07-02284 Received from : Specimen Holdings PLC
+Receipt date : 29/07/2026 Customer code : CUS-001188
+Value date : 29/07/2026 Currency : LKR
+Settled against Document date Document total Amount applied
+(Rs.) (Rs.)
+Tax invoice 26JUL_BR03_00412 15/07/2026 969,960.00 932,200.00
+Credit note CN-2026-07-0033 25/07/2026 (37,760.00) (37,760.00)
+Total received 894,440.00
+Unapplied balance on account 0.00
+Mode of payment : Bank transfer Withholding tax deducted : Nil
+Bank reference : FT26210998112 Bank charges borne by : Payer
+Bank account credited : Specimen Bank PLC — 001-2-345- Receipt posted to : GL 122010 — Trade receivables control
+6789
+Received with thanks the sum of eight hundred ninety-four thousand four
+For Sample Trading (Private) Limited
+hundred forty rupees only, subject to realisation where paid by instrument.
+BUILD RULES
+The receipt prints what the payment was applied to, document by document, including credit notes netted off. An unapplied balance prints explicitly
+rather than being hidden.
+Where tax is withheld at source, the gross, the withholding and the net all print, and the withholding certificate reference is captured for the tax credit
+claim (specification 2.7.6).
+A receipt issued against an instrument carries the subject-to-realisation wording and is reversed automatically if the instrument is returned unpaid.
+The receipt number comes from its own gapless sequence; cancellation leaves a cancelled receipt, never a missing number.
+Where the receipt currency differs from the invoice currency, the rate and the exchange difference posted both print beneath the totals.
+TIQACC · delivered invoice template library Page 14 of 18
+
+===== PAGE 15 =====
+DLV-01
+Delivery note
+Accompanies goods on despatch and is signed on receipt · specification 2.9.6
+Sample Trading (Private) Limited
+ENTITY LOGO
+No. 42, Nawam Mawatha, Colombo 02 · TIN 123456789
+DELIVERY NOTE
+Values are suppressed on this template. An invoice follows.
+Delivery note No. : DN-2026-07-00914 Deliver to : Specimen Holdings PLC
+Despatch date : 12/07/2026 Address : No. 7, Union Place, Colombo 02
+Sales order : SO-2026-0884 Vehicle / waybill : WP-CAB-4412 / WB-77120
+Item code Description Batch / Serial Ordered Delivered Back
+order
+SW-4800-24P Network switch, 24 port, managed SN 4471– 4 4 —
+4474
+CBL-6A-305 Cat 6A cable, 305 m box B-2026-0714 8 6 2
+ACC-RJ45 RJ45 connectors, pack of 100 — 12 12 —
+Despatched from : Colombo central warehouse Gross weight : 184 kg
+Total packages : 9 Handling : Fragile — keep dry
+Delivered by — name, signature, date Received in good order — name, signature,
+date
+BUILD RULES
+Values are suppressed by default. A priced variant of the same template exists for customers who require it, and the choice is a per-customer setting.
+Prints ordered, delivered and back-order quantities, so a partial delivery is visible on the document the customer signs.
+Batch and serial numbers print where the item is tracked, and are the numbers actually issued from stock, not a reprint of the order.
+Despatch posts the stock movement; the invoice posts the revenue. The two are separate events and the delivery note links them.
+The signed copy is attached back to the delivery as evidence and is required before the related invoice can be released where that control is switched on
+(specification 2.11.3).
+TIQACC · delivered invoice template library Page 15 of 18
+
+===== PAGE 16 =====
+SOA-01
+Statement of account
+Sent to the customer at period end showing every movement and the ageing of what is outstanding · specification 2.3.8
+Sample Trading (Private) Limited
+ENTITY LOGO
+No. 42, Nawam Mawatha, Colombo 02 · TIN 123456789
+STATEMENT OF ACCOUNT
+Statement date : 31/07/2026 Customer : Specimen Holdings PLC
+Period : 01/07/2026 to 31/07/2026 Customer code : CUS-001188
+Currency : LKR Account manager : A. Perera
+Date Document Reference Debit (Rs.) Credit (Rs.) Balance (Rs.)
+01/07/2026 Opening balance 412,800.00
+15/07/2026 Tax invoice 26JUL_BR03_00412 969,960.00 1,382,760.00
+25/07/2026 Credit note CN-2026-07-0033 37,760.00 1,345,000.00
+29/07/2026 Receipt RC-2026-07-02284 894,440.00 450,560.00
+Closing balance at 31/07/2026 450,560.00
+Not yet due 1–30 days 31–60 days 61–90 days 91–120 days Over 120 days Total
+412,800.00 37,760.00 — — — — 450,560.00
+Credit limit Rs. 2,500,000.00 · Available Rs. 2,049,440.00 · Payment terms 30 days from invoice date.
+REMITTANCE — THE ACCOUNT FOR THIS STATEMENT CURRENCY
+Bank Specimen Bank PLC — Colombo 02 branch Account name Sample Trading (Private) Limited
+LKR account 001-2-345-6789 · SWIFT SPCBLKLX Payment reference Quote each invoice number settled
+BUILD RULES
+Two presentations are delivered: open item, listing only documents still outstanding, and full activity as shown here. The choice is a per-customer setting.
+Ageing buckets are configurable per entity and age from either the invoice date or the due date, the basis being stated on the document.
+A statement in a foreign currency shows that currency only; a customer trading in more than one currency receives one statement per currency, never a
+mixed total.
+Produced for a date, and reproducible for that date afterwards with the same figures, which is what makes it usable as audit confirmation evidence.
+Issued in bulk on a schedule by email against the customer contact, with every send recorded (specification 2.3.12).
+TIQACC · delivered invoice template library Page 16 of 18
+
+===== PAGE 17 =====
+IND-TAX
+Industry levies applied before the transaction tax
+How the industry an entity operates in changes what its invoice shows, without a template being edited · specification 2.1.7 and 2.4.3
+Most sector levies are charged on turnover before the transaction tax, so that tax is computed on the value plus the levy. Setting the entity's
+industry under 2.1.7 activates its tax set, and every levy in it appears above the value of supply at its own rate and base. No template is edited.
+Sri Lanka — the shape of an industry tax set
+Industry Sector levy in the set Where it sits
+Every liable sector Social Security Contribution Levy, on liable Before VAT — VAT is charged on value plus levy
+turnover
+Telecommunications Telecommunication Levy, on the value of Before VAT, on its own base of telecom services only
+telecommunication services
+Tourism and hospitality Tourism Development Levy on turnover; service Levy before VAT; service charge shown separately and excluded
+charge, which is a distribution and not a tax from the levy base where it is not turnover
+Banking and financial services VAT on financial services, charged on a value- Not an invoice line — computed periodically and reported from
+addition base rather than per invoice; stamp duty the ledger, not from the sales document
+on instruments
+Apparel and export manufacture Cess and export levies on notified goods; the Before the transaction tax, on the export value, with the supply at
+supply itself is usually zero-rated zero rate
+Manufacture of excisable goods Excise duty, by rate or per unit of volume, weight Inside the value of supply, so VAT is charged on the duty-inclusive
+or alcohol content value
+Import and distribution Customs duty, ports and airports levy, cess, and Into landed cost under 2.9.4 — these build the cost base and are
+the levy on import value not sales invoice lines
+Construction and contracting Stamp duty on contracts; retention withheld by Stamp duty as its own line; retention as a memorandum, outside
+the customer the amount charged
+Illustrative of the shapes the configuration must carry. Which levies an entity is actually liable for, at what rate and on what base, is set in its own tax register and
+confirmed with its advisers — not assumed by the software.
+The same mechanism, other countries
+Country Sector levy charged before or alongside the transaction tax
+India Compensation cess on notified goods, charged with GST; state excise on alcohol
+UAE and Saudi Arabia Excise tax on tobacco, energy and sweetened drinks, forming part of the base on which VAT is charged
+United Kingdom Insurance premium tax, air passenger duty, soft drinks levy, plastic packaging tax
+European Union Environmental, packaging and recycling levies, and insurance premium tax at member-state rates
+United States Federal excise, telecommunications surcharges, hotel occupancy tax and per-unit fees, each on its own base beneath
+the sales tax stack
+HOW AN INDUSTRY TAX SET BEHAVES
+A tax set is delivered per industry per country. Selecting the industry at entity set-up activates it; the levies then appear on every document they cover, in the
+calculation, in the ledger against their own accounts and in the returns that report them.
+An entity operating in more than one industry carries more than one set. The levy that applies is resolved per line from the item or service class, not from the
+entity, so one invoice can carry a telecommunications levy on one line and none on the next.
+Each levy states its own base. A levy may be charged on the net value while the transaction tax is charged on the net value plus that levy, and a second levy
+may be charged on neither. The order of application is configuration and the printed line names the base it used.
+A levy may be rate-based, per unit, banded, capped or a fixed amount, and may be charged on turnover, on a narrower class of supplies, or on a value that
+includes another levy.
+A sector levy introduced, changed or withdrawn by an authority is a dated configuration change. Documents issued before the effective date keep what they
+were issued with, and a credit note against one of them reverses at the levy and rate that applied then.
+Where a levy is not charged per invoice but computed periodically on a different base — the financial services case above — it is configured as a periodic tax
+computed from the ledger, and nothing appears on the sales document.
+Where an authority restricts what may appear on its prescribed document, the designer refuses a levy line it does not allow and the levy is carried inside the
+value of supply instead.
+TIQACC · delivered invoice template library Page 17 of 18
+
+===== PAGE 18 =====
+TAX-REF
+How taxes and currency present on any document
+The rules that apply to every template in this library, delivered or built by an entity · specification 2.4.3
+A template does not decide which taxes it shows. The taxes activated for the entity, the country and the supply decide. Activating one adds its
+line, includes it in the calculation and posts it to its account — no template rebuilt, no code changed.
+Tax mechanics the engine carries
+Mechanic How it presents and calculates
+Percentage on value Rate applied to the taxable base of the lines it covers, printed as its own line stating the rate and the base
+Fixed amount A stated amount per document or per line, printed on the same footing as a percentage tax
+Compound Charged on the value plus one or more taxes already applied. The order of application is configuration; the printed line
+names the base it used
+Banded or tiered Different rates by value band, quantity band or item class, resolved per line
+Capped or floored Subject to a maximum or minimum per line, per document or per period
+Per unit An amount per unit of quantity, volume or weight — excise and environmental levies
+Reverse charge Tax lines print at zero with the prescribed wording, and the liability is recorded against the recipient
+Zero-rated and exempt A dash on the line and no tax amount, with the reason carried from the tax register onto the document
+Withheld at source A memorandum beneath the total showing rate, amount and net expected. Never part of the invoice total
+Rounding Per line or per document, to the precision the country prescribes, with the difference posted to its configured account
+Every document has a tax and a non-tax form
+Document Tax form Non-tax form
+Invoice Tax invoice — tax lines, both registration Invoice — no tax line, coded reason none is charged
+numbers
+Credit note Tax credit note — reverses every tax Credit note — value only
+charged
+Debit note Tax debit note — raises every tax Debit note — value only
+charged
+Pro forma invoice Taxes shown as an estimate at today's No tax shown
+rates
+Receipt Withholding deducted shown gross, Amount received only
+withheld and net
+Self-billed and recipient-created invoice Tax lines as the supplier would have Value only
+charged
+The system picks the form from the document being adjusted or the supply being billed, never from a user choice, and each form draws on its own gapless number
+series.
+CURRENCY, EXCHANGE RATE, AND A TAX THAT DID NOT EXIST YESTERDAY
+Where the document currency differs from the entity functional currency, the exchange rate, its source and its date print on the document, together with the
+total and each tax amount in the functional currency, because tax is declared and paid in that currency. The block is suppressed entirely when the two match.
+Where a country requires the rate from a named source, that source is configured per country and the rate is taken from it rather than from the entity default
+(specification 2.2.9). A third currency may be shown alongside without affecting the posting.
+A new tax introduced by an authority is set up as configuration: name, mechanic, rate, base, order of application, the supplies it covers, its account, its
+effective date and the documents it prints on. From that date it appears on every document it covers and in every return that reports it, with no template
+rebuilt and no release required.
+A rate change is a dated change to the same tax, so documents issued before it keep the rate they were issued at, and a credit note against one of them
+reverses at the old rate.
+Where an authority restricts what may appear on a statutory document, the permitted tax set is configured per country per template, and the designer
+refuses a line it does not allow.
+Every tax line states the account it posts to, so the printed document and the ledger entry come from one configuration and cannot drift apart.
+TIQACC · delivered invoice template library Page 18 of 18
