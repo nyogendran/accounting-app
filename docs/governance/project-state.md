@@ -43,21 +43,27 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   US. Open: Norway (no template), first-release countries, and a tax specialist for the added
   countries.
 - **Blockers:** the V1-based L1 work must be re-based on SRC-007 before it goes to anyone.
-- **In progress:** WF-01M5VHRCEQP734DHRKE29J5YET, re-base on SRC-007.
-  - Step 1, done: the S7 clause-ID change, reviewed, re-reviewed and approved (DEC-0009).
-  - Step 2, running: the requirements agent builds the SRC-007 clause index.
-  - Then: crosswalk and impact report from SRC-001 to SRC-007, assurance review, and re-based
-    objectives, workbook, phasing, questions, brief and pack.
+- **In progress:** WF-01M5VHRCEQP734DHRKE29J5YET, re-base on SRC-007 (option A, governance owner,
+  2026-10-26: questions first, the rest of the re-base while they are answered).
+  - Done: S7 clause IDs (DEC-0009); the SRC-007 clause index (2,744 clauses, validated by script and
+    against rendered PDF pages); crosswalk v2 (2,427 same, 9 changed, 8 with successors, 298 new); the
+    impact analysis GOV-IMPACT-SRC007 v2 (reviewed twice); the re-read list (1,004 of 1,812 references).
+  - Done: Q-032 to Q-053 (questions V2.2 raises), Q-029 v5, decision brief GOV-BRIEF-R1-SCOPE v3 and
+    question pack GOV-QPACK-L1 v3, reviewed (blocking, then non-blocking: ready to send).
+  - Next: re-base the workbook, glossary, actors, objectives and question records, scripted where
+    mechanical; then phasing v4 after the answers. Correct GOV-IMPACT-SRC007 section 6.4 item 8 and its
+    governance-panel list at its next revision.
 - **Done on V1:** WF-01M5D0SE8MMS39CTPTXH8ME1HT, L1 discovery, steps 1 to 8.
   - Built and reviewed: the clause index (2,444 clauses) and the bracketed-value workbook (178 values,
     168 to confirm).
   - Proposed, reviewed twice and revised: business objectives BO-01 to BO-08, actors, a glossary and the
     release phasing (v3).
   - Questions Q-001 to Q-031 are open for their owners.
-- **Withdrawn:** GOV-BRIEF-R1-SCOPE and GOV-QPACK-L1 (Deferred; written against V1). V2.2's control
-  enforcement levels change what Q-029 decides.
+- **Ready to send:** GOV-BRIEF-R1-SCOPE v3 to the product owner, and GOV-QPACK-L1 v3 to the product
+  owner, the qualified accountant and the governance owner.
+- **Waiting on people:** answers to Q-032, Q-033, Q-034, Q-047, then Q-029 and the rest of the pack.
 - **Next:**
-  1. Finish the re-base; then revise and send the brief and the question pack.
+  1. Record answers as they arrive; finish the re-base.
   2. F1, knowledge base.
   3. F2, once the GitHub details arrive. Shifan's and Rifaz's approvals need F2 to carry their own
      identity.
