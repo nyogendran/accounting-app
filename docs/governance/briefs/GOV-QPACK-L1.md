@@ -3,10 +3,10 @@ id: GOV-QPACK-L1
 type: governance
 title: "Question pack: open questions for Shifan Cader, Rifaz Hajirin and Yogendran"
 status: Proposed
-version: 2
+version: 3
 owner: orchestrator
 links:
-  related: [DEC-0008, GOV-BRIEF-R1-SCOPE, GOV-IMPACT-SRC007, Q-001, Q-002, Q-003, Q-004, Q-005, Q-006, Q-007, Q-008, Q-009, Q-010, Q-011, Q-012, Q-013, Q-014, Q-015, Q-016, Q-017, Q-018, Q-019, Q-020, Q-021, Q-022, Q-023, Q-024, Q-025, Q-026, Q-027, Q-028, Q-029, Q-030, Q-031, Q-032, Q-033, Q-034, Q-035, Q-036, Q-037, Q-038, Q-039, Q-040, Q-041, Q-042, Q-043, Q-044, Q-045, Q-046, Q-047, Q-048, Q-049, Q-050, Q-051, Q-052, Q-053]
+  related: [DEC-0008, GOV-BRIEF-R1-SCOPE, REV-01M5W4F011JE50FZ3VMWD039DG, GOV-IMPACT-SRC007, Q-001, Q-002, Q-003, Q-004, Q-005, Q-006, Q-007, Q-008, Q-009, Q-010, Q-011, Q-012, Q-013, Q-014, Q-015, Q-016, Q-017, Q-018, Q-019, Q-020, Q-021, Q-022, Q-023, Q-024, Q-025, Q-026, Q-027, Q-028, Q-029, Q-030, Q-031, Q-032, Q-033, Q-034, Q-035, Q-036, Q-037, Q-038, Q-039, Q-040, Q-041, Q-042, Q-043, Q-044, Q-045, Q-046, Q-047, Q-048, Q-049, Q-050, Q-051, Q-052, Q-053]
 ---
 
 # Question pack: open questions
@@ -17,8 +17,9 @@ links:
 - Rifaz Hajirin, as qualified accountant;
 - Yogendran, as governance owner and tech lead.
 
-**Prepared:** 2026-10-27 by the orchestrator. Version 2 is written against the specification V2.2
-(SRC-007, the baseline under DEC-0008) and replaces the withdrawn V1 pack. Page numbers are V2.2 pages.
+**Prepared:** 2026-10-26 by the orchestrator. Version 3, after the review
+REV-01M5W4F011JE50FZ3VMWD039DG. It is written against the specification V2.2 (SRC-007, the baseline
+under DEC-0008) and replaces the withdrawn V1 pack. Page numbers are V2.2 pages.
 "The pack" means SRC-008, Rifaz's business information pack v1.1.
 
 **How to read it.**
@@ -34,8 +35,15 @@ links:
 suggests". "Not yet" and "need to discuss" are fine answers. Send totals and blank or redacted samples
 only: no real customer, employee or transaction data.
 
-**Read the decision brief GOV-BRIEF-R1-SCOPE first.** Its three questions on control accounts (Q-032,
-Q-033, Q-034) and Q-029 matter most.
+**Read the decision brief GOV-BRIEF-R1-SCOPE first.** Its control-account questions (Q-032, Q-033,
+Q-034, Q-047) and Q-029 matter most.
+
+**Terms.**
+
+- **Control account:** an account whose balance is owned by a sub-ledger, such as receivables control.
+  In V2.2 a manual journal to it is allowed, allowed with a reason, or refused, depending on its level.
+- **Governance panel:** a page of the CFO dashboard (2.15.8) that reports configuration changes. It is
+  not yet planned for release 1.
 
 ---
 
@@ -53,14 +61,15 @@ Q-033, Q-034) and Q-029 matter most.
   "no balance in it exists without a document behind it" (receivables, p.45). If journals reach control
   accounts at Advisory, which governs? You decide scope; Rifaz the accounting effect.
 - **Q-029 [R1, changed].** Payroll and depreciation before their modules exist: options A, B and C, in
-  the brief.
+  the brief. Option C has two readings; Rifaz chooses, with you. Corporate income tax raises the same
+  control-account question under every option, unless it comes into release 1 (Part 2).
 
 ### Confirm what was said at kick-off
 
 - **Q-001 [R1].** TIQACC is Tiqri's own multi-tenant SaaS product, and Finance is its first customer.
   V2.2 is still written to a vendor ("Every clause is answered in Annexure A", p.5), and now adds
   subscription licensing (2.16.5).
-- **Q-004 [closed].** DEC-0008 made V2.2 the baseline. Still open: the V2.2 sign-off in section 3
+- **Q-004 [R1, partly settled].** DEC-0008 made V2.2 the baseline. Still open: the V2.2 sign-off in section 3
   (Finance Manager, Internal Audit, Managing Director) is unsigned. Who signs for Tiqri, or does your
   approval stand in for it? A separate workbook of 190 bracketed values will follow as its own pack.
 - **Q-002.** Covered by the brief.
@@ -69,8 +78,9 @@ Q-033, Q-034) and Q-029 matter most.
 
 - **Q-038 [R1, new]. Capacity for release 1.** "The system is built against the figures below and proved
   against the ceiling in load testing before acceptance" (p.133). The multinational group is 2,000
-  entities and 25 million journal lines a month; the ceiling is 10,000 entities and 100 million lines.
-  Which scale does release 1 test to? The single-entity customer figure is 5,000 in V2.2 and 25,000 in
+  entities and 25 million journal lines a month; the tested ceiling is 10,000 entities and 100 million
+  lines. For release-1 acceptance, which applies: the ceiling, the multinational figures, or a
+  single-entity scale? The single-entity customer figure is 5,000 in V2.2 and 25,000 in
   the pack: which is right? With Yogi as tech lead.
 - **Q-039 [R1, new]. Licensing.** "Access is sold by subscription" (p.135). In which release, and with
   which prices and terms? Section 3 now asks the vendor (Tiqri) for them.
@@ -90,8 +100,9 @@ Q-033, Q-034) and Q-029 matter most.
   (Q-045 for Rifaz).
 - **Q-005 [R1, partly answered].** The pack supplies a delivered chart, capacity targets and 14 delivered
   templates. Annexure B still asks for Finance's current monthly volumes and the existing invoice
-  formats (p.137): are they still needed?
-- **Q-024 [R1]. Service levels.** Support response by severity, availability, recovery point and time.
+  formats (p.137): are they still needed? Rifaz confirms the delivered chart; Shifan, as tax
+  specialist, the formats.
+- **Q-024 [R1, changed: V2.2 now sets capacity figures]. Service levels.** Support response by severity, availability, recovery point and time.
   V2.2 still refers to an SLA that does not exist ("Severity-based response and resolution times stated
   in the SLA", p.132). With Yogi.
 - **Q-023 [R1]. Clauses written for a vendor.** For example the encryption standard "stated in the vendor
@@ -107,10 +118,16 @@ Q-033, Q-034) and Q-029 matter most.
 - **Q-025 [Later, partly answered].** V2.2 now keeps data from go-live ("Data is held from the day the
   organisation starts on the system", p.113), with the statutory period as a floor. But six clauses
   still say "[7] years". Should they follow the same model?
-- **Q-036 [Later, new].** Two rows in V2.2 are corrupted and need Finance's correction: "Customers
-  25,000" (p.19) and "Legal entities 1 Numbering series" (p.130).
-- **Q-037 [Later, new].** The 2.2.2 acceptance statement (p.31) mostly tests journal upload and chart
-  set-up. Which module does each of its tests accept?
+- **Q-036 [Later, new].** Two rows in V2.2 are corrupted and need Finance's correction. Please confirm
+  that V1's wording is meant:
+  - p.19 reads "Customers 25,000"; V1 read "Customers: name and trading name, where the customer is
+    known by more than one script".
+  - p.130 reads "Legal entities 1 Numbering series"; V1 read "Legal entities, consolidation structure,
+    numbering series".
+- **Q-037 [Later, new].** The acceptance statement printed under 2.2.2 (p.31) also tests other
+  sub-sections. Proposed: its journal-upload tests accept 2.2.4; its chart set-up, import and segment
+  tests accept 2.2.1; its duplicate-check, statement-mapping, journal-screen and blocking tests accept
+  2.2.2. Yes, or which differs?
 - **Q-048 [Later, new].** The pack says it was "Prepared against the requirement specification, version
   1.1". Which version was that? With Rifaz.
 - **Q-027 [Later].** Wrong cross-references, editorial only. "under 2.10" (p.30) should read 2.12, and
@@ -122,6 +139,10 @@ Q-033, Q-034) and Q-029 matter most.
   template.
 - **The governance panel (2.15.8).** Is it in release 1? Lowering a control level, changing an entity
   bank account and changing printed remittance details are all reported on it.
+- **The two-year search test.** One acceptance test finds "a two-year-old supplier invoice" (p.11). How
+  is it run at release-1 acceptance if no history is migrated (Q-006)?
+- **The invoice template designer.** Entities design their own templates in the system (2.4.3). Is the
+  designer in release 1, or are the delivered templates enough at first?
 - **Employee expenses.** Without payroll in release 1 there is no employee record. Keep a minimal one,
   or defer expense claims?
 - **Billing types.** Which of milestone, progress, subscription and project billing does Tiqri use?
@@ -146,7 +167,7 @@ Q-033, Q-034) and Q-029 matter most.
 - **Q-035 [R1, new]. Numbering.** Sales series restart "at the beginning of each financial year" (p.54),
   but where an authority prescribes the sequence, the choice "is made once per entity" (p.22). The pack
   says the Sri Lanka serial continues month to month unless the entity elects to restart. Which applies?
-  (Replaces V1's Q-015, which is changed in the same way.)
+  Q-015 (V1's annual-restart question) is changed by the same clauses; one answer can cover both.
 - **Q-046 [R1, new].** The reset rule offers "Never, annually at the financial year end, or at the start
   of each period" (p.22), but the Sri Lanka serial takes its year from the calendar year. Is a
   calendar-year reset needed? With Yogi.
@@ -162,11 +183,12 @@ Q-033, Q-034) and Q-029 matter most.
 - **Q-016 [R1, partly answered].** Credit and debit notes "Against a named invoice or standalone" (p.47)
   against every note that "references the original document number and inherits its tax treatment"
   (p.60). The debit note is now a tax and a non-tax form. The pack says a Sri Lanka tax note cannot be
-  issued without a reference.
+  issued without a reference. Rifaz decides the accounting treatment.
 - **Q-020 [Later, changed].** Statutory retention periods are now "a floor" (p.113), not a deletion
   date. What are the periods per record type in each country?
 - **Corporate income tax [R1 scope].** Must it be computed in TIQACC for the first filing, or wait for
-  release 2?
+  release 2? If it waits, its charge and instalments post to income tax payable, a tax control account
+  (p.84), which raises the Q-029 question. The same part holds the turnover levy entry. With Rifaz.
 - **Payroll returns, interim [R1, options A and C].** May they be prepared outside TIQACC, with their
   schedules uploaded?
 
@@ -178,14 +200,16 @@ Q-033, Q-034) and Q-029 matter most.
   by organisation: a single entity running sub-ledgers starts at "Advisory, and Enforced for bank"; a
   group, or a multi-currency organisation, starts at Enforced, and "lowering it is reported" (p.27).
   Lowering "requires approval, a recorded reason and an effective date" and is reported on the governance
-  panel (p.27). Which level does Tiqri start at, per control type? Is choosing a lower level at set-up a
-  lowering?
+  panel (p.27). Tiqri works in several countries and currencies, so read for Tiqri as a whole the
+  default is probably Enforced; read for the first entity alone, it may be Advisory. (a) Is the default
+  read for Tiqri or for each entity? (b) Which level does each control type start at? (c) Is choosing a
+  lower level at set-up a lowering?
 - **Q-032, Q-034 and Q-047 [R1, new].** With Shifan; see Part 1.
 - **Q-045 [R1, new]. Opening bank balances.** Bank is Enforced, so an opening balance cannot be keyed
   as a journal. For an uploaded chart, "Opening balances load against it under 2.16.2" (p.26). Does that
   route serve, or what does?
 - **Q-053 [R1, new].** A code clash is "resolved by mapping or by renumbering" (p.29), but "No account is
-  renumbered to make room" (p.25). Which applies when an entity joins the group chart?
+  renumbered to make room" (p.25). Which applies when an entity joins the group chart? With Shifan.
 - **Q-041 [R1, new].** The spare range is "reserved outside the five classes" (p.25), but the class
   "determines the natural balance and the statement the account appears in" (p.24). What does an account
   there take?
