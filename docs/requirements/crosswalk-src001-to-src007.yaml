@@ -1,4 +1,4 @@
-version: 1
+version: 2
 from:
   source: SRC-001
   index: docs/requirements/clause-index.yaml
@@ -8,6 +8,8 @@ to:
 method: "Build a clause crosswalk from SRC-001 (S1) to SRC-007 (S7) from the two clause indexes. Read-only\
   \ on\nsources; writes one YAML file given as the first argument.\n\nText of a clause = its line range\
   \ in the extraction, page markers and separators removed, whitespace\nnormalised. Matching, in order:\n\
+  \  0. successor: the reviewed pairs in docs/requirements/crosswalk-successors.yaml, for clauses that\n\
+  \     were rewritten or split beyond what text similarity finds; one row per S7 clause, with the reason;\n\
   \  1. same: identical text once list numbering, punctuation and case are ignored, one-to-one,\n    \
   \ preferring the same section and the nearest position (the clause ID may still differ);\n  2. changed:\
   \ for each remaining S1 clause, the best remaining S7 clause by difflib ratio, searched in\n     the\
@@ -19,9 +21,11 @@ counts:
   s1_clauses: 2444
   s7_clauses: 2744
   same: 2427
-  changed: 10
-  removed: 7
-  new: 307
+  changed: 9
+  successor_s1: 8
+  successor_rows: 10
+  removed: 0
+  new: 298
   pairs_in_a_different_section: 0
 pairs:
 - s1: S1-0-c01
@@ -864,6 +868,10 @@ pairs:
   s7: S7-2.1.7-c56
   status: same
   ratio: 1.0
+- s1: S1-2.1.7-c57
+  s7: S7-2.1.7-c57
+  status: successor
+  reason: 'Extended: the industry selection now also activates the industry tax set.'
 - s1: S1-2.1.7-c58
   s7: S7-2.1.7-c58
   status: same
@@ -1112,6 +1120,10 @@ pairs:
   s7: S7-2.1.8-c35
   status: same
   ratio: 1.0
+- s1: S1-2.1.8-c36
+  s7: S7-2.1.8-c36
+  status: successor
+  reason: Same table row; its text is corrupted in SRC-007 ("Customers 25,000", PDF p.19).
 - s1: S1-2.1.8-c37
   s7: S7-2.1.8-c37
   status: same
@@ -1512,6 +1524,10 @@ pairs:
   s7: S7-2.2.2-c04
   status: same
   ratio: 1.0
+- s1: S1-2.2.2-c05
+  s7: S7-2.2.2-c05
+  status: successor
+  reason: 'Rewritten: code assignment now refuses a taken code and offers alternatives.'
 - s1: S1-2.2.2-c06
   s7: S7-2.2.2-c06
   status: same
@@ -1592,6 +1608,10 @@ pairs:
   s7: S7-2.2.2-c60
   status: same
   ratio: 1.0
+- s1: S1-2.2.2-c26
+  s7: S7-2.2.2-c61
+  status: successor
+  reason: The 2.2.2 acceptance statement, expanded to test 2.2.4 and 2.2.1 as well.
 - s1: S1-2.2.3-c01
   s7: S7-2.2.3-c01
   status: same
@@ -3277,9 +3297,13 @@ pairs:
   status: same
   ratio: 1.0
 - s1: S1-2.4.1-c05
+  s7: S7-2.4.1-c05
+  status: successor
+  reason: 'Split: the debit note is now a tax and a non-tax form.'
+- s1: S1-2.4.1-c05
   s7: S7-2.4.1-c06
-  status: changed
-  ratio: 0.677
+  status: successor
+  reason: 'Split: the debit note is now a tax and a non-tax form.'
 - s1: S1-2.4.1-c06
   s7: S7-2.4.1-c08
   status: same
@@ -8004,6 +8028,14 @@ pairs:
   s7: S7-2.11.4-c04
   status: same
   ratio: 1.0
+- s1: S1-2.11.4-c05
+  s7: S7-2.11.4-c05
+  status: successor
+  reason: 'Split: retention from go-live (c05) and statutory period as a floor (c06).'
+- s1: S1-2.11.4-c05
+  s7: S7-2.11.4-c06
+  status: successor
+  reason: 'Split: retention from go-live (c05) and statutory period as a floor (c06).'
 - s1: S1-2.11.4-c06
   s7: S7-2.11.4-c07
   status: changed
@@ -9696,6 +9728,10 @@ pairs:
   s7: S7-2.16.1-c01
   status: same
   ratio: 1.0
+- s1: S1-2.16.1-c02
+  s7: S7-2.16.1-c02
+  status: successor
+  reason: The Volume row now points to the capacity targets table.
 - s1: S1-2.16.1-c03
   s7: S7-2.16.1-c03
   status: same
@@ -9768,21 +9804,16 @@ pairs:
   s7: S7-3-c02
   status: same
   ratio: 1.0
+- s1: S1-3-c03
+  s7: S7-3-c03
+  status: successor
+  reason: Annexure A extended with the subscription response of 2.16.5.
 - s1: S1-3-c04
   s7: S7-3-c04
   status: same
   ratio: 1.0
-removed:
-- S1-2.1.7-c57
-- S1-2.1.8-c36
-- S1-2.2.2-c05
-- S1-2.2.2-c26
-- S1-2.11.4-c05
-- S1-2.16.1-c02
-- S1-3-c03
+removed: []
 new:
-- S7-2.1.7-c57
-- S7-2.1.8-c36
 - S7-2.1.10-c32
 - S7-2.1.10-c33
 - S7-2.1.10-c34
@@ -9836,7 +9867,6 @@ new:
 - S7-2.2.1-c66
 - S7-2.2.1-c67
 - S7-2.2.1-c68
-- S7-2.2.2-c05
 - S7-2.2.2-c07
 - S7-2.2.2-c08
 - S7-2.2.2-c09
@@ -9872,7 +9902,6 @@ new:
 - S7-2.2.2-c39
 - S7-2.2.2-c40
 - S7-2.2.2-c41
-- S7-2.2.2-c61
 - S7-2.2.4-c20
 - S7-2.2.4-c21
 - S7-2.2.4-c22
@@ -9924,7 +9953,6 @@ new:
 - S7-2.2.4-c72
 - S7-2.2.4-c73
 - S7-2.2.4-c74
-- S7-2.4.1-c05
 - S7-2.4.1-c07
 - S7-2.4.3-c16
 - S7-2.4.3-c17
@@ -10021,11 +10049,8 @@ new:
 - S7-2.4.8-c12
 - S7-2.4.8-c13
 - S7-2.4.8-c14
-- S7-2.11.4-c05
-- S7-2.11.4-c06
 - S7-2.11.4-c08
 - S7-2.11.4-c09
-- S7-2.16.1-c02
 - S7-2.16.1-c07
 - S7-2.16.1-c08
 - S7-2.16.1-c09
@@ -10087,4 +10112,3 @@ new:
 - S7-2.16.5-c25
 - S7-2.16.5-c26
 - S7-2.16.5-c27
-- S7-3-c03

@@ -3,6 +3,8 @@ sources; writes one YAML file given as the first argument.
 
 Text of a clause = its line range in the extraction, page markers and separators removed, whitespace
 normalised. Matching, in order:
+  0. successor: the reviewed pairs in docs/requirements/crosswalk-successors.yaml, for clauses that
+     were rewritten or split beyond what text similarity finds; one row per S7 clause, with the reason;
   1. same: identical text once list numbering, punctuation and case are ignored, one-to-one,
      preferring the same section and the nearest position (the clause ID may still differ);
   2. changed: for each remaining S1 clause, the best remaining S7 clause by difflib ratio, searched in
@@ -52,8 +54,19 @@ by_key7 = collections.defaultdict(list)
 for c in s7:
     by_key7[key(c["text"])].append(c)
 
-pairs, used7, left1 = [], set(), []
+successors = yaml.safe_load((ROOT / "docs/requirements/crosswalk-successors.yaml").read_text(encoding="utf-8"))
+ids1, ids7 = {c["id"] for c in s1}, {c["id"] for c in s7}
+pairs, used7, left1, done1 = [], set(), [], set()
+for entry in successors["successors"]:
+    if entry["s1"] not in ids1 or any(t not in ids7 or t in used7 for t in entry["s7"]):
+        sys.exit(f"crosswalk-successors.yaml: unknown or repeated clause in {entry}")
+    done1.add(entry["s1"])
+    for target in entry["s7"]:
+        used7.add(target)
+        pairs.append({"s1": entry["s1"], "s7": target, "status": "successor", "reason": entry["reason"]})
 for i, c in enumerate(s1):
+    if c["id"] in done1:
+        continue
     cands = [d for d in by_key7.get(key(c["text"]), []) if d["id"] not in used7]
     if cands:
         cands.sort(key=lambda d: (d["section"] != c["section"], abs(pos7[d["id"]] - i)))
@@ -90,15 +103,16 @@ for c in left1:
 
 new = [d["id"] for d in s7 if d["id"] not in used7]
 order1 = {c["id"]: i for i, c in enumerate(s1)}
-pairs.sort(key=lambda p: order1[p["s1"]])
+pairs.sort(key=lambda p: (order1[p["s1"]], pos7[p["s7"]]))
 counts = collections.Counter(p["status"] for p in pairs)
 moved = sum(1 for p in pairs if p["s1"].split("-")[1] != p["s7"].split("-")[1])
 doc = {
-    "version": 1,
+    "version": 2,
     "from": {"source": "SRC-001", "index": "docs/requirements/clause-index.yaml"},
     "to": {"source": "SRC-007", "index": "docs/requirements/clause-index-src007.yaml"},
     "method": (__doc__ or "").strip(),
     "counts": {"s1_clauses": len(s1), "s7_clauses": len(s7), "same": counts["same"], "changed": counts["changed"],
+               "successor_s1": len(done1), "successor_rows": counts["successor"],
                "removed": len(removed), "new": len(new), "pairs_in_a_different_section": moved},
     "pairs": pairs,
     "removed": removed,

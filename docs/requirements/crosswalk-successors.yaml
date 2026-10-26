@@ -1,0 +1,16 @@
+# Reviewed successors from SRC-001 to SRC-007 that the text-similarity match in
+# tools/sources/crosswalk_clauses.py cannot find, because the clause was rewritten (ratio below 0.6)
+# or split. Applied before automatic matching. Each entry was found by the requirements agent in
+# GOV-IMPACT-SRC007 (section 3.2) and checked by the orchestrator against both extractions on
+# 2026-10-26: each S7 clause sits at the S1 clause's place in the same section and restates or
+# replaces it.
+version: 1
+successors:
+  - {s1: S1-2.1.7-c57, s7: [S7-2.1.7-c57], reason: "Extended: the industry selection now also activates the industry tax set."}
+  - {s1: S1-2.1.8-c36, s7: [S7-2.1.8-c36], reason: "Same table row; its text is corrupted in SRC-007 (\"Customers 25,000\", PDF p.19)."}
+  - {s1: S1-2.2.2-c05, s7: [S7-2.2.2-c05], reason: "Rewritten: code assignment now refuses a taken code and offers alternatives."}
+  - {s1: S1-2.2.2-c26, s7: [S7-2.2.2-c61], reason: "The 2.2.2 acceptance statement, expanded to test 2.2.4 and 2.2.1 as well."}
+  - {s1: S1-2.11.4-c05, s7: [S7-2.11.4-c05, S7-2.11.4-c06], reason: "Split: retention from go-live (c05) and statutory period as a floor (c06)."}
+  - {s1: S1-2.16.1-c02, s7: [S7-2.16.1-c02], reason: "The Volume row now points to the capacity targets table."}
+  - {s1: S1-3-c03, s7: [S7-3-c03], reason: "Annexure A extended with the subscription response of 2.16.5."}
+  - {s1: S1-2.4.1-c05, s7: [S7-2.4.1-c05, S7-2.4.1-c06], reason: "Split: the debit note is now a tax and a non-tax form."}
