@@ -95,7 +95,7 @@ applies (Q-042).
 postings count as sub-ledger postings** (REV-01M5EP1W4DYPM707EB79AYEYV1). Under V2.2 that condition is
 reading (1) above. If Rifaz confirms reading (1), the V1 reasons stand:
 
-- C lowers no control;
+- C lowers no payroll or asset control;
 - the specification gives depreciation no interim route;
 - it keeps release 1 well below B.
 
@@ -120,8 +120,11 @@ Releases 3 and 4 can be swapped.
    10,000 entities and 100 million lines (p.133). For release-1 acceptance, which applies: that
    ceiling, the multinational figures, or a single-entity scale?
 2. **Licensing (Q-039).** V2.2 adds subscription licensing (2.16.5). Which release includes it?
-3. **The governance panel (2.15.8).** It reports lowered control levels and changed bank details
-   printed on invoices. Is it in release 1?
+3. **The governance panel (2.15.8).** Most release-1 modules report to it: lowered control levels,
+   changed bank details printed on invoices, numbering changes, credit-limit changes and write-offs,
+   supplier bank-detail changes and payables-control journals, failed auto postings, bank account and
+   signatory changes, and tax configuration changes (pp.23, 27, 53, 58, 70, 77, 80, 87). Is it in
+   release 1? If not, those reports need another home.
 4. **Countries (Q-003).** Your answer was "all countries defined in the template". Does Norway stay in
    scope? It has no template. A tax specialist for the other countries is named by Yogi, as governance
    owner, in a change to the authority matrix.

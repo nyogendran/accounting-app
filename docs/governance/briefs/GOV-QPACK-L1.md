@@ -137,8 +137,11 @@ Q-034, Q-047) and Q-029 matter most.
 
 - **Countries (Q-003).** "All countries defined in the template": does Norway stay in scope? It has no
   template.
-- **The governance panel (2.15.8).** Is it in release 1? Lowering a control level, changing an entity
-  bank account and changing printed remittance details are all reported on it.
+- **The governance panel (2.15.8).** Is it in release 1? Most release-1 modules report to it: control
+  levels, bank accounts and printed remittance details, numbering, credit limits and write-offs, supplier
+  bank details and payables-control journals, failed auto postings, bank signatories, and tax
+  configuration (pp.23, 27, 53, 58, 70, 77, 80, 87). If it is not in release 1, those reports need
+  another home.
 - **The two-year search test.** One acceptance test finds "a two-year-old supplier invoice" (p.11). How
   is it run at release-1 acceptance if no history is migrated (Q-006)?
 - **The invoice template designer.** Entities design their own templates in the system (2.4.3). Is the
