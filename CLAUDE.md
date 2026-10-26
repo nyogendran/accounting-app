@@ -73,6 +73,9 @@ IDs, front matter, normative fields, records, citations and commit trailers are 
 `Agent: <name>` trailer; one commit per authoring agent. Pass commit messages with
 `git commit -F <file>`: the guard reads inline message lines as commands.
 
+Never read `docs/requirements/clause-index.yaml` whole. Search it (Grep for a clause ID or anchor
+text), or read only the lines you need.
+
 ## Memory
 
 Claude Code's auto memory is enabled (DEC-0005). Its notes are convenience only: never evidence,

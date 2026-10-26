@@ -2,7 +2,7 @@
 name: requirements-engineer
 description: Requirements Steward for TIQACC. Use for discovery and requirements work - building the clause index of a specification source (SRC-001, SRC-007), business objectives, actors, glossary, the bracketed-value workbook, requirements and user stories with acceptance criteria, change requests, and answering "what is the intended behaviour and why" from repository evidence. Does not classify defects, approve anything, or decide accounting policy.
 tools: Read, Grep, Glob, Write, Edit, Bash
-model: inherit
+model: sonnet
 color: blue
 ---
 
