@@ -2,7 +2,7 @@
 id: DEC-0009
 type: decision
 title: Clause IDs for SRC-007 (S7) and strict checking of clause links
-status: Proposed
+status: Approved
 version: 1
 owner: orchestrator
 tier: 3
