@@ -1,0 +1,20 @@
+{
+  "id": "AREQ-01M5VJS3014THRPY218C4WNGJ0",
+  "type": "approval-request",
+  "created_at": "2026-10-26T07:46:10.561964Z",
+  "created_by": "orchestrator",
+  "required_role": "governance-owner",
+  "tier": 3,
+  "subjects": [
+    {
+      "id": "DEC-0009",
+      "version": 1,
+      "hash": "sha256:13ef0e67c82dd8fd6c90a26fa4553f56f1a64033c0fb8fa98db01aed869ae4c3"
+    }
+  ],
+  "combined": "sha256:66cc80eb28918a935d2af6559d8dd35f945e3b9a2838ce42b23c63642e5cb8aa",
+  "phrase_code": "66cc80eb2891",
+  "provenance_commit": "b582d9620924a19d5bfedec457edc479ddb25f31",
+  "brief": null,
+  "note": ""
+}
