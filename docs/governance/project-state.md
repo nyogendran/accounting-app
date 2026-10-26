@@ -9,7 +9,7 @@ owner: orchestrator
 
 # Project state
 
-Updated by the orchestrator at every workflow transition. Last update: 2026-10-20.
+Updated by the orchestrator at every workflow transition. Last update: 2026-10-26.
 
 - **Phase:** L1, discovery. F0 is complete and validated (GOV-F0-VALIDATION).
 - **Gate 0:** passed on 2026-10-20. APR-01M5D0D7HCQBRJHRB3V6S76H21 is the governance owner's
@@ -24,10 +24,11 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   - The requirements agent proposes the release phasing.
 - **Discovery questions:** Q-001 to Q-006 record the answers so far, what stays open, and the role
   that confirms each.
+- **G2, people: decided.** DEC-0007 is Approved (APR-01M5RN152P364F3ETYB4B9830V, E1-op, 2026-10-25;
+  APR-01M5VBMJ6YK3NFBADZ52CBS484 repeats it). The authority matrix is v2: Yogendran is governance
+  owner, tech lead, security owner and release authority; Shifan Cader (CFO) is product owner, tax
+  specialist and the qualified accountant's escalation point; Rifaz Hajirin is qualified accountant.
 - **Open decisions:**
-  - G2, people: DEC-0007, requested as AREQ-01M5D0SDNEWZ67Y9E82KC2T3KD. Yogendran: governance owner,
-    tech lead, security owner, release authority. Shifan Cader (CFO): product owner, escalation
-    point, tax. Rifaz Hajirin: qualified accountant.
   - G3, platforms: GitHub, with work items in GitHub Projects; a private repository exists. Setting
     up F2 needs the repository URL, the plan and an instruction to push. Chat is not chosen.
   - G5, data boundary: deferred (DEC-0004).
@@ -40,13 +41,10 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
     release phasing (v3).
   - Questions Q-001 to Q-031 are open for their owners.
 - **Waiting on people:**
-  - DEC-0007 approval. The approval hook did not fire in the resumed session; the phrase must be sent
-    from a new session.
   - The product owner's decision on the release-1 scope. Q-029 decides it.
   - Answers to Q-007 to Q-031 from the product owner, the qualified accountant and the tax specialist.
 - **Next:**
   1. A decision brief for the product owner on release-1 scope and Q-029.
-  2. Once DEC-0007 is approved, update the authority matrix.
-  3. F1, knowledge base.
-  4. F2, once the GitHub details arrive. Shifan's and Rifaz's approvals need F2 to carry their own
+  2. F1, knowledge base.
+  3. F2, once the GitHub details arrive. Shifan's and Rifaz's approvals need F2 to carry their own
      identity.

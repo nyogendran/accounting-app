@@ -1,31 +1,30 @@
 # Authority matrix (SRC-005, section A8). Who decides what.
-# Names are pending decision G2 unless filled in. Until G2 is decided, only the governance owner
-# role can approve, and only framework (Gate 0) and Tier-2/3 governance items.
-# Changing this file needs the governance owner's captured approval; once two people are named,
+# Names are filled in by DEC-0007 (G2), approved in APR-01M5RN152P364F3ETYB4B9830V.
+# Changing this file needs the governance owner's captured approval; now that two people are named,
 # it needs two approvers.
-version: 1
+version: 2
 
 roles:
   governance-owner:
-    person: "Repository owner (name to be confirmed under G2)"
+    person: "Yogendran (Yogi)"
     delegate: null
   product-owner:
-    person: null
+    person: "Shifan Cader, CFO"
     delegate: null
   qualified-accountant:
-    person: null
+    person: "Rifaz Hajirin"
     delegate: null
   tax-specialist:
-    person: null
+    person: "Shifan Cader, CFO, for Sri Lanka and Norway"
     delegate: null
   tech-lead:
-    person: null
+    person: "Yogendran (Yogi)"
     delegate: null
   security-owner:
-    person: null
+    person: "Yogendran (Yogi)"
     delegate: null
   release-authority:
-    person: null
+    person: "Yogendran (Yogi)"
     delegate: null
 
 decisions:
@@ -35,7 +34,7 @@ decisions:
     must_not_be: [author-of-change]
   - decision: Accounting policy, normative accounting knowledge, accounting-risk acceptance
     role: qualified-accountant
-    escalates_to: "Finance Manager, with Internal Audit informed"
+    escalates_to: "Shifan Cader, CFO (DEC-0007)"
     must_not_be: [product-owner-for-tier-1]
   - decision: Tax and statutory rules per jurisdiction
     role: tax-specialist
@@ -73,3 +72,14 @@ stage0:
 small_team_fallback: >-
   If one person holds several roles, record it here. Tier-1 policy approvals and Tier-1 releases
   still need a second named person, external if necessary.
+
+# Recorded under the small-team rule (DEC-0007).
+multiple_roles:
+  "Yogendran (Yogi)": [governance-owner, tech-lead, security-owner, release-authority]
+  "Shifan Cader, CFO": [product-owner, tax-specialist]
+
+# Conditions from DEC-0007.
+conditions:
+  - Tier-1 accounting policy needs both Rifaz Hajirin (qualified accountant) and Shifan Cader (product owner).
+  - Tier-1 releases need both Yogendran (release authority) and Shifan Cader (product owner).
+  - Shifan Cader and Rifaz Hajirin confirm their roles, and their GitHub accounts are recorded, when Stage 1 starts.

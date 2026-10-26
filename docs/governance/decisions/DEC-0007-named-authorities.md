@@ -2,7 +2,7 @@
 id: DEC-0007
 type: decision
 title: Name the people in the authority matrix (G2)
-status: Proposed
+status: Approved
 version: 1
 owner: orchestrator
 tier: 3
