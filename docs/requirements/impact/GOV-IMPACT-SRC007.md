@@ -3,32 +3,51 @@ id: GOV-IMPACT-SRC007
 type: governance
 title: "Impact analysis: re-basing the requirements work from SRC-001 (V1) to SRC-007 (V2.2)"
 status: Proposed
-version: 1
+version: 2
 owner: requirements-engineer
 links:
-  related: [SRC-001, SRC-007, SRC-008, DEC-0008, DEC-0009, BO-01, BO-02, BO-03, BO-04, BO-05, BO-06, BO-07, BO-08, Q-001, Q-002, Q-003, Q-004, Q-005, Q-006, Q-007, Q-008, Q-009, Q-010, Q-011, Q-012, Q-013, Q-014, Q-015, Q-016, Q-017, Q-018, Q-019, Q-020, Q-021, Q-022, Q-023, Q-024, Q-025, Q-026, Q-027, Q-028, Q-029, Q-030, Q-031, GOV-BRIEF-R1-SCOPE, GOV-QPACK-L1, S7-2-c02, S7-2.2.1-c06, S7-2.2.1-c52, S7-2.2.1-c55, S7-2.2.1-c56, S7-2.2.1-c57, S7-2.2.1-c58, S7-2.2.1-c59, S7-2.2.1-c60, S7-2.2.1-c61, S7-2.8.3-c01, S7-2.4.1-c08, S7-2.1.10-c36, S7-2.11.4-c05, S7-2.2.2-c61, S7-2.4.3-c71, S7-2.16.1-c36, S7-2.2.2-c48, S7-2.1.8-c36, S7-2.15.8-c22, S7-2.16.1-c17]
+  related: [S7-2.2.1-c36, S7-2.2.1-c54, S7-2.2.1-c64, S7-2.2.1-c67, S7-2.2.1-c68, S7-2.2.2-c47, S7-2.2.2-c51, S7-2.4.3-c68, S7-2.4.8-c06, SRC-001, SRC-007, SRC-008, DEC-0008, DEC-0009, BO-01, BO-02, BO-03, BO-04, BO-05, BO-06, BO-07, BO-08, Q-001, Q-002, Q-003, Q-004, Q-005, Q-006, Q-007, Q-008, Q-009, Q-010, Q-011, Q-012, Q-013, Q-014, Q-015, Q-016, Q-017, Q-018, Q-019, Q-020, Q-021, Q-022, Q-023, Q-024, Q-025, Q-026, Q-027, Q-028, Q-029, Q-030, Q-031, GOV-BRIEF-R1-SCOPE, GOV-QPACK-L1, S7-2-c02, S7-2.2.1-c06, S7-2.2.1-c52, S7-2.2.1-c55, S7-2.2.1-c56, S7-2.2.1-c57, S7-2.2.1-c58, S7-2.2.1-c59, S7-2.2.1-c60, S7-2.2.1-c61, S7-2.8.3-c01, S7-2.4.1-c08, S7-2.1.10-c36, S7-2.11.4-c05, S7-2.2.2-c61, S7-2.4.3-c71, S7-2.16.1-c36, S7-2.2.2-c48, S7-2.1.8-c36, S7-2.15.8-c22, S7-2.16.1-c17]
 ---
 
 # Impact analysis: from SRC-001 (V1) to SRC-007 (V2.2)
 
-Written by the requirements engineer for WF-01M5VHRCEQP734DHRKE29J5YET step 4. It goes to independent
-assurance review and then guides the re-base. **It decides nothing.** Every accounting, tax, scope and
+Written by the requirements engineer for WF-01M5VHRCEQP734DHRKE29J5YET step 4 (v1) and revised in step 6
+(v2) after the independent assurance review REV-01M5W1AAYEP3761509T5F5D6NW (commit 96f0084). It guides the
+re-base. **It decides nothing.** Every accounting, tax, scope and
 security point below is put to the role that owns it in `docs/governance/authority-matrix.yaml`
 (v2): product owner (Shifan Cader), qualified accountant (Rifaz Hajirin), tax specialist (Shifan
 Cader, for Sri Lanka and Norway), tech lead, security owner and governance owner (Yogendran).
 SRC-008 content is proposed data, not approved policy; where it is quoted as settling something, the
 owner who must confirm it is named. Proposed questions are labelled PQ-nn; they are not records.
 
-Inputs read: crosswalk `docs/requirements/crosswalk-src001-to-src007.yaml` v1 (commit 7f6a7ae), the
-S1 index v2 and the S7 index v1 (commit 0733090), both extractions, both SRC-008 extractions, and the
-artifacts listed in section 6 at their current versions.
+Inputs read: for v1, crosswalk `docs/requirements/crosswalk-src001-to-src007.yaml` v1 (commit 7f6a7ae),
+the S1 index v2 and the S7 index v1 (commit 0733090), both extractions, both SRC-008 extractions, and the
+artifacts listed in section 6 at their current versions. For v2, also crosswalk v2 and
+`docs/requirements/crosswalk-successors.yaml` v1 (commit 51dc996), the review above, Q-003 v2 and
+release-phasing.yaml v3 (A-03, D-2.15.8), and the orchestrator's script recount of the S1 references.
+
+## Changes in v2
+
+Each finding of REV-01M5W1AAYEP3761509T5F5D6NW, with what changed. Nothing outside this file was edited.
+
+| Finding | Severity | What changed in v2 |
+| --- | --- | --- |
+| 1. First entity's default level framed too narrowly | blocking | PQ-02 rewritten (section 6.6) with all four defaults rows (S7-2.2.1-c58 to c61), the organisation-versus-entity reading, Q-003 v2, A-03, the c64 lowering and its 2.15.8 dependency, and the open point whether a lower level chosen at set-up is a "lowering". Section 1 and section 6.4 are now conditional on PQ-01 and PQ-02. Advisory is no longer presented as the default; the repository evidence on the likely default is stated as evidence, not a decision. |
+| 2. Unconditional wording in 6.4 | non-blocking | Every statement that A(ii) is "no longer needed" or that the income tax interim "now posts at Advisory" is restated as conditional on PQ-01 and PQ-02 (sections 1, 4.1, 6.4, 6.5). |
+| 3. c67 against c47 and c51 missing | non-blocking | New section 4.8 and new proposed question PQ-25. Section 6.4 notes the effect on option A. |
+| 4. Governance-panel dependencies | non-blocking | New subsection in 6.4: S7-2.4.3-c68, S7-2.4.8-c06, S7-2.2.1-c64 and c68, and how they bear on D-2.15.8. S7-2.2.1-c36 is cited for PQ-16 (6.4, 6.6). |
+| 5. Stale against crosswalk v2 | non-blocking | Counts are now 9 changed, 8 successors (10 rows), 0 removed, 298 new (sections 1, 2, 3.1 to 3.5, 6.0). S1-2.4.1-c05 moves from R-changed to R-successor. Section 3.3 is now a record of the v1 defect and its fix. |
+| 6. "Mechanical" understates re-reading | non-blocking | New category R-reread in 6.0, with every reference found, counted per artifact and kept apart from the 1,704 mechanical re-points. |
+| 7. Q-025 and Q-018 overstated | non-blocking | Q-025 is "partly answered" (6.5, section 1). The Q-018 inference from SL-NTX-01 is marked weak, with the reason. |
+| 8. Ownership and the PQ list | non-blocking | PQ-18 has one owner throughout (product-owner, with qualified-accountant). PQ-24 is recast as a gap in the authority matrix, owned by the governance owner. The PQ count is stated in 6.6 (20 in v1, 21 in v2 with PQ-25). PQ-02 and PQ-25 are added to step 2 of section 7. |
+| 9. Minor accuracy | non-blocking | 16 measures (the 15 listed plus "Years of data held online"); r41 to r48 scope narrowed to the tax invoice serial; the numbering of values 74 to 76 marked as a steward's choice; the 2.4.3 heading change added to section 6.0 and 6.4. |
 
 ## 1. Summary
 
 **What V2.2 changes.** Of SRC-001's 2,444 clauses, 2,427 survive word for word in SRC-007 (51 of them
-under a new clause number), 17 change, and 307 clauses are added. Read against the text, none of the
-17 is simply dropped: each of the 7 that the crosswalk calls "removed" has a successor in V2.2
-(section 3.2). The additions sit in a few places and are large there:
+under a new clause number), 9 change, and 8 are rewritten or split and have successors (10 SRC-007
+clauses; crosswalk v2). None is removed. 298 SRC-007 clauses are wholly new. The additions sit in a few
+places and are large there:
 
 - the general ledger set-up: a delivered standard chart, the account code as a "natural account"
   with entity and country segments around it, code clashes and alternatives, and, most important,
@@ -43,46 +62,65 @@ under a new clause number), 17 change, and 307 clauses are added. Read against t
   (2.16.5).
 
 **What it means for the work so far.** Every V1-based artifact has to be re-pointed: 1,812 S1 clause
-references across them, of which 1,704 change only their prefix and page and 108 need a clause-level
-decision (section 6). Five artifacts need more than re-pointing:
+references across them (orchestrator script recount), of which 1,704 change only their prefix and
+page and 108 need a clause-level decision (section 6). Of the 1,704, a further group of references
+(45 found; section 6.0) cite clauses whose text is unchanged but whose meaning V2.2 has changed; they
+are re-pointed mechanically but must also be re-read. Five artifacts need more than re-pointing:
 
-- **The control-account conflict behind Q-029 and D-INT-1 shrinks but does not disappear.** V2.2
-  lets a single entity running sub-ledgers post a manual journal to a control account at Advisory
-  level. But V2.2 also keeps the old blanket block in its attribute table, still rejects a user
-  journal as a substitute for a system posting, and still requires every sub-ledger to agree to its
-  control account (section 6.4).
+- **The control-account conflict behind Q-029 and D-INT-1 may shrink, but only if two questions
+  resolve a particular way.**
+  - PQ-01: V2.2 keeps the old blanket block in its attribute table (S7-2.2.1-c06) beside the new
+    enforcement levels. If the levels govern, a manual journal to a control account is possible at
+    Not applied or Advisory.
+  - PQ-02: the delivered default is set by organisation, and the repository evidence points to
+    Enforced for Tiqri (a multi-country, multi-currency organisation with a planned second entity),
+    not Advisory. Leaving Enforced needs approval, a reason and an effective date, and is reported on
+    the 2.15.8 governance panel, which is still open as D-2.15.8. Whether choosing a lower level at
+    set-up counts as such a lowering is not stated.
+  - Whatever the answers, V2.2 still rejects a user journal as a substitute for a system posting and
+    still requires every sub-ledger to agree to its control account (section 6.4). Nothing in this
+    bullet is a decision.
 - **The bracketed-value workbook** gains 17 values and loses 5, giving 190.
 - **The release phasing** needs a mark for 2.16.5, and new marks for parts of 2.2.1, 2.2.2, 2.4.3,
   2.4.8 and 2.16.1.
 - **The glossary** needs about 40 new terms, and its definition of "control account" is now wrong.
-- **The questions:** Q-025 is largely answered by V2.2, Q-005 is partly answered by SRC-008, and
-  Q-015, Q-016, Q-018 and Q-021 are partly answered for Sri Lanka by SRC-008. Each of these needs its
-  owner's confirmation.
+- **The questions:** Q-025 is partly answered by V2.2 (the starting retention model, not the
+  "[7] years" clauses), Q-005 is partly answered by SRC-008, and Q-015, Q-016, Q-018 and Q-021 are
+  partly answered for Sri Lanka by SRC-008. Each of these needs its owner's confirmation.
 
-V2.2 also carries its own contradictions, including two printed corruptions and three wrong
-cross-references (section 4). The crosswalk would mislead a mechanical re-base in one way: its 7
-"removed" clauses are all changed clauses with successors (section 3.3).
+V2.2 also carries its own contradictions, including two printed corruptions, three wrong
+cross-references and the flag-change contradiction between S7-2.2.1-c67 and S7-2.2.2-c47 and c51
+(section 4). The v1 crosswalk would have misled a mechanical re-base in one way, now fixed in crosswalk
+v2: it called 7 successor clauses "removed" (section 3.3).
 
 ## 2. Method and verification
 
-- **Changed and removed pairs.** Each of the 10 changed and 7 removed crosswalk entries was read in
-  both extractions, at the line ranges given by the two indexes.
+- **Changed and successor pairs.** In v1, each of the 10 changed and 7 "removed" crosswalk v1 entries
+  was read in both extractions, at the line ranges given by the two indexes. In crosswalk v2 these
+  are 9 changed pairs and 8 successor entries (10 rows), and the reviewer confirmed all of them.
 - **New clauses.** For each new clause, the S7 index entry was read and the extraction text read in
   sequence, sub-section by sub-section.
 - **Renumbered pairs.** These were found from the crosswalk with two multiline text searches: pairs
   whose last digit differs (57 pairs) and pairs whose tens digit differs (51 pairs). The union is 58
-  pairs: 51 marked same and 7 marked changed. No clause number has three digits. This confirms the
-  brief's "51 renumbered" among the same pairs, and adds 7 changed pairs whose number also moved.
+  pairs: 51 marked same and 7 that crosswalk v1 marked changed. No clause number has three digits.
+  This confirms the brief's "51 renumbered" among the same pairs. Under crosswalk v2, 6 of the 7 are
+  changed pairs whose number also moved, and the seventh (S1-2.4.1-c05) is a successor split.
 - **Bracket tokens.** Every opening "[" in the S7 extraction was listed with its line number by a
   text search in only-matching mode, and counted by hand. There are 193, three of them broken across
   a line (lines 483, 2331 and 2360), as in S1. Leaving out the three signature names on line 5801
   leaves 190 values. Each S7 token was matched to its S1 counterpart in the workbook (v3) by clause
   and context, which gives 173 + 17 = 190, and 178 - 5 + 17 = 190 (section 6.1).
 - **S1 reference counts.** These are counts of occurrences of the pattern `S1-<section>-c<nn>`,
-  listed with a search in only-matching mode and counted by hand. For release-phasing.yaml the
-  listing was paged and the total read from the last page (903). Shorthand continuations ("c21" after
-  a full ID, "c01 to c04") are not in these counts; they were searched for separately and are listed
-  where they hit a changed clause.
+  listed with a search in only-matching mode and counted by hand in v1. The orchestrator's script
+  recount confirmed the totals (1,812 references; 108 non-mechanical) and classified every reference by
+  crosswalk v2 status; the v2 tables in section 6.0 use that recount as their source. Shorthand
+  continuations ("c21" after a full ID, "c01 to c04") are not in these counts; they were searched for
+  separately and are listed where they hit a changed clause.
+- **Re-read references (v2).** For each clause named in a section 4 contradiction or in the old
+  section 3.3 item 4 as "same text, changed meaning", its S1 ID was searched in only-matching mode in
+  bracketed-values.yaml, glossary.yaml, actors.yaml, release-phasing.yaml, BO-01 to BO-08 and Q-001 to
+  Q-031, and each hit was counted (section 6.0). The list is complete for those clauses. It is not a
+  proof that no other unchanged clause has changed meaning; it covers the ones this analysis found.
 - **SRC-008.** The workbook was read sheet by sheet. Its arithmetic, and the arithmetic of every
   worked example in the template library, was recomputed by hand. The chart's posting rows (206),
   group rows (43) and control-flagged posting rows (68) were counted with text searches.
@@ -91,7 +129,10 @@ cross-references (section 4). The crosswalk would mislead a mechanical re-base i
 
 ## 3. Clause changes
 
-### 3.1 The 10 changed pairs
+### 3.1 The 9 changed pairs
+
+(Crosswalk v1 had 10. The debit-note row, S1-2.4.1-c05, is now a successor split and moved to section
+3.2.)
 
 | S1 (page) | S7 (page) | What changed in meaning |
 | --- | --- | --- |
@@ -102,14 +143,17 @@ cross-references (section 4). The crosswalk would mislead a mechanical re-base i
 | S1-2.2.1-c21 (p.24) | S7-2.2.1-c52 (p.27) | V1 blocked posting to "control accounts by manual journal". V2.2 blocks it only "where control enforcement is set to Enforced, as below". **Major meaning change**; see sections 4.1 and 6.4. |
 | S1-2.2.4-c20 (p.27) | S7-2.2.4-c30 (p.34) | Validation adds dimensions checked "against the rules for that account" and "tax code valid where the account is tax bearing", and the report gives "its row number in the original file". **Meaning change:** one more validation rule and a reporting rule. |
 | S1-2.2.4-c22 (p.27) | S7-2.2.4-c33 (p.34) | The uploaded batch also shows "which mapping template was used". **Small addition.** |
-| S1-2.4.1-c05 (p.45) | S7-2.4.1-c06 (p.54) | V1 had one "Debit note DN-…" row. V2.2 has a tax debit note, "TDN-… carrying the tax the original charged" (S7-2.4.1-c05), and a non-tax one, "NDN-… carrying no tax line" (c06). **Meaning change.** The crosswalk pairs it with c06 only; it is a one-to-two split (section 3.3). |
 | S1-2.11.4-c06 (p.100) | S7-2.11.4-c07 (p.113) | "end of its retention period without an approved disposal instruction" becomes "end of any retention period without an approved disposal instruction from the entity". **Editorial**, in the frame of the new retention model of c05 and c06. |
 | S1-2.15.8-c22 (p.117) | S7-2.15.8-c22 (p.130) | "Legal entities Consolidation structure Numbering series" is printed "Legal entities 1 Numbering series". **Source error** (section 4.6). |
 
-### 3.2 The 7 removed clauses: all have successors
+### 3.2 The 8 successors (10 rows): nothing is removed
+
+Crosswalk v2 records these in `crosswalk-successors.yaml`; its count is `successor_s1: 8`,
+`successor_rows: 10`, `removed: 0`.
 
 | S1 (page) | Successor in S7 (page) | What changed |
 | --- | --- | --- |
+| S1-2.4.1-c05 (p.45) | S7-2.4.1-c05 and c06 (p.54) | V1 had one "Debit note DN-…" row. V2.2 has a tax debit note, "TDN-… carrying the tax the original charged" (c05), and a non-tax one, "NDN-… carrying no tax line" (c06). **Meaning change; one-to-two split.** A reference to the V1 debit note has to pick the tax or the non-tax form, or cite both. |
 | S1-2.1.7-c57 (p.16) | S7-2.1.7-c57 (p.16) | The first sentence is kept ("proposes its likely tax obligations, as set out in 2.7.2"). V2.2 adds that the industry selection "activates the industry tax set for that sector in that country — the levies the sector attracts, each with its rate, its base, its order of application against the transaction tax, its account and the documents it prints on". **Meaning change (major).** |
 | S1-2.1.8-c36 (p.19) | S7-2.1.8-c36 (p.19) | V1: "Customers Name and trading name, where the customer is known by more than one script". V2.2 prints "Customers 25,000". **Source error** (section 4.6). |
 | S1-2.2.2-c05 (p.24) | S7-2.2.2-c05 (p.28) | "proposes the next available code within the correct range; a manual code is permitted only within that range and only to [role]" becomes "proposes the code; a code keyed by a user is accepted only within the correct range, only by [role], and only if it is free. A code already taken is refused, with alternatives offered". **Meaning change:** a free-code check, and a refusal that comes with alternatives. |
@@ -118,32 +162,28 @@ cross-references (section 4). The crosswalk would mislead a mechanical re-base i
 | S1-2.16.1-c02 (p.119) | S7-2.16.1-c02 (p.132) | V1: "Volume [X] transactions per month, [n] items, [n] customers, [n] employees". V2.2: "Volume The capacity targets below, sustained without degradation at the stated concurrency", with the table in c07 to c22. **Meaning change:** the values are set in V2.2 itself. |
 | S1-3-c03 (p.121) | S7-3-c03 (p.137) | Annexure A adds "the subscription response required by 2.16.5", with nine items, from the basis of charge to the three-year total. **Meaning change.** |
 
-### 3.3 Where this analysis disagrees with the crosswalk
+### 3.3 The v1 crosswalk defect and its fix (record)
 
-1. **The 7 "removed" entries are changed clauses** with the successors in section 3.2. A re-base that
-   follows the crosswalk literally would drop 29 references instead of re-pointing them (17 in the
-   workbook, 4 in the phasing, 3 in the glossary, 1 in the actors, and 2 in each of Q-020 and Q-025;
-   see section 6). **This is the escalation point in the handoff.** The tool's ratio
-   threshold explains it: each of these clauses grew or was corrupted, and difflib scores it under
-   0.6.
-2. **S1-2.4.1-c05 maps one-to-two** (S7-2.4.1-c05 and c06). The crosswalk records only c06. A
-   reference to the V1 debit note has to pick the tax or the non-tax form, or cite both.
-3. **"New" therefore overstates what is new.** 9 of the 307 are successors or splits: S7-2.1.7-c57,
+This section records what crosswalk v1 got wrong, as found in v1 of this analysis. Crosswalk v2
+(commit 51dc996) fixes it, and the reviewer confirmed the fix. Nothing here is open.
+
+1. **The defect.** Crosswalk v1 listed 7 "removed" S1 clauses that are rewritten or split clauses with
+   successors in V2.2 (section 3.2). A re-base that followed it literally would have dropped 29
+   references instead of re-pointing them (17 in the workbook, 4 in the phasing, 3 in the glossary, 1 in
+   the actors, and 2 in each of Q-020 and Q-025). The tool's ratio threshold explained it: each of these
+   clauses grew or was corrupted, and difflib scored it under 0.6.
+2. **S1-2.4.1-c05** was recorded as one changed pair (to c06 only). It is a one-to-two split
+   (S7-2.4.1-c05 and c06).
+3. **The fix.** The orchestrator added `crosswalk-successors.yaml` (8 reviewed entries, 10 rows),
+   applied before automatic matching. Crosswalk v2 counts: same 2,427, changed 9, successor_s1 8,
+   successor_rows 10, removed 0, new 298. R-successor in section 6.0 now uses the v2 status values.
+4. **"New" overstated what was new.** 9 of v1's 307 were successors or splits (S7-2.1.7-c57,
    S7-2.1.8-c36, S7-2.2.2-c05, S7-2.2.2-c61, S7-2.4.1-c05, S7-2.11.4-c05, S7-2.11.4-c06,
-   S7-2.16.1-c02 and S7-3-c03. That leaves 298 wholly new clauses.
-4. **"Same" text can carry changed meaning.** Some identical clauses now sit beside new clauses that
-   change how they read:
-   - S7-2.2.1-c06 (the blanket block; section 4.1);
-   - S7-2.4.1-c08 (the annual restart; section 4.2);
-   - the six "[7] years" clauses (section 4.3);
-   - S7-2.2.2-c47 and c51 (the control flag cannot change);
-   - S7-2.16.1-c01 ("[Y] concurrent users", now beside a table of concurrent users).
-
-   The crosswalk is right to call these the same, but a re-base must not treat them as unaffected.
-
-**Proposed:** a crosswalk version 2, or a successor block added to version 1, that records the 7
-successors and the one-to-two split, so that the trace tooling and later re-bases do not repeat the
-loss.
+   S7-2.16.1-c02 and S7-3-c03). That leaves 298 wholly new clauses, the v2 figure. S7-2.4.1-c06 was
+   already a target of a changed pair, so it was not in the 307.
+5. **"Same" text can carry changed meaning.** This still stands, and crosswalk v2 correctly calls these
+   clauses the same. A re-base must not treat them as unaffected: they form the R-reread category of
+   section 6.0, and are discussed in sections 4.1 to 4.3 and 4.8.
 
 ### 3.4 Renumbering
 
@@ -157,28 +197,34 @@ The 51 same pairs whose number changes:
 - 2.4.8: S1-c01 to c05 become S7-c15 to c19 (5);
 - 2.11.4: S1-c07 becomes S7-c10 (1).
 
-The 7 changed pairs that also move are in section 3.1. Every other pair keeps its number. Page numbers
+The 6 changed pairs that also move are in section 3.1, and 2 successors move or split (S1-2.2.2-c26 to
+S7-2.2.2-c61, and S1-2.4.1-c05 to S7-2.4.1-c05 and c06; section 3.2). Every other pair keeps its number. Page numbers
 begin to differ within 2.1.10 (S1-2.1.10-c18 is on p.21, S7-2.1.10-c18 on p.22), and by 16 pages at the end (V1 p.121, V2.2 p.137), so every page citation
 needs re-paging, not only the renumbered ones.
 
-### 3.5 The 307 new clauses, by group
+### 3.5 The 298 wholly new clauses, by group
+
+Crosswalk v1 listed 307 new clauses. Crosswalk v2 moves the 9 successor clauses out of the new list
+(section 3.3), leaving 298. The paragraphs below still describe those 9 successor clauses where they
+belong to a group; they are marked "(successor)".
 
 | Group | New clauses | Count |
 | --- | --- | --- |
-| 2.1.7 levies | S7-2.1.7-c57 | 1 |
-| 2.1.8 (corruption, section 4.6) | S7-2.1.8-c36 | 1 |
 | 2.1.10 prescribed numbering | S7-2.1.10-c32 to c37 | 6 |
 | 2.2.1 segments, delivered chart, control enforcement | S7-2.2.1-c16 to c42, c44 to c47, c53 to c68 | 47 |
-| 2.2.2 code clashes | S7-2.2.2-c05, c07 to c41, c61 | 37 |
+| 2.2.2 code clashes | S7-2.2.2-c07 to c41 | 35 |
 | 2.2.4 upload mapping and template columns | S7-2.2.4-c20 to c29, c31, c35 to c74 | 51 |
-| 2.4.x taxes, levies, remittance, template library | S7-2.4.1-c05, c07; S7-2.4.3-c16 to c91; S7-2.4.6-c05 to c09; S7-2.4.8-c01 to c14 | 97 |
-| 2.11.4 retention | S7-2.11.4-c05, c06, c08, c09 | 4 |
-| 2.16.1 capacity | S7-2.16.1-c02, c07 to c40 | 35 |
+| 2.4.x taxes, levies, remittance, template library | S7-2.4.1-c07; S7-2.4.3-c16 to c91; S7-2.4.6-c05 to c09; S7-2.4.8-c01 to c14 | 96 |
+| 2.11.4 retention | S7-2.11.4-c08, c09 | 2 |
+| 2.16.1 capacity | S7-2.16.1-c07 to c40 | 34 |
 | 2.16.5 licensing | S7-2.16.5-c01 to c27 | 27 |
-| Section 3 | S7-3-c03 | 1 |
-| **Total** | | **307** |
+| **Total** | | **298** |
 
-**2.1.7 levies (p.16).** Choosing an entity's industry now does more than propose its tax
+Successors, no longer counted as new: S7-2.1.7-c57, S7-2.1.8-c36, S7-2.2.2-c05, S7-2.2.2-c61,
+S7-2.4.1-c05, S7-2.11.4-c05, S7-2.11.4-c06, S7-2.16.1-c02 and S7-3-c03 (9 clauses; with S7-2.4.1-c06
+they are the 10 successor rows).
+
+**2.1.7 levies (p.16; successor).** Choosing an entity's industry now does more than propose its tax
 obligations. It "activates the industry tax set for that sector in that country", and from then on
 "those levies appear on every document they cover and in every return that reports them, without a
 template being edited". The set is configuration, and "the entity confirms it against its own
@@ -278,13 +324,13 @@ acceptance statement c61 is discussed in section 4.4.
 - *Acceptance (S7-2.4.8-c01 to c14).* New tests for the template library, the remittance block,
   levies, currency and notes. The five V1 tests become c15 to c19.
 
-**2.11.4 retention (p.113).** Data is held from the first day, "no retention figure is applied by the
+**2.11.4 retention (p.113; c05 and c06 are successors).** Data is held from the first day, "no retention figure is applied by the
 software of its own accord" (c05). A statutory period is a floor, "never a ceiling" (c06). Closed
 periods may move to a slower storage tier but stay queryable "from the same screens, with no restore
 request" (c08). Erasure required by a privacy law is "the one exception", recorded, leaving the
 accounting record intact (c09).
 
-**2.16.1 capacity (pp.132-134).** The volume row now points to a capacity table (c02), which gives
+**2.16.1 capacity (pp.132-134; c02 is a successor).** The volume row now points to a capacity table (c02), which gives
 single-entity, multinational and tested-ceiling figures for 15 measures (c08 to c22). The system "is
 built against the figures below and proved against the ceiling in load testing before acceptance"
 (c07). No figure is a constant in the source; limits are raised without a release, "set per tenant
@@ -305,7 +351,7 @@ Annexure A or "is not payable"; modules are licensed per 2.1.7 (c23 to c26). The
 test (c27). Much of the sub-section is addressed to "the vendor" (c09, c10, c13, c20, c24), which for
 Tiqri's own product is Q-023 territory.
 
-**Section 3 (p.137).** Annexure A now also asks for "the subscription response required by 2.16.5"
+**Section 3 (p.137; S7-3-c03 is a successor).** Annexure A now also asks for "the subscription response required by 2.16.5"
 (S7-3-c03). Annexure B is unchanged (S7-3-c04), and the sign-off is still unsigned (S7-3-c02).
 
 ## 4. Contradictions and source errors inside V2.2
@@ -338,8 +384,10 @@ Two more clauses stand with c06 against Not applied and Advisory:
 
 A manual journal at Advisory, which V2.2 permits and tests, makes the receivables agreement non-nil.
 V2.2 half answers this by keeping the account on the reconciliation schedule, "The balance still
-needs proving" (c65), but 2.12.1 still says "must be nil". **Owner:** the product owner, with the
-qualified accountant for the accounting effect (PQ-01, PQ-18).
+needs proving" (c65), but 2.12.1 still says "must be nil". There is a second reading to put to the owner: c54 ("What the flag
+causes is not fixed") may be meant to qualify c06, so that c06 describes the flag at Enforced only. Which
+reading holds is PQ-01. **Owner:** the product owner (which clause governs), with the qualified
+accountant for the accounting effect (PQ-01, PQ-18).
 
 ### 4.2 Sales-document numbering: 2.4.1 against 2.1.10
 
@@ -446,7 +494,27 @@ figure (PQ-05, PQ-08).
   accountant.
 - **Lowering enforcement.** S7-2.2.1-c64 reports every lowering from Enforced, while the
   multinational row of the defaults says "lowering it is reported" (c61), which suggests the report
-  is particular to that row. Owner: product owner.
+  is particular to that row. The reviewer reads this as redundancy, not contradiction: c64 already
+  covers every row. The more important point is separate: whether a level below the delivered default,
+  chosen at set-up, is a "lowering" at all (PQ-02). Owner: product owner.
+
+### 4.8 A flag change goes through approval, but the flag cannot change
+
+- **One side.** "Changing the flag or the type on an account is a change to the chart and passes the
+  approval in 2.2.2 like any other" (S7-2.2.1-c67, p.27).
+- **Other side.**
+  - "Control account flag Yes Once set, cannot be changed while the account carries a balance"
+    (S7-2.2.2-c47, p.30, unchanged from V1);
+  - "Class, group and control-account status cannot be changed once transactions exist. A misclassified
+    account is corrected by opening the correct account and reclassifying the balance by journal"
+    (S7-2.2.2-c51, p.30, unchanged from V1).
+- **Why it matters.** c67 reads as if approval is enough to change a flag. c47 and c51 say no approval
+  can, once a balance or transactions exist. Both are in force. The effect on D-INT-1 is direct: under
+  option A, an account that is not flagged in release 1 and then carries transactions cannot be flagged
+  at release 2 under c51, whatever c67 says. Whether the flag can be set later on an account with
+  history, by approval, or only by opening a new account and reclassifying, is open.
+- **Owner:** the product owner, with the qualified accountant (PQ-25). This is a proposed question,
+  not a decision.
 
 ## 5. SRC-008 compared with SRC-007
 
@@ -501,8 +569,8 @@ confirmation by the author. For Tier-1 policy, both Rifaz Hajirin and Shifan Cad
    which an account can appear" (S7-2.2.1-c44) and maker–checker (S7-2.2.2-c04). Owner: product
    owner with the qualified accountant (PQ-14).
 6. **Lowering an enforcement level.** 'Setup options' r16 gives "No" (A), "Approval" (B, C) and
-   "Approval and reported" (D). V2.2 requires approval, a reason, an effective date and a report for
-   every lowering from Enforced (S7-2.2.1-c64). Owner: product owner.
+   "Approval and reported" (D). V2.2 requires approval, a reason, an effective date and a report on the
+   governance panel for every lowering from Enforced (S7-2.2.1-c64). Owner: product owner (PQ-02).
 7. **Profile D wording.** SRC-008 has "Multinational — several countries, several currencies, high
    transaction volume" ('Setup options' r9: all three). V2.2 has "Multinational, multi-currency or
    high volume" (S7-2.2.1-c61: any one). This matters for the first entity (section 6.4).
@@ -551,16 +619,18 @@ confirmation by the author. For Tier-1 policy, both Rifaz Hajirin and Shifan Cad
   - warning "80 per cent by default" ('Volume and capacity' r43);
   - for Sri Lanka:
     - unregistered purchaser to SL-NTX-01, which bears on value 77 ('SL tax invoice field map' r14);
-    - the serial format `YYMMM_QQQQ_XXXXX`, which bears on values 62 to 76 (r41 to r48);
+    - the tax invoice serial format `YYMMM_QQQQ_XXXXX` (r41 to r48), which bears on the tax invoice
+      series values among 62 to 76 only (see section 6.1);
     - the prescribed title and total rows under "Gazette Extraordinary No. 2481/22 of 27 March 2026"
       (r3), which bear on values 79 and 86.
 - **Sri Lanka industry tax set** (library p.17): SSCL, Telecommunication Levy, Tourism Development
   Levy and others, "confirmed with its advisers — not assumed by the software". Owner: tax
   specialist (PQ-12).
-- **A multi-entity group column**, and 13 measures not in V2.2: manual journals, invoice lines,
+- **A multi-entity group column**, and 16 measures not in V2.2: manual journals, invoice lines,
   receipts, supplier payments, goods receipts, depreciation lines, documents, dimensions, values per
   dimension, suppliers, fixed assets, interface languages, open periods, integration runs and API
-  calls ('Volume and capacity' r8 to r40).
+  calls (15; 'Volume and capacity' r8 to r40), and "Years of data held online" (r38), which gives "From go-live"
+  in four columns and "Not a limit" in the fifth.
 - **A build instruction.** "Build against the 'Multinational group' column" ('Read me' r8;
   'Volume and capacity' r3), and "60 to 70 per cent of a month's postings land in the last four
   working days" (r50).
@@ -580,22 +650,34 @@ confirmation by the author. For Tier-1 policy, both Rifaz Hajirin and Shifan Cad
 
 ### 6.0 Re-pointing: counts and rules
 
-| Artifact (version) | S1 references | Non-mechanical | Mechanical |
-| --- | --- | --- | --- |
-| bracketed-values.yaml (v3) | 238 | 26 | 212 |
-| BO-01 (v1) | 14 | 2 | 12 |
-| BO-02 (v2) | 28 | 2 | 26 |
-| BO-03 (v2) | 33 | 0 | 33 |
-| BO-04 (v1) | 14 | 2 | 12 |
-| BO-05 (v2) | 17 | 0 | 17 |
-| BO-06 (v1) | 15 | 0 | 15 |
-| BO-07 (v2) | 21 | 0 | 21 |
-| BO-08 (v2) | 30 | 0 | 30 |
-| actors.yaml (v3) | 177 | 6 | 171 |
-| glossary.yaml (v2) | 147 | 4 | 143 |
-| release-phasing.yaml (v3) | 903 | 38 (+3 shorthand, 2 ranges) | 865 |
-| Q-001 to Q-031 | 175 | 28 | 147 |
-| **Total** | **1,812** | **108** | **1,704** |
+Source of the counts: the orchestrator script recount of S1 references, classified by crosswalk v2
+status. It confirms v1's totals of 1,812 and 108.
+
+| Status (crosswalk v2) | References |
+| --- | --- |
+| Total | 1,812 |
+| same, number unchanged (mechanical) | 1,704 |
+| same, renumbered | 59 |
+| successor | 35 |
+| changed | 14 |
+
+The last three (59 + 35 + 14) are the 108 non-mechanical references.
+
+| Artifact (version) | S1 references | Same, unchanged (mechanical) | Renumbered | Successor | Changed | Non-mechanical |
+| --- | --- | --- | --- | --- | --- | --- |
+| bracketed-values.yaml (v3) | 238 | 212 | 6 | 20 | 0 | 26 |
+| BO-01 to BO-08 (v1 or v2) | 172 | 166 | 6 | 0 | 0 | 6 |
+| actors.yaml (v3) | 177 | 171 | 5 | 1 | 0 | 6 |
+| glossary.yaml (v2) | 147 | 143 | 0 | 4 | 0 | 4 |
+| release-phasing.yaml (v3) | 903 | 865 | 24 | 4 | 10 | 38 (+3 shorthand, 2 ranges) |
+| Q-001 to Q-031 | 175 | 147 | 18 | 6 | 4 | 28 |
+| **Total** | **1,812** | **1,704** | **59** | **35** | **14** | **108** |
+
+The Q row's three status columns are the totals minus the other rows (59 - 41, 35 - 29, 14 - 10); the
+orchestrator recount gave the Q row's 175 and the file totals above, not a per-status split for the Q
+files. BO-01 to BO-08 per file (v1 of this analysis): BO-01 14, BO-02 28, BO-03 33, BO-04 14, BO-05 17,
+BO-06 15, BO-07 21, BO-08 30. Non-mechanical by file: BO-01 2, BO-02 2, BO-04 2, the rest 0, all
+renumbered (S1-2.2.4-c32 and S1-2.4.8-c05).
 
 Per question: Q-007 4, Q-008 8, Q-009 12, Q-010 6, Q-011 9, Q-012 6, Q-013 5, Q-014 4, Q-015 6, Q-016 6,
 Q-017 6, Q-018 6, Q-019 4, Q-020 8, Q-021 10, Q-022 7, Q-023 18, Q-024 4, Q-025 4, Q-026 6, Q-027 10,
@@ -604,11 +686,18 @@ Q-028 2, Q-029 20, Q-030 2 and Q-031 2. Q-001 to Q-006 cite SRC-001 by page only
 **Mapping rules.**
 
 - **R-same.** Same and same number: change `S1-` to `S7-` and take the page from the S7 index entry.
-- **R-renum.** One of the 51 renumbered pairs (section 3.4): take the crosswalk's S7 ID and page.
-- **R-changed.** One of the 10 changed pairs: take the crosswalk's S7 ID, then re-read the citing
-  sentence against the new text (section 3.1). For S1-2.4.1-c05, choose S7-2.4.1-c05, c06 or both.
-- **R-successor.** One of the 7 "removed" clauses: use the successor in section 3.2 (not the
-  crosswalk), and re-read.
+- **R-renum.** One of the 51 renumbered pairs (section 3.4), status `same` in crosswalk v2: take the
+  crosswalk's S7 ID and page.
+- **R-changed.** Status `changed` in crosswalk v2 (9 pairs): take the crosswalk's S7 ID, then re-read
+  the citing sentence against the new text (section 3.1).
+- **R-successor.** Status `successor` in crosswalk v2 (8 S1 clauses, 10 rows): take the S7 ID or IDs in
+  the crosswalk and section 3.2, and re-read the citing sentence. For S1-2.4.1-c05, choose
+  S7-2.4.1-c05, c06 or both (this was R-changed in v1).
+- **R-reread (new in v2).** The S1 clause is `same` (unchanged text), but V2.2 has added or changed
+  clauses around it so that its meaning, or the sentence that cites it, may no longer hold. Re-point it
+  as R-same or R-renum says, then re-read the citing sentence against the clauses named below. This
+  category overlaps the others: it is counted separately, below, and is not part of the 1,704 or the
+  108 as such.
 - **R-short.** Shorthand ("S1-2.2.1-c06, c21", "S1-2.4.8-c01 to c05", "S1-2.16.1-c01 to c04"):
   expand each member and apply the rules above.
 - **Page citations without an ID** ("SRC-001 p.68"): find the clause, then re-page it from the S7
@@ -621,13 +710,13 @@ The non-mechanical references, by artifact:
     S1-2.16.1-c02 ×5 (lines 215 to 218 and 227), S1-3-c03 ×1 and S1-2.2.2-c05 ×1;
   - R-renum: S1-2.2.1-c18 to c50, S1-2.2.2-c18 to c53, S1-2.2.2-c21 to c56, S1-2.2.2-c08 to c43,
     S1-2.4.1-c09 to c11 and S1-2.11.4-c07 to c10 (6);
-  - R-changed: S1-2.4.1-c05 ×3 (values 74 to 76).
+  - R-successor (added to the line above in v2): S1-2.4.1-c05 ×3 (values 74 to 76), making 20
+    successors (10 + 5 + 1 + 1 + 3).
 - **BO-01, BO-02:** S1-2.2.4-c32 to S7-2.2.4-c83 (R-renum), 2 each. **BO-04:** S1-2.4.8-c05 to
   S7-2.4.8-c19, 2.
 - **actors (6):** S1-2.1.10-c32 to c38 ×2, S1-2.1.10-c35 to c41 ×2, S1-2.2.2-c13 to c48, and
   S1-3-c03 to S7-3-c03 (R-successor).
-- **glossary (4):** S1-3-c03 (R-successor), S1-2.4.1-c05 (R-changed), and S1-2.11.4-c05 ×2
-  (R-successor).
+- **glossary (4):** S1-3-c03, S1-2.4.1-c05 and S1-2.11.4-c05 ×2 (all R-successor).
 - **release-phasing (38):**
   - S1-2.2.1-c21 ×10 to S7-2.2.1-c52 (R-changed: its meaning changed, so every sentence that cites it
     must be rewritten);
@@ -637,13 +726,65 @@ The non-mechanical references, by artifact:
   - R-successor: S1-2.1.7-c57 ×2, S1-2.1.8-c36 and S1-2.11.4-c05;
   - shorthand "c21" at lines 416, 1422 and 1719;
   - ranges "S1-2.4.8-c01 to c05" (line 663, which becomes S7-2.4.8-c15 to c19) and
-    "S1-2.16.1-c01 to c04" (line 1410, which includes the changed c02).
+    "S1-2.16.1-c01 to c04" (line 1410, which includes the successor c02);
+  - heading field: the sub-section heading of 2.4.3 changed from "Mandatory content" to "Mandatory
+    content and document templates" (SRC-001 extraction line 1962 against SRC-007 extraction line 2343; the phasing's
+    `heading` field at line 633). It is not a clause reference, so it is not in the counts above, and
+    must be updated by hand.
 - **questions (28):** Q-014 2, Q-015 4, Q-016 2, Q-018 2, Q-020 2, Q-023 1, Q-025 4, Q-027 2 and
   Q-029 9. They are listed by clause in section 6.5.
 
 The bracketed-value workbook, the glossary and the actors also carry S1 page and extraction-line
 fields: 178 `page` and `line` pairs in the workbook, and 147 `page` fields in the glossary. All are
 re-derived from the S7 index and extraction.
+
+**R-reread: references that are not purely mechanical (new in v2).** These cite S1 clauses whose text is
+unchanged (crosswalk v2 status `same`), so a script would re-point them as R-same or R-renum. Their
+meaning, or the sentence that cites them, may have changed because of other clauses (sections 4.1 to
+4.3, 4.8). How they were found: section 2, "Re-read references". Counts are occurrences of the S1 ID in
+the artifacts as they stand (workbook v3, glossary v2, actors v3, phasing v3, BO-01 to BO-08, Q-001 to
+Q-031).
+
+*Part 1: same number, inside the 1,704 mechanical re-points (45 references).*
+
+| S1 clause | S7 clause (page) | Why it needs a re-read | References |
+| --- | --- | --- | --- |
+| S1-2.12.1-c01 | S7-2.12.1-c01 (p.114) | "must be nil" now sits beside Not applied and Advisory (S7-2.2.1-c55, c56; section 4.1). BO-01 indicator 1 is at risk. | glossary 1, phasing 1 (line 1266), BO-01 2 = **4** |
+| S1-2.2.1-c06 | S7-2.2.1-c06 (p.24) | The blanket block, against c52 and c54 to c57 (PQ-01). The glossary quotes it as the definition; the phasing's D-INT-1 and R-01 rest on it. | glossary 1, phasing 11, Q-029 2 = **14** |
+| S1-2.3-c01 | S7-2.3-c01 (p.45) | "no balance in it exists without a document behind it" against a manual journal at Advisory (PQ-18). | phasing 2 (lines 193, 1423) = **2** |
+| S1-2.16.1-c01 | S7-2.16.1-c01 | "[Y] concurrent users" now beside a capacity table of concurrent users (c22; value 170). | workbook 3 (lines 213, 214, 227), phasing 1 (line 1410) = **4** |
+| S1-2.2.1-c02 | S7-2.2.1-c02 | "[6] digits" (value 25) now has a sibling, "settable between four and ten" (c17). | glossary 1, workbook 1 = **2** |
+| S1-2.1.10-c18 | S7-2.1.10-c18 (p.22) | The reset rule (never, annually at year end, each period) now sits beside c36 and c37 and has no calendar-year restart (section 4.2). | glossary 1, Q-015 2 = **3** |
+| S1-2.1.4-c08 | S7-2.1.4-c08 (p.10) | "[7] years", against "no retention figure" (section 4.3). | glossary 1, workbook 1, phasing 1, Q-020 1 = **4** |
+| S1-2.2.6-c28 | S7-2.2.6-c28 (p.39) | Same. | workbook 1, Q-020 1 = **2** |
+| S1-2.8.15-c06 | S7-2.8.15-c06 (p.96) | Same. | workbook 1, Q-020 1 = **2** |
+| S1-2.10.14-c07 | S7-2.10.14-c07 (p.111) | Same. | workbook 1, Q-020 1 = **2** |
+| S1-2.12.3-c07 | S7-2.12.3-c07 (p.114) | Same. | actors 2, workbook 1, Q-020 1 = **4** |
+| S1-2.14.13-c07 | S7-2.14.13-c07 (p.126) | Same. | workbook 1, Q-020 1 = **2** |
+| **Total** | | | **45** |
+
+By artifact: workbook 10, glossary 5, actors 2, phasing 16, BO-01 2, Q-015 2, Q-020 6, Q-029 2 = 45.
+BO-02 to BO-08 have none.
+
+*Part 2: renumbered, already inside the 108 (27 references).* These are non-mechanical because the
+number changes, and they also need a re-read for the reason shown. They are not added to Part 1.
+
+| S1 clause | S7 clause (page) | Why it needs a re-read | References |
+| --- | --- | --- | --- |
+| S1-2.2.2-c12 | S7-2.2.2-c47 (p.30) | "Control account flag ... cannot be changed while the account carries a balance", against S7-2.2.1-c67 (section 4.8). | phasing 3, Q-029 2 = **5** |
+| S1-2.2.2-c16 | S7-2.2.2-c51 (p.30) | "control-account status cannot be changed once transactions exist", against c67 (section 4.8). | phasing 9, Q-029 3 = **12** |
+| S1-2.2.4-c32 | S7-2.2.4-c83 (p.37) | "the sum of every sub-ledger agrees to its control account continuously" against Advisory (section 4.1). | phasing 2, BO-01 2, BO-02 2 = **6** |
+| S1-2.4.1-c06 | S7-2.4.1-c08 (p.54) | The financial-year restart, against S7-2.1.10-c36 and c37 (section 4.2). | phasing 2, Q-015 2 = **4** |
+| **Total** | | | **27** |
+
+By artifact: phasing 16, Q-029 5, BO-01 2, BO-02 2, Q-015 2 = 27.
+
+Parts 1 and 2 together are 72 references in 16 S1 clauses. Only the 45 of Part 1 are hidden inside the
+1,704 mechanical count. The reviewer's examples (S1-2.12.1-c01 in BO-01, S1-2.2.1-c06 in the glossary
+and phasing, S1-2.4.1-c06, the six "[7] years" clauses, S1-2.3-c01 and S1-2.16.1-c01) are all in the
+tables. Clauses considered and left out: the substitute-rule clauses of D-INT-1 (S1-2-c02, S1-0-c10,
+S1-2.8-c01, S1-2.8.3-c01, S1-2.11.5-c01), whose meaning V2.2 does not change; they remain in the
+mechanical count.
 
 ### 6.1 Bracketed values
 
@@ -659,8 +800,11 @@ re-derived from the S7 index and extraction.
   (Q-024, PQ-08).
 - **Survive (173).** Every other value is still bracketed in V2.2, with the same token and context,
   under the re-pointed clause. Some need attention:
-  - **Values 74 to 76** (the V1 debit note) now sit under the non-tax debit note S7-2.4.1-c06, with
-    a new tax-debit-note series beside it.
+  - **Values 74 to 76** (the V1 debit note, "DN-[location]-[YY]-[nnnnnn]", S1-2.4.1-c05, p.45). V1's
+    single row is now two: the tax debit note S7-2.4.1-c05 and the non-tax one c06, and crosswalk v2
+    maps it to both. **Which successor keeps numbers 74 to 76 is a numbering choice by the steward,
+    not a decision.** This analysis proposes c06 for 74 to 76 and c05 for the new 190 to 192; the
+    other way round would work as well. The values belong to the tax specialist either way.
   - **Value 29** ([role] for code assignment) sits in the changed clause S7-2.2.2-c05, which now also
     requires the code to be free.
   - **Value 25** ("[6] digits", S7-2.2.1-c02) now has a sibling, "[6] digits by default and settable
@@ -702,7 +846,11 @@ re-derived from the S7 index and extraction.
   - 194 = 80 ('Volume and capacity' r43);
   - for Sri Lanka only:
     - 77 (unregistered purchaser, non-tax invoice: 'SL tax invoice field map' r14);
-    - 62 to 76 and 190 to 192 (the series format: r41 to r48);
+    - the tax invoice serial format (r41 to r48). These rows prescribe only that serial, so they bear
+      on the tax invoice series values among 62 to 76. They do not bear on 190 to 192 or on the other
+      series: SRC-008's other specimens use other numbers ("SI-2026-07-001188" on SL-NTX-01,
+      "TCN-2026-07-0033" on SL-TCN-01). Which of 62 to 76 are the tax invoice series is for the
+      workbook step (section 7, step 3) to identify;
     - 79 and 86 (Gazette 2481/22: r3).
 
   The tax values go to the tax specialist and the others to the owners shown.
@@ -843,7 +991,9 @@ accountant and the knowledge base (F1).
   is a large part of release-1 acceptance for one Sri Lanka entity. Proposed: needs-decision, owner
   product owner, with the tech lead (PQ-08).
 - **2.2.1: release-1 as a whole is no longer the obvious mark.**
-  - The control-enforcement clauses (c53 to c68) are release 1 (they bound D-INT-1).
+  - The control-enforcement clauses (c53 to c68) are proposed for release 1 (they bound D-INT-1), but
+    c64 and the acceptance test c68 report on the governance panel of 2.15.8, which is open as
+    D-2.15.8 (see "Governance-panel dependencies" below).
   - The segment clauses (c18 to c21) are switched off for a single entity (c18), so they are a
     release-1 data-model constraint (c22 to c24: composed, never parsed), with the presentation in
     release 3.
@@ -866,7 +1016,11 @@ accountant and the knowledge base (F1).
   Q-015 as changed (section 6.5).
 - **2.4.3.**
   - Release-1: levies (if liable), taxes on the face of the document, the currency block (Q-003:
-    "LKR, with multiple currencies"), remittance details, the Sri Lanka statutory template.
+    "LKR, with multiple currencies"), remittance details, the Sri Lanka statutory template. The
+    remittance-change control reports on the governance panel (S7-2.4.3-c68), which is open as
+    D-2.15.8 (see below).
+  - The sub-section heading changed from "Mandatory content" to "Mandatory content and document
+    templates". The phasing's `heading` field for 2.4.3 (line 633) must be updated with the mark.
   - Templates for other countries follow those countries.
   - The designer (c79 to c87): release 1 or later, for the product owner.
   - Proposed: split.
@@ -879,33 +1033,92 @@ accountant and the knowledge base (F1).
 - **2.11.4.**
   - Release-1. The reason "retention is configurable (S1-2.11.4-c05)" is no longer true.
   - Closed-period storage tiering (c08) is a design point for the tech lead.
-  - Privacy erasure (c09) needs an owner (PQ-24, with Q-028).
-- **2.15.8.** Unchanged needs-decision; note the corrupted c22.
-- **releases.loading_task, R-06 and D-2.16.2.** Under V2.2 the default for a single entity with
-  sub-ledgers is "Enforced for bank" (S7-2.2.1-c59). An opening bank balance by manual journal
-  would therefore be refused, so it needs the migration route (S7-2.16.2) or another method
-  (PQ-16).
+  - Privacy erasure (c09) has no owner role in the authority matrix (PQ-24, with Q-028).
+- **2.15.8.** Unchanged needs-decision (D-2.15.8); note the corrupted c22 and the new dependencies
+  below.
+- **releases.loading_task, R-06 and D-2.16.2.** Under V2.2 the delivered default for a single entity
+  running sub-ledgers is "Enforced for bank" (S7-2.2.1-c59), and Enforced for every control type
+  under c60 or c61 (PQ-02). Where bank is Enforced, an opening bank balance by manual journal would be
+  refused, so it needs a migration route or another method (PQ-16). V2.2 now supports the migration
+  route: for an uploaded chart, "Opening balances load against it under 2.16.2" (S7-2.2.1-c36, p.26).
+  Whether the route fits a chart that is the delivered one, or an opening balance that is not
+  migrated data, is for the owner (PQ-16).
 
-**D-INT-1 and Q-029: what remains of the conflict under V2.2.**
+**Governance-panel dependencies (2.15.8, D-2.15.8).** Four V2.2 clauses proposed for release 1 report on
+the governance panel, which the phasing marks needs-decision:
 
-*What V2.2 removes.* V1 blocked manual journals to every control account (S1-2.2.1-c06, c21). In V2.2
-the block applies "where control enforcement is set to Enforced" (S7-2.2.1-c52). The delivered
-default for a "Single entity running sub-ledgers" is "Advisory, and Enforced for bank" (S7-2.2.1-c59,
-p.27). At Advisory "A manual journal to a control account is allowed, requires a reason selected from
-a configurable list, and appears on an exception report to [role]" (c56). The flag and type stay
-recorded at a lower level "so the level can be raised later without the chart being rebuilt" (c55),
-and the level is "held per entity and per control type" (c62).
+- **S7-2.2.1-c64 (p.27):** "Lowering a level from Enforced requires approval, a recorded reason and an
+  effective date, and is reported to management on the governance panel in 2.15.8".
+- **S7-2.2.1-c68 (p.28), the acceptance test:** lowering a level "is refused without approval and, once
+  approved, appears on the governance panel".
+- **S7-2.4.3-c68 (p.58):** a remittance change "is reported to [role] and on the governance panel in
+  2.15.8 without anyone being asked to report it".
+- **S7-2.4.8-c06 (p.61), the acceptance test:** an approved change to an entity bank account "appears in
+  the audit log with the before and after values and on the governance panel".
 
-The consequences for option A (interim manual journals for payroll, fixed assets and income tax):
+How they bear on D-2.15.8. The phasing's D-2.15.8 asks whether the governance panel is in release 1,
+and frames it around BO-05's indicators and the panel tests S1-2.15.11-c03 and c04. These four clauses
+add release-1 acceptance tests (c68, S7-2.4.8-c06) that cannot pass as written without the panel, and a
+reporting duty (c64, S7-2.4.3-c68) that has no home without it. If 2.15.8 is not in release 1, then
+either those clauses and their tests need a later or split mark, or the owner defines another place
+where the report appears. If an entity starts below Enforced (PQ-02), the c64 report is needed in
+release 1 as well. This analysis proposes that D-2.15.8 name these four clauses, and sets no mark. Owner:
+the product owner.
 
-- **A(i)**, relaxing the block by a change request, needs no change request if c52 governs. V2.2
-  itself provides the Advisory level.
-- **A(ii)**, interim non-control accounts, is no longer needed. The payroll, fixed asset and tax
-  accounts can be flagged from release 1 at Advisory. So the flag-immutability trap (S7-2.2.2-c47,
-  c51), and readings R1 and R2 of the reclassification route, fall away.
-- SRC-008 shows the same reading: its chart flags accumulated depreciation, gratuity and tax accounts
-  as control accounts at "Advisory" for profile B ('Chart of accounts' r17 to r23, r88, r89, r68 to
-  r70). That is supporting data only.
+**D-INT-1 and Q-029: what remains of the conflict under V2.2.** Everything in this block is
+conditional on PQ-01 (do the enforcement levels govern over S7-2.2.1-c06?) and PQ-02 (what level does
+the first entity start at, and is a lower start a "lowering"?). Neither is answered. This block decides
+nothing and does not present any level as the default.
+
+*What V2.2 may remove, if PQ-01 resolves for the levels.* V1 blocked manual journals to every control
+account (S1-2.2.1-c06, c21). In V2.2 the block applies "where control enforcement is set to Enforced"
+(S7-2.2.1-c52). At Advisory "A manual journal to a control account is allowed, requires a reason
+selected from a configurable list, and appears on an exception report to [role]" (c56). The flag and
+type stay recorded at a lower level "so the level can be raised later without the chart being rebuilt"
+(c55), and the level is "held per entity and per control type" (c62).
+
+*The delivered defaults are keyed by organisation.* The table's header is "Organisation Delivered
+default Reason" (S7-2.2.1, p.27, extraction line 1138). Its four rows are:
+
+| Row (clause) | Organisation | Delivered default |
+| --- | --- | --- |
+| c58 | Single entity, general ledger only | Not applied |
+| c59 | Single entity running sub-ledgers | "Advisory, and Enforced for bank" |
+| c60 | "Multi-entity group or consolidated reporting" | Enforced |
+| c61 | "Multinational, multi-currency or high volume" | "Enforced, and lowering it is reported" |
+
+*What the repository evidence indicates (evidence, not a decision).*
+
+- Q-003 v2 records "Multiple countries: Sri Lanka, and other countries such as Norway", "LKR, with
+  multiple currencies", and, on 2026-10-26, "All countries defined in the template" (five
+  jurisdictions in the template library).
+- Phasing A-03 (v3) plans a second entity (Norway) with group accounting in release 3.
+- On c61 ("multi-currency", any one condition) and on c60 (a multi-entity group), the delivered
+  default is Enforced. SRC-008's profile D ("several countries, several currencies, high transaction
+  volume", 'Setup options' r9) fits as well.
+- Advisory is the delivered default only on c59, which describes a single entity running sub-ledgers
+  and is the narrowest reading of Tiqri.
+- So the likely delivered default for Tiqri is Enforced. For an entity to run at Advisory, it would
+  take an approved, recorded and reported lowering for each control type (c64), unless setting a lower
+  level at set-up is not a "lowering". V2.2 does not say, and c54 says only that the level "is set per
+  entity and per control type by the administrator".
+- Whether the table applies to the organisation (Tiqri) or to each entity is open (PQ-02).
+
+*The consequences for option A* (interim manual journals for payroll, fixed assets and income tax),
+each conditional:
+
+- **A(i)**, relaxing the block by a change request, would need no change request if the levels govern
+  (PQ-01) and the entity runs at Advisory (PQ-02). If c06 governs, the V1 conflict is unchanged.
+- **A(ii)**, interim non-control accounts, would stop being needed only if both hold: the levels govern
+  (PQ-01), and the entity runs at Advisory from release 1, by delivered default or by an approved
+  lowering (PQ-02). Then the payroll, fixed asset and tax accounts could be flagged from release 1,
+  and the flag-immutability trap (S7-2.2.2-c47, c51) and readings R1 and R2 of the reclassification
+  route would fall away. If either condition fails, A(ii) and the trap stay. The trap also stays
+  where c67 and c51 contradict each other (section 4.8, PQ-25): an account not flagged in release 1
+  may not be flaggable at release 2.
+- SRC-008's chart flags accumulated depreciation, gratuity and tax accounts as control accounts at
+  "Advisory" for profile B ('Chart of accounts' r17 to r23, r88, r89, r68 to r70). That is supporting
+  data only; profile B is not shown to be Tiqri's.
 
 *What remains.*
 
@@ -926,33 +1139,40 @@ The consequences for option A (interim manual journals for payroll, fixed assets
    remitted" (S7-2.12.1-c05, c06, p.114). Without the module there is nothing to agree to, so these
    rows still cannot run in release 1 under option A. The account stays on the reconciliation
    schedule (S7-2.2.1-c65).
-4. **Raising to Enforced at release 2.** "Activating a module proposes that the matching control
-   type be raised to Enforced" (c63). At Enforced "the balance is reproducible from that sub-ledger at
-   any past date" (c57). Balances built by interim Advisory journals in release 1 are not
-   reproducible from a sub-ledger for those past dates. Either the loading task rebuilds that history,
-   or the claim holds only from the date of raising. Owner: qualified accountant.
-5. **The first entity's default level is itself unclear.** Is Tiqri's Sri Lanka entity "Single entity
-   running sub-ledgers" (Advisory; c59), or, being "LKR, with multiple currencies" (Q-003),
-   "Multinational, multi-currency or high volume" (Enforced, "and lowering it is reported"; c61)?
-   SRC-008's profile D needs all three ('Setup options' r9). V2.2's "or" needs any one. Under c61 the
-   entity starts at Enforced, and option A needs an approved, reported lowering (c64) for each control
-   type. The level is in any case "set per entity and per control type by the administrator" (c54),
-   so this is a choice for the qualified accountant and product owner, not a fact (PQ-02).
-6. **Unchanged from V1.**
+4. **Raising to Enforced at release 2** (relevant only if the entity runs at Advisory in release 1).
+   "Activating a module proposes that the matching control type be raised to Enforced" (c63). At
+   Enforced "the balance is reproducible from that sub-ledger at any past date" (c57). Balances built
+   by interim Advisory journals in release 1 are not reproducible from a sub-ledger for those past
+   dates. Either the loading task rebuilds that history, or the claim holds only from the date of
+   raising. Owner: qualified accountant.
+5. **The first entity's default level is not known** (PQ-02). See the table and the evidence above:
+   c59, c60 and c61 each could be read to apply, and the repository evidence points to Enforced, with
+   a lowering that is approved and reported per control type. The first entity's level is a choice for
+   the qualified accountant and the product owner, not a fact.
+6. **The lowering depends on the governance panel.** If an entity runs below Enforced, c64's report on
+   the 2.15.8 panel is needed in release 1, and D-2.15.8 is open (see "Governance-panel dependencies"
+   above).
+7. **The flag change contradiction** (section 4.8, PQ-25) affects what option A can do at release 2.
+8. **Unchanged from V1.**
    - Option B (payroll and the fixed-asset core in release 1) avoids every point above.
    - Option C's open points stand as recorded (Q-022; interface postings under S7-2.1.6-c15; the
      payroll row of 2.12.1; 2.10.10 governing interface rules). Interface postings are not manual
      journals, so the enforcement level does not touch them.
-   - The corporate income tax interim (D-2.7.6) now posts to a tax control account at Advisory
-     rather than into a block.
+   - The corporate income tax interim (D-2.7.6) could post to a tax control account at Advisory
+     instead of into a block, only if PQ-01 resolves for the levels and PQ-02 gives Advisory or an
+     approved lowering. Otherwise V1's block applies to it.
 
 *Effect on the D-INT-1 text.*
 
 - `against_interim_journals` keeps its S7-2-c02, S7-0-c10, S7-2.8-c01 and S7-2.8.3-c01 points.
   Its control-account point becomes conditional on PQ-01 and on the level chosen (PQ-02).
-- `on_moving_balances_later` and option A(ii) become moot if c52 governs.
-- Option A's `effect_on_control_account_rule` is rewritten around Advisory, c63, c57 and c64.
-- R-01 is rewritten the same way.
+- `on_moving_balances_later` and option A(ii) become moot only if c52 governs (PQ-01) and the entity
+  runs at Advisory (PQ-02).
+- Option A's `effect_on_control_account_rule` is rewritten around the delivered defaults by
+  organisation (c58 to c61), the c64 lowering and its 2.15.8 dependency, and c63 and c57, not around
+  Advisory as the starting level.
+- R-01 is rewritten the same way. D-2.15.8 names the four governance-panel clauses.
+- The phasing's R-06 and D-2.16.2 cite S7-2.2.1-c36 and PQ-16.
 - The release-1 rationale's quote of S1-2.2.1-c06 is replaced by both sides of section 4.1.
 
 ### 6.5 Questions Q-001 to Q-031
@@ -972,18 +1192,18 @@ The consequences for option A (interim manual journals for payroll, fixed assets
 | Q-015 | Changed; partly answered for Sri Lanka | V2.2 adds the per-entity choice of continuing, monthly or annual restart where an authority prescribes it (S7-2.1.10-c36, c37) and keeps the financial-year restart in S7-2.4.1-c08 (section 4.2). SRC-008, for Sri Lanka: "It continues from the number last issued in the preceding month. Where necessary it may instead restart at the beginning of each month or each year; which of the three applies is an entity setting" ('SL tax invoice field map' r45). Tax specialist confirms for Sri Lanka and Norway. Re-point S1-2.4.1-c06 to c08 and S1-2.4.1-c09 to c11. |
 | Q-016 | Changed; partly answered for Sri Lanka | The V1 debit note splits into tax and non-tax forms (S7-2.4.1-c05, c06). New note rules are in S7-2.4.6-c05 to c07. The cap in S7-2.4.6-c03 is unchanged, so its effect on debit notes is still unclear. SRC-008, for Sri Lanka tax notes: "It cannot be issued without a valid reference to an issued document" (library pp.6, 7). Tax specialist confirms; qualified accountant on treatment. |
 | Q-017 | Open as written | S7-2.4.6-c02 is unchanged. Tax specialist. |
-| Q-018 | Changed; partly answered for Sri Lanka | Re-point S1-2.4.8-c02 to S7-2.4.8-c16. SRC-008: "Purchaser's TIN … Mandatory on a tax invoice … Where the customer is not registered, the supply goes on SL-NTX-01" ('SL tax invoice field map' r14). SL-NTX-01 prints a company number and no supplier TIN (library p.5), which suggests reading (B) for Sri Lanka. Tax specialist confirms. |
+| Q-018 | Changed; partly answered for Sri Lanka | Re-point S1-2.4.8-c02 to S7-2.4.8-c16. SRC-008: "Purchaser's TIN … Mandatory on a tax invoice … Where the customer is not registered, the supply goes on SL-NTX-01" ('SL tax invoice field map' r14). An inference from SL-NTX-01 (it prints a company number and no supplier TIN, library p.5, which might suggest reading (B)) is **weak and is not relied on**: the specimen is of an exempt supply ("Exempt supply under the First Schedule", p.5), and the template is also "for suppliers not registered for VAT" (p.5), so the missing TIN does not show what the test forbids for an unregistered customer. Tax specialist confirms. |
 | Q-019 | Open as written | SRC-008's TIN rule (r14) leans on the number but does not settle status against number. Tax specialist. |
 | Q-020 | Changed | Under V2.2 a statutory period is "a floor below which an entity may not dispose" (S7-2.11.4-c06). It is still needed, as the disposal floor, not as a deletion trigger. The six "[7] years" clauses remain (section 4.3). Re-point S1-2.11.4-c05 to S7-2.11.4-c05 and c06. Tax specialist. |
 | Q-021 | Partly answered for Sri Lanka | SRC-008 gives the Sri Lanka tax invoice field by field under "Gazette Extraordinary No. 2481/22 of 27 March 2026, Annexure I. Mandatory for every VAT registered person from 1 July 2026" ('SL tax invoice field map' r3 to r50), including title, TINs, date format "MM/DD/YYYY" and the three total rows. It gives no return forms or e-filing formats. Tax specialist confirms. The non-SL templates need a named tax specialist (Q-003). |
 | Q-022 | Open as written | S7-2.10-c01 and S7-2.1.6-c14 are unchanged. Product owner. |
 | Q-023 | Changed (wider) | New vendor-addressed clauses: S7-2.16.5-c09, c10, c13, c20, c24 and the Annexure A subscription response (S7-3-c03). Re-point S1-2.11.4-c07 to S7-2.11.4-c10. Product owner. |
 | Q-024 | Changed (wider) | V2.2 now sets capacity figures and a tested ceiling (S7-2.16.1-c07 to c29) and adds "[80]%". The service-level brackets (values 16, 96, 153, 169 and 175 to 177) remain. Product owner, tech lead confirms feasibility. |
-| Q-025 | Largely answered by V2.2 | "Data is held from the day the organisation starts on the system, not for a number of years … no retention figure is applied by the software of its own accord" (S7-2.11.4-c05, p.113). One model: "the longer of that policy and the statutory period" (c06). Disposal: "without an approved disposal instruction from the entity" (c07). What remains is the six "[7] years" clauses (section 4.3). Product owner confirms. Re-point S1-2.11.4-c05 and c06. |
+| Q-025 | **Partly answered** by V2.2 | Q-025 asks two things. (1) What retention policy a new tenant starts with: V2.2 answers this. "Data is held from the day the organisation starts on the system, not for a number of years … no retention figure is applied by the software of its own accord" (S7-2.11.4-c05, p.113); "the longer of that policy and the statutory period" (c06); disposal "without an approved disposal instruction from the entity" (c07). (2) Whether one model (the longer of policy and statute) applies to all records, including those with a fixed "[7] years": V2.2 leaves this open, because all six "[7] years" clauses remain (section 4.3). Product owner confirms. Re-point S1-2.11.4-c05 and c06. |
 | Q-026 | Open as written | S7-2.16.5-c10 adds an auditor licence type but nothing on pay visibility. Product owner. |
 | Q-027 | Changed (wider) | Both V1 errors persist (S7-2.2.2-c48; S7-2.13.1-c14, S7-2.1.7-c46). Add 2.4.3-c71 to 2.5.3, 2.16.1-c36 to 2.11.6, and possibly 2.16.5-c22 to 2.16.2 (section 4.5). Re-point S1-2.2.2-c13 to c48. Product owner. |
 | Q-028 | Changed (wider) | Add erasure "required by a privacy law" (S7-2.11.4-c09). Who owns privacy-law rules per country is as open as residency. Governance owner. |
-| Q-029 | Changed substantially | See section 6.4. Options A(i) and A(ii) and readings R1 and R2 change; PQ-01 and PQ-02 come before the choice. Re-point S1-2.2.1-c21 to S7-2.2.1-c52 (changed), S1-2.2.2-c12 to c47, c16 to c51 and c18 to c53. Product owner, with the qualified accountant and the tax specialist. |
+| Q-029 | Changed substantially | See section 6.4. Options A(i) and A(ii) and readings R1 and R2 may change, but only conditionally on PQ-01 and PQ-02, which come before the choice, with PQ-25 and D-2.15.8 also bearing on option A. Re-point S1-2.2.1-c21 to S7-2.2.1-c52 (changed), S1-2.2.2-c12 to c47, c16 to c51 and c18 to c53. Product owner, with the qualified accountant and the tax specialist. |
 | Q-030 | Open as written | SRC-008's chart has "122900 Allowance for expected credit loss" (r62), an account, not a policy. Qualified accountant. |
 | Q-031 | Open; informed | "Limits are set per tenant and per entity, never globally, so one group raising a limit does not alter any other" (S7-2.16.1-c25). A pack covers "every entity in the group" (S7-2.16.5-c03). SRC-008: "Group-level limits are the sum of entity limits" ('Volume and capacity' r44). This leans towards the review's reading "a tenant holds one group", but does not decide it. Product owner, with the tech lead and the security owner. |
 
@@ -992,7 +1212,7 @@ The consequences for option A (interim manual journals for payroll, fixed assets
 | PQ | Question | Owner role |
 | --- | --- | --- |
 | PQ-01 | For control accounts, does S7-2.2.1-c06 ("manual journals to them are blocked") or the enforcement levels (c52, c54 to c61, c68) govern? | product-owner, with qualified-accountant |
-| PQ-02 | What enforcement level per control type does the first Sri Lanka entity start at: "Single entity running sub-ledgers" (c59) or "multi-currency" (c61)? | qualified-accountant, with product-owner |
+| PQ-02 | What enforcement level, per control type, does Tiqri's first entity start at, and does choosing a level below the delivered default at set-up count as a "lowering" under S7-2.2.1-c64? See "PQ-02 in full" below. | qualified-accountant, with product-owner |
 | PQ-03 | Which governs a statutory sales series: the financial-year restart (S7-2.4.1-c08) or the entity's choice (S7-2.1.10-c36)? | tax-specialist (content), product-owner (which clause) |
 | PQ-05 | Confirm V1's wording for the corrupted rows S7-2.1.8-c36 and S7-2.15.8-c22. | product-owner |
 | PQ-06 | Which module does each test in S7-2.2.2-c61 accept? | product-owner |
@@ -1003,30 +1223,65 @@ The consequences for option A (interim manual journals for payroll, fixed assets
 | PQ-12 | Which industry tax set and levies (SRC-008 IND-TAX: SSCL at 2.5% and others) apply to the first entity, in what order and on what base (S7-2.1.7-c57)? | tax-specialist |
 | PQ-14 | Is approval to add or amend an account ever optional, as SRC-008 profile A says, against S7-2.2.1-c44? | product-owner, with qualified-accountant |
 | PQ-15 | Location "mandatory on all transactions" (S7-2.2.3-c06) against SRC-008's blocked location on most balance-sheet accounts. | qualified-accountant |
-| PQ-16 | How is the opening bank balance loaded where bank is Enforced (S7-2.2.1-c59)? Part of D-2.16.2. | qualified-accountant |
+| PQ-16 | How is the opening bank balance loaded where bank is Enforced (S7-2.2.1-c59, or c60 and c61)? V2.2 now says that for an uploaded chart "Opening balances load against it under 2.16.2" (S7-2.2.1-c36, p.26): does that route settle it? Part of D-2.16.2. | qualified-accountant |
 | PQ-17 | A calendar-year restart is missing from the reset rule (S7-2.1.10-c18), against a calendar-year `YY`. | tax-specialist, with tech-lead |
-| PQ-18 | Manual journals at Not applied or Advisory against "must be nil" (S7-2.12.1-c01) and "no balance in it exists without a document behind it" (S7-2.3-c01). | qualified-accountant |
+| PQ-18 | Manual journals at Not applied or Advisory against "must be nil" (S7-2.12.1-c01) and "no balance in it exists without a document behind it" (S7-2.3-c01). Which clause governs is a scope decision; the accounting effect is the accountant's (as section 4.1). | product-owner, with qualified-accountant |
 | PQ-19 | Which specification version was SRC-008 prepared against ("version 1.1", 'Read me' r3)? | product-owner, with qualified-accountant |
 | PQ-21 | Confirm that Design B (entity inside the code), offered in SRC-008, is closed by S7-2.2.1-c16 and c23. | product-owner |
 | PQ-22 | Correct SRC-008's inconsistent illustrations (RCT-01, SOA-01 amounts, the credit-note number, ageing, the template count) before any become test data. | qualified-accountant |
 | PQ-23 | SL-NTX-01: for an unregistered supplier, an unregistered purchaser, or both? | tax-specialist |
-| PQ-24 | Who owns privacy-law erasure rules per country (S7-2.11.4-c09)? Can be folded into Q-028. | governance-owner |
+| PQ-24 | **A gap in the authority matrix, not a question with an owner.** The matrix (v2) names no role for privacy or data-protection law, so nobody is named to own privacy-law erasure rules per country (S7-2.11.4-c09). The same gap is recorded for residency in Q-028. To be settled in the next change to the authority matrix; can be folded into Q-028. | governance-owner (to amend the matrix) |
+| PQ-25 | S7-2.2.1-c67 says a flag or type change "passes the approval in 2.2.2 like any other". S7-2.2.2-c47 and c51 say the flag cannot change while the account carries a balance or once transactions exist. Which governs: can a flag be set later, by approval, on an account that has history, or only by opening a new account and reclassifying (section 4.8)? | product-owner, with qualified-accountant |
 
 PQ numbers 04, 07, 13 and 20 are not used: those candidates were folded into existing questions
-(Q-025, Q-027, Q-018 and Q-003).
+(Q-025, Q-027, Q-018 and Q-003). v1 of this analysis proposed 20 questions (PQ-01 to PQ-24, less 04, 07,
+13 and 20; v1 said 19 in error). v2 adds PQ-25 and proposes **21**.
+
+**PQ-02 in full.**
+
+- **The defaults table is keyed by organisation.** Its header is "Organisation Delivered default Reason"
+  (S7-2.2.1, p.27, extraction line 1138). All four rows apply:
+  - c58, "Single entity, general ledger only": Not applied;
+  - c59, "Single entity running sub-ledgers": "Advisory, and Enforced for bank";
+  - c60, "Multi-entity group or consolidated reporting": Enforced ("A control balance feeds
+    consolidation, intercompany elimination and the statements of more than one entity");
+  - c61, "Multinational, multi-currency or high volume": "Enforced, and lowering it is reported".
+
+  V2.2 also says the level "is held per entity and per control type" (c62, and note 1 of the table), so
+  it is open whether a row is read against the organisation or against each entity (sub-question a).
+- **Q-003 v2** records multiple countries (Sri Lanka and others such as Norway), "LKR, with multiple
+  currencies", and "All countries defined in the template" (2026-10-26), which lists five
+  jurisdictions. **A-03** (release-phasing v3) plans a second entity in release 3. c61's "multi-currency"
+  and c60's "multi-entity group" both give Enforced; SRC-008's profile D ('Setup options' r9) fits.
+- **c64:** "Lowering a level from Enforced requires approval, a recorded reason and an effective date,
+  and is reported to management on the governance panel in 2.15.8" (p.27). The panel is open as
+  D-2.15.8, so an entity that runs below Enforced has a release-1 dependency on it (section 6.4).
+- **Open point (sub-question b):** V2.2 does not say whether setting a level below the delivered
+  default at entity set-up is a "lowering" under c64. c54 says only that the level "is set per entity
+  and per control type by the administrator".
+- **Sub-question c:** if it is a lowering, how is it approved and reported in release 1 if D-2.15.8
+  leaves 2.15.8 out?
+- **Evidence, not a decision.** On the repository evidence Enforced is the likely delivered default
+  for Tiqri, with an approved and reported lowering for each control type that is to run lower.
+  Advisory is the delivered default only on c59. Advisory is not to be presented as the starting
+  position.
+- **Owners:** the qualified accountant with the product owner (both are needed for Tier-1 accounting
+  control; authority matrix v2, conditions). Section 1 and section 6.4 are conditional on PQ-01 and
+  PQ-02.
 
 ## 7. Proposed re-base plan
 
 The order puts first what other artifacts quote.
 
-1. **Assurance review of this analysis.** Then the orchestrator decides how to carry the successor
-   map: a crosswalk v2, or a successor block (section 3.3).
-2. **New question records for the source-level points** (orchestrator assigns IDs): PQ-01, PQ-03,
-   PQ-05, PQ-06, PQ-08 and PQ-19, and the Q-027 additions. These go to the product owner first,
-   because several later marks depend on them.
+1. **Assurance review of this analysis** (done for v1: REV-01M5W1AAYEP3761509T5F5D6NW; v2 awaits
+   re-review). The successor map is carried by crosswalk v2 (section 3.3).
+2. **New question records for the source-level points** (orchestrator assigns IDs): PQ-01, PQ-02,
+   PQ-03, PQ-05, PQ-06, PQ-08, PQ-19 and PQ-25, and the Q-027 additions. These go to the product owner
+   first (PQ-02 with the qualified accountant), because several later marks depend on them, and step 7
+   depends on PQ-01 and PQ-02.
 3. **bracketed-values.yaml v4** against SRC-007: 190 values, stable numbers 1 to 178, new 179 to 195,
-   S7 lines and pages, the 26 non-mechanical re-points, and the SRC-008 proposals noted in
-   `needed_for` without a value set.
+   S7 lines and pages, the 26 non-mechanical re-points, the 10 R-reread references (section 6.0), and
+   the SRC-008 proposals noted in `needed_for` without a value set.
 4. **glossary.yaml v3** and **actors.yaml v4**: re-point and re-page, the changed entries, and the
    new terms and roles (section 6.3).
 5. **BO-01 v2, BO-02 v3, BO-03 v3, BO-04 v2, BO-05 v3, BO-06 v2, BO-07 v3 and BO-08 v3.** Each needs a
@@ -1036,14 +1291,16 @@ The order puts first what other artifacts quote.
 6. **Question records.** Q-001 to Q-031 each get a new version that re-points SRC-001 citations to
    SRC-007: Q-003 v3, Q-029 v4, Q-030 v3, and v2 for the rest. The changes in section 6.5 are applied
    in the same versions. Q-004 is closed or superseded by the orchestrator's successor record.
-7. **release-phasing.yaml v4**: the 2.16.5 mark, the splits of 2.2.1, 2.2.2, 2.4.3 and 2.4.8, the
-   2.16.1 needs-decision, D-INT-1 rewritten as in section 6.4, R-01 and R-06 revised, and the counts
-   recomputed for 188 sub-sections.
+7. **release-phasing.yaml v4**: the 2.16.5 mark, the splits of 2.2.1, 2.2.2, 2.4.3 and 2.4.8 (with the
+   2.4.3 heading field updated), the 2.16.1 needs-decision, D-2.15.8 naming the four governance-panel
+   clauses, D-INT-1 rewritten as in section 6.4 (after PQ-01 and PQ-02), R-01 and R-06 revised, the
+   32 R-reread references in the phasing re-read (16 in Part 1 and 16 in Part 2 of section 6.0), and the counts recomputed for 188 sub-sections.
 8. **A revised decision brief and question pack** (orchestrator), replacing the withdrawn
    GOV-BRIEF-R1-SCOPE and GOV-QPACK-L1.
 
-Nothing in steps 3 to 7 needs a person's decision to start. Steps 5 to 7 are cleaner after the
-answers to PQ-01, PQ-02 and PQ-05.
+Nothing in steps 3 to 6 needs a person's decision to start, and the mechanical parts of step 7 do not
+either. The D-INT-1 rewrite in step 7 and the decision brief in step 8 need the answers to PQ-01 and
+PQ-02 first (the review's blocking finding). Steps 5 to 7 are cleaner after the answer to PQ-05.
 
 ## 8. What this analysis does not do
 
