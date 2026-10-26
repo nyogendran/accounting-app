@@ -14,3 +14,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Material received from the business: may hold real financial or personal data; never committed
+docs/received-from-business/
