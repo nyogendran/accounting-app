@@ -3,7 +3,7 @@ id: GOV-CONVENTIONS
 type: governance
 title: Artifact, record and commit conventions
 status: Proposed
-version: 1
+version: 2
 owner: orchestrator
 links:
   decided_by: [DEC-0001]
@@ -20,7 +20,8 @@ same change.
 | Prefix | Pattern | Kind | Where |
 | --- | --- | --- | --- |
 | SRC | `SRC-001` | Registered source | `docs/sources/source-register.yaml` |
-| S1 | `S1-2.2.4-c07` | Clause of SRC-001 (section, clause number in document order) | Clause index (L1) |
+| S1 | `S1-2.2.4-c07` | Clause of SRC-001 (section, clause number in document order) | Clause index (L1), `docs/requirements/clause-index.yaml` |
+| S7 | `S7-2.2.1-c07` | Clause of SRC-007, the V2.2 baseline (DEC-0008), numbered the same way | `docs/requirements/clause-index-src007.yaml` |
 | GOV | `GOV-METHOD` | Governance document | `docs/governance/` |
 | BO | `BO-01` | Business objective | `docs/requirements/` |
 | REQ | `REQ-GL-001` | Requirement (area code of 2 to 5 capitals) | `docs/requirements/` |
@@ -62,7 +63,8 @@ Text below the front matter is explanation and is **not** normative.
 
 Link types: `derives_from`, `refines`, `governed_by`, `decided_by`, `designs`, `implements`,
 `verifies`, `affects`, `resolves`, `supersedes`, `blocks`, `waives`, `related`. Every linked ID must
-exist, except clause IDs (`S1-…`) before the clause index exists, which produce a warning.
+exist. A clause ID (`S1-…`, `S7-…`) must be in its own source's clause index; only while that index
+does not yet exist does a clause link produce a warning instead of an error.
 
 ## Normative hash
 

@@ -121,6 +121,7 @@ class IdKindTests(unittest.TestCase):
             "GOV-METHOD": "GOV",
             "SRC-001": "SRC",
             "S1-2.2.4-c07": "S1",
+            "S7-2.2.1-c112": "S7",
             f"AREQ-{ulid}": "AREQ",
             f"APR-{ulid}": "APR",
             "GATE-0": "GATE",

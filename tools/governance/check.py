@@ -79,16 +79,17 @@ class Collector:
 # --------------------------------------------------------------------------- artifacts
 
 
-def _clause_ids(root: Path) -> set:
-    path = root / "docs/requirements/clause-index.yaml"
+def _clause_ids(root: Path, relative: str):
+    """The clause IDs in a clause index, or None while the index does not exist."""
+    path = root / relative
     if not path.is_file():
-        return set()
+        return None
     data = common.read_yaml(path) or {}
     return {str(c.get("id")) for c in data.get("clauses") or [] if isinstance(c, dict)}
 
 
 def check_artifacts(index: common.Index, out: Collector) -> None:
-    clause_ids = _clause_ids(index.root)
+    clause_ids = {kind: _clause_ids(index.root, relative) for kind, relative in common.CLAUSE_INDEXES.items()}
     criteria = index.acceptance_criteria()
     for artifact in index.artifacts.values():
         meta, path = artifact.meta, artifact.path
@@ -126,9 +127,13 @@ def check_artifacts(index: common.Index, out: Collector) -> None:
                 continue
             for target in targets:
                 target = str(target)
-                if common.id_kind(target) == "S1":
-                    if target not in clause_ids:
-                        out.warning(path, f"clause {target} cannot be checked until the clause index exists")
+                clause_kind = common.id_kind(target)
+                if clause_kind in common.CLAUSE_INDEXES:
+                    known = clause_ids[clause_kind]
+                    if known is None:
+                        out.warning(path, f"clause {target} cannot be checked until {common.CLAUSE_INDEXES[clause_kind]} exists")
+                    elif target not in known:
+                        out.error(path, f"link {link_type} -> {target}: not in {common.CLAUSE_INDEXES[clause_kind]}")
                     continue
                 if target in criteria or index.exists(target):
                     continue

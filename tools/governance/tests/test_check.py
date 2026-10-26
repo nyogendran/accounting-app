@@ -70,6 +70,50 @@ class ArtifactRuleTests(CheckTestCase):
         self.assertEqual(self.errors(), [])
         self.assertTrue(any("S1-2.2.4-c01" in w.message for w in self.warnings()))
 
+    def write_index(self, relative, *ids):
+        path = self.repo.root / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("clauses:\n" + "".join(f"  - {{id: {i}}}\n" for i in ids), encoding="utf-8")
+
+    def link(self, *targets):
+        self.repo.write_artifact(
+            "docs/requirements/REQ-GL-001.md", requirement(links={"derives_from": list(targets)})
+        )
+
+    def test_clause_in_its_own_index_passes_silently(self):
+        self.write_index("docs/requirements/clause-index.yaml", "S1-2.2.1-c01")
+        self.write_index("docs/requirements/clause-index-src007.yaml", "S7-2.2.1-c01")
+        self.link("S1-2.2.1-c01", "S7-2.2.1-c01")
+        self.assertEqual(self.errors(), [])
+        self.assertEqual(self.warnings(), [])
+
+    def test_clause_missing_from_an_existing_index_is_an_error(self):
+        self.write_index("docs/requirements/clause-index.yaml", "S1-2.2.1-c01")
+        self.write_index("docs/requirements/clause-index-src007.yaml", "S7-2.2.1-c01")
+        self.link("S1-2.2.1-c02", "S7-2.2.1-c02")
+        self.assertErrorMentions("S1-2.2.1-c02")
+        self.assertErrorMentions("S7-2.2.1-c02")
+
+    def test_each_kind_is_checked_against_its_own_index_only(self):
+        # Each ID exists only in the other kind's index, so a check against the wrong index or the
+        # union of both would pass; checking each kind against its own index fails both.
+        self.write_index("docs/requirements/clause-index.yaml", "S1-2.2.1-c01", "S7-2.2.1-c09")
+        self.write_index("docs/requirements/clause-index-src007.yaml", "S7-2.2.1-c01", "S1-2.2.1-c09")
+        self.link("S1-2.2.1-c09", "S7-2.2.1-c09")
+        messages = [f.message for f in self.errors()]
+        self.assertTrue(any("S1-2.2.1-c09" in m and "clause-index.yaml" in m for m in messages), messages)
+        self.assertTrue(any("S7-2.2.1-c09" in m and "clause-index-src007.yaml" in m for m in messages), messages)
+
+    def test_missing_s7_index_warns(self):
+        self.link("S7-2.2.1-c01")
+        self.assertEqual(self.errors(), [])
+        self.assertTrue(any("S7-2.2.1-c01" in w.message and "clause-index-src007.yaml" in w.message for w in self.warnings()))
+
+    def test_malformed_clause_id_is_an_error(self):
+        self.write_index("docs/requirements/clause-index-src007.yaml", "S7-2.2.1-c01")
+        self.link("S7-2.2.1-x01")
+        self.assertErrorMentions("S7-2.2.1-x01")
+
     def test_normative_block_required_once_proposed(self):
         meta = requirement()
         del meta["normative"]

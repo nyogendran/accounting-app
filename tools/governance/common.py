@@ -77,6 +77,7 @@ AREA = r"[A-Z]{2,5}"
 ID_PATTERNS = {
     "SRC": r"SRC-\d{3}",
     "S1": r"S1-\d+(?:\.\d+)*-c\d{2,3}",
+    "S7": r"S7-\d+(?:\.\d+)*-c\d{2,3}",
     "GOV": r"GOV-[A-Z0-9]+(?:-[A-Z0-9]+)*",
     "BO": r"BO-\d{2}",
     "REQ": rf"REQ-{AREA}-\d{{3}}",
@@ -103,6 +104,12 @@ for _prefix in ("ISS", "IR", "IA", "DSP", "BRF", "AREQ", "APR", "WVR", "EVD", "R
     ID_PATTERNS[_prefix] = rf"{_prefix}-{ULID}"
 
 _COMPILED = {kind: re.compile(rf"^{pattern}$") for kind, pattern in ID_PATTERNS.items()}
+
+# Clause ID kinds, each with the clause index that defines its IDs: S1 for SRC-001, S7 for SRC-007.
+CLAUSE_INDEXES = {
+    "S1": "docs/requirements/clause-index.yaml",
+    "S7": "docs/requirements/clause-index-src007.yaml",
+}
 
 # Which ID kinds each artifact type may use.
 TYPE_ID_KINDS = {
