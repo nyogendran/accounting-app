@@ -1,0 +1,6017 @@
+version: 1
+method: 'List the S1 clause references in V1-based artifacts that must be re-read, not only re-pointed,
+  when
+
+  re-basing on SRC-007. Read-only; writes one YAML file given as the first argument.
+
+
+  A sub-section is "touched" when SRC-007 added a clause to it, or holds a changed or successor clause
+
+  in it (crosswalk v2). A sub-section is "cited" when a new, changed or successor S7 clause names it by
+
+  number ("2.12", "2.15.8"); a level-2 citation such as "2.12" cites every sub-section under it. A
+
+  reference is listed when its clause is itself not plain "same", or its sub-section is touched or cited.
+
+  This widens the re-read set of GOV-IMPACT-SRC007 v2 as REV-01M5W2PMREVQFW5TCYYJQ1K1D6 recommends.
+
+
+  Usage: python tools/sources/reread_refs.py <output.yaml>'
+counts:
+  references: 1812
+  to_re_read: 1004
+  by_reason:
+    clause changed: 14
+    clause successor: 35
+    sub-section cited by a new or changed clause: 861
+    sub-section touched: 505
+  by_file:
+    docs/governance/questions/Q-007.md: 4
+    docs/governance/questions/Q-009.md: 9
+    docs/governance/questions/Q-011.md: 3
+    docs/governance/questions/Q-012.md: 4
+    docs/governance/questions/Q-013.md: 5
+    docs/governance/questions/Q-014.md: 4
+    docs/governance/questions/Q-015.md: 6
+    docs/governance/questions/Q-016.md: 4
+    docs/governance/questions/Q-017.md: 4
+    docs/governance/questions/Q-018.md: 4
+    docs/governance/questions/Q-020.md: 5
+    docs/governance/questions/Q-021.md: 2
+    docs/governance/questions/Q-022.md: 5
+    docs/governance/questions/Q-023.md: 14
+    docs/governance/questions/Q-024.md: 2
+    docs/governance/questions/Q-025.md: 4
+    docs/governance/questions/Q-026.md: 4
+    docs/governance/questions/Q-027.md: 8
+    docs/governance/questions/Q-028.md: 2
+    docs/governance/questions/Q-029.md: 16
+    docs/requirements/actors.yaml: 119
+    docs/requirements/bracketed-values.yaml: 141
+    docs/requirements/glossary.yaml: 92
+    docs/requirements/objectives/BO-01.md: 12
+    docs/requirements/objectives/BO-02.md: 22
+    docs/requirements/objectives/BO-03.md: 23
+    docs/requirements/objectives/BO-04.md: 8
+    docs/requirements/objectives/BO-05.md: 2
+    docs/requirements/objectives/BO-06.md: 4
+    docs/requirements/objectives/BO-07.md: 13
+    docs/requirements/objectives/BO-08.md: 16
+    docs/requirements/release-phasing.yaml: 443
+  touched_subsections:
+  - '0'
+  - 2.1.10
+  - 2.1.7
+  - 2.1.8
+  - 2.11.4
+  - 2.15.8
+  - 2.16.1
+  - 2.16.5
+  - 2.2.1
+  - 2.2.2
+  - 2.2.4
+  - 2.4.1
+  - 2.4.3
+  - 2.4.6
+  - 2.4.8
+  - '3'
+  cited_subsections:
+  - 2.1.10
+  - 2.1.2
+  - 2.1.3
+  - 2.1.4
+  - 2.1.6
+  - 2.1.7
+  - '2.11'
+  - 2.11.1
+  - 2.11.2
+  - 2.11.3
+  - 2.11.4
+  - 2.11.5
+  - 2.11.6
+  - 2.11.7
+  - '2.12'
+  - 2.12.1
+  - 2.12.2
+  - 2.12.3
+  - 2.12.4
+  - 2.12.5
+  - 2.14.3
+  - 2.14.4
+  - 2.15.8
+  - 2.16.1
+  - 2.16.2
+  - 2.16.5
+  - 2.2.1
+  - 2.2.10
+  - 2.2.11
+  - 2.2.2
+  - 2.2.3
+  - 2.2.4
+  - 2.2.5
+  - 2.2.6
+  - 2.2.7
+  - 2.2.8
+  - 2.2.9
+  - 2.4.1
+  - '2.5'
+  - 2.5.1
+  - 2.5.10
+  - 2.5.11
+  - 2.5.12
+  - 2.5.13
+  - 2.5.14
+  - 2.5.15
+  - 2.5.16
+  - 2.5.17
+  - 2.5.18
+  - 2.5.2
+  - 2.5.3
+  - 2.5.4
+  - 2.5.5
+  - 2.5.6
+  - 2.5.7
+  - 2.5.8
+  - 2.5.9
+  - 2.6.1
+  - 2.7.2
+references:
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.2-c14
+  s7: &id040
+  - S7-2.1.2-c14
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.2-c17
+  s7: &id041
+  - S7-2.1.2-c17
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.3-c01
+  s7: &id064
+  - S7-2.1.3-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.4-c08
+  s7: &id080
+  - S7-2.1.4-c08
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.11.4-c05
+  s7: &id001
+  - S7-2.11.4-c05
+  - S7-2.11.4-c06
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.11.4-c05
+  s7: *id001
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.6-c17
+  s7: &id002
+  - S7-2.1.6-c17
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.6-c17
+  s7: *id002
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.6-c17
+  s7: *id002
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.6-c17
+  s7: *id002
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.6-c35
+  s7: &id097
+  - S7-2.1.6-c35
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.7-c78
+  s7: &id109
+  - S7-2.1.7-c78
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.10-c29
+  s7: &id070
+  - S7-2.1.10-c29
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.1-c02
+  s7: &id071
+  - S7-2.2.1-c02
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.1-c04
+  s7: &id072
+  - S7-2.2.1-c04
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.1-c18
+  s7: &id169
+  - S7-2.2.1-c50
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.2-c04
+  s7: &id069
+  - S7-2.2.2-c04
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.2-c05
+  s7:
+  - S7-2.2.2-c05
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.2-c18
+  s7: &id082
+  - S7-2.2.2-c53
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.2-c21
+  s7:
+  - S7-2.2.2-c56
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.3-c02
+  s7:
+  - S7-2.2.3-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.3-c03
+  s7:
+  - S7-2.2.3-c03
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.3-c04
+  s7:
+  - S7-2.2.3-c04
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.3-c05
+  s7:
+  - S7-2.2.3-c05
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.3-c06
+  s7:
+  - S7-2.2.3-c06
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.3-c07
+  s7:
+  - S7-2.2.3-c07
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.3-c15
+  s7:
+  - S7-2.2.3-c15
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.3-c08
+  s7: &id074
+  - S7-2.2.3-c08
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.6-c14
+  s7: &id181
+  - S7-2.2.6-c14
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.6-c10
+  s7: &id180
+  - S7-2.2.6-c10
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.6-c28
+  s7: &id208
+  - S7-2.2.6-c28
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.11.4-c05
+  s7: *id001
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.6-c30
+  s7: &id003
+  - S7-2.2.6-c30
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.6-c30
+  s7: *id003
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.7-c12
+  s7: &id184
+  - S7-2.2.7-c12
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.7-c21
+  s7: &id028
+  - S7-2.2.7-c21
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.8-c07
+  s7: &id004
+  - S7-2.2.8-c07
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.8-c30
+  s7: &id047
+  - S7-2.2.8-c30
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.8-c07
+  s7: *id004
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.8-c12
+  s7: &id077
+  - S7-2.2.8-c12
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.8-c32
+  s7:
+  - S7-2.2.8-c32
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.8-c41
+  s7:
+  - S7-2.2.8-c41
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.9-c16
+  s7:
+  - S7-2.2.9-c16
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.9-c18
+  s7:
+  - S7-2.2.9-c18
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.10-c01
+  s7: &id134
+  - S7-2.2.10-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.1-c01
+  s7: &id005
+  - S7-2.4.1-c01
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.1-c09
+  s7: &id137
+  - S7-2.4.1-c11
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.1-c01
+  s7: *id005
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.1-c01
+  s7: *id005
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.1-c02
+  s7: &id006
+  - S7-2.4.1-c02
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.1-c02
+  s7: *id006
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.1-c02
+  s7: *id006
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.1-c03
+  s7: &id007
+  - S7-2.4.1-c03
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.1-c03
+  s7: *id007
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.1-c03
+  s7: *id007
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.1-c04
+  s7: &id008
+  - S7-2.4.1-c04
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.1-c04
+  s7: *id008
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.1-c04
+  s7: *id008
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.1-c05
+  s7: &id009
+  - S7-2.4.1-c05
+  - S7-2.4.1-c06
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.1-c05
+  s7: *id009
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.1-c05
+  s7: *id009
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.3-c09
+  s7: &id010
+  - S7-2.4.3-c09
+  reasons:
+  - sub-section touched
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.3-c09
+  s7: *id010
+  reasons:
+  - sub-section touched
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.1-c08
+  s7:
+  - S7-2.5.1-c08
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.3-c02
+  s7:
+  - S7-2.5.3-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.3-c19
+  s7: &id011
+  - S7-2.5.3-c19
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.3-c19
+  s7: *id011
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.3-c21
+  s7:
+  - S7-2.5.3-c21
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.5-c01
+  s7: &id051
+  - S7-2.5.5-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.5-c02
+  s7: &id012
+  - S7-2.5.5-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.5-c02
+  s7: *id012
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.5-c03
+  s7: &id013
+  - S7-2.5.5-c03
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.5-c03
+  s7: *id013
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.5-c04
+  s7: &id031
+  - S7-2.5.5-c04
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.6-c02
+  s7: &id014
+  - S7-2.5.6-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.6-c02
+  s7: *id014
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.6-c14
+  s7: &id017
+  - S7-2.5.6-c14
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.6-c07
+  s7: &id143
+  - S7-2.5.6-c07
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.6-c08
+  s7: &id015
+  - S7-2.5.6-c08
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.6-c08
+  s7: *id015
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.6-c08
+  s7: *id015
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.6-c09
+  s7: &id016
+  - S7-2.5.6-c09
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.6-c09
+  s7: *id016
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.6-c14
+  s7: *id017
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.6-c15
+  s7: &id052
+  - S7-2.5.6-c15
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.6-c16
+  s7:
+  - S7-2.5.6-c16
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.7-c13
+  s7:
+  - S7-2.5.7-c13
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.5.9-c08
+  s7:
+  - S7-2.5.9-c08
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.7.2-c05
+  s7:
+  - S7-2.7.2-c05
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.6-c21
+  s7: &id198
+  - S7-2.2.6-c21
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.11.4-c05
+  s7: *id001
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.11.4-c05
+  s7: *id001
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.11.2-c06
+  s7: &id150
+  - S7-2.11.2-c06
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.11.3-c03
+  s7:
+  - S7-2.11.3-c03
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.11.4-c05
+  s7: *id001
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.11.4-c05
+  s7: *id001
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.11.7-c05
+  s7: &id175
+  - S7-2.11.7-c05
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.12.3-c03
+  s7:
+  - S7-2.12.3-c03
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.12.3-c06
+  s7: &id092
+  - S7-2.12.3-c06
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.12.3-c07
+  s7: &id061
+  - S7-2.12.3-c07
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.11.4-c05
+  s7: *id001
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.11.4-c05
+  s7: *id001
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.16.1-c01
+  s7: &id018
+  - S7-2.16.1-c01
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.16.1-c01
+  s7: *id018
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.16.1-c02
+  s7: &id019
+  - S7-2.16.1-c02
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.16.1-c02
+  s7: *id019
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.16.1-c02
+  s7: *id019
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.16.1-c02
+  s7: *id019
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.16.1-c03
+  s7: &id193
+  - S7-2.16.1-c03
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.16.1-c04
+  s7: &id020
+  - S7-2.16.1-c04
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.16.1-c04
+  s7: *id020
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.16.2-c01
+  s7: &id087
+  - S7-2.16.2-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-3-c03
+  s7: &id063
+  - S7-3-c03
+  reasons:
+  - clause successor
+  - sub-section touched
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-0-c32
+  s7: &id025
+  - S7-0-c32
+  reasons:
+  - sub-section touched
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.3-c03
+  s7: &id194
+  - S7-2.1.3-c03
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.3-c04
+  s7: &id021
+  - S7-2.1.3-c04
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.7-c11
+  s7: &id105
+  - S7-2.1.7-c11
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.7-c29
+  s7: &id113
+  - S7-2.1.7-c29
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.7-c31
+  s7: &id067
+  - S7-2.1.7-c31
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.7-c83
+  s7: &id116
+  - S7-2.1.7-c83
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.8-c57
+  s7: &id126
+  - S7-2.1.8-c57
+  reasons:
+  - sub-section touched
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.9-c39
+  s7: &id210
+  - S7-2.2.9-c39
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.11.4-c07
+  s7: &id211
+  - S7-2.11.4-c10
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.16.1-c06
+  s7: &id212
+  - S7-2.16.1-c06
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.1.3-c04
+  s7: *id021
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-3-c04
+  s7: &id022
+  - S7-3-c04
+  reasons:
+  - sub-section touched
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-3-c04
+  s7: *id022
+  reasons:
+  - sub-section touched
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.1-c01
+  s7: &id042
+  - S7-2.2.1-c01
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-3-c04
+  s7: *id022
+  reasons:
+  - sub-section touched
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.16.1-c01
+  s7: *id018
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.16.1-c02
+  s7: *id019
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-3-c04
+  s7: *id022
+  reasons:
+  - sub-section touched
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.3-c02
+  s7:
+  - S7-2.4.3-c02
+  reasons:
+  - sub-section touched
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.16.1-c05
+  s7: &id213
+  - S7-2.16.1-c05
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.11.4-c05
+  s7: *id001
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.4.3-c09
+  s7: *id010
+  reasons:
+  - sub-section touched
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.1-c05
+  s7: &id023
+  - S7-2.2.1-c05
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.1-c05
+  s7: *id023
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.2-c08
+  s7: &id202
+  - S7-2.2.2-c43
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.9-c28
+  s7: &id024
+  - S7-2.2.9-c28
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/bracketed-values.yaml
+  s1: S1-2.2.9-c28
+  s7: *id024
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c18
+  s7: &id026
+  - S7-2.1.2-c18
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-0-c32
+  s7: *id025
+  reasons:
+  - sub-section touched
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.7-c02
+  s7: &id027
+  - S7-2.1.7-c02
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c18
+  s7: *id026
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.7-c02
+  s7: *id027
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c19
+  s7:
+  - S7-2.1.2-c19
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.6-c04
+  s7: &id029
+  - S7-2.2.6-c04
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.7-c21
+  s7: *id028
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.6-c04
+  s7: *id029
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.7-c21
+  s7: *id028
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c20
+  s7:
+  - S7-2.1.2-c20
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c21
+  s7:
+  - S7-2.1.2-c21
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c22
+  s7:
+  - S7-2.1.2-c22
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c23
+  s7:
+  - S7-2.1.2-c23
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c24
+  s7:
+  - S7-2.1.2-c24
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c04
+  s7: &id068
+  - S7-2.1.2-c04
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.6-c07
+  s7: &id030
+  - S7-2.2.6-c07
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.6-c08
+  s7:
+  - S7-2.2.6-c08
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.6-c07
+  s7: *id030
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c25
+  s7:
+  - S7-2.1.2-c25
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.5-c05
+  s7:
+  - S7-2.2.5-c05
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.5-c09
+  s7:
+  - S7-2.2.5-c09
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.8-c09
+  s7: &id076
+  - S7-2.2.8-c09
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.5-c02
+  s7: *id012
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.5-c03
+  s7: *id013
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.5-c04
+  s7: *id031
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c26
+  s7:
+  - S7-2.1.2-c26
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c01
+  s7: &id032
+  - S7-2.1.2-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c12
+  s7: &id033
+  - S7-2.1.2-c12
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.10-c32
+  s7: &id034
+  - S7-2.1.10-c38
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.7-c68
+  s7: &id035
+  - S7-2.1.7-c68
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c01
+  s7: *id032
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c12
+  s7: *id033
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.10-c32
+  s7: *id034
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.7-c68
+  s7: *id035
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c27
+  s7: &id215
+  - S7-2.1.2-c27
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.11.6-c01
+  s7: &id036
+  - S7-2.11.6-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.11.6-c03
+  s7: &id037
+  - S7-2.11.6-c03
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.11.6-c04
+  s7:
+  - S7-2.11.6-c04
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.11.6-c01
+  s7: *id036
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.11.6-c03
+  s7: *id037
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c09
+  s7: &id038
+  - S7-2.1.2-c09
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.5-c05
+  s7: &id039
+  - S7-2.5.5-c05
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c09
+  s7: *id038
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.5-c05
+  s7: *id039
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c14
+  s7: *id040
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.2-c17
+  s7: *id041
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.1-c01
+  s7: *id042
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.9-c11
+  s7: &id043
+  - S7-2.2.9-c11
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.7.2-c02
+  s7: &id044
+  - S7-2.7.2-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.16.2-c02
+  s7: &id045
+  - S7-2.16.2-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.1-c01
+  s7: *id042
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.9-c11
+  s7: *id043
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.7.2-c02
+  s7: *id044
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.16.2-c02
+  s7: *id045
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.2-c02
+  s7: &id046
+  - S7-2.2.2-c02
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.2-c02
+  s7: *id046
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.8-c30
+  s7: *id047
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.8-c26
+  s7: &id048
+  - S7-2.2.8-c26
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.10-c35
+  s7: &id049
+  - S7-2.1.10-c41
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.15.8-c01
+  s7: &id050
+  - S7-2.15.8-c01
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.8-c26
+  s7: *id048
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.10-c35
+  s7: *id049
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.15.8-c01
+  s7: *id050
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.5-c01
+  s7: *id051
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.5-c02
+  s7: *id012
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.5-c03
+  s7: *id013
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.5-c03
+  s7: *id013
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.5-c04
+  s7: *id031
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.6-c18
+  s7:
+  - S7-2.5.6-c18
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.6-c08
+  s7: *id015
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.6-c15
+  s7: *id052
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.6-c14
+  s7: *id017
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.7-c72
+  s7: &id079
+  - S7-2.1.7-c72
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.2-c07
+  s7: &id053
+  - S7-2.5.2-c07
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.2-c07
+  s7: *id053
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.2-c07
+  s7: *id053
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.6.1-c19
+  s7: &id054
+  - S7-2.6.1-c19
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.6.1-c19
+  s7: *id054
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.6.1-c13
+  s7:
+  - S7-2.6.1-c13
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.12.3-c01
+  s7: &id055
+  - S7-2.12.3-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.12.2-c07
+  s7: &id056
+  - S7-2.12.2-c07
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.2-c13
+  s7: &id216
+  - S7-2.2.2-c48
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.12.3-c01
+  s7: *id055
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.12.2-c07
+  s7: *id056
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.7.2-c01
+  s7: &id057
+  - S7-2.7.2-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.7.2-c01
+  s7: *id057
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-3-c01
+  s7: &id163
+  - S7-3-c01
+  reasons:
+  - sub-section touched
+- file: docs/requirements/actors.yaml
+  s1: S1-3-c02
+  s7:
+  - S7-3-c02
+  reasons:
+  - sub-section touched
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.8-c46
+  s7: &id125
+  - S7-2.1.8-c46
+  reasons:
+  - sub-section touched
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.1-c18
+  s7: &id059
+  - S7-2.5.1-c18
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.3-c01
+  s7: &id058
+  - S7-2.5.3-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.3-c01
+  s7: *id058
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.1-c18
+  s7: *id059
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.9-c06
+  s7:
+  - S7-2.5.9-c06
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.6-c12
+  s7: &id065
+  - S7-2.1.6-c12
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.8-c48
+  s7: &id060
+  - S7-2.1.8-c48
+  reasons:
+  - sub-section touched
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.8-c48
+  s7: *id060
+  reasons:
+  - sub-section touched
+- file: docs/requirements/actors.yaml
+  s1: S1-2.12.3-c07
+  s7: *id061
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.8-c05
+  s7: &id062
+  - S7-2.2.8-c05
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.12.3-c07
+  s7: *id061
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.8-c05
+  s7: *id062
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-0-c32
+  s7: *id025
+  reasons:
+  - sub-section touched
+- file: docs/requirements/actors.yaml
+  s1: S1-3-c03
+  s7: *id063
+  reasons:
+  - clause successor
+  - sub-section touched
+- file: docs/requirements/actors.yaml
+  s1: S1-0-c32
+  s7: *id025
+  reasons:
+  - sub-section touched
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.3-c01
+  s7: *id064
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.6-c12
+  s7: *id065
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.6-c17
+  s7: *id002
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.6-c17
+  s7: *id002
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.2.9-c10
+  s7: &id078
+  - S7-2.2.9-c10
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.5.3-c01
+  s7: *id058
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.6-c08
+  s7: &id095
+  - S7-2.1.6-c08
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.6-c09
+  s7: &id099
+  - S7-2.1.6-c09
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.6-c10
+  s7: &id101
+  - S7-2.1.6-c10
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.6-c11
+  s7: &id096
+  - S7-2.1.6-c11
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.6-c12
+  s7: *id065
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.6-c13
+  s7: &id102
+  - S7-2.1.6-c13
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.6-c34
+  s7: &id066
+  - S7-2.1.6-c34
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/actors.yaml
+  s1: S1-2.1.6-c34
+  s7: *id066
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-3-c03
+  s7: *id063
+  reasons:
+  - clause successor
+  - sub-section touched
+- file: docs/requirements/glossary.yaml
+  s1: S1-3-c04
+  s7: *id022
+  reasons:
+  - sub-section touched
+- file: docs/requirements/glossary.yaml
+  s1: S1-0-c32
+  s7: *id025
+  reasons:
+  - sub-section touched
+- file: docs/requirements/glossary.yaml
+  s1: S1-0-c32
+  s7: *id025
+  reasons:
+  - sub-section touched
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.6-c17
+  s7: *id002
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.3-c01
+  s7: &id073
+  - S7-2.2.3-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.7-c02
+  s7: *id027
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.7-c09
+  s7: &id083
+  - S7-2.1.7-c09
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.7-c31
+  s7: *id067
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.7-c69
+  s7: &id084
+  - S7-2.1.7-c69
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.7-c12
+  s7: &id089
+  - S7-2.1.7-c12
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.7-c25
+  s7: &id091
+  - S7-2.1.7-c25
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.2-c02
+  s7:
+  - S7-2.1.2-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.2-c07
+  s7:
+  - S7-2.1.2-c07
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.2-c04
+  s7: *id068
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.2-c09
+  s7: *id038
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.2-c12
+  s7: *id033
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.2-c14
+  s7: *id040
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.2-c17
+  s7: *id041
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.2-c16
+  s7: &id093
+  - S7-2.1.2-c16
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.2-c14
+  s7: *id040
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.2-c04
+  s7: *id069
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.4-c01
+  s7: &id094
+  - S7-2.1.4-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.6-c22
+  s7: &id103
+  - S7-2.1.6-c22
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.6-c34
+  s7: *id066
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.10-c28
+  s7: &id188
+  - S7-2.1.10-c28
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.10-c29
+  s7: *id070
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.10-c18
+  s7: &id203
+  - S7-2.1.10-c18
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.1-c01
+  s7: *id042
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.1-c02
+  s7: *id071
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.1-c03
+  s7:
+  - S7-2.2.1-c03
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.1-c04
+  s7: *id072
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.1-c06
+  s7: &id081
+  - S7-2.2.1-c06
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.1-c12
+  s7:
+  - S7-2.2.1-c12
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.3-c01
+  s7: *id073
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.3-c08
+  s7: *id074
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.4-c14
+  s7: &id172
+  - S7-2.2.4-c14
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.4-c15
+  s7: &id090
+  - S7-2.2.4-c15
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.5-c01
+  s7:
+  - S7-2.2.5-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.5-c02
+  s7:
+  - S7-2.2.5-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.5-c03
+  s7:
+  - S7-2.2.5-c03
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.5-c04
+  s7:
+  - S7-2.2.5-c04
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.5-c11
+  s7:
+  - S7-2.2.5-c11
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.6-c01
+  s7: &id131
+  - S7-2.2.6-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.6-c04
+  s7: *id029
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.6-c11
+  s7:
+  - S7-2.2.6-c11
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.6-c16
+  s7: &id200
+  - S7-2.2.6-c16
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.6-c23
+  s7:
+  - S7-2.2.6-c23
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.7-c03
+  s7:
+  - S7-2.2.7-c03
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.7-c18
+  s7: &id075
+  - S7-2.2.7-c18
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.7-c18
+  s7: *id075
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.8-c09
+  s7: *id076
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.8-c10
+  s7:
+  - S7-2.2.8-c10
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.8-c11
+  s7:
+  - S7-2.2.8-c11
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.8-c12
+  s7: *id077
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.8-c04
+  s7:
+  - S7-2.2.8-c04
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.8-c05
+  s7: *id062
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.8-c30
+  s7: *id047
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.9-c20
+  s7:
+  - S7-2.2.9-c20
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.9-c21
+  s7:
+  - S7-2.2.9-c21
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.9-c03
+  s7:
+  - S7-2.2.9-c03
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.9-c22
+  s7:
+  - S7-2.2.9-c22
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.9-c10
+  s7: *id078
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.9-c11
+  s7: *id043
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.9-c15
+  s7:
+  - S7-2.2.9-c15
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.9-c24
+  s7:
+  - S7-2.2.9-c24
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.9-c25
+  s7:
+  - S7-2.2.9-c25
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.2.9-c27
+  s7:
+  - S7-2.2.9-c27
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.4.1-c01
+  s7: *id005
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.4.1-c02
+  s7: *id006
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.4.1-c03
+  s7: *id007
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.4.1-c04
+  s7: *id008
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.4.1-c05
+  s7: *id009
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.5.11-c03
+  s7:
+  - S7-2.5.11-c03
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.5.6-c04
+  s7: &id141
+  - S7-2.5.6-c04
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.5.6-c05
+  s7:
+  - S7-2.5.6-c05
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.7-c72
+  s7: *id079
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.5.4-c03
+  s7: &id140
+  - S7-2.5.4-c03
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.5.10-c05
+  s7:
+  - S7-2.5.10-c05
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.5.9-c02
+  s7:
+  - S7-2.5.9-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.5.1-c10
+  s7:
+  - S7-2.5.1-c10
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.5.8-c04
+  s7:
+  - S7-2.5.8-c04
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.1.4-c08
+  s7: *id080
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.11.4-c05
+  s7: *id001
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.11.4-c05
+  s7: *id001
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.6.1-c19
+  s7: *id054
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.7.2-c01
+  s7: *id057
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.12.1-c01
+  s7: &id155
+  - S7-2.12.1-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.14.4-c02
+  s7:
+  - S7-2.14.4-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.15.8-c30
+  s7: &id159
+  - S7-2.15.8-c30
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-2.15.8-c01
+  s7: *id050
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/glossary.yaml
+  s1: S1-0-c03
+  s7: &id176
+  - S7-0-c03
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c06
+  s7: *id081
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c21
+  s7: &id130
+  - S7-2.2.1-c52
+  reasons:
+  - clause changed
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c12
+  s7: &id129
+  - S7-2.2.2-c47
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c16
+  s7: &id161
+  - S7-2.2.2-c51
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c18
+  s7: *id082
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c09
+  s7: *id083
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c77
+  s7: &id108
+  - S7-2.1.7-c77
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c08
+  s7: &id088
+  - S7-2.1.7-c08
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c69
+  s7: *id084
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.6-c01
+  s7: &id110
+  - S7-2.5.6-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c52
+  s7: &id085
+  - S7-2.1.8-c52
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c52
+  s7: *id085
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c51
+  s7: &id086
+  - S7-2.1.8-c51
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c20
+  s7: &id119
+  - S7-2.1.8-c20
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c51
+  s7: *id086
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.3-c01
+  s7: *id073
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.16.2-c01
+  s7: *id087
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c08
+  s7: *id088
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-0-c10
+  s7: &id160
+  - S7-0-c10
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c45
+  s7: &id107
+  - S7-2.1.7-c45
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c12
+  s7: *id089
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c32
+  s7: &id106
+  - S7-2.1.7-c32
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.4-c15
+  s7: *id090
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c25
+  s7: *id091
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.12.3-c06
+  s7: *id092
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c06
+  s7: *id081
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5-c01
+  s7: &id183
+  - S7-2.5-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11-c01
+  s7: &id149
+  - S7-2.11-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11-c02
+  s7:
+  - S7-2.11-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.12-c01
+  s7: &id156
+  - S7-2.12-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c25
+  s7: *id091
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.2-c16
+  s7: *id093
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.2-c17
+  s7: *id041
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.3-c01
+  s7: *id064
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c25
+  s7: *id091
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.4-c01
+  s7: *id094
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.4-c02
+  s7: &id153
+  - S7-2.11.4-c02
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c01
+  s7:
+  - S7-2.1.6-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c02
+  s7:
+  - S7-2.1.6-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c04
+  s7: &id209
+  - S7-2.1.6-c04
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c06
+  s7:
+  - S7-2.1.6-c06
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c08
+  s7: *id095
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c11
+  s7: *id096
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c12
+  s7: *id065
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c14
+  s7: &id100
+  - S7-2.1.6-c14
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c15
+  s7: &id165
+  - S7-2.1.6-c15
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c16
+  s7: &id167
+  - S7-2.1.6-c16
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c17
+  s7: *id002
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c27
+  s7: &id098
+  - S7-2.1.6-c27
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c28
+  s7:
+  - S7-2.1.6-c28
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c29
+  s7:
+  - S7-2.1.6-c29
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c30
+  s7:
+  - S7-2.1.6-c30
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c31
+  s7:
+  - S7-2.1.6-c31
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c32
+  s7:
+  - S7-2.1.6-c32
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c33
+  s7:
+  - S7-2.1.6-c33
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c34
+  s7: *id066
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c35
+  s7: *id097
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c36
+  s7:
+  - S7-2.1.6-c36
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c37
+  s7:
+  - S7-2.1.6-c37
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c38
+  s7:
+  - S7-2.1.6-c38
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c39
+  s7:
+  - S7-2.1.6-c39
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c40
+  s7: &id157
+  - S7-2.1.6-c40
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c17
+  s7: *id002
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.4-c03
+  s7:
+  - S7-2.2.4-c03
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c27
+  s7: *id098
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c09
+  s7: *id099
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c14
+  s7: *id100
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c03
+  s7:
+  - S7-2.1.6-c03
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c05
+  s7:
+  - S7-2.1.6-c05
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c07
+  s7:
+  - S7-2.1.6-c07
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c09
+  s7: *id099
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c10
+  s7: *id101
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c13
+  s7: *id102
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c18
+  s7:
+  - S7-2.1.6-c18
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c19
+  s7:
+  - S7-2.1.6-c19
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c20
+  s7:
+  - S7-2.1.6-c20
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c21
+  s7:
+  - S7-2.1.6-c21
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c22
+  s7: *id103
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c23
+  s7:
+  - S7-2.1.6-c23
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c24
+  s7:
+  - S7-2.1.6-c24
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c25
+  s7:
+  - S7-2.1.6-c25
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c26
+  s7:
+  - S7-2.1.6-c26
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c41
+  s7: &id104
+  - S7-2.1.6-c41
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c41
+  s7: *id104
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.4-c32
+  s7: &id168
+  - S7-2.2.4-c83
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c01
+  s7: &id190
+  - S7-2.1.7-c01
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c02
+  s7: *id027
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c03
+  s7:
+  - S7-2.1.7-c03
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c04
+  s7:
+  - S7-2.1.7-c04
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c05
+  s7:
+  - S7-2.1.7-c05
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c06
+  s7:
+  - S7-2.1.7-c06
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c07
+  s7: &id115
+  - S7-2.1.7-c07
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c08
+  s7: *id088
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c09
+  s7: *id083
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c10
+  s7:
+  - S7-2.1.7-c10
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c11
+  s7: *id105
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c31
+  s7: *id067
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c32
+  s7: *id106
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c33
+  s7: &id135
+  - S7-2.1.7-c33
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c34
+  s7:
+  - S7-2.1.7-c34
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c35
+  s7: &id138
+  - S7-2.1.7-c35
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c36
+  s7:
+  - S7-2.1.7-c36
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c37
+  s7:
+  - S7-2.1.7-c37
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c38
+  s7:
+  - S7-2.1.7-c38
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c39
+  s7:
+  - S7-2.1.7-c39
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c40
+  s7:
+  - S7-2.1.7-c40
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c41
+  s7:
+  - S7-2.1.7-c41
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c42
+  s7:
+  - S7-2.1.7-c42
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c43
+  s7:
+  - S7-2.1.7-c43
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c44
+  s7: &id132
+  - S7-2.1.7-c44
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c45
+  s7: *id107
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c46
+  s7: &id217
+  - S7-2.1.7-c46
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c47
+  s7:
+  - S7-2.1.7-c47
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c48
+  s7:
+  - S7-2.1.7-c48
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c49
+  s7:
+  - S7-2.1.7-c49
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c50
+  s7:
+  - S7-2.1.7-c50
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c51
+  s7:
+  - S7-2.1.7-c51
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c52
+  s7:
+  - S7-2.1.7-c52
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c53
+  s7: &id111
+  - S7-2.1.7-c53
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c54
+  s7:
+  - S7-2.1.7-c54
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c57
+  s7: &id112
+  - S7-2.1.7-c57
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c59
+  s7:
+  - S7-2.1.7-c59
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c60
+  s7:
+  - S7-2.1.7-c60
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c61
+  s7:
+  - S7-2.1.7-c61
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c62
+  s7:
+  - S7-2.1.7-c62
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c63
+  s7:
+  - S7-2.1.7-c63
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c64
+  s7:
+  - S7-2.1.7-c64
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c65
+  s7:
+  - S7-2.1.7-c65
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c66
+  s7:
+  - S7-2.1.7-c66
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c67
+  s7:
+  - S7-2.1.7-c67
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c68
+  s7: *id035
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c69
+  s7: *id084
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c70
+  s7: &id146
+  - S7-2.1.7-c70
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c71
+  s7:
+  - S7-2.1.7-c71
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c72
+  s7: *id079
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c73
+  s7:
+  - S7-2.1.7-c73
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c74
+  s7:
+  - S7-2.1.7-c74
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c75
+  s7:
+  - S7-2.1.7-c75
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c76
+  s7:
+  - S7-2.1.7-c76
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c77
+  s7: *id108
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c78
+  s7: *id109
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c79
+  s7:
+  - S7-2.1.7-c79
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c80
+  s7: &id148
+  - S7-2.1.7-c80
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c81
+  s7: &id191
+  - S7-2.1.7-c81
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c82
+  s7:
+  - S7-2.1.7-c82
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c08
+  s7: *id088
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c69
+  s7: *id084
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.6-c01
+  s7: *id110
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c53
+  s7: *id111
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c57
+  s7: *id112
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.7.2-c02
+  s7: *id044
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c12
+  s7: *id089
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c13
+  s7:
+  - S7-2.1.7-c13
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c14
+  s7:
+  - S7-2.1.7-c14
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c15
+  s7:
+  - S7-2.1.7-c15
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c16
+  s7:
+  - S7-2.1.7-c16
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c17
+  s7:
+  - S7-2.1.7-c17
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c18
+  s7:
+  - S7-2.1.7-c18
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c19
+  s7:
+  - S7-2.1.7-c19
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c20
+  s7:
+  - S7-2.1.7-c20
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c21
+  s7:
+  - S7-2.1.7-c21
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c22
+  s7:
+  - S7-2.1.7-c22
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c23
+  s7:
+  - S7-2.1.7-c23
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c24
+  s7:
+  - S7-2.1.7-c24
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c25
+  s7: *id091
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c26
+  s7:
+  - S7-2.1.7-c26
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c27
+  s7:
+  - S7-2.1.7-c27
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c28
+  s7:
+  - S7-2.1.7-c28
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c29
+  s7: *id113
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c30
+  s7:
+  - S7-2.1.7-c30
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c55
+  s7:
+  - S7-2.1.7-c55
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c56
+  s7:
+  - S7-2.1.7-c56
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c58
+  s7:
+  - S7-2.1.7-c58
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c12
+  s7: *id089
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c84
+  s7: &id114
+  - S7-2.1.7-c84
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c84
+  s7: *id114
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c07
+  s7: *id115
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c83
+  s7: *id116
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c83
+  s7: *id116
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c24
+  s7: &id117
+  - S7-2.1.8-c24
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c25
+  s7:
+  - S7-2.1.8-c25
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c26
+  s7:
+  - S7-2.1.8-c26
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c27
+  s7: &id121
+  - S7-2.1.8-c27
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c28
+  s7:
+  - S7-2.1.8-c28
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c29
+  s7:
+  - S7-2.1.8-c29
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c30
+  s7:
+  - S7-2.1.8-c30
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c31
+  s7:
+  - S7-2.1.8-c31
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c32
+  s7: &id118
+  - S7-2.1.8-c32
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c33
+  s7:
+  - S7-2.1.8-c33
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c24
+  s7: *id117
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c32
+  s7: *id118
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c20
+  s7: *id119
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c22
+  s7: &id120
+  - S7-2.1.8-c22
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c34
+  s7: &id122
+  - S7-2.1.8-c34
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c42
+  s7: &id123
+  - S7-2.1.8-c42
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c43
+  s7: &id124
+  - S7-2.1.8-c43
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c20
+  s7: *id119
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c22
+  s7: *id120
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c27
+  s7: *id121
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c34
+  s7: *id122
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c42
+  s7: *id123
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c43
+  s7: *id124
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c01
+  s7: &id127
+  - S7-2.1.8-c01
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c02
+  s7:
+  - S7-2.1.8-c02
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c03
+  s7:
+  - S7-2.1.8-c03
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c04
+  s7:
+  - S7-2.1.8-c04
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c05
+  s7:
+  - S7-2.1.8-c05
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c06
+  s7:
+  - S7-2.1.8-c06
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c07
+  s7:
+  - S7-2.1.8-c07
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c08
+  s7:
+  - S7-2.1.8-c08
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c09
+  s7:
+  - S7-2.1.8-c09
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c10
+  s7:
+  - S7-2.1.8-c10
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c11
+  s7:
+  - S7-2.1.8-c11
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c12
+  s7:
+  - S7-2.1.8-c12
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c13
+  s7:
+  - S7-2.1.8-c13
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c14
+  s7:
+  - S7-2.1.8-c14
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c15
+  s7:
+  - S7-2.1.8-c15
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c16
+  s7:
+  - S7-2.1.8-c16
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c17
+  s7:
+  - S7-2.1.8-c17
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c18
+  s7:
+  - S7-2.1.8-c18
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c19
+  s7:
+  - S7-2.1.8-c19
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c21
+  s7:
+  - S7-2.1.8-c21
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c23
+  s7:
+  - S7-2.1.8-c23
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c35
+  s7:
+  - S7-2.1.8-c35
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c36
+  s7:
+  - S7-2.1.8-c36
+  reasons:
+  - clause successor
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c37
+  s7:
+  - S7-2.1.8-c37
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c38
+  s7:
+  - S7-2.1.8-c38
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c39
+  s7:
+  - S7-2.1.8-c39
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c40
+  s7:
+  - S7-2.1.8-c40
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c41
+  s7:
+  - S7-2.1.8-c41
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c44
+  s7:
+  - S7-2.1.8-c44
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c45
+  s7:
+  - S7-2.1.8-c45
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c46
+  s7: *id125
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c47
+  s7:
+  - S7-2.1.8-c47
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c48
+  s7: *id060
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c49
+  s7:
+  - S7-2.1.8-c49
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c50
+  s7:
+  - S7-2.1.8-c50
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c51
+  s7: *id086
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c52
+  s7: *id085
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c53
+  s7:
+  - S7-2.1.8-c53
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c54
+  s7:
+  - S7-2.1.8-c54
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c55
+  s7:
+  - S7-2.1.8-c55
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c56
+  s7: &id128
+  - S7-2.1.8-c56
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c57
+  s7: *id126
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c58
+  s7:
+  - S7-2.1.8-c58
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c59
+  s7:
+  - S7-2.1.8-c59
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c60
+  s7:
+  - S7-2.1.8-c60
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c01
+  s7: *id127
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c56
+  s7: *id128
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c25
+  s7: *id091
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.4.1-c06
+  s7: &id136
+  - S7-2.4.1-c08
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.10-c01
+  s7:
+  - S7-2.1.10-c01
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c32
+  s7: *id106
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c01
+  s7: *id042
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c06
+  s7: *id081
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c12
+  s7: *id129
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c01
+  s7:
+  - S7-2.2.2-c01
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.3-c01
+  s7: *id073
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.4-c01
+  s7: &id171
+  - S7-2.2.4-c01
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c21
+  s7: *id130
+  reasons:
+  - clause changed
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.6-c01
+  s7: *id131
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.8-c40
+  s7:
+  - S7-2.2.8-c40
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.8-c01
+  s7: &id182
+  - S7-2.2.8-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.8-c34
+  s7:
+  - S7-2.2.8-c34
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c44
+  s7: *id132
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.10-c02
+  s7: &id133
+  - S7-2.2.10-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.10-c03
+  s7: &id158
+  - S7-2.2.10-c03
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.10-c04
+  s7: &id177
+  - S7-2.2.10-c04
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.10-c02
+  s7: *id133
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.5-c04
+  s7: *id031
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.10-c01
+  s7: *id134
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.10-c01
+  s7: *id134
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.11-c01
+  s7:
+  - S7-2.2.11-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c33
+  s7: *id135
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c77
+  s7: *id108
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.4.1-c06
+  s7: *id136
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.4.1-c09
+  s7: *id137
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.4.3-c01
+  s7:
+  - S7-2.4.3-c01
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.4.6-c01
+  s7:
+  - S7-2.4.6-c01
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.4.8-c01
+  s7:
+  - S7-2.4.8-c15
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c35
+  s7: *id138
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.1-c18
+  s7: *id059
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.2-c10
+  s7: &id139
+  - S7-2.5.2-c10
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.2-c07
+  s7: *id053
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.13-c13
+  s7: &id147
+  - S7-2.5.13-c13
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.3-c01
+  s7: *id058
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.2-c10
+  s7: *id139
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c72
+  s7: *id079
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.4-c03
+  s7: *id140
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.5-c01
+  s7: *id051
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.6-c04
+  s7: *id141
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.6-c01
+  s7: *id110
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.7-c01
+  s7:
+  - S7-2.5.7-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.8-c01
+  s7:
+  - S7-2.5.8-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.9-c05
+  s7:
+  - S7-2.5.9-c05
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.10-c01
+  s7:
+  - S7-2.5.10-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.11-c01
+  s7:
+  - S7-2.5.11-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.12-c02
+  s7:
+  - S7-2.5.12-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.14-c08
+  s7:
+  - S7-2.5.14-c08
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.15-c01
+  s7:
+  - S7-2.5.15-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.17-c02
+  s7:
+  - S7-2.5.17-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.18-c02
+  s7:
+  - S7-2.5.18-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.18-c03
+  s7:
+  - S7-2.5.18-c03
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.18-c05
+  s7:
+  - S7-2.5.18-c05
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.18-c06
+  s7:
+  - S7-2.5.18-c06
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.18-c07
+  s7:
+  - S7-2.5.18-c07
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.18-c08
+  s7:
+  - S7-2.5.18-c08
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.18-c09
+  s7:
+  - S7-2.5.18-c09
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.18-c10
+  s7:
+  - S7-2.5.18-c10
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.18-c11
+  s7:
+  - S7-2.5.18-c11
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.18-c01
+  s7: &id142
+  - S7-2.5.18-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.18-c01
+  s7: *id142
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.6-c07
+  s7: *id143
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.18-c04
+  s7: &id144
+  - S7-2.5.18-c04
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.18-c04
+  s7: *id144
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.18-c12
+  s7: &id145
+  - S7-2.5.18-c12
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.18-c12
+  s7: *id145
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.6.1-c19
+  s7: *id054
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c17
+  s7: *id002
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.4-c15
+  s7: *id090
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.7.2-c01
+  s7: *id057
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c06
+  s7: *id081
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c21
+  s7: *id130
+  reasons:
+  - clause changed
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c06
+  s7: *id081
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c70
+  s7: *id146
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.5-c04
+  s7: *id031
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.6-c01
+  s7: *id110
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.2-c07
+  s7: *id053
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.13-c13
+  s7: *id147
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c80
+  s7: *id148
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11-c01
+  s7: *id149
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.2-c01
+  s7: &id151
+  - S7-2.11.2-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.2-c05
+  s7:
+  - S7-2.11.2-c05
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.2-c06
+  s7: *id150
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.2-c01
+  s7: *id151
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.2-c02
+  s7: &id152
+  - S7-2.11.2-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.2-c04
+  s7:
+  - S7-2.11.2-c04
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.2-c02
+  s7: *id152
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.4-c02
+  s7: *id153
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.2-c03
+  s7: &id154
+  - S7-2.11.2-c03
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.2-c03
+  s7: *id154
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.3-c01
+  s7:
+  - S7-2.11.3-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.4-c04
+  s7:
+  - S7-2.11.4-c04
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.4-c05
+  s7: *id001
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.5-c01
+  s7: &id162
+  - S7-2.11.5-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c21
+  s7: *id130
+  reasons:
+  - clause changed
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.6-c01
+  s7: *id036
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.7-c01
+  s7: &id174
+  - S7-2.11.7-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.12.1-c01
+  s7: *id155
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.12-c01
+  s7: *id156
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.12.3-c06
+  s7: *id092
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.12.4-c02
+  s7:
+  - S7-2.12.4-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.12.5-c01
+  s7:
+  - S7-2.12.5-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c40
+  s7: *id157
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c45
+  s7: *id107
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.3-c01
+  s7: *id073
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c45
+  s7: *id107
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c01
+  s7: *id042
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c45
+  s7: *id107
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c45
+  s7: *id107
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c45
+  s7: *id107
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c45
+  s7: *id107
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c45
+  s7: *id107
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c45
+  s7: *id107
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c45
+  s7: *id107
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.10-c03
+  s7: *id158
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c45
+  s7: *id107
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.10-c03
+  s7: *id158
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.10-c35
+  s7: *id049
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.15.8-c30
+  s7: *id159
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.4-c08
+  s7: *id080
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.16.1-c01
+  s7: *id018
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c06
+  s7: *id081
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.16.2-c01
+  s7: *id087
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.16.2-c01
+  s7: *id087
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.16.2-c02
+  s7: *id045
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.16.2-c01
+  s7: *id087
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-0-c10
+  s7: *id160
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-0-c10
+  s7: *id160
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c06
+  s7: *id081
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c21
+  s7: *id130
+  reasons:
+  - clause changed
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.12.1-c06
+  s7: &id166
+  - S7-2.12.1-c06
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.12.1-c05
+  s7: &id164
+  - S7-2.12.1-c05
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c12
+  s7: *id129
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c16
+  s7: *id161
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c16
+  s7: *id161
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c18
+  s7: *id082
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c21
+  s7: *id130
+  reasons:
+  - clause changed
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-0-c02
+  s7: &id170
+  - S7-0-c02
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.5-c01
+  s7: *id162
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c09
+  s7: *id083
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c14
+  s7: *id100
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c06
+  s7: *id081
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-3-c01
+  s7: *id163
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c16
+  s7: *id161
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c21
+  s7: *id130
+  reasons:
+  - clause changed
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c16
+  s7: *id161
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c18
+  s7: *id082
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c16
+  s7: *id161
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c18
+  s7: *id082
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.12.1-c05
+  s7: *id164
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-0-c10
+  s7: *id160
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c21
+  s7: *id130
+  reasons:
+  - clause changed
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c16
+  s7: *id161
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-3-c01
+  s7: *id163
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c06
+  s7: *id081
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c77
+  s7: *id108
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c14
+  s7: *id100
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c09
+  s7: *id099
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c15
+  s7: *id165
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c06
+  s7: *id081
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.12.1-c06
+  s7: *id166
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c16
+  s7: *id167
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.12.1-c06
+  s7: *id166
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c16
+  s7: *id167
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.2-c07
+  s7: *id053
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.2-c07
+  s7: *id053
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.3-c05
+  s7: &id195
+  - S7-2.1.3-c05
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.2-c16
+  s7: *id093
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c84
+  s7: *id114
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.15.8-c01
+  s7: *id050
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.16.2-c01
+  s7: *id087
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c21
+  s7: *id130
+  reasons:
+  - clause changed
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c83
+  s7: *id116
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c17
+  s7: *id002
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c06
+  s7: *id081
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c16
+  s7: *id161
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c21
+  s7: *id130
+  reasons:
+  - clause changed
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.2-c16
+  s7: *id161
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.4-c32
+  s7: *id168
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c77
+  s7: *id108
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.8-c20
+  s7: *id119
+  reasons:
+  - sub-section touched
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.2.1-c18
+  s7: *id169
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c02
+  s7: *id027
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.16.2-c01
+  s7: *id087
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c08
+  s7: *id088
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c84
+  s7: *id114
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c17
+  s7: *id002
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.11.2-c02
+  s7: *id152
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.5.18-c04
+  s7: *id144
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c09
+  s7: *id099
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.6-c09
+  s7: *id099
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/release-phasing.yaml
+  s1: S1-2.1.7-c84
+  s7: *id114
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-01.md
+  s1: S1-2.12.1-c01
+  s7: *id155
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-01.md
+  s1: S1-2.2.4-c32
+  s7: *id168
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-01.md
+  s1: S1-0-c01
+  s7: &id173
+  - S7-0-c01
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-01.md
+  s1: S1-0-c02
+  s7: *id170
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-01.md
+  s1: S1-2.2.4-c01
+  s7: *id171
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-01.md
+  s1: S1-2.2.4-c14
+  s7: *id172
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-01.md
+  s1: S1-2.12.1-c01
+  s7: *id155
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-01.md
+  s1: S1-2.2.4-c32
+  s7: *id168
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-01.md
+  s1: S1-0-c01
+  s7: *id173
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-01.md
+  s1: S1-0-c02
+  s7: *id170
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-01.md
+  s1: S1-2.2.4-c01
+  s7: *id171
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-01.md
+  s1: S1-2.2.4-c14
+  s7: *id172
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-2.11.7-c01
+  s7: *id174
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-2.11.7-c05
+  s7: *id175
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-0-c03
+  s7: *id176
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-0-c05
+  s7: &id178
+  - S7-0-c05
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-0-c06
+  s7: &id179
+  - S7-0-c06
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-2.11-c01
+  s7: *id149
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-2.1.4-c01
+  s7: *id094
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-2.2.10-c04
+  s7: *id177
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-2.11.7-c01
+  s7: *id174
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-2.11.7-c05
+  s7: *id175
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-0-c03
+  s7: *id176
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-0-c05
+  s7: *id178
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-0-c06
+  s7: *id179
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-2.11-c01
+  s7: *id149
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-2.1.4-c01
+  s7: *id094
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-2.2.10-c04
+  s7: *id177
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-2.2.4-c32
+  s7: *id168
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-2.11.7-c01
+  s7: *id174
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-2.2.4-c32
+  s7: *id168
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-2.2.10-c04
+  s7: *id177
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-2.11.7-c01
+  s7: *id174
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-02.md
+  s1: S1-2.11.7-c05
+  s7: *id175
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.11-c02
+  s7: &id185
+  - S7-2.2.11-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.6-c10
+  s7: *id180
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.6-c14
+  s7: *id181
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.6-c01
+  s7: *id131
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.6-c10
+  s7: *id180
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.8-c01
+  s7: *id182
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.1.2-c16
+  s7: *id093
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.1.2-c17
+  s7: *id041
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.5-c01
+  s7: *id183
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.7-c01
+  s7: &id186
+  - S7-2.2.7-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.7-c11
+  s7: &id187
+  - S7-2.2.7-c11
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.7-c12
+  s7: *id184
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.11-c02
+  s7: *id185
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.7-c01
+  s7: *id186
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.7-c11
+  s7: *id187
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.6-c10
+  s7: *id180
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.6-c14
+  s7: *id181
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.6-c01
+  s7: *id131
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.8-c01
+  s7: *id182
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.1.2-c16
+  s7: *id093
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.1.2-c17
+  s7: *id041
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.5-c01
+  s7: *id183
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-03.md
+  s1: S1-2.2.6-c10
+  s7: *id180
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-04.md
+  s1: S1-2.4.8-c05
+  s7: &id189
+  - S7-2.4.8-c19
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-04.md
+  s1: S1-2.1.10-c29
+  s7: *id070
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-04.md
+  s1: S1-0-c01
+  s7: *id173
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-04.md
+  s1: S1-2.1.10-c28
+  s7: *id188
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-04.md
+  s1: S1-2.1.10-c29
+  s7: *id070
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-04.md
+  s1: S1-2.4.8-c05
+  s7: *id189
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-04.md
+  s1: S1-0-c01
+  s7: *id173
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-04.md
+  s1: S1-2.1.10-c28
+  s7: *id188
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-05.md
+  s1: S1-0-c01
+  s7: *id173
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-05.md
+  s1: S1-0-c01
+  s7: *id173
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-06.md
+  s1: S1-0-c01
+  s7: *id173
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-06.md
+  s1: S1-2.2.7-c01
+  s7: *id186
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-06.md
+  s1: S1-0-c01
+  s7: *id173
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-06.md
+  s1: S1-2.2.7-c01
+  s7: *id186
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-07.md
+  s1: S1-2.1.7-c84
+  s7: *id114
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-07.md
+  s1: S1-2.1.7-c84
+  s7: *id114
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-07.md
+  s1: S1-2.1.7-c01
+  s7: *id190
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-07.md
+  s1: S1-2.1.7-c81
+  s7: *id191
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-07.md
+  s1: S1-2.1.7-c53
+  s7: *id111
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-07.md
+  s1: S1-2.2.9-c01
+  s7: &id192
+  - S7-2.2.9-c01
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-07.md
+  s1: S1-2.1.8-c01
+  s7: *id127
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-07.md
+  s1: S1-2.1.7-c84
+  s7: *id114
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-07.md
+  s1: S1-2.1.7-c01
+  s7: *id190
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-07.md
+  s1: S1-2.1.7-c81
+  s7: *id191
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-07.md
+  s1: S1-2.1.7-c53
+  s7: *id111
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-07.md
+  s1: S1-2.2.9-c01
+  s7: *id192
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-07.md
+  s1: S1-2.1.8-c01
+  s7: *id127
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-08.md
+  s1: S1-2.16.1-c03
+  s7: *id193
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-08.md
+  s1: S1-2.16.1-c04
+  s7: *id020
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-08.md
+  s1: S1-2.1.3-c01
+  s7: *id064
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-08.md
+  s1: S1-0-c01
+  s7: *id173
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-08.md
+  s1: S1-2.1.3-c01
+  s7: *id064
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-08.md
+  s1: S1-2.1.3-c02
+  s7:
+  - S7-2.1.3-c02
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-08.md
+  s1: S1-2.1.3-c03
+  s7: *id194
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-08.md
+  s1: S1-2.1.3-c04
+  s7: *id021
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-08.md
+  s1: S1-2.1.3-c05
+  s7: *id195
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-08.md
+  s1: S1-2.16.1-c03
+  s7: *id193
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-08.md
+  s1: S1-2.16.1-c04
+  s7: *id020
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-08.md
+  s1: S1-0-c01
+  s7: *id173
+  reasons:
+  - sub-section touched
+- file: docs/requirements/objectives/BO-08.md
+  s1: S1-2.1.3-c01
+  s7: *id064
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-08.md
+  s1: S1-2.1.3-c05
+  s7: *id195
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-08.md
+  s1: S1-2.16.1-c03
+  s7: *id193
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/requirements/objectives/BO-08.md
+  s1: S1-2.1.7-c84
+  s7: *id114
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-007.md
+  s1: S1-2.2.6-c10
+  s7: *id180
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-007.md
+  s1: S1-2.2.6-c14
+  s7: *id181
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-007.md
+  s1: S1-2.2.6-c10
+  s7: *id180
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-007.md
+  s1: S1-2.2.6-c14
+  s7: *id181
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-009.md
+  s1: S1-2.1.2-c17
+  s7: *id041
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-009.md
+  s1: S1-2.12.3-c04
+  s7: &id196
+  - S7-2.12.3-c04
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-009.md
+  s1: S1-2.12.5-c03
+  s7: &id197
+  - S7-2.12.5-c03
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-009.md
+  s1: S1-2.1.2-c16
+  s7: *id093
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-009.md
+  s1: S1-2.1.2-c17
+  s7: *id041
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-009.md
+  s1: S1-2.12.3-c04
+  s7: *id196
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-009.md
+  s1: S1-2.12.5-c03
+  s7: *id197
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-009.md
+  s1: S1-2.1.2-c16
+  s7: *id093
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-009.md
+  s1: S1-2.1.2-c16
+  s7: *id093
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-011.md
+  s1: S1-2.2.6-c21
+  s7: *id198
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-011.md
+  s1: S1-2.2.6-c21
+  s7: *id198
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-011.md
+  s1: S1-2.2.6-c21
+  s7: *id198
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-012.md
+  s1: S1-2.12.3-c06
+  s7: *id092
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-012.md
+  s1: S1-2.12.1-c07
+  s7: &id199
+  - S7-2.12.1-c07
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-012.md
+  s1: S1-2.12.3-c06
+  s7: *id092
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-012.md
+  s1: S1-2.12.1-c07
+  s7: *id199
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-013.md
+  s1: S1-2.2.6-c12
+  s7: &id201
+  - S7-2.2.6-c12
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-013.md
+  s1: S1-2.2.6-c16
+  s7: *id200
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-013.md
+  s1: S1-2.2.8-c30
+  s7: *id047
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-013.md
+  s1: S1-2.2.6-c12
+  s7: *id201
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-013.md
+  s1: S1-2.2.8-c30
+  s7: *id047
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-014.md
+  s1: S1-2.2.1-c05
+  s7: *id023
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-014.md
+  s1: S1-2.2.2-c08
+  s7: *id202
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-014.md
+  s1: S1-2.2.1-c05
+  s7: *id023
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-014.md
+  s1: S1-2.2.2-c08
+  s7: *id202
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-015.md
+  s1: S1-2.4.1-c06
+  s7: *id136
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-015.md
+  s1: S1-2.1.10-c18
+  s7: *id203
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-015.md
+  s1: S1-2.4.1-c09
+  s7: *id137
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-015.md
+  s1: S1-2.4.1-c06
+  s7: *id136
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-015.md
+  s1: S1-2.1.10-c18
+  s7: *id203
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-015.md
+  s1: S1-2.4.1-c09
+  s7: *id137
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-016.md
+  s1: S1-2.4.6-c03
+  s7: &id204
+  - S7-2.4.6-c03
+  reasons:
+  - sub-section touched
+- file: docs/governance/questions/Q-016.md
+  s1: S1-2.4.1-c05
+  s7: *id009
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-016.md
+  s1: S1-2.4.6-c03
+  s7: *id204
+  reasons:
+  - sub-section touched
+- file: docs/governance/questions/Q-016.md
+  s1: S1-2.4.1-c05
+  s7: *id009
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-017.md
+  s1: S1-2.4.6-c02
+  s7: &id205
+  - S7-2.4.6-c02
+  reasons:
+  - sub-section touched
+- file: docs/governance/questions/Q-017.md
+  s1: S1-2.2.6-c17
+  s7: &id206
+  - S7-2.2.6-c17
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-017.md
+  s1: S1-2.4.6-c02
+  s7: *id205
+  reasons:
+  - sub-section touched
+- file: docs/governance/questions/Q-017.md
+  s1: S1-2.2.6-c17
+  s7: *id206
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-018.md
+  s1: S1-2.4.8-c02
+  s7: &id207
+  - S7-2.4.8-c16
+  reasons:
+  - sub-section touched
+- file: docs/governance/questions/Q-018.md
+  s1: S1-2.4.1-c01
+  s7: *id005
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-018.md
+  s1: S1-2.4.8-c02
+  s7: *id207
+  reasons:
+  - sub-section touched
+- file: docs/governance/questions/Q-018.md
+  s1: S1-2.4.1-c01
+  s7: *id005
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-020.md
+  s1: S1-2.11.4-c05
+  s7: *id001
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-020.md
+  s1: S1-2.1.4-c08
+  s7: *id080
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-020.md
+  s1: S1-2.2.6-c28
+  s7: *id208
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-020.md
+  s1: S1-2.12.3-c07
+  s7: *id061
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-020.md
+  s1: S1-2.11.4-c05
+  s7: *id001
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-021.md
+  s1: S1-2.4.3-c09
+  s7: *id010
+  reasons:
+  - sub-section touched
+- file: docs/governance/questions/Q-021.md
+  s1: S1-2.4.3-c09
+  s7: *id010
+  reasons:
+  - sub-section touched
+- file: docs/governance/questions/Q-022.md
+  s1: S1-2.1.6-c14
+  s7: *id100
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-022.md
+  s1: S1-2.1.6-c04
+  s7: *id209
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-022.md
+  s1: S1-2.1.6-c09
+  s7: *id099
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-022.md
+  s1: S1-2.1.6-c14
+  s7: *id100
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-022.md
+  s1: S1-2.1.6-c04
+  s7: *id209
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-023.md
+  s1: S1-0-c32
+  s7: *id025
+  reasons:
+  - sub-section touched
+- file: docs/governance/questions/Q-023.md
+  s1: S1-2.1.3-c03
+  s7: *id194
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-023.md
+  s1: S1-2.1.3-c04
+  s7: *id021
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-023.md
+  s1: S1-2.1.7-c11
+  s7: *id105
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-023.md
+  s1: S1-2.1.7-c29
+  s7: *id113
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-023.md
+  s1: S1-2.1.7-c31
+  s7: *id067
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-023.md
+  s1: S1-2.1.7-c83
+  s7: *id116
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-023.md
+  s1: S1-2.1.8-c57
+  s7: *id126
+  reasons:
+  - sub-section touched
+- file: docs/governance/questions/Q-023.md
+  s1: S1-2.2.9-c39
+  s7: *id210
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-023.md
+  s1: S1-2.11.4-c07
+  s7: *id211
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-023.md
+  s1: S1-2.16.1-c06
+  s7: *id212
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-023.md
+  s1: S1-2.1.3-c03
+  s7: *id194
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-023.md
+  s1: S1-2.1.3-c04
+  s7: *id021
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-023.md
+  s1: S1-2.16.1-c06
+  s7: *id212
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-024.md
+  s1: S1-2.16.1-c05
+  s7: *id213
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-024.md
+  s1: S1-2.16.1-c05
+  s7: *id213
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-025.md
+  s1: S1-2.11.4-c05
+  s7: *id001
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-025.md
+  s1: S1-2.11.4-c06
+  s7: &id214
+  - S7-2.11.4-c07
+  reasons:
+  - clause changed
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-025.md
+  s1: S1-2.11.4-c05
+  s7: *id001
+  reasons:
+  - clause successor
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-025.md
+  s1: S1-2.11.4-c06
+  s7: *id214
+  reasons:
+  - clause changed
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-026.md
+  s1: S1-2.1.2-c27
+  s7: *id215
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-026.md
+  s1: S1-2.11.6-c01
+  s7: *id036
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-026.md
+  s1: S1-2.1.2-c27
+  s7: *id215
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-026.md
+  s1: S1-2.11.6-c01
+  s7: *id036
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-027.md
+  s1: S1-2.2.2-c13
+  s7: *id216
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-027.md
+  s1: S1-2.12.3-c01
+  s7: *id055
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-027.md
+  s1: S1-2.1.7-c46
+  s7: *id217
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-027.md
+  s1: S1-2.2.10-c03
+  s7: *id158
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-027.md
+  s1: S1-2.2.2-c13
+  s7: *id216
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-027.md
+  s1: S1-2.12.3-c01
+  s7: *id055
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-027.md
+  s1: S1-2.1.7-c46
+  s7: *id217
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-027.md
+  s1: S1-2.2.10-c03
+  s7: *id158
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-028.md
+  s1: S1-2.1.3-c04
+  s7: *id021
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-028.md
+  s1: S1-2.1.3-c04
+  s7: *id021
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-029.md
+  s1: S1-2.2.1-c06
+  s7: *id081
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-029.md
+  s1: S1-2.2.1-c21
+  s7: *id130
+  reasons:
+  - clause changed
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-029.md
+  s1: S1-2.2.2-c12
+  s7: *id129
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-029.md
+  s1: S1-2.2.2-c16
+  s7: *id161
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-029.md
+  s1: S1-2.2.2-c18
+  s7: *id082
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-029.md
+  s1: S1-2.1.6-c15
+  s7: *id165
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-029.md
+  s1: S1-2.12.1-c06
+  s7: *id166
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-029.md
+  s1: S1-2.2.1-c06
+  s7: *id081
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-029.md
+  s1: S1-2.2.2-c12
+  s7: *id129
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-029.md
+  s1: S1-2.2.2-c16
+  s7: *id161
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-029.md
+  s1: S1-2.2.1-c21
+  s7: *id130
+  reasons:
+  - clause changed
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-029.md
+  s1: S1-2.2.2-c16
+  s7: *id161
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-029.md
+  s1: S1-2.2.2-c18
+  s7: *id082
+  reasons:
+  - sub-section touched
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-029.md
+  s1: S1-2.1.6-c14
+  s7: *id100
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-029.md
+  s1: S1-2.1.6-c15
+  s7: *id165
+  reasons:
+  - sub-section cited by a new or changed clause
+- file: docs/governance/questions/Q-029.md
+  s1: S1-2.12.1-c06
+  s7: *id166
+  reasons:
+  - sub-section cited by a new or changed clause
