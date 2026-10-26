@@ -35,16 +35,17 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
 - **New baseline (2026-10-26).** The governance owner named specification V2.2 the requirements
   baseline. It is registered as SRC-007, and Rifaz's business information pack v1.1 (Annexure B:
   delivered chart of accounts, volumes, invoice templates) as SRC-008 (commit ab1cc70). DEC-0008
-  records the change and awaits the product owner (AREQ-01M5VHGTT7P71G67JK61CE1S2J). The real bank
-  statements and supplier invoices received with them stay outside git.
+  is Approved (APR-01M5VK9AVJG6XW56VT8H69JANM, product owner, E1-op; re-confirmed at Stage 1).
+  DEC-0009 is Approved (APR-01M5VK73TV6T342BZ3926JZ8FD): SRC-007 clauses are S7 IDs, and a clause
+  link missing from an existing index is an error. The real bank statements and supplier invoices
+  received with them stay outside git.
 - **Countries (Q-003 v2):** "All countries defined in the template": Sri Lanka, EU and UK, GCC, India,
   US. Open: Norway (no template), first-release countries, and a tax specialist for the added
   countries.
 - **Blockers:** the V1-based L1 work must be re-based on SRC-007 before it goes to anyone.
 - **In progress:** WF-01M5VHRCEQP734DHRKE29J5YET, re-base on SRC-007.
-  - Step 1: review of the S7 clause-ID change (conventions v2, checker, tests); a DEC for the
-    governance owner follows the review.
-  - Step 2: the requirements agent builds the SRC-007 clause index.
+  - Step 1, done: the S7 clause-ID change, reviewed, re-reviewed and approved (DEC-0009).
+  - Step 2, running: the requirements agent builds the SRC-007 clause index.
   - Then: crosswalk and impact report from SRC-001 to SRC-007, assurance review, and re-based
     objectives, workbook, phasing, questions, brief and pack.
 - **Done on V1:** WF-01M5D0SE8MMS39CTPTXH8ME1HT, L1 discovery, steps 1 to 8.
@@ -53,7 +54,6 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   - Proposed, reviewed twice and revised: business objectives BO-01 to BO-08, actors, a glossary and the
     release phasing (v3).
   - Questions Q-001 to Q-031 are open for their owners.
-- **Waiting on people:** the product owner on DEC-0008.
 - **Withdrawn:** GOV-BRIEF-R1-SCOPE and GOV-QPACK-L1 (Deferred; written against V1). V2.2's control
   enforcement levels change what Q-029 decides.
 - **Next:**

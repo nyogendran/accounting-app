@@ -7,9 +7,10 @@ sources:
     title: TIQACC Cloud Accounting and Financial Management System, Requirement Specification V1
     kind: buyer-specification
     authority: >-
-      Authoritative input, not an approved baseline. The section 3 sign-off (Finance Manager,
-      Internal Audit, Managing Director) is unsigned; Annexures A and B are absent; about 180
-      bracketed values are unconfirmed.
+      Superseded as the requirements baseline by SRC-007 (DEC-0008, approved 2026-10-26). Kept as the
+      source of work not yet re-based. The section 3 sign-off (Finance Manager, Internal Audit,
+      Managing Director) is unsigned; Annexures A and B are absent; about 180 bracketed values are
+      unconfirmed.
     registered: 2026-10-20
     files:
       - path: requirement-doc/TIQACC-Cloud-Accounting-Requirement - V1.pdf
@@ -96,9 +97,9 @@ sources:
     title: TIQACC Cloud Accounting and Financial Management System, Requirement Specification V2.2
     kind: buyer-specification
     authority: >-
-      Authoritative input. The governance owner named it the new requirements baseline in place of
-      SRC-001 on 2026-10-26; that is recorded as DEC-0008 for the product owner's approval, and until
-      DEC-0008 is approved SRC-007 is not an approved baseline. The section 3 sign-off is unsigned and
+      The requirements baseline in place of SRC-001: DEC-0008, approved by the product owner on
+      2026-10-26 (APR-01M5VK9AVJG6XW56VT8H69JANM, operator-attested, to be re-confirmed at Stage 1).
+      It is accepted for analysis and build; the section 3 sign-off is unsigned and
       the document carries no version number of its own; "V2.2" is the version the governance owner
       gave. Annexure A is absent; Annexure B is supplied as SRC-008.
     registered: 2026-10-26

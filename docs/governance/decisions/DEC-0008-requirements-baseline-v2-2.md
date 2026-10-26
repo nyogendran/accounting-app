@@ -2,7 +2,7 @@
 id: DEC-0008
 type: decision
 title: Specification V2.2 (SRC-007) replaces V1 (SRC-001) as the requirements baseline
-status: Proposed
+status: Approved
 version: 1
 owner: orchestrator
 tier: 2

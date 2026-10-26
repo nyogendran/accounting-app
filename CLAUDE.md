@@ -1,8 +1,10 @@
 # TIQACC: rules for people and AI agents
 
-TIQACC is a cloud accounting and financial management system. Its source specification is
-`requirement-doc/TIQACC-Cloud-Accounting-Requirement - V1.pdf` (SRC-001). It is unsigned, so it is
-an authoritative input, not an approved baseline. The framework design is
+TIQACC is a cloud accounting and financial management system. Its requirements baseline is the
+specification V2.2, `requirement-doc/TIQACC-Cloud-Accounting-Requirement - V2.2.pdf` (SRC-007,
+DEC-0008), with Finance's business information pack v1.1 (SRC-008) as a supporting input that the
+specification overrides. Its section 3 sign-off is unsigned. V1 (SRC-001) is the superseded baseline;
+work built on it is being re-based on SRC-007 and cites S1 clauses until then. The framework design is
 `docs/sources/SRC-005-framework-review/framework-review-2026-10-20.md` (DEC-0001).
 
 @docs/governance/project-state.md
