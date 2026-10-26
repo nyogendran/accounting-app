@@ -2,14 +2,19 @@
 id: GOV-BRIEF-R1-SCOPE
 type: governance
 title: "Decision brief: release-1 scope and the payroll and fixed-asset route (Q-029)"
-status: Proposed
+status: Deferred
 version: 1
 owner: orchestrator
 links:
-  related: [Q-002, Q-029, Q-022, Q-006, BO-01, REV-01M5EP1W4DYPM707EB79AYEYV1, REV-01M5EQY9R7BC1SY2XDY6S9YA52]
+  related: [DEC-0008, Q-002, Q-029, Q-022, Q-006, BO-01, REV-01M5EP1W4DYPM707EB79AYEYV1, REV-01M5EQY9R7BC1SY2XDY6S9YA52]
 ---
 
 # Decision brief: what goes into release 1
+
+> **Withdrawn; do not send (2026-10-26).** This brief was written against specification V1. The
+> requirements baseline is now V2.2 (DEC-0008). V2.2 sets the control-account block per entity
+> (Not applied, Advisory or Enforced), which changes what Q-029 has to decide. A revised brief will
+> follow the impact analysis.
 
 **For:** Shifan Cader, product owner. **With:** Rifaz Hajirin, qualified accountant. **Prepared:**
 2026-10-26 by the orchestrator. **Based on:** the release phasing

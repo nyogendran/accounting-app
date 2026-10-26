@@ -1,0 +1,20 @@
+{
+  "id": "AREQ-01M5VHGTT7P71G67JK61CE1S2J",
+  "type": "approval-request",
+  "created_at": "2026-10-26T07:24:11.463601Z",
+  "created_by": "orchestrator",
+  "required_role": "product-owner",
+  "tier": 2,
+  "subjects": [
+    {
+      "id": "DEC-0008",
+      "version": 1,
+      "hash": "sha256:c88a6cfb0e4797c8a2188da4f63aa6edb3fda0d04b745f27f020e9e5e500186e"
+    }
+  ],
+  "combined": "sha256:10ed5f1f60631383ca1b3dcb35f29acb31dea605ae4e3f74068a88e896d412c8",
+  "phrase_code": "10ed5f1f6063",
+  "provenance_commit": "ab1cc70583a12c666058c628f6770937c3da0944",
+  "brief": null,
+  "note": ""
+}

@@ -2,14 +2,18 @@
 id: GOV-QPACK-L1
 type: governance
 title: "Question pack: open discovery questions for Shifan Cader and Rifaz Hajirin"
-status: Proposed
+status: Deferred
 version: 1
 owner: orchestrator
 links:
-  related: [Q-001, Q-002, Q-003, Q-004, Q-005, Q-006, Q-007, Q-008, Q-009, Q-010, Q-011, Q-012, Q-013, Q-014, Q-015, Q-016, Q-017, Q-018, Q-019, Q-020, Q-021, Q-022, Q-023, Q-024, Q-025, Q-026, Q-027, Q-028, Q-029, Q-030, Q-031, GOV-BRIEF-R1-SCOPE]
+  related: [DEC-0008, Q-001, Q-002, Q-003, Q-004, Q-005, Q-006, Q-007, Q-008, Q-009, Q-010, Q-011, Q-012, Q-013, Q-014, Q-015, Q-016, Q-017, Q-018, Q-019, Q-020, Q-021, Q-022, Q-023, Q-024, Q-025, Q-026, Q-027, Q-028, Q-029, Q-030, Q-031, GOV-BRIEF-R1-SCOPE]
 ---
 
 # Question pack: open discovery questions
+
+> **Withdrawn; do not send (2026-10-26).** This pack was written against specification V1. The
+> requirements baseline is now V2.2 (DEC-0008), which answers some of these questions and changes
+> others. A revised pack will follow the impact analysis.
 
 **For:**
 
