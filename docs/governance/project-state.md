@@ -43,8 +43,12 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
 - **Waiting on people:**
   - The product owner's decision on the release-1 scope. Q-029 decides it.
   - Answers to Q-007 to Q-031 from the product owner, the qualified accountant and the tax specialist.
+- **Prepared for people (2026-10-26):** GOV-BRIEF-R1-SCOPE, the decision brief on release-1 scope
+  and Q-029 for the product owner; GOV-QPACK-L1, the open questions Q-001 to Q-031 and the phasing's
+  scope points, grouped for the product owner, the tax specialist, the qualified accountant and the
+  governance owner.
 - **Next:**
-  1. A decision brief for the product owner on release-1 scope and Q-029.
+  1. Record the answers as they arrive; the product owner's choice on Q-029 becomes a decision (DEC).
   2. F1, knowledge base.
   3. F2, once the GitHub details arrive. Shifan's and Rifaz's approvals need F2 to carry their own
      identity.
