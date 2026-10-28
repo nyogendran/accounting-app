@@ -53,10 +53,15 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   - Q-038 v3: release 1 is one entity, 125 named users, 50 at peak and 200,000 journal lines a month,
     per tenant.
   - Q-040 v2: decimal places from each currency's configuration. Q-054: Azure, with Azure SQL Database.
-  - Q-056 v2: an owner or tenant administrator provisions tenants and onboards clients (reading open).
-    Q-057 v2: the tenant administrator may raise a capacity figure.
-- **Foundation scope:** GOV-SCOPE-INCR-001 v3 (WF-01M61MRRKX52P8XHG3NZXSPCZH), reviewed twice;
-  third review running. Eight questions block parts of it (Q-007, Q-013, Q-014, Q-031, Q-034, Q-055,
+  - Q-054 v2: the application stack is React (frontend) and .NET (backend), latest stable, with a
+    highly intuitive UI; pins and the rest go to the stack ADR.
+  - Q-056 v3: an owner or tenant administrator provisions tenants and onboards clients (reading open).
+    Q-057 v3: a tenant-level administrator role may raise a capacity figure; who raises an upper bound
+    above it, and whether one is enforced, is open.
+- **PDF check:** poppler is installed (pdftoppm 25.07.0). SRC-007 pp.37, 38, 40-42 and 133-136 were
+  checked on the rendered PDF on 2026-10-28; the quotes behind Q-055 and Q-057 match.
+- **Foundation scope:** GOV-SCOPE-INCR-001 v4 (WF-01M61MRRKX52P8XHG3NZXSPCZH), reviewed four times;
+  the last two found no blocking issue. v5 takes in Q-056 v3, Q-057 v3 and NF10 to NF12. Eight questions block parts of it (Q-007, Q-013, Q-014, Q-031, Q-034, Q-055,
   Q-056, Q-057). It is Tier 1, so the product owner's approval needs F2.
 - **DEC-0010: Approved** (APR-01M61ME5F96WP1KB4TVNBAH65X, governance owner, E1-op, 2026-10-28;
   re-confirmed at Stage 1). Gates A and B per increment, with a foundation increment (tenants, users
@@ -83,7 +88,8 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   owner, the qualified accountant and the governance owner.
 - **Waiting on people:** answers to Q-032, Q-033, Q-034, Q-047, then Q-029 and the rest of the pack.
 - **Next:**
-  1. The foundation increment's scope (DEC-0010), for review and the product owner's approval. Still needed from the governance owner: the application stack.
+  1. The foundation increment's scope (DEC-0010), v5, then the decision brief for the product owner
+     and the qualified accountant. The stack ADR (Q-054 v2) for INCR-001 Gate B.
   2. Record answers as they arrive; finish the re-base.
   3. F1, knowledge base.
   4. F2, once the GitHub details arrive; needed before any Tier-1 approval or merge. Shifan's and Rifaz's approvals need F2 to carry their own
