@@ -31,9 +31,12 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
 - **Open decisions:**
   - G3, platforms: GitHub, with work items in GitHub Projects. Repository
     https://github.com/nyogendran/accounting-app.git (private); the governance owner approved the F2
-    set-up on 2026-10-28. Pushes are made by a person (the guard blocks agent pushes). Still needed
-    for F2: the GitHub plan (branch protection and code owners on a private repository), a bot
-    identity for agents, Shifan's and Rifaz's GitHub accounts, and the gh CLI. Chat is not chosen.
+    set-up on 2026-10-28, then put the GitHub plan on hold the same day. Pushes are made by a person
+    (the guard blocks agent pushes). F2 is on hold: it needs the GitHub plan (branch protection and
+    code owners on a private repository), a bot identity for agents, Shifan's and Rifaz's GitHub
+    accounts, and the gh CLI. While it is on hold, no Tier-1 approval can be given, so the foundation
+    scope cannot be approved and its requirements cannot be written (DEC-0010 condition 1). Chat is not
+    chosen.
   - G5, data boundary: deferred (DEC-0004).
 - **New baseline (2026-10-26).** The governance owner named specification V2.2 the requirements
   baseline. It is registered as SRC-007, and Rifaz's business information pack v1.1 (Annexure B:
@@ -56,8 +59,8 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   - Q-054 v2: the application stack is React (frontend) and .NET (backend), latest stable, with a
     highly intuitive UI; pins and the rest go to the stack ADR.
   - Q-056 v3: an owner or tenant administrator provisions tenants and onboards clients (reading open).
-    Q-057 v3: a tenant-level administrator role may raise a capacity figure; who raises an upper bound
-    above it, and whether one is enforced, is open.
+    Q-057 v4: a tenant-level administrator role may raise a capacity figure; above it, the upper bound
+    is Tiqri's load-tested ceiling, with a warning, not a refusal.
 - **PDF check:** poppler is installed (pdftoppm 25.07.0). SRC-007 pp.37, 38, 40-42 and 133-136 were
   checked on the rendered PDF on 2026-10-28; the quotes behind Q-055 and Q-057 match.
 - **Foundation scope:** GOV-SCOPE-INCR-001 v6 (WF-01M61MRRKX52P8XHG3NZXSPCZH), reviewed six times;
@@ -90,7 +93,9 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   owner, the qualified accountant and the governance owner.
 - **Waiting on people:** answers to Q-032, Q-033, Q-034, Q-047, then Q-029 and the rest of the pack.
 - **Next:**
-  1. Send GOV-BRIEF-INCR001-SCOPE to Shifan and Rifaz (governance owner); record their answers. The
+  1. Send GOV-BRIEF-INCR001-SCOPE to Shifan and Rifaz (governance owner; published as a private page,
+     https://claude.ai/artifact/YAheZfri2EAcTiYBaRN94e, to be shared by the governance owner); record
+     their answers. The
      approval request follows F2. Then the stack ADR (Q-054 v2) for INCR-001 Gate B.
   2. Record answers as they arrive; finish the re-base.
   3. F1, knowledge base.
