@@ -50,9 +50,10 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   - Q-038 v3: release 1 is one entity, 125 named users, 50 at peak and 200,000 journal lines a month,
     per tenant.
   - Q-040 v2: decimal places from each currency's configuration. Q-054: Azure, with Azure SQL Database.
-- **Proposed:** DEC-0010, Gates A and B per increment, with a foundation increment (tenants, users and
-  roles, audit log, journals, periods, numbering, chart and control levels, currencies) before
-  release-1 scope is settled. All of it is Tier 1, so its approvals and merges need F2.
+- **DEC-0010: Approved** (APR-01M61ME5F96WP1KB4TVNBAH65X, governance owner, E1-op, 2026-10-28;
+  re-confirmed at Stage 1). Gates A and B per increment, with a foundation increment (tenants, users
+  and roles, audit log, journals, periods, numbering, chart and control levels, currencies) before
+  release-1 scope is settled. The increment's content is Tier 1, so its approvals and merges need F2.
 - **Blockers:** the V1-based L1 work must be re-based on SRC-007 before it goes to anyone.
 - **In progress:** WF-01M5VHRCEQP734DHRKE29J5YET, re-base on SRC-007 (option A, governance owner,
   2026-10-26: questions first, the rest of the re-base while they are answered).
@@ -74,8 +75,7 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   owner, the qualified accountant and the governance owner.
 - **Waiting on people:** answers to Q-032, Q-033, Q-034, Q-047, then Q-029 and the rest of the pack.
 - **Next:**
-  1. DEC-0010 approval; then the foundation increment's scope, for review and the product owner's
-     approval. Still needed from the governance owner: the application stack.
+  1. The foundation increment's scope (DEC-0010), for review and the product owner's approval. Still needed from the governance owner: the application stack.
   2. Record answers as they arrive; finish the re-base.
   3. F1, knowledge base.
   4. F2, once the GitHub details arrive; needed before any Tier-1 approval or merge. Shifan's and Rifaz's approvals need F2 to carry their own

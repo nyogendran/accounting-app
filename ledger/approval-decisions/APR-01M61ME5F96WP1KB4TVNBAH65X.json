@@ -1,0 +1,28 @@
+{
+  "id": "APR-01M61ME5F96WP1KB4TVNBAH65X",
+  "type": "approval-decision",
+  "request": "AREQ-01M61M0B3JH7NJT27A5H0W7BJ8",
+  "decision": "approve",
+  "subjects": [
+    {
+      "id": "DEC-0010",
+      "version": 1,
+      "hash": "sha256:b88c78e379a4d99c54b729c5b082f999bac8989f53f88852eae0c80ed1758617"
+    }
+  ],
+  "combined": "sha256:42692486534f2b03b6edc17dea586c0f0e18e3fd9fd6f6a168570f214e95d547",
+  "stale": false,
+  "by": {
+    "role": "governance-owner",
+    "identity": "local:ynr / git:yogendran"
+  },
+  "channel": "stage0-session",
+  "level": "E1-op",
+  "attestation": {
+    "hook": "capture-approval",
+    "session_id": "4fd1b660-04ac-470e-9b6f-a1940fa8e0a0",
+    "prompt_sha256": "a50133e06d833e127584302d4757ace8078cc9666b5c44a4ce23e7b3a18a3683"
+  },
+  "recorded_at": "2026-10-28T16:10:36.393963Z",
+  "comment": null
+}

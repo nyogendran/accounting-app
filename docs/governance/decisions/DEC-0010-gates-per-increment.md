@@ -2,7 +2,7 @@
 id: DEC-0010
 type: decision
 title: Gates A and B per increment, and a foundation increment before release-1 scope is settled
-status: Proposed
+status: Approved
 version: 1
 owner: orchestrator
 tier: 3
