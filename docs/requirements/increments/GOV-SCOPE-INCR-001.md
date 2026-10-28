@@ -3,13 +3,13 @@ id: GOV-SCOPE-INCR-001
 type: governance
 title: "Scope proposal for the foundation increment (INCR-001)"
 status: Proposed
-version: 4
+version: 5
 owner: requirements-engineer
 tier: 1
-revised_after_review: [REV-01M61MRRKX52P8XHG3NZXSPCZJ, REV-01M61PXHZBS8N3YVQX2XDJHHWH, REV-01M61QHQX58WSCVFQMT2EPXSRD]
+revised_after_review: [REV-01M61MRRKX52P8XHG3NZXSPCZJ, REV-01M61PXHZBS8N3YVQX2XDJHHWH, REV-01M61QHQX58WSCVFQMT2EPXSRD, REV-01M61R5FTD3DD5RK7G0TH7G0NS]
 links:
   governed_by: [DEC-0010]
-  related: [DEC-0007, DEC-0008, GOV-IMPACT-SRC007, GOV-BRIEF-R1-SCOPE, GOV-QPACK-L1, REV-01M61MRRKX52P8XHG3NZXSPCZJ, REV-01M61PXHZBS8N3YVQX2XDJHHWH, REV-01M61QHQX58WSCVFQMT2EPXSRD, S7-2.16.1-c29,
+  related: [DEC-0007, DEC-0008, GOV-IMPACT-SRC007, GOV-BRIEF-R1-SCOPE, GOV-QPACK-L1, REV-01M61MRRKX52P8XHG3NZXSPCZJ, REV-01M61PXHZBS8N3YVQX2XDJHHWH, REV-01M61QHQX58WSCVFQMT2EPXSRD, REV-01M61R5FTD3DD5RK7G0TH7G0NS, S7-2.16.1-c29, S7-2.16.1-c35, S7-2.16.1-c38,
     Q-055, Q-056, Q-057,
     S7-2.2.4-c37, S7-2.2.4-c38, S7-2.2.4-c39, S7-2.2.4-c40, S7-2.2.4-c41, S7-2.2.4-c42, S7-2.2.4-c43, S7-2.2.4-c49, S7-2.2.4-c50,
     S7-2.2.4-c51, S7-2.2.4-c52, S7-2.2.4-c53, S7-2.2.4-c54, S7-2.2.4-c55, S7-2.2.4-c56,
@@ -62,14 +62,14 @@ normative:
     the product owner. It is a proposal. No requirement, story or acceptance criterion is written here.
   basis:
     - "DEC-0010 v1 (Approved), normative.decision and conditions 1 to 5."
-    - "SRC-007 (V2.2) is the baseline (DEC-0008). Clause text was read from the extraction of SRC-007; the PDF is authoritative if the extraction looks garbled."
+    - "SRC-007 (V2.2) is the baseline (DEC-0008). Clause text was read from the extraction of SRC-007; the PDF is authoritative if the extraction looks garbled. The orchestrator checked SRC-007 pp.37, 38, 40 to 42 and 133 to 136 on the rendered PDF on 2026-10-28 and the quoted passages match; every other page cited here was read from the text extraction only."
     - "No in-scope capability posts from a sub-ledger, so none depends on Q-029 (release-1 scope). Each capability states its own independence."
 
   decisions_requested_of_product_owner:
     - id: D-1
       text: "Approve the scope below as proposed, including the narrowings and extensions of DEC-0010's first list (section changes_to_dec0010_list). Each departure from plain V2.2 text is its own item in departures_from_plain_text (DEP-1 to DEP-8) and is confirmed or rejected one by one; approving the scope does not approve a departure unless it is confirmed there by every role named in its owners field (DEC-0010 condition 5). Approving the scope also does not approve EXC-27's test_route_proposal, which belongs to the security owner (Q-056)."
     - id: D-2
-      text: "Confirm that a firm's access to its clients' tenants (EXC-01), the parts of tenant provisioning that Q-056 v2 leaves open (which role provisions, how the first administrator is named, what the provisioning role can reach afterwards; EXC-27) and the parts of capacity behaviour that Q-057 v2 leaves open (warn or refuse at a figure, lowering a figure, a platform ceiling; EXC-29) leave INCR-001 until their owners answer. Confirm the two labelled working assumptions WA-13 and WA-14 that the governance owner's answers of 2026-10-28 support. Testing CAP-01 to CAP-05 depends on the security owner accepting a test route (Q-056)."
+      text: "Confirm that a firm's access to its clients' tenants (EXC-01), the parts of tenant provisioning that Q-056 v2 leaves open (which role provisions, how the first administrator is named, what the provisioning role can reach afterwards; EXC-27) and the parts of capacity behaviour that Q-057 v2 leaves open (warn or refuse at a figure, lowering a figure, a platform ceiling; EXC-29) leave INCR-001 until their owners answer. Confirm the three labelled working assumptions WA-13, WA-14 and WA-15 that the governance owner's answers of 2026-10-28 support. Note for the tech lead (with the product owner): until Q-057 is answered, the holder of the tenant-level administrator role can raise a capacity figure with no upper bound in INCR-001; no bound is built or settled. Testing CAP-01 to CAP-05 depends on the security owner accepting a test route (Q-056)."
     - id: D-3
       text: "Product owner with the qualified accountant (DEC-0010 condition 5): confirm that year-end close and retained-earnings roll-up are not in INCR-001 (EXC-13), and the proposed limit that INCR-001 opens one financial year per entity and shows no balance across a year end (CAP-14, CAP-15). Consequences to confirm: if live books were kept in INCR-001, posting would stop at the entity's first year end until year-end close arrives, so the product owner states whether INCR-001 is meant for production use; and the annual numbering reset and the audit-lock trigger cannot be tested within one year (CAP-13, CAP-14)."
     - id: D-4
@@ -113,16 +113,16 @@ normative:
         - "An entity register holding legal name, registration number, jurisdiction, entity type, functional currency and financial year end. Tax registration numbers and status are left out (EXC-19)."
         - "Every transaction belongs to exactly one entity. Users are assigned to entities and cannot view or post to an entity they are not assigned to, in search results and reports as well as entry screens."
         - "The number of entities, like every capacity figure, is a technical-capacity setting under CAP-06 and is not a licence cap or an enforced limit (S7-2.16.1-c33). What happens at a limit waits on Q-057 (EXC-29). Group structure, ownership and consolidation are excluded (EXC-26)."
-        - "Tenant provisioning (WA-14): a tenant is created, and a client organisation onboarded, only by an action of a named administrative role, recorded in the audit log. No tenant is created by an unattended sign-up."
+        - "Tenant provisioning (WA-14, Q-056 v3): a named administrative role provisions tenants and onboards clients. Whether customers may also sign up themselves is open for the product owner (EXC-27); INCR-001 assumes nothing about it."
         - "Open under Q-056 and held out (EXC-27): which role provisions (a platform-level owner role, a subscribing firm's tenant administrator, or both), how the first administrator of a new tenant is named, and what the provisioning role can reach inside a tenant after creating it. INCR-001 therefore defines no production provisioning route. Test tenants are created by the proposal in EXC-27, which is not a production route."
       clauses: [S7-2.1.1-c01, S7-2.14.1-c08, S7-2.14.2-c01, S7-2.14.2-c14, S7-2.14.2-c15]
       decisions: [DEC-0010]
       relies_on:
         - "working assumption: governance owner's answer of 2026-10-28, pending product owner (Q-031 v3): a tenant is an organisation; a firm keeps the books of client organisations, each its own tenant."
         - "working assumption: governance owner's answer of 2026-10-20, pending product owner (Q-001): TIQACC is Tiqri's own multi-tenant SaaS product."
-        - "working assumption: governance owner's answer of 2026-10-28 (as security owner), pending the product owner (Q-056 v2, WA-14): a named administrative role provisions tenants and onboards clients, and there is no unattended sign-up."
+        - "working assumption: governance owner's answer of 2026-10-28 (as security owner), pending the product owner (Q-056 v3, WA-14): a named administrative role provisions tenants and onboards clients."
         - "working assumption: governance owner's answer of 2026-10-28, pending product owner (Q-038 v3): release 1 is one entity per tenant."
-        - "working assumption: governance owner's answer of 2026-10-28, pending tech lead's stack decision record at Gate B (Q-054): Azure with Azure SQL Database. The scope does not depend on it; the isolation mechanism does (see stack_dependencies)."
+        - "working assumption: governance owner's answer of 2026-10-28, pending tech lead's stack decision record at Gate B (Q-054): Azure with Azure SQL Database. The scope does not depend on it; the isolation mechanism does (see stack_dependencies). Q-054 v2 adds React and .NET, also for the stack ADR."
       independence: "Independent of Q-029: no sub-ledger is involved. The blocking questions touching tenants (Q-031, Q-056, Q-057) are removed by excluding firm access (EXC-01), the open parts of provisioning (EXC-27) and the open parts of behaviour at a limit (EXC-29); this capability rests only on the part of Q-031 both answers state, the tenant being an organisation."
     - id: CAP-02
       title: "Users"
@@ -143,11 +143,11 @@ normative:
         - "A user may hold any number of roles; effective permissions are the union, and an explicit denial overrides a grant. Roles are assigned per entity, effective-dated, with temporary assignment and delegation under the delegate's own login."
         - "A role change takes effect for every user holding it, is effective-dated and is written to the audit log with before and after values."
         - "A screen shows a user's effective permissions and which role grants each, and can be exported."
-        - "No permission in INCR-001 allows a tenant to be created. The provisioning permission, its holder and its scope wait for Q-056 (EXC-27). The tenant's administrator role holds the permission to raise capacity figures (WA-13, CAP-06)."
+        - "No permission in INCR-001 allows a tenant to be created. The provisioning permission, its holder and its scope wait for Q-056 (EXC-27). A tenant-level administrator role holds the permission to raise capacity figures (WA-13, CAP-06). Working assumption (WA-15): the role is defined here only as far as that needs; it is a role at tenant level, not each entity's Administrator of S7-2.1.2-c26. Whether anything else belongs to it, how it relates to the per-entity Administrator role, and whether the permission can be re-assigned to other roles under S7-2.1.2-c02 are open and held with the security owner (Q-056, Q-057)."
       clauses: [S7-2.1.2-c01, S7-2.1.2-c02, S7-2.1.2-c03, S7-2.1.2-c05, S7-2.1.2-c06, S7-2.1.2-c07, S7-2.1.2-c08, S7-2.1.2-c09, S7-2.1.2-c10]
       decisions: [DEC-0010]
       relies_on:
-        - "working assumption: governance owner's answer of 2026-10-28 (as security owner and tech lead), pending the product owner (Q-057 v2, WA-13): the tenant's administrator role may raise capacity figures."
+        - "working assumption: governance owner's answer of 2026-10-28 (as security owner and tech lead), pending the product owner (Q-057 v3, WA-13, WA-15): a tenant-level administrator role holds the permission to raise capacity figures."
       independence: "Independent of Q-029 and of every blocking question. Value limits (S7-2.1.2-c04) and bulk assignment by position (c11) leave with their modules (EXC-24)."
     - id: CAP-04
       title: "Segregation of duties"
@@ -178,11 +178,11 @@ normative:
       title: "Capacity figures as configuration, with a warning"
       includes:
         - "V2.2 says: 'No figure in this section is a licence cap, a tier boundary or a limit the software enforces against the entity that bought it' (SRC-007 p.134, S7-2.16.1-c33), and that the figures are technical capacity, not commercial entitlement (S7-2.16.5-c23). That is V2.2's text, not a settled behaviour of INCR-001: whether the system warns only, or refuses at a figure, is open (Q-057, EXC-29). INCR-001 counts no user or entity against a licence."
-        - "No capacity figure is a constant in the source. Each is a configuration value with a default, an administrator-facing setting and an effective date (S7-2.16.1-c23), set per tenant and per entity. The setting is editable by the tenant's administrator for a raise only, as in WA-13 below."
-        - "Working assumption WA-13: the tenant's own administrator may raise a capacity figure, as S7-2.16.1-c34 reads ('An entity that outgrows a delivered default raises it itself'). The raise is made on the administrator-facing setting of S7-2.16.1-c23, under a permission held by the tenant's administrator role, takes effect without a release, redeployment or restart, and is recorded in the audit log with the user, the figure, from what, to what and when. The effective date of a figure is part of the setting."
-        - "Initial default values are loaded by the test route (EXC-27), not changed by a tenant role; the audit entry of that load names a service identity, not a user."
-        - "Open under Q-057 and held out (EXC-29): whether the system warns only or refuses at 100% of a figure; whether a figure can be lowered (INCR-001 offers raising only); whether any figure has a platform ceiling that only the operator may raise (INCR-001 builds no ceiling check); and whether named-user licensing is separate (EXC-21)."
-        - "The system warns at a configurable proportion of a figure ([80]% by default), naming the figure, the current level and the tenant's administrator role as the role that may raise it (S7-2.16.1-c26, WA-13), and never fails silently."
+        - "No capacity figure is a constant in the source. Each is a configuration value with a default, an administrator-facing setting and an effective date (S7-2.16.1-c23), set per tenant and per entity. The setting is editable for a raise only, by the holder of the tenant-level administrator role (WA-13, WA-15)."
+        - "Working assumption WA-13: the tenant's own administrator may raise a capacity figure, as S7-2.16.1-c34 reads ('An entity that outgrows a delivered default raises it itself'). The raise is made on the administrator-facing setting of S7-2.16.1-c23, under a permission held by the tenant-level administrator role (WA-15, Q-057 v3; defined in CAP-03 only as far as this needs), takes effect without a release, redeployment or restart, and is recorded in the audit log with the user, the figure, from what, to what and when. The effective date of a figure is part of the setting."
+        - "Initial default values are loaded by the test route, if and as the security owner accepts it (EXC-27 test_dependency), not changed by a tenant role; the audit entry of that load would name a service identity, not a user."
+        - "Open under Q-057 v3 and held out (EXC-29): whether the system warns only or refuses at 100% of a figure; whether a figure can be lowered (INCR-001 offers raising only); whether an upper bound exists that the software enforces, given S7-2.16.1-c33, who raises it (Tiqri as operator or a platform administrator role), and whether it is the tested ceiling of c35 and c38; and whether named-user licensing is separate (EXC-21). INCR-001 builds and settles no upper bound. Consequence, put to the tech lead: in INCR-001 the holder of the tenant-level administrator role can raise a figure with no bound (D-2)."
+        - "The system warns at a configurable proportion of a figure ([80]% by default), naming the figure, the current level and the tenant-level administrator role as the role that may raise it (S7-2.16.1-c26, WA-13, WA-15), and never fails silently."
         - "Testability: the parts of S7-2.16.1-c29 that INCR-001 can run are an administrator raising a figure with the new level taking effect without a release, redeployment or restart, the audit entry with before and after values, a figure raised for one entity leaving every other unchanged, and the warning naming the figure, the level reached and the role. The load-test part (the ceiling sustained at stated concurrency) is not runnable here (EXC-22)."
         - "No limit is implemented so that it cannot be raised: no fixed-width identifier, no counter that cannot be widened, no key or partition scheme that assumes a maximum."
         - "Defaults for the rows named in the governance owner's working answer: one legal entity, 125 named users, 50 concurrent users at peak, 200,000 journal lines a month. The other rows of the single-entity column are open in Q-038 and are not assumed."
@@ -190,7 +190,7 @@ normative:
       decisions: [DEC-0010]
       relies_on:
         - "working assumption: governance owner's answer of 2026-10-28, pending product owner (Q-038 v3): release 1 is one entity, 125 named users, 50 at peak and 200,000 journal lines a month, per tenant."
-        - "working assumption: governance owner's answer of 2026-10-28 (as security owner and tech lead), pending the product owner (Q-057 v2, WA-13): the tenant's administrator may raise a capacity figure (S7-2.16.1-c34)."
+        - "working assumption: governance owner's answer of 2026-10-28 (as security owner and tech lead), pending the product owner (Q-057 v3, WA-13, WA-15): the tenant's administrator may raise a capacity figure (S7-2.16.1-c34), through a tenant-level administrator role."
       independence: "Independent of Q-029. Q-038's open rows change default values only, because every figure is a setting; Q-038 is therefore not-blocking. The open parts of Q-057 (warn or refuse, lowering, platform ceiling, licensing) are held out as EXC-29; this capability builds the setting, the raise, the audit record and the warning."
     - id: CAP-07
       title: "Currency master and manually entered rates"
@@ -333,7 +333,8 @@ normative:
     - "Capacity proof (CAP-06) and what 'built against' means for load tests."
     - "Authentication and encryption (CAP-02), a security-owner decision at Gate B."
     - "Gate B design input for the tech lead (review finding on CAP-07): posted lines must later accept a reporting-currency amount (S7-2.2.9-c22, c23) and a tax code (S7-2.2.4-c57) without rewriting posted entries, which INCR-001 locks without exception. The scope does not say how."
-    - "The stack ADR is the tech lead's decision. The scope neither chooses nor assumes a stack; Q-054's working answer is recorded as a working assumption only."
+    - "Unbounded raise (NF12, Q-057 v3): in INCR-001 the holder of the tenant-level administrator role can raise any capacity figure with no upper bound. Whether an enforced bound exists, who raises it and its relation to the tested ceiling (S7-2.16.1-c35, c38) is for the tech lead with the product owner, at Gate B (EXC-29)."
+    - "The stack ADR is the tech lead's decision. Q-054 v2 records the governance owner's answer as tech lead: React for the frontend and .NET for the backend, each at its latest stable version, with Azure and Azure SQL Database, all going to the stack ADR at Gate B. The scope designs nothing from it and depends on no part of it; it is recorded as a working assumption only."
 
   exclusions:
     - {id: EXC-01, what: "A firm's access to client tenants; vendor or operator support access", reason: "Q-031 v3 leaves open who owns a client's data, who grants and withdraws a firm's access, how it is logged, under which roles a firm's staff act, whether a firm may keep the books of a client it audits (a professional and regulatory question), and how subscriptions apply. Security owner and product owner; the audit-firm question is for the qualified accountant. Returns when Q-031 is answered, as an addition to INCR-001 or in a later increment.", clauses: [S7-2.16.5-c01]}
@@ -363,8 +364,8 @@ normative:
     - {id: EXC-25, what: "Reporting by dimension and default dimension values on master records", reason: "Reports and masters are not in INCR-001.", clauses: [S7-2.2.3-c10, S7-2.2.3-c13]}
     - {id: EXC-26, what: "Group structure, ownership and control, consolidation, intercompany, group chart mapping, cross-entity reporting and the current-entity switch", reason: "One entity per tenant in release 1 (working assumption, Q-038). Groups wait for release 3.", clauses: [S7-2.14.1-c01, S7-2.14.3-c01, S7-2.2.10-c01]}
     - id: EXC-27
-      what: "The parts of tenant provisioning that Q-056 v2 leaves open: which role provisions tenants (reading (a), a platform-level owner role, or reading (b), a subscribing firm's tenant administrator onboarding its client organisations, or both); how the first administrator of a new tenant is named; what the provisioning role can reach inside a tenant after creating it; and whether provisioning is Tiqri's service or self-service for subscribers. No production provisioning route is defined"
-      reason: "Q-056 v2 (blocking, owner security owner with product owner): the governance owner's answer of 2026-10-28 settles only that a named administrative role provisions tenants and onboards clients, and that there is no unattended sign-up; that part is in CAP-01 as WA-14. The reading, the first administrator and the provisioning role's reach stay open (SEC-2, Q-031 reading (c)). Leaves unless Q-056 is answered."
+      what: "The parts of tenant provisioning that Q-056 v2 leaves open: which role provisions tenants (reading (a), a platform-level owner role, or reading (b), a subscribing firm's tenant administrator onboarding its client organisations, or both); how the first administrator of a new tenant is named; what the provisioning role can reach inside a tenant after creating it; and whether provisioning is Tiqri's service, or customers may sign up themselves (self-service for subscribers, for the product owner). No production provisioning route is defined"
+      reason: "Q-056 v3 (blocking, owner security owner with product owner): the governance owner's answer of 2026-10-28 settles only that a named administrative role provisions tenants and onboards clients, that part is in CAP-01 as WA-14 (Q-056 v3 withdraws 'no unattended sign-up', which the answer did not say). The reading, the first administrator, whether customers may sign up themselves (product owner), and the provisioning role's reach stay open (SEC-2, Q-031 reading (c)). Leaves unless Q-056 is answered."
       clauses: [S7-2.1.2-c01]
       test_dependency: "Testing CAP-01 to CAP-05 depends on the security owner accepting some test route (Q-056). Without it no test tenant, entity or administrator exists. The same load sets the initial capacity figures of CAP-06."
       approval_note: "Approving this scope does not approve test_route_proposal. The security owner decides it under Q-056."
@@ -374,9 +375,9 @@ normative:
       reason: "Q-055 (blocking, owner qualified accountant with product owner): S7-2.2.5-c05 puts the Adjustment type in the year-end adjustment period, approved by the Finance manager; S7-2.2.6-c11, c12 and c16 make an 'adjustment journal' a correction in the current open period, approved by a second user. Leaves unless Q-055 is answered; the two periods go with it because their only use is that type and year-end close (EXC-13)."
       clauses: [S7-2.2.5-c05, S7-2.2.6-c16, S7-2.2.8-c04, S7-2.2.8-c05, S7-2.2.8-c35]
     - id: EXC-29
-      what: "What the system does when a tenant reaches 100% of a capacity figure (warn only, or refuse); whether a tenant may lower a figure; whether any figure has a platform ceiling that only the operator may raise on the shared platform; and whether named-user licensing is separate from the figures"
-      reason: "Q-057 v2 (blocking, owner product owner with tech lead and security owner): the governance owner's answer of 2026-10-28 settles only that the tenant's administrator may raise a figure (WA-13, in CAP-06). The rest stays open: S7-2.16.1-c33 does not say whether the system refuses at a figure; V2.2 is silent on lowering and on a platform ceiling (Q-038); licensing is Q-039. Leaves unless Q-057 is answered. CAP-06 builds the setting, the raise, the audit record and the warning only."
-      clauses: [S7-2.16.1-c33, S7-2.16.1-c34]
+      what: "What the system does when a tenant reaches 100% of a capacity figure (warn only, or refuse); whether a tenant may lower a figure; whether an upper bound above the tenant's own figures exists that the software enforces, given S7-2.16.1-c33, who may raise it (Tiqri as operator or a platform administrator role), and whether it is the tested ceiling of c35 and c38; and whether named-user licensing is separate from the figures. No upper bound is built or settled in INCR-001"
+      reason: "Q-057 v3 (blocking, owner product owner with tech lead and security owner): the governance owner's answers of 2026-10-28 settle only that the tenant's administrator may raise a figure, through a tenant-level administrator role (WA-13, WA-15, in CAP-06 and CAP-03). The rest stays open: S7-2.16.1-c33 does not say whether the system refuses at a figure; V2.2 is silent on lowering; the governance owner is 'not sure whether the Tiqri or Platform Admin should be able to increase the upper bound' and whether a bound is enforced, given c33, is open (tech lead with product owner, Q-038); licensing is Q-039. Consequence for the tech lead: until it is answered, a tenant-level administrator can raise a figure with no bound in INCR-001. Leaves unless Q-057 is answered. CAP-06 builds the setting, the raise, the audit record and the warning only."
+      clauses: [S7-2.16.1-c33, S7-2.16.1-c34, S7-2.16.1-c35, S7-2.16.1-c38]
 
   question_classification:
     summary: "57 questions, all open. Blocking for INCR-001: 8 (Q-007, Q-013, Q-014, Q-031, Q-034, Q-055, Q-056, Q-057). Not-blocking: 49. None is closed or superseded in the records; Q-004's baseline part is settled by DEC-0008 and noted there. A blocking question names the capability that leaves unless its owner answers; eight exclusions (EXC-01, EXC-09 to EXC-12, EXC-27 to EXC-29) already hold those capabilities out."
@@ -436,8 +437,8 @@ normative:
       - {q: Q-053, owner: qualified-accountant, class: not-blocking, reason: "Renumbering on a code clash when joining a group chart; group chart excluded (EXC-07)."}
       - {q: Q-054, owner: tech-lead, class: not-blocking, reason: "Working assumption pending the stack decision record at Gate B; the scope states no stack and lists where it depends on one (stack_dependencies)."}
       - {q: Q-055, owner: qualified-accountant, class: blocking, reason: "S7-2.2.5-c05 and S7-2.2.6-c11, c12, c16 give 'adjustment journal' two meanings with different period, approver, series and reporting.", leaves_unless_answered: "The Adjustment journal type, correction by adjustment journal, correction of a closed-period entry, and the adjustment and special audit adjustment periods (EXC-28). INCR-001 journals are manual, corrected by reversal."}
-      - {q: Q-056, owner: security-owner, class: blocking, reason: "v2 answer (working assumption WA-14) settles a named administrative role and no unattended sign-up. Still open: which reading applies (platform owner role, a firm's tenant administrator, or both), how the first administrator is named, and what the provisioning role can reach afterwards.", leaves_unless_answered: "The production provisioning route: which role provisions, naming of the first administrator, and the provisioning role's reach (EXC-27). Test tenants come from the proposal in EXC-27, which is not a production route."}
-      - {q: Q-057, owner: product-owner, class: blocking, reason: "v2 answer (working assumption WA-13) settles that the tenant's administrator may raise a figure. Still open: warn only or refuse at a figure, lowering a figure, a platform ceiling, licensing.", leaves_unless_answered: "Behaviour at 100% of a capacity figure, lowering a figure, any platform ceiling and licensing (EXC-29, EXC-21). CAP-06 builds the setting, the raise, the audit record and the warning."}
+      - {q: Q-056, owner: security-owner, class: blocking, reason: "v3 answer (working assumption WA-14) settles only that a named administrative role provisions tenants and onboards clients. Still open: which reading applies (platform owner role, a firm's tenant administrator, or both), how the first administrator is named, what the provisioning role can reach afterwards, and whether customers may sign up themselves.", leaves_unless_answered: "The production provisioning route: which role provisions, naming of the first administrator, self-service sign-up, and the provisioning role's reach (EXC-27). Test tenants come from the proposal in EXC-27, which is not a production route."}
+      - {q: Q-057, owner: product-owner, class: blocking, reason: "v3 answers (working assumptions WA-13, WA-15) settle that the tenant's administrator may raise a figure, through a tenant-level administrator role. Still open: warn only or refuse at a figure, lowering a figure, whether an enforced upper bound exists and who raises it, licensing.", leaves_unless_answered: "Behaviour at 100% of a capacity figure, lowering a figure, any upper bound and licensing (EXC-29, EXC-21). CAP-06 builds the setting, the raise, the audit record and the warning."}
 
   working_assumptions:
     - {id: WA-01, source: "Q-031 v3", text: "A tenant is an organisation; a firm (Tiqri, an audit firm or a client) keeps the books of client organisations, each its own tenant.", label: "working assumption: governance owner's answer of 2026-10-28, pending product owner (with security owner and qualified accountant for the open points)", used_by: [CAP-01]}
@@ -452,8 +453,9 @@ normative:
     - {id: WA-10, source: "this scope, review finding on the dimension column", text: "The 'Mandatory on' column of the dimension table (S7-2.2.3-c02 to c07) is a default that a per-account dimension rule (c09) can override, not a floor.", label: "labelled assumption of the requirements engineer, pending qualified accountant (with product owner)", used_by: [CAP-10]}
     - {id: WA-11, source: "this scope, delta review NF6 (f)", text: "S7-2.1.11-c01 (a user holding an incompatible role pair cannot be saved) applies where the administrator has set the rule to block (S7-2.1.2-c13); where set to warn, the assignment is saved with the warning.", label: "labelled reading of the requirements engineer, pending product owner", used_by: [CAP-04]}
     - {id: WA-12, source: "this scope, delta review (pending journals at close)", text: "INCR-001 builds no check that blocks a period close because journals dated in it are pending approval. Approval of a pending journal into a closed period is refused under S7-2.2.8-c13 until the period is reopened. This is an interim assumption, not a policy.", label: "labelled assumption of the requirements engineer, pending qualified accountant (with product owner)", used_by: [CAP-14]}
-    - {id: WA-13, source: "Q-057 v2", text: "The tenant's own administrator may raise a capacity figure, as S7-2.16.1-c34 reads. Warn or refuse at a figure, lowering a figure, a platform ceiling and licensing stay open under Q-057.", label: "working assumption: governance owner's answer of 2026-10-28 (as security owner and tech lead), pending the product owner", used_by: [CAP-03, CAP-06]}
-    - {id: WA-14, source: "Q-056 v2", text: "A named administrative role provisions tenants and onboards clients; no tenant is created by an unattended sign-up. Which role, how the first administrator is named and what the provisioning role can reach stay open under Q-056.", label: "working assumption: governance owner's answer of 2026-10-28 (as security owner), pending the product owner", used_by: [CAP-01]}
+    - {id: WA-13, source: "Q-057 v3", text: "The tenant's own administrator may raise a capacity figure, as S7-2.16.1-c34 reads. Warn or refuse at a figure, lowering a figure, an upper bound and licensing stay open under Q-057.", label: "working assumption: governance owner's answer of 2026-10-28 (as security owner and tech lead), pending the product owner", used_by: [CAP-03, CAP-06]}
+    - {id: WA-15, source: "Q-057 v3 (second answer, option (a) of NF11)", text: "A tenant-level administrator role holds the permission to raise a capacity figure. The role is defined only as far as that needs. Whether anything else belongs to it, how it relates to each entity's Administrator role (S7-2.1.2-c26), and whether the permission can be re-assigned to other roles under S7-2.1.2-c02 stay open.", label: "working assumption: governance owner's answer of 2026-10-28 (as security owner), pending the product owner, with the security owner for the re-assignment point", used_by: [CAP-03, CAP-06]}
+    - {id: WA-14, source: "Q-056 v3", text: "A named administrative role provisions tenants and onboards clients. Which role, how the first administrator is named, what the provisioning role can reach, and whether customers may sign up themselves stay open under Q-056.", label: "working assumption: governance owner's answer of 2026-10-28 (as security owner), pending the product owner", used_by: [CAP-01]}
 
   accounting_policy_points:
     note: "Named, not decided. Each needs the qualified accountant and the product owner (DEC-0007 conditions) unless another owner is named. The tax specialist is consulted where tax is touched."
@@ -476,7 +478,7 @@ normative:
     note: "Named for the security owner. Not decided here, and no security assumption is made."
     items:
       - {id: SEC-1, point: "Identity provider, multi-factor policy, password and lockout defaults, encryption standard (S7-2.1.3-c01 to c03).", owner: security-owner}
-      - {id: SEC-2, point: "The tenant isolation guarantee and what an operator or provisioning role may reach in a tenant after creating it (Q-056 v2, with Q-031). The governance owner's answer settles only that a named administrative role provisions tenants (WA-14).", owner: security-owner}
+      - {id: SEC-2, point: "The tenant isolation guarantee and what an operator or provisioning role may reach in a tenant after creating it (Q-056 v2, with Q-031). The governance owner's answer settles only that a named administrative role provisions tenants (WA-14, Q-056 v3). The re-assignment of the capacity permission (S7-2.1.2-c02, WA-15) is also the security owner's.", owner: security-owner}
       - {id: SEC-3, point: "Whether the audit log and posted entries need tamper evidence beyond 'no user or administrator can edit', which the specification states as a behaviour only (S7-2.1.4-c01, S7-2.2.6-c10).", owner: security-owner}
 
   points_without_a_question_record:
@@ -536,7 +538,9 @@ proposal checks each item against SRC-007 and the question records, and says in 
 what it confirms, narrows or extends and why.
 
 I read the clause text from the extraction of SRC-007, not from the PDF. Where it looked garbled I would
-have said so; I found nothing garbled in the sections cited. The PDF remains authoritative.
+have said so; I found nothing garbled in the sections cited. The PDF remains authoritative. The orchestrator
+checked pp.37, 38, 40 to 42 and 133 to 136 on the rendered PDF on 2026-10-28, and the quoted passages
+match. Every other page cited was read from the text extraction only.
 
 ## How the scope was cut
 
@@ -586,8 +590,10 @@ Three tests, applied to every candidate capability:
 - **Approving the scope does not approve a security arrangement.** The test-tenant route in EXC-27 is a
   proposal to the security owner (Q-056). Testing CAP-01 to CAP-05 depends on the security owner accepting
   a test route (Q-056). The tenant administrator may raise a capacity figure, and a named administrative role
-  provisions tenants, as labelled working assumptions (WA-13, WA-14); everything else in Q-056 and Q-057 stays
-  open and held out (EXC-27, EXC-29).
+  provisions tenants, as labelled working assumptions (WA-13, WA-14); a tenant-level administrator role holds
+  the permission to raise a figure (WA-15); everything else in Q-056 and Q-057 stays open and held out (EXC-27,
+  EXC-29), including whether customers may sign up themselves and any upper bound on a raise. Until Q-057 is
+  answered, that role can raise a figure with no bound in INCR-001: a point for the tech lead.
 - **AP-10 and AP-13 must be answered before Gate A** for the reversal requirements that depend on them (D-7).
 - **If INCR-001 carries live books**, posting stops at the first year end, and the annual numbering reset
   and the audit-lock trigger cannot be tested (D-3).
@@ -627,16 +633,16 @@ Q-055 to Q-057 from B2, B1 and B3. I answered none of them.
 - **WA-03 against V2.2's single-entity default.** The review notes that V2.2's default for a single
   entity running the ledger alone is Not applied, not Advisory. This is unchanged: CAP-11 states the
   difference and builds no default (DEP-6).
-- **PDF check.** The review checked clauses against the extraction only. I did not check against the PDF
-  either. The pages B2 and B3 rest on (pp.37, 40 to 42, 133 to 136) should be confirmed on the PDF before an
-  owner decides.
+- **PDF check (updated in v5).** The orchestrator checked pp.37, 38, 40 to 42 and 133 to 136 on the rendered
+  PDF on 2026-10-28 and the quoted passages match. All other cited pages were read from the text extraction
+  only and have not been checked on the PDF.
 
 ## Not claimed
 
 No requirement, story or acceptance criterion exists yet. Nothing here is approved, and no working
-answer is treated as confirmed. Three assurance reviews have been done (REV-01M61MRRKX52P8XHG3NZXSPCZJ on v1,
-REV-01M61PXHZBS8N3YVQX2XDJHHWH on v2, REV-01M61QHQX58WSCVFQMT2EPXSRD on v3); v4 needs a fresh review against
-its own hash.
+answer is treated as confirmed. Four assurance reviews have been done (REV-01M61MRRKX52P8XHG3NZXSPCZJ on v1,
+REV-01M61PXHZBS8N3YVQX2XDJHHWH on v2, REV-01M61QHQX58WSCVFQMT2EPXSRD on v3, REV-01M61R5FTD3DD5RK7G0TH7G0NS on
+v4); v5 needs a fresh review against its own hash.
 
 ## Changes from v2 to v3
 
@@ -672,3 +678,18 @@ no reading where the records leave it open.
 | CAP-06 states which parts of the S7-2.16.1-c29 acceptance test are runnable and that the load-test part is not (EXC-22); the audit entry of the scripted initial load names a service identity; the editable setting is for raising only. | NF7 (a), (b), (c) |
 | D-7 states that AP-10 and AP-13 have no interim position and must be answered before INCR-001 Gate A for the requirements that depend on them; AP-13 now says that a reversal dated in a reopened period does change that period's reported figures and that the open point is whether that is acceptable. | NF8 |
 | D-5 names the qualified accountant. The duplicate pending-journals bullet in CAP-14 is removed. Bracketed-values item 6 no longer lists the excluded override role. D-2 asks the owners to confirm WA-13 and WA-14. | NF9 (a), (b), (c) |
+
+## Changes from v4 to v5
+
+v5 answers REV-01M61R5FTD3DD5RK7G0TH7G0NS (NF10 to NF12), Q-056 v3, Q-057 v3 and Q-054 v2. I answered no
+question and designed nothing.
+
+| Change | Finding or question version |
+| --- | --- |
+| 'No unattended sign-up' removed from WA-14, CAP-01, EXC-27 reason and the classification of Q-056. WA-14 cites Q-056 v3 and keeps only 'a named administrative role provisions tenants and onboards clients'. Whether customers may sign up themselves is in EXC-27's open list, for the product owner. | NF10, Q-056 v3 |
+| WA-15: a tenant-level administrator role holds the permission to raise a capacity figure (option (a)). CAP-03 defines it only as far as that needs, as a tenant-level role and not each entity's Administrator (S7-2.1.2-c26). Anything else belonging to it, its relation to the per-entity Administrator, and re-assignment of the permission under S7-2.1.2-c02 are open and held with the security owner. CAP-06 and WA-13 now name this role. | NF11, Q-057 v3 |
+| No upper bound is built or settled. CAP-06 and EXC-29 say that the holder of the tenant-level administrator role can raise a figure with no bound in INCR-001; the consequence is put to the tech lead in D-2 and stack_dependencies. EXC-29 keeps the bound, who raises it (Tiqri or a platform administrator role) and its relation to the tested ceiling (S7-2.16.1-c35, c38), pending Q-057. | NF12, Q-057 v3 |
+| CAP-06's initial-load bullet now depends on the test route 'if and as the security owner accepts it'. | NF12 |
+| Q-056 and Q-057 classification entries and EXC-27, EXC-29 reasons updated to v3. Both stay blocking, each with its exclusion; Q-001 to Q-057 are each classified once. | Q-056 v3, Q-057 v3 |
+| stack_dependencies and the Q-054 reliance now record that Q-054 v2 gives React and .NET for the stack ADR at Gate B; nothing is designed from it. | Q-054 v2 |
+| PDF-check statements updated: pp.37, 38, 40 to 42 and 133 to 136 were checked on the rendered PDF by the orchestrator on 2026-10-28 and match; other pages remain text extraction only. | Orchestrator instruction |
