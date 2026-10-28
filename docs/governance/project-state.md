@@ -9,7 +9,7 @@ owner: orchestrator
 
 # Project state
 
-Updated by the orchestrator at every workflow transition. Last update: 2026-10-26.
+Updated by the orchestrator at every workflow transition. Last update: 2026-10-28.
 
 - **Phase:** L1, discovery. F0 is complete and validated (GOV-F0-VALIDATION).
 - **Gate 0:** passed on 2026-10-20. APR-01M5D0D7HCQBRJHRB3V6S76H21 is the governance owner's
@@ -42,6 +42,17 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
 - **Countries (Q-003 v2):** "All countries defined in the template": Sri Lanka, EU and UK, GCC, India,
   US. Open: Norway (no template), first-release countries, and a tax specialist for the added
   countries.
+- **Working answers (governance owner, 2026-10-28),** pending their owners' confirmation:
+  - Q-031 v3: a tenant is an organisation; a firm (Tiqri, an audit firm or a client) keeps the books of
+    client organisations, each its own tenant.
+  - Q-032 v3 and Q-033 v2: enforcement levels govern; every control type starts at Advisory, bank
+    included.
+  - Q-038 v3: release 1 is one entity, 125 named users, 50 at peak and 200,000 journal lines a month,
+    per tenant.
+  - Q-040 v2: decimal places from each currency's configuration. Q-054: Azure, with Azure SQL Database.
+- **Proposed:** DEC-0010, Gates A and B per increment, with a foundation increment (tenants, users and
+  roles, audit log, journals, periods, numbering, chart and control levels, currencies) before
+  release-1 scope is settled. All of it is Tier 1, so its approvals and merges need F2.
 - **Blockers:** the V1-based L1 work must be re-based on SRC-007 before it goes to anyone.
 - **In progress:** WF-01M5VHRCEQP734DHRKE29J5YET, re-base on SRC-007 (option A, governance owner,
   2026-10-26: questions first, the rest of the re-base while they are answered).
@@ -63,7 +74,9 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   owner, the qualified accountant and the governance owner.
 - **Waiting on people:** answers to Q-032, Q-033, Q-034, Q-047, then Q-029 and the rest of the pack.
 - **Next:**
-  1. Record answers as they arrive; finish the re-base.
-  2. F1, knowledge base.
-  3. F2, once the GitHub details arrive. Shifan's and Rifaz's approvals need F2 to carry their own
+  1. DEC-0010 approval; then the foundation increment's scope, for review and the product owner's
+     approval. Still needed from the governance owner: the application stack.
+  2. Record answers as they arrive; finish the re-base.
+  3. F1, knowledge base.
+  4. F2, once the GitHub details arrive; needed before any Tier-1 approval or merge. Shifan's and Rifaz's approvals need F2 to carry their own
      identity.
