@@ -60,8 +60,10 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
     above it, and whether one is enforced, is open.
 - **PDF check:** poppler is installed (pdftoppm 25.07.0). SRC-007 pp.37, 38, 40-42 and 133-136 were
   checked on the rendered PDF on 2026-10-28; the quotes behind Q-055 and Q-057 match.
-- **Foundation scope:** GOV-SCOPE-INCR-001 v4 (WF-01M61MRRKX52P8XHG3NZXSPCZH), reviewed four times;
-  the last two found no blocking issue. v5 takes in Q-056 v3, Q-057 v3 and NF10 to NF12. Eight questions block parts of it (Q-007, Q-013, Q-014, Q-031, Q-034, Q-055,
+- **Foundation scope:** GOV-SCOPE-INCR-001 v6 (WF-01M61MRRKX52P8XHG3NZXSPCZH), reviewed six times;
+  the last four found no blocking issue (last REV-01M61T1JTQRPGVY07V648NPMWA). Decision brief
+  GOV-BRIEF-INCR001-SCOPE v1 is ready to send to the product owner and the qualified accountant. No
+  approval request: Tier 1 needs F2. NF15 (a label) waits for the next revision. Eight questions block parts of it (Q-007, Q-013, Q-014, Q-031, Q-034, Q-055,
   Q-056, Q-057). It is Tier 1, so the product owner's approval needs F2.
 - **DEC-0010: Approved** (APR-01M61ME5F96WP1KB4TVNBAH65X, governance owner, E1-op, 2026-10-28;
   re-confirmed at Stage 1). Gates A and B per increment, with a foundation increment (tenants, users
@@ -88,8 +90,8 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   owner, the qualified accountant and the governance owner.
 - **Waiting on people:** answers to Q-032, Q-033, Q-034, Q-047, then Q-029 and the rest of the pack.
 - **Next:**
-  1. The foundation increment's scope (DEC-0010), v5, then the decision brief for the product owner
-     and the qualified accountant. The stack ADR (Q-054 v2) for INCR-001 Gate B.
+  1. Send GOV-BRIEF-INCR001-SCOPE to Shifan and Rifaz (governance owner); record their answers. The
+     approval request follows F2. Then the stack ADR (Q-054 v2) for INCR-001 Gate B.
   2. Record answers as they arrive; finish the re-base.
   3. F1, knowledge base.
   4. F2, once the GitHub details arrive; needed before any Tier-1 approval or merge. Shifan's and Rifaz's approvals need F2 to carry their own
