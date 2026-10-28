@@ -29,8 +29,11 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   owner, tech lead, security owner and release authority; Shifan Cader (CFO) is product owner, tax
   specialist and the qualified accountant's escalation point; Rifaz Hajirin is qualified accountant.
 - **Open decisions:**
-  - G3, platforms: GitHub, with work items in GitHub Projects; a private repository exists. Setting
-    up F2 needs the repository URL, the plan and an instruction to push. Chat is not chosen.
+  - G3, platforms: GitHub, with work items in GitHub Projects. Repository
+    https://github.com/nyogendran/accounting-app.git (private); the governance owner approved the F2
+    set-up on 2026-10-28. Pushes are made by a person (the guard blocks agent pushes). Still needed
+    for F2: the GitHub plan (branch protection and code owners on a private repository), a bot
+    identity for agents, Shifan's and Rifaz's GitHub accounts, and the gh CLI. Chat is not chosen.
   - G5, data boundary: deferred (DEC-0004).
 - **New baseline (2026-10-26).** The governance owner named specification V2.2 the requirements
   baseline. It is registered as SRC-007, and Rifaz's business information pack v1.1 (Annexure B:
@@ -50,6 +53,11 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   - Q-038 v3: release 1 is one entity, 125 named users, 50 at peak and 200,000 journal lines a month,
     per tenant.
   - Q-040 v2: decimal places from each currency's configuration. Q-054: Azure, with Azure SQL Database.
+  - Q-056 v2: an owner or tenant administrator provisions tenants and onboards clients (reading open).
+    Q-057 v2: the tenant administrator may raise a capacity figure.
+- **Foundation scope:** GOV-SCOPE-INCR-001 v3 (WF-01M61MRRKX52P8XHG3NZXSPCZH), reviewed twice;
+  third review running. Eight questions block parts of it (Q-007, Q-013, Q-014, Q-031, Q-034, Q-055,
+  Q-056, Q-057). It is Tier 1, so the product owner's approval needs F2.
 - **DEC-0010: Approved** (APR-01M61ME5F96WP1KB4TVNBAH65X, governance owner, E1-op, 2026-10-28;
   re-confirmed at Stage 1). Gates A and B per increment, with a foundation increment (tenants, users
   and roles, audit log, journals, periods, numbering, chart and control levels, currencies) before
