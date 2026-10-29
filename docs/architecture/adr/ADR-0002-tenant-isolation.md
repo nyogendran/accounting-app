@@ -3,7 +3,7 @@ id: ADR-0002
 type: adr
 title: Tenant isolation in Azure SQL Database - one tenant per request, enforced in the database
 status: Proposed
-version: 2
+version: 3
 owner: orchestrator
 tier: 1
 normative:
@@ -20,17 +20,18 @@ normative:
     them in their own. The placement choice holds only while AS-1 holds; if it does not, option A
     (database per tenant) is to be reconsidered.
   invariants:
-    - "I-1. Every table is a tenant table unless it is on the reviewed allow-list of platform tables (I-11). Every row of a tenant table carries its tenant identifier, in every database, shared or dedicated, including temporal history tables, which carry their own predicate."
+    - "I-1. Every table is a tenant table unless it is on the reviewed allow-list. The allow-list holds platform tables (I-11) and read-only reference tables shared by all tenants that hold no tenant's data. Every row of a tenant table carries its tenant identifier, in every database, shared or dedicated, including temporal history tables, which carry their own filter predicate."
     - "I-2. The tenant of a request is set on the server from the authenticated identity and a tenant membership found in the platform store for that identity (I-11), checked on every request. It is never taken from a value the browser sends without that check."
     - "I-3. A request, a background job and a report run act on tenant data in exactly one tenant. No query reads or writes two tenants' tenant data. Reading the platform store (I-11) is not tenant data and is the only cross-tenant read."
-    - "I-4. Isolation is enforced in the database, not only in application code, and fails closed: (a) the predicate admits a row only when a tenant value is present in SESSION_CONTEXT and equals the row's tenant identifier, so a connection with no value, a NULL value or an unknown tenant reads nothing and writes nothing; (b) no predicate contains an exemption for any user, role or identity; (c) every tenant table has a filter predicate and block predicates AFTER INSERT, AFTER UPDATE, BEFORE UPDATE and BEFORE DELETE, and the application identity is denied UPDATE on the tenant identifier column; (d) one connection component, used by every caller including background jobs and bulk loads, sets the value with @read_only = 1 every time a connection is opened or taken from the pool; (e) predicate functions are created WITH SCHEMABINDING, without type conversions, in a separate schema that the application identity cannot alter."
-    - "I-5. The application identity holds only an allow-list of permissions: SELECT, INSERT, UPDATE and DELETE on tenant tables (less UPDATE on the tenant column), and EXECUTE on named procedures. It holds no membership of db_owner or db_ddladmin and no CONTROL, ALTER, ALTER ANY SECURITY POLICY, ALTER ANY USER, IMPERSONATE or VIEW DEFINITION on the security schema. Schema changes and data migrations run under a separate deployment identity, never the application's."
+    - "I-4. Isolation is enforced in the database, not only in application code, and fails closed: (a) the predicate admits a row only when a tenant value is present in SESSION_CONTEXT and equals the row's tenant identifier, so a connection with no value, a NULL value or an unknown tenant reads nothing and writes nothing; (b) no predicate contains an exemption for any user, role or identity; (c) every tenant table other than a temporal history table has a filter predicate and block predicates AFTER INSERT, AFTER UPDATE, BEFORE UPDATE and BEFORE DELETE, and the application identity is denied UPDATE on the tenant identifier column; (d) one connection component, used by every caller including background jobs and bulk loads, sets the value with @read_only = 1 every time a connection is opened or taken from the pool; (e) predicate functions are created WITH SCHEMABINDING, from one reviewed template, in a separate schema that the application identity cannot alter; the tenant column is never converted, and the session value is converted once, explicitly, to the tenant column's type."
+    - "I-5. The tenant application identity's effective permissions, including any inherited through public, database roles or Microsoft Entra groups, are at most: SELECT, INSERT, UPDATE and DELETE on tenant tables, less UPDATE on the tenant column, and only SELECT and INSERT on the audit log and on any other table that S7-2.1.2 or S7-2.1.4 makes unchangeable; SELECT on reference tables; EXECUTE on named procedures; and use of sequences that are not shared across tenants where their values are visible to a tenant. It holds no membership of db_owner or db_ddladmin, no CONTROL, ALTER, ALTER ANY SECURITY POLICY, ALTER ANY USER, IMPERSONATE or VIEW DEFINITION on the security schema, and no permission on the platform store. Procedures it may execute run as the caller, contain no dynamic SQL and are not signed, unless the security owner accepts a named exception, which is recorded. Schema changes and data migrations run under a separate deployment identity, never the application's."
     - "I-6. Everything that holds tenant data outside the tables is scoped by tenant: files and attachments, caches, search indexes, queues, exports, logs and telemetry. A cache key, storage path or index partition always includes the tenant. Logs and telemetry are tagged with the tenant and do not record field values or query parameter values. Whole-database artefacts (backups, restores, copies, replicas, Query Store and other diagnostics) hold every tenant in that database and are reached only through the privileged path (I-8). Change data capture is not enabled on a tenant table without the security owner's agreement."
     - "I-7. A user who works in more than one tenant (Q-031 v3: a firm's staff in client tenants) holds one membership per tenant in the platform store (I-11). Under a membership the user acts inside that one tenant under I-3, and every action is written to that tenant's audit log under the user's own identity (S7-2.1.4). Removing a membership takes effect at the user's next request. Who may create and remove a membership into a client's tenant is open (Q-031, security owner with product owner); proposal PR-1 below."
     - "I-8. Identities that can alter or bypass Row-Level Security exist by nature of the platform: the logical server administrator, the Microsoft Entra administrator, the deployment identity and any holder of the permissions I-5 denies the application. Each is held by named people or by the deployment pipeline, never by the application, and every use is recorded by database auditing to an audit store outside the database, whose access and retention the security owner sets (SEC-3). Whether Tiqri as operator may use any path to read a tenant's data, and on what conditions, is open (Q-056, SEC-2); proposal PR-2 below."
     - "I-9. Every primary key, unique key and index enforcing uniqueness on a tenant table leads with the tenant identifier, and every foreign key between tenant tables is composite on (tenant identifier, key), so no row can reference another tenant's row and no insert can collide with another tenant's value."
     - "I-10. No SQL written or shaped by a user is run; every query is parameterised; database error text is not returned to the client; a request for an identifier that belongs to another tenant gets the same response as one that does not exist."
-    - "I-11. The platform store is a separate database holding only platform data: the tenant catalogue (tenant, database, region, status), user identities, tenant memberships (I-7) and placement. It holds no ledger, master or settings data of any tenant. It is read on the request path only through a platform component that returns the signed-in user's own memberships and the target tenant's database, and written only by named administrative operations, each recorded in the platform store's own audit log and, where it concerns a tenant, in that tenant's audit log."
+    - "I-11. The platform store is a separate database holding only platform data: the tenant catalogue (tenant, database, region, status), user identities, tenant memberships (I-7) and placement. It holds no ledger, master or settings data of any tenant. It is reached only under a separate platform identity whose permissions are an allow-list of its own (I-5 applies to it in kind), never under the tenant application identity. On the request path it is read only through procedures keyed on the signed-in user, backed by Row-Level Security on memberships keyed on a user value set as in I-4, so a request can read only its own user's memberships and the target tenant's database. It is written only by named administrative operations under a further identity, each recorded in the platform store's own audit log and, where it concerns a tenant, in that tenant's audit log."
+    - "I-12. A security policy that is off or missing at run time is treated as an outage: each deployed environment checks at start-up and at intervals that every policy is on and every tenant table is covered, and refuses tenant traffic while one is not. Data migrations run per tenant with the tenant value set as in I-4; a migration that cannot, and must turn a policy off, is a use of the privileged path (I-8), done while tenant traffic is refused."
   placement_rules:
     - "P-1. A tenant whose data must sit in a given country under that country's law (S7-2.1.3-c04) is placed in a database in a region that satisfies it. Who owns the residency rules is open (Q-028); which countries are served is open (Q-003)."
     - "P-2. A tenant whose volumes approach the share of a shared database set in the hosting ADR moves to a database of its own. The move is a planned, tested operation that takes the tenant offline in the catalogue, keeps its audit log complete and its number series unbroken (CAP-13, SEC-3), and is recorded in its audit log."
@@ -48,27 +49,35 @@ normative:
     entries record (AS-4); the release-1 tenant count (Q-038).
   verification: >-
     (1) Schema test, run in CI from F4, which fails the build if: any table not on the platform
-    allow-list lacks the tenant column, a filter predicate or any of the four block predicates; any
-    security policy is not STATE = ON or not schema-bound; any primary, unique or foreign key on a
-    tenant table does not include the tenant identifier (I-9); or the application identity holds any
-    permission outside the I-5 allow-list. Changes to the allow-list are reviewed by the security
-    owner. (2) Cross-tenant test suite, run in CI on every change, with fixtures in which tenant A and
+    allow-list lacks the tenant column or its predicates (a filter only on a temporal history table);
+    any security policy is not STATE = ON or not schema-bound; any predicate function differs from
+    the reviewed template (I-4 e); any primary, unique or foreign key on a tenant table does not
+    include the tenant identifier, other than a foreign key to an allow-listed reference table (I-9);
+    the effective permissions of the tenant application identity or the platform identity, inherited
+    ones included, exceed their allow-lists (I-5, I-11); or any procedure they may execute runs as
+    other than the caller, contains dynamic SQL or is signed, without a recorded exception. Changes to
+    the table allow-list and the exceptions are reviewed by the security owner: recorded as a review
+    record until F2, and through code-owner review on the git host from F2. (2) Cross-tenant test suite, run in CI on every change, with fixtures in which tenant A and
     tenant B both hold data of every kind. The list of endpoints, reports, exports and jobs under test
-    is generated from the application's own route and job registry, and the build fails if any is not
-    covered. For each, a positive control (tenant B's user sees B's data) and the attack (tenant A's
+    is generated from the application's own route and job registry; the build fails if any is not
+    covered, and fails if the application maps any endpoint that is not in the registry. For each, a positive control (tenant B's user sees B's data) and the attack (tenant A's
     user, by identifier, search and direct call under the application identity, cannot read, write or
     detect B's data, and gets the same response as for a missing identifier). It also covers: a
     connection with no tenant value reads and writes nothing; changing the value after it is set
     fails; insert, update and bulk insert carrying B's identifier under A's value are refused;
     re-pointing a foreign key to a B row is refused; background jobs and report runs; caches, files,
-    search and queues (I-6); a membership removed takes effect on the next request (I-7); the audit
+    search and queues (I-6); logs and telemetry carry the tenant and no field or parameter values
+    (I-6); reads of temporal history; user X's request cannot read user Y's memberships in the
+    platform store, and the tenant application identity cannot reach the platform store at all
+    (I-11); a policy turned off in a test environment stops tenant traffic (I-12); a membership
+    removed takes effect on the next request (I-7); the audit
     entries of I-7, I-8 and I-11; and the shared-to-dedicated move (P-2). These are Tier-1 tests and
     may not be weakened or skipped (CLAUDE.md rule 8). (3) The suite runs against a shared and a
     dedicated database. (4) The security owner reviews the design at INCR-001 Gate B, and a
     penetration test covers cross-tenant access before Gate D.
 links:
   derives_from: [ADR-0001, Q-031]
-  related: [REV-01M64CE9TQR7XK2B9WD3HNP5QA, Q-003, Q-028, Q-038, Q-039, Q-056, Q-057, DEC-0010, GOV-SCOPE-INCR-001, S7-2.1.1-c01, S7-2.1.1-c02, S7-2.1.3-c03, S7-2.1.3-c04, S7-2.1.4-c03]
+  related: [REV-01M64CE9TQR7XK2B9WD3HNP5QA, REV-01M64FW5EQK3D8VZT2NB6GH9CM, Q-003, Q-028, Q-038, Q-039, Q-056, Q-057, DEC-0010, GOV-SCOPE-INCR-001, S7-2.1.1-c01, S7-2.1.1-c02, S7-2.1.3-c03, S7-2.1.3-c04, S7-2.1.4-c03]
 ---
 
 # ADR-0002: Tenant isolation
@@ -81,6 +90,14 @@ links:
   block predicate. B3: I-9, tenant-led keys. B4: I-5 allow-list and I-8 privileged identities. B5:
   platform data as its own class, I-11. B6: verification rebuilt (default-deny table set, generated
   endpoint list, positive controls, the missing cases). NF1 to NF6 taken in as noted below.
+- v3: answers REV-01M64FW5EQK3D8VZT2NB6GH9CM. V2-B1: I-11 adds a platform identity, user-keyed
+  procedures and Row-Level Security on memberships, and no access for the tenant application identity.
+  V2-B2: I-5 procedures run as the caller, with no dynamic SQL and no signing, unless a recorded
+  exception; verification scans for them. V2-NF1: reference tables on the allow-list. V2-NF2: I-5 is a
+  ceiling of effective permissions; the audit log is insert and read only; sequences. V2-NF3: history
+  tables carry a filter only, and are read in the suite. V2-NF4: I-4 (e) reworded. V2-NF5: I-12.
+  V2-NF6: unregistered endpoints fail the build; predicate template check; logs and telemetry tested;
+  allow-list review before F2. V2-NF7: the web quotes remain the orchestrator's reading, unregistered.
 
 ## Motivating requirements or constraints
 
@@ -195,7 +212,8 @@ under I-1 and I-9 the schema is the same either way, so A remains open until the
 - The authority matrix's small-team fallback says Tier-1 policy approvals "still need a second named
   person, external if necessary", and one person holds both deciding roles here. Whether a Tier-1 ADR
   needs that second person is for the governance owner to say.
-- Status: Proposed. Reviews: REV-01M64CE9TQR7XK2B9WD3HNP5QA on v1 (blocking); v2 to be reviewed.
+- Status: Proposed. Reviews: REV-01M64CE9TQR7XK2B9WD3HNP5QA on v1 (blocking);
+  REV-01M64FW5EQK3D8VZT2NB6GH9CM on v2 (blocking); v3 to be reviewed.
 
 ## Consequences
 

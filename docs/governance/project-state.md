@@ -101,7 +101,8 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
      wrote "Approved" in prose on 2026-10-29, which is not a captured decision.
   3. ADR-0002, tenant isolation, Proposed, Tier 1: drafted on 2026-10-29 because the governance owner
      asked that day that tenant isolation be considered from the initial design. v1 reviewed
-     (REV-01M64CE9TQR7XK2B9WD3HNP5QA, six blocking); v2 answers it and goes to a delta review.
+     (REV-01M64CE9TQR7XK2B9WD3HNP5QA, six blocking); v2 reviewed (REV-01M64FW5EQK3D8VZT2NB6GH9CM,
+     two blocking); v3 answers both and goes to a delta review.
      Approval needs F2; the governance owner is asked whether the small-team fallback (a second named
      person) applies to a Tier-1 ADR. Follow-on ADRs (data access, identity, design system, API style,
      hosting) come after.
