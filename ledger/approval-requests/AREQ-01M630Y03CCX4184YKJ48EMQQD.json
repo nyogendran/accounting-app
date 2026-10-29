@@ -1,0 +1,20 @@
+{
+  "id": "AREQ-01M630Y03CCX4184YKJ48EMQQD",
+  "type": "approval-request",
+  "created_at": "2026-10-29T05:08:12.524280Z",
+  "created_by": "orchestrator",
+  "required_role": "tech-lead",
+  "tier": 2,
+  "subjects": [
+    {
+      "id": "ADR-0001",
+      "version": 1,
+      "hash": "sha256:667536f7f366831347a0afa6ed810b54acf19ff32f174424b38732362238c190"
+    }
+  ],
+  "combined": "sha256:ffd45475483c85e46a07a24bcd134c1dc11dfb575b96c756b25bb28c81f2ac0a",
+  "phrase_code": "ffd45475483c",
+  "provenance_commit": "9c5a681dab699fa02ffafd77c312c5451739a639",
+  "brief": null,
+  "note": ""
+}
