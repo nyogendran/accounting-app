@@ -102,7 +102,9 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   3. ADR-0002, tenant isolation, Proposed, Tier 1: drafted on 2026-10-29 because the governance owner
      asked that day that tenant isolation be considered from the initial design. v1 reviewed
      (REV-01M64CE9TQR7XK2B9WD3HNP5QA, six blocking); v2 reviewed (REV-01M64FW5EQK3D8VZT2NB6GH9CM,
-     two blocking); v3 answers both and goes to a delta review.
+     two blocking); v3 reviewed (REV-01M64KA12QP8TWX4R7GZ3N6DVB, no blocking finding). V3-NF1 to
+     V3-NF3 (monitoring identity for I-12, the platform identities' allow-lists, wording) wait for v4,
+     with the owners' answers to AS-1 to AS-5, PR-1 and PR-2.
      Approval needs F2; the governance owner is asked whether the small-team fallback (a second named
      person) applies to a Tier-1 ADR. Follow-on ADRs (data access, identity, design system, API style,
      hosting) come after.
