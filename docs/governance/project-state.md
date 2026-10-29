@@ -9,7 +9,7 @@ owner: orchestrator
 
 # Project state
 
-Updated by the orchestrator at every workflow transition. Last update: 2026-10-28.
+Updated by the orchestrator at every workflow transition. Last update: 2026-10-29.
 
 - **Phase:** L1, discovery. F0 is complete and validated (GOV-F0-VALIDATION).
 - **Gate 0:** passed on 2026-10-20. APR-01M5D0D7HCQBRJHRB3V6S76H21 is the governance owner's
@@ -96,10 +96,16 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
   1. Send GOV-BRIEF-INCR001-SCOPE to Shifan and Rifaz (governance owner; published as a private page,
      https://claude.ai/artifact/YAheZfri2EAcTiYBaRN94e, to be shared by the governance owner); record
      their answers. The approval request follows F2.
-  2. ADR-0001, application stack baseline (Q-054 v2), Proposed, Tier 2: with the governance owner, as
-     tech lead, to validate. Its follow-on ADRs (tenant isolation, data access, identity, design
-     system, API style, hosting) come after.
-  3. Record answers as they arrive; finish the re-base.
-  4. F1, knowledge base.
-  5. F2 (on hold), once the GitHub details arrive; needed before any Tier-1 approval or merge. Shifan's and Rifaz's approvals need F2 to carry their own
+  2. ADR-0001, application stack baseline (Q-054 v2), Proposed, Tier 2: approval request
+     AREQ-01M630Y03CCX4184YKJ48EMQQD (tech lead) waits for the captured phrase; the governance owner
+     wrote "Approved" in prose on 2026-10-29, which is not a captured decision.
+  3. ADR-0002, tenant isolation, Proposed, Tier 1: drafted on 2026-10-29 because the governance owner
+     asked that day that tenant isolation be considered from the initial design. v1 reviewed
+     (REV-01M64CE9TQR7XK2B9WD3HNP5QA, six blocking); v2 answers it and goes to a delta review.
+     Approval needs F2; the governance owner is asked whether the small-team fallback (a second named
+     person) applies to a Tier-1 ADR. Follow-on ADRs (data access, identity, design system, API style,
+     hosting) come after.
+  4. Record answers as they arrive; finish the re-base.
+  5. F1, knowledge base.
+  6. F2 (on hold), once the GitHub details arrive; needed before any Tier-1 approval or merge. Shifan's and Rifaz's approvals need F2 to carry their own
      identity.
