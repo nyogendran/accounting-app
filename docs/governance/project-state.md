@@ -95,9 +95,11 @@ Updated by the orchestrator at every workflow transition. Last update: 2026-10-2
 - **Next:**
   1. Send GOV-BRIEF-INCR001-SCOPE to Shifan and Rifaz (governance owner; published as a private page,
      https://claude.ai/artifact/YAheZfri2EAcTiYBaRN94e, to be shared by the governance owner); record
-     their answers. The
-     approval request follows F2. Then the stack ADR (Q-054 v2) for INCR-001 Gate B.
-  2. Record answers as they arrive; finish the re-base.
-  3. F1, knowledge base.
-  4. F2, once the GitHub details arrive; needed before any Tier-1 approval or merge. Shifan's and Rifaz's approvals need F2 to carry their own
+     their answers. The approval request follows F2.
+  2. ADR-0001, application stack baseline (Q-054 v2), Proposed, Tier 2: with the governance owner, as
+     tech lead, to validate. Its follow-on ADRs (tenant isolation, data access, identity, design
+     system, API style, hosting) come after.
+  3. Record answers as they arrive; finish the re-base.
+  4. F1, knowledge base.
+  5. F2 (on hold), once the GitHub details arrive; needed before any Tier-1 approval or merge. Shifan's and Rifaz's approvals need F2 to carry their own
      identity.
